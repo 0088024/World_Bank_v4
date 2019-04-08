@@ -27,4 +27,8 @@ public class ListaArgomentiActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /*ciao git*/
+
+
+
 }
