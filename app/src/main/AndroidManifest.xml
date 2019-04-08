@@ -11,7 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaPaesiActivity"
+        <activity
+            android:name=".ListaArgomentiActivity"
+            android:label="@string/title_activity_lista_argomenti"
+            android:parentActivityName=".ListaPaesiActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.world_bank_v4.ListaPaesiActivity" />
+        </activity>
+        <activity
+            android:name=".ListaPaesiActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
