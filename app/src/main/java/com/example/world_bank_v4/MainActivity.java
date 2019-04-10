@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setLogo(R.drawable.world_bank);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         textView = (TextView)findViewById(R.id.text_view);
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(this);

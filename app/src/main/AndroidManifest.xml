@@ -7,12 +7,13 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".ListaIndicatoriActivity"
+            android:label="@string/title_activity_lista_indicatori_activity"
             android:parentActivityName=".ListaArgomentiActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -20,6 +21,7 @@
         </activity>
         <activity
             android:name=".ListaArgomentiActivity"
+            android:label="@string/title_activity_lista_argomenti_activity"
             android:parentActivityName=".ListaPaesiActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -27,6 +29,7 @@
         </activity>
         <activity
             android:name=".ListaPaesiActivity"
+            android:label="@string/title_activity_lista_paese_activity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
