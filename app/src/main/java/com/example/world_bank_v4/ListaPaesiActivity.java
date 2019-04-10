@@ -27,14 +27,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaPaesiActivity extends AppCompatActivity {
+public class ListaPaesiActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private final String Nome_App = "WorldBank: ";
-    private final String api_topic_list = "http://api.worldbank.org/v2/topic?format=json";
+    private final String api_topic_list = "https://api.worldbank.org/v2/topic?format=json";
 
     private URL url;
     private DownloadFileTask thread;
-
     private ListView listView;
     private ArrayList<Paese> lista_paesi;               /*lista che conterrà gli oggetti Paese*/
 
@@ -55,7 +54,7 @@ public class ListaPaesiActivity extends AppCompatActivity {
         JsonArray root = je.getAsJsonArray();
         JsonElement je2 = root.get(1);
         /*DEBUG*/
-        JsonArray array_paesi = je2.getAsJsonArray();   /*qui ho l'array json dei paesi*/
+        JsonArray array_paesi = je2.getAsJsonArray();   /*qui ho l'array json degl'argomenti*/
         Log.d(Nome_App + " DIM PAESI[]", String.valueOf(array_paesi.size()));
 
         /*con Gson mappo 1 a 1 gli oggetti del file json in oggetti Paese, i quali sono
@@ -71,18 +70,31 @@ public class ListaPaesiActivity extends AppCompatActivity {
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
         PaesiAdapter paesi_adapter = new PaesiAdapter(this, R.layout.riga_layout,
                                                         lista_paesi);
-        listView = (ListView) findViewById(R.id.list_view);
+        listView = (ListView)findViewById(R.id.list_view);
         listView.setAdapter(paesi_adapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(view.getContext(), "CLICK ON " + position + ":" +
-                                lista_paesi.get(position).getName(), Toast.LENGTH_LONG).show();
-            }
-        });
+        listView.setOnItemClickListener(this);
+
     }
 
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+             /*indifferentemente dal paese selezionato scarica la l'unica lista degli
+             argomenti*/
+            try {
+                url = new URL(api_topic_list);
+            }
+            /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
+            catch (MalformedURLException e) {
+                Log.d(Nome_App, e.getMessage());
+            }
+
+            new DownloadFileTask().execute(url);
+            Toast.makeText(view.getContext(), "CLICK ON " + position + ":" +
+                    lista_paesi.get(position).getName(), Toast.LENGTH_LONG).show();
+
+    }
 
 
     /*thread che in background scarica in una stringa il file json degli argomenti*/
@@ -123,7 +135,18 @@ public class ListaPaesiActivity extends AppCompatActivity {
             return json;
         }
 
+        protected void onPostExecute(String risultato) {
+            int requestCode = 1;
+            Intent intent = new Intent(getApplicationContext(), ListaArgomentiActivity.class);
+            intent.putExtra("chiave", risultato);
+            startActivityForResult(intent,requestCode);
+        }
 
+    }
+
+    @Override
+    protected void onActivityResult (int requestCodeID,
+                                     int resultCode, Intent intent){
 
     }
 }

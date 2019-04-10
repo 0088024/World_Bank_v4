@@ -101,8 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onActivityResult (int requestCodeID,
-                                     int resultCode, Intent intent){
+    protected void onActivityResult(int requestCodeID, int resultCode, Intent intent){
 
     }
 

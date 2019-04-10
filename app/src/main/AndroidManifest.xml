@@ -12,13 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ListaArgomentiActivity"
-            android:label="@string/title_activity_lista_argomenti"
-            android:parentActivityName=".ListaPaesiActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".ListaIndicatoriActivity"
+            android:parentActivityName=".ListaArgomentiActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.world_bank_v4.ListaPaesiActivity" />
+                android:value=".ListaArgomentiActivity" />
+        </activity>
+        <activity
+            android:name=".ListaArgomentiActivity"
+            android:parentActivityName=".ListaPaesiActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListaPaesiActivity" />
         </activity>
         <activity
             android:name=".ListaPaesiActivity"
