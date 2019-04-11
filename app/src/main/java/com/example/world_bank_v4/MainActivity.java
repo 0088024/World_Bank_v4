@@ -21,12 +21,14 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private final String Nome_App = "WorldBank: ";
-    private final String api_country_list = "https://api.worldbank.org/v2/country?format=json&per_page=500";
+    private final String api_country_list =
+            "https://api.worldbank.org/v2/country?format=json&per_page=500";
 
     private TextView textView;
     private Button button;
     private URL url;
     private DownloadFileTask thread;
+    private Intent intent;
 
 
     @Override
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         new DownloadFileTask().execute(url);
     }
+
 
     /*thread che in background scarica in una stringa il file json dei paesi*/
     private class DownloadFileTask extends AsyncTask<URL, Void, String> {
@@ -93,12 +96,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         protected void onPostExecute(String risultato){
             int requestCode = 1;
-            Intent intent = new Intent(getApplicationContext(), ListaPaesiActivity.class);
-            intent.putExtra("chiave", risultato);
+            intent = new Intent(getApplicationContext(), ListaPaesiActivity.class);
+            intent.putExtra("file_json_paesi", risultato);
             startActivityForResult(intent, requestCode);
+
 
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCodeID, int resultCode, Intent intent){

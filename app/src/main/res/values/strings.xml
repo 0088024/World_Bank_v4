@@ -3,4 +3,5 @@
     <string name="paese">Paese</string>
     <string name="nome_paese">nome paese</string>
     <string name="title_activity_lista_argomenti">ListaArgomentiActivity</string>
+    <string name="nome_Grafico">nome Grafico</string>
 </resources>

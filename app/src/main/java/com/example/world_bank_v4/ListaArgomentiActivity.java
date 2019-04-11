@@ -27,19 +27,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ListaArgomentiActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class ListaArgomentiActivity extends AppCompatActivity
+        implements AdapterView.OnItemClickListener{
 
     private final String Nome_App = "WorldBank: ";
-    private final String api_indicatori_list = "https://api.worldbank.org/v2/indicator?format=json";
+    private final String api_topic = "https://api.worldbank.org/v2/topic/";
+
 
     private URL url;
     private DownloadFileTask thread;
 
-
     private ListView listView;
     private ArrayList<Argomento> lista_argomenti;       /*lista che conterrà gli oggetti Argomento*/
-    ArgomentiAdapter argomenti_adapter;
-
+    private ArgomentiAdapter argomenti_adapter;
+    private Intent intent_prec;
+    private Intent intent_succ;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +51,11 @@ public class ListaArgomentiActivity extends AppCompatActivity implements Adapter
 
          /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/
-        Intent intent = getIntent();
-        String json = intent.getStringExtra("chiave");
+        intent_prec = getIntent();
+        bundle = intent_prec.getExtras();
+        String json = bundle.getString("file_json_argomenti");
+
+        /*DEBUG*/
         Log.d(Nome_App + "JSON FILE ", json);
 
         /*attraverso il parser di Gson ottengo l'elemento che mi interessa: l'array di json*/
@@ -65,6 +71,7 @@ public class ListaArgomentiActivity extends AppCompatActivity implements Adapter
         Gson gson = new Gson();
         TypeToken<ArrayList<Argomento>> listType = new TypeToken<ArrayList<Argomento>>() {};
         lista_argomenti = gson.fromJson(je2, listType.getType());
+
         /*DEBUG*/
         Log.d(Nome_App + " DIM LISTA ",  String.valueOf(lista_argomenti.size()));
         for(int i = 0; i<lista_argomenti.size(); i++)
@@ -83,9 +90,15 @@ public class ListaArgomentiActivity extends AppCompatActivity implements Adapter
 
         Toast.makeText(view.getContext(), "CLICK ON " + position + ":" +
                     lista_argomenti.get(position).getValue(), Toast.LENGTH_LONG).show();
-        /*indifferentemente dall'argomento selezionato scarica la l'unica lista degli indicatori*/
+        /*costruisci la stringa api per ottenere una lista di indicatori relativi all'argomento
+        selezionato*/
         try {
-            url = new URL(api_indicatori_list);
+            StringBuilder api_indicatori_list_for_topic = new StringBuilder();
+            api_indicatori_list_for_topic.append(api_topic);
+            position++;
+            api_indicatori_list_for_topic.append(position);
+            api_indicatori_list_for_topic.append("/indicator?format=json&per_page=10000");
+            url = new URL(api_indicatori_list_for_topic.toString());
         }
         /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
         catch (MalformedURLException e) {
@@ -93,9 +106,6 @@ public class ListaArgomentiActivity extends AppCompatActivity implements Adapter
         }
 
         new DownloadFileTask().execute(url);
-
-        Toast.makeText(view.getContext(), "CLICK ON " + position + ":" +
-                lista_argomenti.get(position).getId(), Toast.LENGTH_LONG).show();
 
     }
 
@@ -106,7 +116,8 @@ public class ListaArgomentiActivity extends AppCompatActivity implements Adapter
     }
 
 
-    /*thread che in background scarica in una stringa il file json degli argomenti*/
+    /*thread che in background scarica in una stringa la lista degli indicatori relativi
+     all'argomento selezionato*/
     private class DownloadFileTask extends AsyncTask<URL, Void, String> {
 
         private InputStream risposta;
@@ -146,9 +157,10 @@ public class ListaArgomentiActivity extends AppCompatActivity implements Adapter
 
         protected void onPostExecute(String risultato) {
             int requestCode = 1;
-            Intent intent = new Intent(getApplicationContext(), ListaIndicatoriActivity.class);
-            intent.putExtra("chiave", risultato);
-            startActivityForResult(intent,requestCode);
+            intent_succ = new Intent(getApplicationContext(),ListaIndicatoriActivity.class);
+            bundle.putString("file_json_indicatori_per_argomento", risultato);
+            intent_succ.putExtras(bundle);
+            startActivityForResult(intent_succ,requestCode);
         }
 
     }

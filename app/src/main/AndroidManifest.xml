@@ -11,6 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".GraficoActivity"
+            android:parentActivityName=".ListaIndicatoriActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListaIndicatoriActivity" />
+        </activity>
         <activity
             android:name=".ListaIndicatoriActivity"
             android:parentActivityName=".ListaArgomentiActivity">

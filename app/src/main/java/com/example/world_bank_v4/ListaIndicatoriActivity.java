@@ -1,6 +1,8 @@
 package com.example.world_bank_v4;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,14 +17,32 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ListaIndicatoriActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+
     private final String Nome_App = "WorldBank: ";
+    private final String api_paesi = "https://api.worldbank.org/v2/country/";
+
 
     private ListView listView;
     private ArrayList<Indicatore> lista_indicatori;      /*lista che conterrà gli oggetti Indicatore*/
-    IndicatoriAdapter indicatori_adapter;
+    private IndicatoriAdapter indicatori_adapter;
+
+    private URL url;
+    private DownloadFileTask thread;
+    private Intent intent_prec;
+    private Intent intent_succ;
+    private Bundle bundle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +51,9 @@ public class ListaIndicatoriActivity extends AppCompatActivity implements Adapte
 
          /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/
-        Intent intent = getIntent();
-        String json = intent.getStringExtra("chiave");
+        intent_prec = getIntent();
+        bundle = intent_prec.getExtras();
+        String json = bundle.getString("file_json_indicatori_per_argomento");
         Log.d(Nome_App + "JSON FILE ", json);
 
         /*attraverso il parser di Gson ottengo l'elemento che mi interessa: l'array di json*/
@@ -66,5 +87,87 @@ public class ListaIndicatoriActivity extends AppCompatActivity implements Adapte
 
         Toast.makeText(view.getContext(), "CLICK ON " + position + ":" +
                 lista_indicatori.get(position).toString(), Toast.LENGTH_LONG).show();
+        /*costruisci api per scaricare l'indicatore selezionato per il relativo paese*/
+        try {
+            StringBuilder api_indicatore_per_paese = new StringBuilder();
+            api_indicatore_per_paese.append(api_paesi);
+            String codicePaese = bundle.getString("idPaese");
+
+            /*DEBUG*/
+            Log.d(Nome_App + "codicePaese ", codicePaese);
+
+            api_indicatore_per_paese.append(codicePaese);
+            api_indicatore_per_paese.append("/indicator/");
+            position++;
+            api_indicatore_per_paese.append(lista_indicatori.get(position).getId());
+            bundle.putString("idIndicatore", lista_indicatori.get(position).getId());
+            api_indicatore_per_paese.append("?format=json&&per_page=10000");
+
+            /*DEBUG*/
+            Log.d(Nome_App + "api", api_indicatore_per_paese.toString());
+
+            url = new URL(api_indicatore_per_paese.toString());
+        }
+        /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
+        catch (MalformedURLException e) {
+            Log.d(Nome_App, e.getMessage());
+        }
+
+        new DownloadFileTask().execute(url);
+
     }
+
+
+    /*thread che in background scarica in una stringa il file json dell'indicatore per paese*/
+    private class DownloadFileTask extends AsyncTask<URL, Void, String> {
+
+        private InputStream risposta;
+        private StringBuilder sb;
+        private HttpURLConnection client;
+
+        @Override
+        protected String doInBackground(URL... urls) {
+
+            try {
+                /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
+                client = (HttpURLConnection) urls[0].openConnection();
+
+                /*Recupero le informazioni inviate dal server*/
+                risposta = new BufferedInputStream(client.getInputStream());
+
+                /*leggo i caratteri e li appendo in sb*/
+                sb = new StringBuilder();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(risposta));
+                String nextLine = "";
+                while ((nextLine = reader.readLine()) != null) {
+                    sb.append(nextLine);
+                }
+
+            } catch (IOException e) {
+                Log.d(Nome_App, e.getMessage());
+
+            } finally {
+                client.disconnect();
+            }
+
+            /*convert StringBuilder to String using toString() method*/
+            String json = sb.toString();
+
+            return json;
+        }
+
+        protected void onPostExecute(String risultato) {
+            int requestCode = 1;
+
+            /*DEBUG*/
+            Log.d(Nome_App, risultato);
+
+            intent_succ = new Intent(getApplicationContext(),GraficoActivity.class);
+            bundle.putString("file_json_indicatore_per_paese", risultato);
+            intent_succ.putExtras(bundle);
+            startActivityForResult(intent_succ,requestCode);
+        }
+
+    }
+
 }
