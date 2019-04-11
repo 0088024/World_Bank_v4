@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">World_Bank_v4</string>
+    <string name="app_name">World Bank</string>
     <string name="paese">Paese</string>
     <string name="nome_paese">nome paese</string>
     <string name="title_activity_lista_argomenti">ListaArgomentiActivity</string>
+    <string name="title_activity_lista_paese_activity">Select Countries</string>
+    <string name="title_activity_lista_argomenti_activity">Select Topics</string>
+    <string name="title_activity_lista_indicatori_activity">Select Indicators</string>
+    <string name="nome_Grafico">Grafico finale</string>
 </resources>
