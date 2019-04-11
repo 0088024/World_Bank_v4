@@ -11,6 +11,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".GraficoActivity"
+            android:parentActivityName=".ListaIndicatoriActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListaIndicatoriActivity" />
+        </activity>
         <activity
             android:name=".ListaIndicatoriActivity"
             android:label="@string/title_activity_lista_indicatori_activity"

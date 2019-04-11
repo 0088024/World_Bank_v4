@@ -1,5 +1,6 @@
 package com.example.world_bank_v4;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -31,11 +32,18 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
 
     private final String Nome_App = "WorldBank: ";
     private final String api_topic_list = "https://api.worldbank.org/v2/topic?format=json";
+    private final String api_country = "https://api.worldbank.org/v2/country/";
+
 
     private URL url;
     private DownloadFileTask thread;
     private ListView listView;
     private ArrayList<Paese> lista_paesi;               /*lista che conterrà gli oggetti Paese*/
+    private PaesiAdapter paesi_adapter;
+    private Intent intent_prec;
+    private Intent intent_succ;
+    private Bundle bundle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +57,8 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
 
          /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/
-        Intent intent = getIntent();
-        String json = intent.getStringExtra("chiave");
+        intent_prec = getIntent();
+        String json = intent_prec.getStringExtra("file_json_paesi");
 
         /*attraverso il parser di Gson ottengo l'elemento che mi interessa, ovvero l'array di paesi
         json*/
@@ -72,8 +80,7 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
             Log.d(Nome_App, lista_paesi.get(i).toString() + "\n");
 
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
-        PaesiAdapter paesi_adapter = new PaesiAdapter(this, R.layout.riga_layout,
-                                                        lista_paesi);
+        paesi_adapter = new PaesiAdapter(this, R.layout.riga_layout, lista_paesi);
         listView = (ListView)findViewById(R.id.list_view);
         listView.setAdapter(paesi_adapter);
 
@@ -84,8 +91,8 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-             /*indifferentemente dal paese selezionato scarica la l'unica lista degli
-             argomenti*/
+            /*indifferentemente dal paese selezionato scarica la l'unica lista degli
+            argomenti, ma aggiungi il codice del paese al bundle nel'intento da passare*/
             try {
                 url = new URL(api_topic_list);
             }
@@ -95,6 +102,15 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
             }
 
             new DownloadFileTask().execute(url);
+
+            StringBuilder sb = new StringBuilder();
+            sb.append(api_country);
+            sb.append(lista_paesi.get(position).getId() + "/");
+            bundle = new Bundle();
+            bundle.putString("idPaese", lista_paesi.get(position++).getId());
+
+            setResult(Activity.RESULT_OK);    /*serve per avvertire il listener nell'attività padre*/
+
             Toast.makeText(view.getContext(), "CLICK ON " + position + ":" +
                     lista_paesi.get(position).getName(), Toast.LENGTH_LONG).show();
 
@@ -141,16 +157,16 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
 
         protected void onPostExecute(String risultato) {
             int requestCode = 1;
-            Intent intent = new Intent(getApplicationContext(), ListaArgomentiActivity.class);
-            intent.putExtra("chiave", risultato);
-            startActivityForResult(intent,requestCode);
+            intent_succ = new Intent(getApplicationContext(), ListaArgomentiActivity.class);
+            bundle.putString("file_json_argomenti", risultato );
+            intent_succ.putExtras(bundle);
+            startActivityForResult(intent_succ,requestCode);
         }
 
     }
 
     @Override
-    protected void onActivityResult (int requestCodeID,
-                                     int resultCode, Intent intent){
+    protected void onActivityResult (int requestCodeID, int resultCode, Intent intent){
 
     }
 }
