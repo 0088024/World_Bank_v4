@@ -1,11 +1,15 @@
 package com.example.world_bank_v4;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -14,6 +18,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GraficoActivity extends AppCompatActivity {
 
@@ -24,6 +29,7 @@ public class GraficoActivity extends AppCompatActivity {
 
 
     private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
+    private LineChart chart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,8 @@ public class GraficoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        TextView textView = (TextView) findViewById(R.id.text_view_Indicatore);
+        // in this example, a LineChart is initialized from xml
+        chart = (LineChart) findViewById(R.id.chart);
 
         /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/
@@ -65,7 +72,25 @@ public class GraficoActivity extends AppCompatActivity {
         for(int i = 0; i<lista_grafico.size(); i++)
             Log.d(Nome_App, lista_grafico.get(i).toString() + "\n");
 
-        textView.setText(bundle.getString("idIndicatore"));
+        Grafico graf;
+        List<Entry> entries = new ArrayList<Entry>();
+        for (int i=lista_grafico.size(); i>0;  i--) {
+            graf = lista_grafico.get(i-1);
+            // turn your data into Entry objects
+            if(graf.getvalue() == null){
+                graf.resetValue();
+            }
+            entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
+        }
 
+        LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+        dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextColor(Color.RED); // styling, ...
+        LineData lineData = new LineData(dataSet);
+        chart.setData(lineData);
+        chart.invalidate(); // refresh
+
+        /*DEBUG*/
+        Log.d(Nome_App, "Disegnato Grafico");
     }
 }
