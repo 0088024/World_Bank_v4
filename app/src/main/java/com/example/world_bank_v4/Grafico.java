@@ -1,5 +1,4 @@
 package com.example.world_bank_v4;
-/*prova*/
 
 public class Grafico {
 

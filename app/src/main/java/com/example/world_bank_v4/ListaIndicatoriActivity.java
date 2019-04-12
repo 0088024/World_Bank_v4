@@ -48,6 +48,10 @@ public class ListaIndicatoriActivity extends AppCompatActivity implements Adapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_indicatori);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.indicator);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
          /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/

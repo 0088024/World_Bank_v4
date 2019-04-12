@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".GraficoActivity"
+            android:label="@string/title_activity_grafico"
             android:parentActivityName=".ListaIndicatoriActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -19,7 +20,7 @@
         </activity>
         <activity
             android:name=".ListaIndicatoriActivity"
-            android:label="@string/title_activity_lista_indicatori_activity"
+            android:label="@string/title_activity_lista_indicatori"
             android:parentActivityName=".ListaArgomentiActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -27,7 +28,7 @@
         </activity>
         <activity
             android:name=".ListaArgomentiActivity"
-            android:label="@string/title_activity_lista_argomenti_activity"
+            android:label="@string/title_activity_lista_argomenti"
             android:parentActivityName=".ListaPaesiActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -5,8 +5,11 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -17,22 +20,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/* Ciaoooooooooo*/
-/*Mondoooooooooooooooooo*/
-/*io sono qui*/
 
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity {
 
     private final String Nome_App = "WorldBank: ";
     private final String api_country_list =
             "https://api.worldbank.org/v2/country?format=json&per_page=500";
 
-    private TextView textView;
-    private Button button;
     private URL url;
     private DownloadFileTask thread;
     private Intent intent;
+
+    ImageView iv;
 
 
     @Override
@@ -44,23 +43,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        textView = (TextView)findViewById(R.id.text_view);
-        button = (Button)findViewById(R.id.button);
-        button.setOnClickListener(this);
+        iv = (ImageView) findViewById(R.id.imageView);
+        iv.setImageResource(R.drawable.wb);
 
     }
 
-    @Override
-    public void onClick(View v) {
-        try {
-            url = new URL(api_country_list);
-        }
-        /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
-        catch (MalformedURLException e) {
-            Log.d(Nome_App, e.getMessage());
-        }
 
-        new DownloadFileTask().execute(url);
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_di_scelta,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        int id= item.getItemId();
+        switch(id) {
+            case R.id.Menu_1:
+                try {
+                    url = new URL(api_country_list);
+                }
+                /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
+                catch (MalformedURLException e) {
+                    Log.d(Nome_App, e.getMessage());
+                }
+                new DownloadFileTask().execute(url);
+
+            case R.id.Menu_2:
+
+            case R.id.Menu_3:
+
+            case R.id.Menu_4:
+        }
+        return false;
     }
 
 
