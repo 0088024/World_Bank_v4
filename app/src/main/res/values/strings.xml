@@ -2,9 +2,12 @@
     <string name="app_name">World Bank</string>
     <string name="paese">Paese</string>
     <string name="nome_paese">nome paese</string>
-    <string name="title_activity_lista_argomenti">ListaArgomentiActivity</string>
     <string name="title_activity_lista_paese_activity">Select Countries</string>
-    <string name="title_activity_lista_argomenti_activity">Select Topics</string>
-    <string name="title_activity_lista_indicatori_activity">Select Indicators</string>
-    <string name="nome_Grafico">Grafico finale</string>
+    <string name="title_activity_lista_argomenti">Select Topics</string>
+    <string name="title_activity_lista_indicatori">Select Indicators</string>
+    <string name="title_activity_grafico">Ceck Graph</string>
+    <string name="Menu_1">Country->Topic->Indicator</string>
+    <string name="Menu_2">Topic->Indicator->Country</string>
+    <string name="Menu_3">Show previously saved image</string>
+    <string name="Menu_4">Upload data offline</string>
 </resources>
