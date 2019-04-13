@@ -76,7 +76,6 @@ public class GraficoActivity extends AppCompatActivity {
         List<Entry> entries = new ArrayList<Entry>();
         for (int i=lista_grafico.size(); i>0;  i--) {
             graf = lista_grafico.get(i-1);
-            // turn your data into Entry objects
             if(graf.getvalue() == null){
                 graf.resetValue();
             }
