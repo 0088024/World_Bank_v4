@@ -24,15 +24,20 @@ public class DbManager {
     public void addRow(String rowDate, String rowValue)
     {
         SQLiteDatabase db = dbhelper.getWritableDatabase();	/*ottiene il riferimento al database*/
-        ContentValues values = new ContentValues();
-        values.put(DbHelper.COLUMN_DATE, rowDate);
-        values.put(DbHelper.COLUMN_VALUE, rowValue);
+        db.beginTransaction();
         try{
+            ContentValues values = new ContentValues();
+            values.put(DbHelper.COLUMN_DATE, rowDate);
+            values.put(DbHelper.COLUMN_VALUE, rowValue);
             db.insert(DbHelper.TABLE_NAME, null, values);
+            db.setTransactionSuccessful();
         }
         catch(Exception e){
             Log.e("DB ERROR", e.toString());
             e.printStackTrace();
+        }
+        finally {
+            db.endTransaction();
         }
     }
 
@@ -40,14 +45,18 @@ public class DbManager {
     public void deleteRow(long rowDate)
     {
         SQLiteDatabase db = dbhelper.getWritableDatabase();	/*ottiene il riferimento al database*/
-
+        db.beginTransaction();
         try{
             db.delete(DbHelper.TABLE_NAME, DbHelper.COLUMN_DATE + "=" + rowDate,
                     null);
+            db.setTransactionSuccessful();
         }
         catch (Exception e){
             Log.e("DB ERROR", e.toString());
             e.printStackTrace();
+        }
+        finally {
+            db.endTransaction();
         }
     }
 
@@ -60,19 +69,29 @@ public class DbManager {
         ContentValues val = new ContentValues();
         val.put(DbHelper.COLUMN_DATE, date);
         val.put(DbHelper.COLUMN_VALUE, value);
+        db.beginTransaction();
+
         try
         {
             db.insert(DbHelper.TABLE_NAME, null, val);
+            db.setTransactionSuccessful();
+
         }
         catch (SQLiteException sqle){
             /*Gestione delle eccezioni*/
         }
+        finally {
+            db.endTransaction();
+        }
+
     }
 
 
     public boolean delete(long id)
     {
         SQLiteDatabase db = dbhelper.getWritableDatabase();
+        db.beginTransaction();
+
         try
         {
             if (db.delete(DbHelper.TABLE_NAME, DbHelper.COLUMN_DATE + "=?",
@@ -82,6 +101,11 @@ public class DbManager {
         }
         catch (SQLiteException sqle){
             return false;
+        }
+        finally {
+            db.setTransactionSuccessful();
+
+            db.endTransaction();
         }
     }
 
