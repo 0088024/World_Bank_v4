@@ -7,19 +7,25 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".GraficoActivity"
+        <activity android:name=".CaricaDati"
+            android:label="@string/title_activity_carica_dati"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".GraficoActivity"
             android:label="@string/title_activity_grafico"
             android:parentActivityName=".ListaIndicatoriActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ListaIndicatoriActivity" />
         </activity>
-
         <activity
             android:name=".ListaIndicatoriActivity"
             android:label="@string/title_activity_lista_indicatori"
@@ -28,7 +34,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ListaArgomentiActivity" />
         </activity>
-
         <activity
             android:name=".ListaArgomentiActivity"
             android:label="@string/title_activity_lista_argomenti"
@@ -37,16 +42,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ListaPaesiActivity" />
         </activity>
-
         <activity
             android:name=".ListaPaesiActivity"
             android:label="@string/title_activity_lista_paese_activity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+        android:parentActivityName=".MainActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
         </activity>
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

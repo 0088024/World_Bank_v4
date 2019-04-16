@@ -36,6 +36,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
     private Intent intent_prec;
     private Bundle bundle;
+    String json_file;
 
     DbManager dbManager;
 
@@ -62,26 +63,20 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/
         intent_prec = getIntent();
-        bundle = intent_prec.getExtras();
-        String json = bundle.getString("file_json_indicatore_per_paese");
+        if(intent_prec != null) {
+            bundle = intent_prec.getExtras();
+            json_file = bundle.getString("file_json_indicatore_per_paese");
 
-        /*DEBUG*/
-        Log.d(Nome_App + "JSON FILE ", json);
+            /*DEBUG*/
+            Log.d(Nome_App + "JSON FILE ", json_file);
+        }
 
-        /*attraverso il parser di Gson ottengo l'elemento che mi interessa: l'array di json*/
-        JsonElement je = new JsonParser().parse(json);
-        JsonArray root = je.getAsJsonArray();
-        JsonElement je2 = root.get(1);
 
-        /*DEBUG*/
-        JsonArray array_indicatori = je2.getAsJsonArray();   /*qui ho l'array json degli indicatori*/
-        Log.d(Nome_App + " DIM[]", String.valueOf(array_indicatori.size()));
 
-        /*con Gson mappo 1 a 1 gli oggetti del file json in oggetti Grafico, i quali sono
-        memorizzati in una Lista*/
-        Gson gson = new Gson();
-        TypeToken<ArrayList<Grafico>> listType = new TypeToken<ArrayList<Grafico>>() {};
-        lista_grafico = gson.fromJson(je2, listType.getType());
+        /*con la libreria GSON ottengo la corrispondente lista/array dei dati del grafico
+         del file json*/
+        MyGSON myGSON = new MyGSON();
+        lista_grafico = myGSON.getListDatiGrafico(json_file);
 
         /*DEBUG*/
         Log.d(Nome_App + " DIM LISTA ",  String.valueOf(lista_grafico.size()));
@@ -107,8 +102,6 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
         /*DEBUG*/
         Log.d(Nome_App, "Disegnato Grafico");
-
-
     }
 
 

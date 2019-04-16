@@ -6,6 +6,7 @@
     <string name="title_activity_lista_argomenti">Select Topics</string>
     <string name="title_activity_lista_indicatori">Select Indicators</string>
     <string name="title_activity_grafico">Ceck Graph</string>
+    <string name="title_activity_carica_dati">Carica dati offline</string>
     <string name="Menu_1">Country->Topic->Indicator</string>
     <string name="Menu_2">Topic->Indicator->Country</string>
     <string name="Menu_3">Show previously saved image</string>

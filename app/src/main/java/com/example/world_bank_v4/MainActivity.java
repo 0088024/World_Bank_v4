@@ -28,10 +28,9 @@ public class MainActivity extends AppCompatActivity {
             "https://api.worldbank.org/v2/country?format=json&per_page=500";
 
     private URL url;
-    private DownloadFileTask thread;
     private Intent intent;
 
-    ImageView iv;
+    private ImageView iv;
 
 
     @Override
@@ -76,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Menu_3:
 
             case R.id.Menu_4:
+                Intent intent = new Intent(this, CaricaDati.class);
+                startActivity(intent);
         }
         return false;
     }
@@ -122,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String risultato){
             int requestCode = 1;
             intent = new Intent(getApplicationContext(), ListaPaesiActivity.class);
-            intent.putExtra("file_json_paesi", risultato);
+            intent.putExtra("json_file_country", risultato);
             startActivityForResult(intent, requestCode);
 
 
