@@ -2,9 +2,12 @@ package com.example.world_bank_v4;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -17,19 +20,30 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraficoActivity extends AppCompatActivity {
+public class GraficoActivity extends AppCompatActivity implements View.OnClickListener{
 
     private final String Nome_App = "WorldBank: ";
 
     private Intent intent_prec;
     private Bundle bundle;
+    String json_file;
+
+    DbManager dbManager;
 
 
     private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,32 +54,29 @@ public class GraficoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        // in this example, a LineChart is initialized from xml
+        /*in this example, a LineChart is initialized from xml*/
         chart = (LineChart) findViewById(R.id.chart);
+        button = findViewById(R.id.button);
+
+        button.setOnClickListener(this);
 
         /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/
         intent_prec = getIntent();
-        bundle = intent_prec.getExtras();
-        String json = bundle.getString("file_json_indicatore_per_paese");
+        if(intent_prec != null) {
+            bundle = intent_prec.getExtras();
+            json_file = bundle.getString("file_json_indicatore_per_paese");
 
-        /*DEBUG*/
-        Log.d(Nome_App + "JSON FILE ", json);
+            /*DEBUG*/
+            Log.d(Nome_App + "JSON FILE ", json_file);
+        }
 
-        /*attraverso il parser di Gson ottengo l'elemento che mi interessa: l'array di json*/
-        JsonElement je = new JsonParser().parse(json);
-        JsonArray root = je.getAsJsonArray();
-        JsonElement je2 = root.get(1);
 
-        /*DEBUG*/
-        JsonArray array_indicatori = je2.getAsJsonArray();   /*qui ho l'array json degli indicatori*/
-        Log.d(Nome_App + " DIM[]", String.valueOf(array_indicatori.size()));
 
-        /*con Gson mappo 1 a 1 gli oggetti del file json in oggetti Grafico, i quali sono
-        memorizzati in una Lista*/
-        Gson gson = new Gson();
-        TypeToken<ArrayList<Grafico>> listType = new TypeToken<ArrayList<Grafico>>() {};
-        lista_grafico = gson.fromJson(je2, listType.getType());
+        /*con la libreria GSON ottengo la corrispondente lista/array dei dati del grafico
+         del file json*/
+        MyGSON myGSON = new MyGSON();
+        lista_grafico = myGSON.getListDatiGrafico(json_file);
 
         /*DEBUG*/
         Log.d(Nome_App + " DIM LISTA ",  String.valueOf(lista_grafico.size()));
@@ -92,4 +103,42 @@ public class GraficoActivity extends AppCompatActivity {
         /*DEBUG*/
         Log.d(Nome_App, "Disegnato Grafico");
     }
+
+
+    @Override
+    public void onClick(View v) {
+
+        new DatabaseTask().execute(lista_grafico);
+    }
+
+
+
+    /*thread che in background salva i dati nel database locale*/
+    private class DatabaseTask extends AsyncTask< ArrayList<Grafico>, Void, String > {
+
+        @Override
+        protected String doInBackground(ArrayList<Grafico> ... params) {
+
+            ArrayList<Grafico> lista_grafico = params[0];
+            dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
+                                                                database*/
+            for(int i=lista_grafico.size(); i>0; i--){
+                Grafico elemento = lista_grafico.get(i-1);
+                dbManager.addRow(elemento.getDate(), elemento.getvalue().toString());
+                Log.d(Nome_App, "aggiunta riga nel database");
+
+            }
+
+            String risultato = "Dati salvati nel database";
+            return risultato;
+        }
+
+
+
+        protected void onPostExecute(String risultato){
+            Log.d(Nome_App, risultato);
+
+        }
+    }
+
 }

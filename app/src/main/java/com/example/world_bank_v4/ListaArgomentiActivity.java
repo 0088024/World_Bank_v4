@@ -1,6 +1,9 @@
 package com.example.world_bank_v4;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,8 +38,7 @@ public class ListaArgomentiActivity extends AppCompatActivity
 
 
     private URL url;
-    private DownloadFileTask thread;
-
+    private String json_file;
     private ListView listView;
     private ArrayList<Argomento> lista_argomenti;       /*lista che conterrà gli oggetti Argomento*/
     private ArgomentiAdapter argomenti_adapter;
@@ -53,28 +55,38 @@ public class ListaArgomentiActivity extends AppCompatActivity
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-         /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
-        il file json scaricato da WorldBank*/
-        intent_prec = getIntent();
-        bundle = intent_prec.getExtras();
-        String json = bundle.getString("file_json_argomenti");
+        /*se è null significa che l'attività è stata creata nuova*/
+        if(savedInstanceState == null){
+            /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
+            il file json scaricato da WorldBank*/
+            intent_prec = getIntent();
+            if(intent_prec!=null){
+                bundle = intent_prec.getExtras();
+                if(bundle!=null){
+                    json_file = bundle.getString("json_file_argomenti");
+                    /*se l'intento non contiene la stringa passata dall'attività genitore, significa che
+                    l'attività è stata ripresa (per esempio l'utente torna da quella successiva) e non
+                    lanciata da quella precedente, quindi carico in memoria il file dalle preferenze
+                    condivise precedentemente salvate*/
+                    if(json_file == null){
+                        SharedPreferences sharedPreferences =
+                                getSharedPreferences("Preferences_Argomenti", Context.MODE_PRIVATE);
+                        json_file = sharedPreferences.getString("json_file_argomenti",
+                                "File non esiste");
+                    }
+                }
 
-        /*DEBUG*/
-        Log.d(Nome_App + "JSON FILE ", json);
+            }
+        }
+        /*se l'oggetto savedInstanceState non è null signifa che il sistema ha ricreato un'attività
+        precedentemente distrutta e quindi ti fornisce l'oggetto Bundle salvato*/
+        else{
+            json_file = savedInstanceState.getString("json_file_argomenti");
+        }
 
-        /*attraverso il parser di Gson ottengo l'elemento che mi interessa: l'array di json*/
-        JsonElement je = new JsonParser().parse(json);
-        JsonArray root = je.getAsJsonArray();
-        JsonElement je2 = root.get(1);
-        /*DEBUG*/
-        JsonArray array_argomenti = je2.getAsJsonArray();   /*qui ho l'array json dei paesi*/
-        Log.d(Nome_App + " DIM TOPIC[]", String.valueOf(array_argomenti.size()));
-
-        /*con Gson mappo 1 a 1 gli oggetti del file json in oggetti Paese, i quali sono
-        memorizzati in una Lista*/
-        Gson gson = new Gson();
-        TypeToken<ArrayList<Argomento>> listType = new TypeToken<ArrayList<Argomento>>() {};
-        lista_argomenti = gson.fromJson(je2, listType.getType());
+        /*con la libreria GSON ottengo la corrispondente lista/array di argomenti del file json*/
+        MyGSON myGSON = new MyGSON();
+        lista_argomenti = myGSON.getListArgomenti(json_file);
 
         /*DEBUG*/
         Log.d(Nome_App + " DIM LISTA ",  String.valueOf(lista_argomenti.size()));
@@ -88,6 +100,43 @@ public class ListaArgomentiActivity extends AppCompatActivity
 
         listView.setOnItemClickListener(this);
     }
+
+
+
+    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
+    prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
+    dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("json_file_argomenti", json_file);
+    }
+
+
+    /*viene chiamato dal sistema quando l'attività è ripresa: dopo onStop()*/
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        json_file = savedInstanceState.getString("json_file_argomenti",
+                "File non esiste");
+
+    }
+
+
+    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua l'oggetto Bundle non viene
+    salvato. O meglio, non mi viene passato in Oncreate(). Eppure la guida dice che se l'attività
+    viene distrutta per vincoli di sistema dovrebbe ripristinarle e non crerae una nuova istanza.
+    perchè?????????????????????????????????' */
+    @Override
+    public void onPause(){
+        super.onPause();
+        SharedPreferences sharedPref =
+                getSharedPreferences("Preferences_Argomenti", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("json_file_argomenti", json_file);
+        editor.apply();
+    }
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -162,7 +211,7 @@ public class ListaArgomentiActivity extends AppCompatActivity
         protected void onPostExecute(String risultato) {
             int requestCode = 1;
             intent_succ = new Intent(getApplicationContext(),ListaIndicatoriActivity.class);
-            bundle.putString("file_json_indicatori_per_argomento", risultato);
+            bundle.putString("json_file_indicatori_per_argomento", risultato);
             intent_succ.putExtras(bundle);
             startActivityForResult(intent_succ,requestCode);
         }
