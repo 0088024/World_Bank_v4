@@ -12,11 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".CaricaDati"
-            android:label="@string/title_activity_carica_dati"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+            android:label="@string/title_activity_carica_dati">
         </activity>
         <activity
             android:name=".GraficoActivity"

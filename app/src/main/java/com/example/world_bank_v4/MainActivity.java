@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        iv = (ImageView) findViewById(R.id.imageView);
+        iv = findViewById(R.id.imageView);
         iv.setImageResource(R.drawable.wb);
 
     }
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
-        int id= item.getItemId();
+        int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
                 try {
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(Nome_App, e.getMessage());
                 }
                 new DownloadFileTask().execute(url);
+
 
             case R.id.Menu_2:
 
@@ -115,9 +116,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             /*convert StringBuilder to String using toString() method*/
-            String json = sb.toString();
-
-            return json;
+            return sb.toString();
         }
 
         protected void onPostExecute(String risultato){
@@ -125,8 +124,6 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(getApplicationContext(), ListaPaesiActivity.class);
             intent.putExtra("json_file_country", risultato);
             startActivityForResult(intent, requestCode);
-
-
         }
     }
 
