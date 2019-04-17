@@ -1,6 +1,9 @@
 package com.example.world_bank_v4;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -32,18 +35,15 @@ import java.util.List;
 
 public class GraficoActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private final String Nome_App = "WorldBank: ";
-
     private Intent intent_prec;
     private Bundle bundle;
-    String json_file;
-
-    DbManager dbManager;
-
-
+    private String json_file;
+    private DbManager dbManager;
     private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
-    private Button button;
+    private Button button_salva_dati;
+    private Button button_salva_grafico;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,23 +55,38 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         /*in this example, a LineChart is initialized from xml*/
-        chart = (LineChart) findViewById(R.id.chart);
-        button = findViewById(R.id.button);
-
-        button.setOnClickListener(this);
+        chart = findViewById(R.id.chart);
+        button_salva_grafico = findViewById(R.id.button_salva_grafico);
+        button_salva_grafico.setOnClickListener(this);
+        button_salva_dati = findViewById(R.id.button_salva_dati);
+        button_salva_dati.setOnClickListener(this);
 
         /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/
         intent_prec = getIntent();
         if(intent_prec != null) {
             bundle = intent_prec.getExtras();
-            json_file = bundle.getString("file_json_indicatore_per_paese");
-
-            /*DEBUG*/
-            Log.d(Nome_App + "JSON FILE ", json_file);
+            if(bundle!=null){
+                json_file = bundle.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
+            }
+            /*se l'intento non contiene la stringa passata dall'attività genitore, significa che
+            l'attività è stata ripresa (per esempio l'utente torna da quella successiva) e non
+            lanciata da quella precedente, quindi carico in memoria il file dalle preferenze
+            condivise precedentemente salvate*/
+            else {
+                SharedPreferences sharedPreferences =
+                        getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
+                                Context.MODE_PRIVATE);
+                json_file =
+                        sharedPreferences.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
+                                "File non esiste");
+            }
         }
-
-
+        /*se l'oggetto savedInstanceState non è null signifa che il sistema ha ricreato un'attività
+        precedentemente distrutta e quindi ti fornisce l'oggetto Bundle salvato*/
+        else{
+              json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
+        }
 
         /*con la libreria GSON ottengo la corrispondente lista/array dei dati del grafico
          del file json*/
@@ -79,9 +94,9 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         lista_grafico = myGSON.getListDatiGrafico(json_file);
 
         /*DEBUG*/
-        Log.d(Nome_App + " DIM LISTA ",  String.valueOf(lista_grafico.size()));
+        Log.d(Costanti.NOME_APP + " DIM LISTA ",  String.valueOf(lista_grafico.size()));
         for(int i = 0; i<lista_grafico.size(); i++)
-            Log.d(Nome_App, lista_grafico.get(i).toString() + "\n");
+            Log.d(Costanti.NOME_APP, lista_grafico.get(i).toString() + "\n");
 
         Grafico graf;
         List<Entry> entries = new ArrayList<Entry>();
@@ -101,8 +116,48 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         chart.invalidate(); // refresh
 
         /*DEBUG*/
-        Log.d(Nome_App, "Disegnato Grafico");
+        Log.d(Costanti.NOME_APP, "Disegnato Grafico");
     }
+
+
+
+    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
+   prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
+   dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, json_file);
+
+    }
+
+
+    /*viene chiamato dal sistema quando l'attività è ripresa: dopo onStop()*/
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
+                "File non esiste");
+    }
+
+
+    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua l'oggetto Bundle non viene
+    salvato. O meglio, non mi viene passato in Oncreate(). Eppure la guida dice che se l'attività
+    viene distrutta per vincoli di sistema dovrebbe ripristinarle e non crerae una nuova istanza.
+    perchè?????????????????????????????????' */
+    @Override
+    public void onPause(){
+        super.onPause();
+        SharedPreferences sharedPref =
+                getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
+                                                            Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, json_file);
+        editor.apply();
+    }
+
+
+
 
 
     @Override
@@ -125,7 +180,9 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
             for(int i=lista_grafico.size(); i>0; i--){
                 Grafico elemento = lista_grafico.get(i-1);
                 dbManager.addRow(elemento.getDate(), elemento.getvalue().toString());
-                Log.d(Nome_App, "aggiunta riga nel database");
+
+                /*DEBUG*/
+                Log.d(Costanti.NOME_APP, "aggiunta riga nel database");
 
             }
 
@@ -136,7 +193,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
 
         protected void onPostExecute(String risultato){
-            Log.d(Nome_App, risultato);
+            Log.d(Costanti.NOME_APP, risultato);
 
         }
     }

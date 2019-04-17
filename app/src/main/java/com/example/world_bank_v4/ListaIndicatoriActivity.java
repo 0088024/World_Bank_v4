@@ -31,20 +31,17 @@ import java.util.ArrayList;
 
 public class ListaIndicatoriActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    private final String Nome_App = "WorldBank: ";
-    private final String api_paesi = "https://api.worldbank.org/v2/country/";
-
-
     private ListView listView;
     private ArrayList<Indicatore> lista_indicatori;      /*lista che conterrà gli oggetti Indicatore*/
     private IndicatoriAdapter indicatori_adapter;
 
     private URL url;
-    private DownloadFileTask thread;
     private Intent intent_prec;
     private Intent intent_succ;
     private Bundle bundle;
     private String json_file;
+    private String idPaeseSelezionato;
+
 
 
     @Override
@@ -65,41 +62,47 @@ public class ListaIndicatoriActivity extends AppCompatActivity implements Adapte
             if(intent_prec!=null){
                 bundle = intent_prec.getExtras();
                 if(bundle!=null) {
-                    json_file = bundle.getString("json_file_indicatori_per_argomento");
+                    json_file = bundle.getString(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO);
+                    idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
                 /*se l'intento non contiene la stringa passata dall'attività genitore, significa che
                 l'attività è stata ripresa (per esempio l'utente torna da quella successiva) e non
                 lanciata da quella precedente, quindi carico in memoria il file dalle preferenze
                 condivise precedentemente salvate*/
-                    if (json_file == null) {
-                        SharedPreferences sharedPreferences =
-                                getSharedPreferences("Preferences_Indicatori", Context.MODE_PRIVATE);
-                        json_file = sharedPreferences.getString("json_file_indicatori_per_argomento",
-                                "File non esiste");
-                    }
+                }
+                else {
+                      SharedPreferences sharedPreferences =
+                                getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORI_PER_ARGOMENTO,
+                                                        Context.MODE_PRIVATE);
+                       json_file =
+                               sharedPreferences.getString(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO,
+                                                                    "File non esiste");
+                       idPaeseSelezionato = sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
+                            "File non esiste");
                 }
             }
         }
         /*se l'oggetto savedInstanceState non è null signifa che il sistema ha ricreato un'attività
         precedentemente distrutta e quindi ti fornisce l'oggetto Bundle salvato*/
         else{
-            json_file = savedInstanceState.getString("json_file_indicatori_per_argomento");
+            json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO);
+            idPaeseSelezionato = savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO);
         }
 
        /*DEBUG*/
-        Log.d(Nome_App + "JSON FILE ", json_file);
+        Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
         /*con la libreria GSON ottengo la corrispondente lista/array di paesi del file json*/
         MyGSON myGSON = new MyGSON();
         lista_indicatori = myGSON.getListIndicatori(json_file);
 
         /*DEBUG*/
-        Log.d(Nome_App + " DIM LISTA ",  String.valueOf(lista_indicatori.size()));
+        Log.d(Costanti.NOME_APP + " DIM LISTA ",  String.valueOf(lista_indicatori.size()));
         for(int i = 0; i<lista_indicatori.size(); i++)
-            Log.d(Nome_App, lista_indicatori.get(i).toString() + "\n");
+            Log.d(Costanti.NOME_APP, lista_indicatori.get(i).toString() + "\n");
 
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
         indicatori_adapter = new IndicatoriAdapter(this, R.layout.riga_layout, lista_indicatori);
-        listView = (ListView)findViewById(R.id.list_view);
+        listView = findViewById(R.id.list_view);
         listView.setAdapter(indicatori_adapter);
 
         listView.setOnItemClickListener(this);
@@ -112,7 +115,9 @@ public class ListaIndicatoriActivity extends AppCompatActivity implements Adapte
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString("json_file_indicatori_per_argomento", json_file);
+        savedInstanceState.putString(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO, json_file);
+        savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
+
     }
 
 
@@ -120,7 +125,9 @@ public class ListaIndicatoriActivity extends AppCompatActivity implements Adapte
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        json_file = savedInstanceState.getString("json_file_indicatori_per_argomento",
+        json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO,
+                "File non esiste");
+        idPaeseSelezionato = savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO,
                 "File non esiste");
 
     }
@@ -134,9 +141,11 @@ public class ListaIndicatoriActivity extends AppCompatActivity implements Adapte
     public void onPause(){
         super.onPause();
         SharedPreferences sharedPref =
-                getSharedPreferences("Preferences_Indicatori", Activity.MODE_PRIVATE);
+                getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORI_PER_ARGOMENTO,
+                                                Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("json_file_indicatori_per_argomento", json_file);
+        editor.putString(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO, json_file);
+        editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
         editor.apply();
     }
 
@@ -145,32 +154,24 @@ public class ListaIndicatoriActivity extends AppCompatActivity implements Adapte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Toast.makeText(view.getContext(), "CLICK ON " + position + ":" +
-                lista_indicatori.get(position).toString(), Toast.LENGTH_LONG).show();
         /*costruisci api per scaricare l'indicatore selezionato per il relativo paese*/
         try {
             StringBuilder api_indicatore_per_paese = new StringBuilder();
-            api_indicatore_per_paese.append(api_paesi);
-            String codicePaese = bundle.getString("idPaese");
-
-            /*DEBUG*/
-            Log.d(Nome_App + "codicePaese ", codicePaese);
-
-            api_indicatore_per_paese.append(codicePaese);
+            api_indicatore_per_paese.append(Costanti.API_COUNTRY_LIST);
+            api_indicatore_per_paese.append(idPaeseSelezionato);
             api_indicatore_per_paese.append("/indicator/");
             position++;
             api_indicatore_per_paese.append(lista_indicatori.get(position).getId());
-            bundle.putString("idIndicatore", lista_indicatori.get(position).getId());
             api_indicatore_per_paese.append("?format=json&&per_page=10000");
 
             /*DEBUG*/
-            Log.d(Nome_App + "api", api_indicatore_per_paese.toString());
+            Log.d(Costanti.NOME_APP + "API", api_indicatore_per_paese.toString());
 
             url = new URL(api_indicatore_per_paese.toString());
         }
         /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
         catch (MalformedURLException e) {
-            Log.d(Nome_App, e.getMessage());
+            Log.d(Costanti.NOME_APP, e.getMessage());
         }
 
         new DownloadFileTask().execute(url);
@@ -204,27 +205,23 @@ public class ListaIndicatoriActivity extends AppCompatActivity implements Adapte
                 }
 
             } catch (IOException e) {
-                Log.d(Nome_App, e.getMessage());
+                Log.d(Costanti.NOME_APP, e.getMessage());
 
             } finally {
                 client.disconnect();
             }
 
             /*convert StringBuilder to String using toString() method*/
-            String json = sb.toString();
-
-            return json;
+            return sb.toString();
         }
 
 
         protected void onPostExecute(String risultato) {
             int requestCode = 1;
-
-            /*DEBUG*/
-            Log.d(Nome_App, risultato);
-
             intent_succ = new Intent(getApplicationContext(),GraficoActivity.class);
-            bundle.putString("file_json_indicatore_per_paese", risultato);
+            bundle = new Bundle();
+            bundle.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
+            bundle.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, risultato);
             intent_succ.putExtras(bundle);
             startActivity(intent_succ);
         }

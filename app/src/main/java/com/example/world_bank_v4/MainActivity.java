@@ -23,10 +23,6 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String Nome_App = "WorldBank: ";
-    private final String api_country_list =
-            "https://api.worldbank.org/v2/country?format=json&per_page=500";
-
     private URL url;
     private Intent intent;
 
@@ -42,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        iv = (ImageView) findViewById(R.id.imageView);
+        iv = findViewById(R.id.imageView);
         iv.setImageResource(R.drawable.wb);
 
     }
@@ -58,17 +54,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
-        int id= item.getItemId();
+        int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
                 try {
-                    url = new URL(api_country_list);
+                    url = new URL(Costanti.API_COUNTRY_LIST_PER_PAGE_500);
                 }
                 /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
                 catch (MalformedURLException e) {
-                    Log.d(Nome_App, e.getMessage());
+                    Log.d(Costanti.NOME_APP, e.getMessage());
                 }
                 new DownloadFileTask().execute(url);
+                break;
 
             case R.id.Menu_2:
 
@@ -108,25 +105,21 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }  catch (IOException e) {
-                Log.d(Nome_App, e.getMessage());
+                Log.d(Costanti.NOME_APP, e.getMessage());
 
             } finally {
                 client.disconnect();
             }
 
             /*convert StringBuilder to String using toString() method*/
-            String json = sb.toString();
-
-            return json;
+            return sb.toString();
         }
 
         protected void onPostExecute(String risultato){
             int requestCode = 1;
             intent = new Intent(getApplicationContext(), ListaPaesiActivity.class);
-            intent.putExtra("json_file_country", risultato);
+            intent.putExtra(Costanti.KEY_JSON_FILE_COUNTRY, risultato);
             startActivityForResult(intent, requestCode);
-
-
         }
     }
 
