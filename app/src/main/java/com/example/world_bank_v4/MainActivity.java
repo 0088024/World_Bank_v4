@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(Nome_App, e.getMessage());
                 }
                 new DownloadFileTask().execute(url);
-
+                break;
 
             case R.id.Menu_2:
 
