@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -163,13 +165,17 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
 
-        new DatabaseTask().execute(lista_grafico);
+        if(button_salva_dati.isSelected())
+            new SalvaDatabaseTask().execute(lista_grafico);
+
+        if(button_salva_grafico.isSelected())
+            new SalvaGraficoTask().execute(chart);
     }
 
 
 
     /*thread che in background salva i dati nel database locale*/
-    private class DatabaseTask extends AsyncTask< ArrayList<Grafico>, Void, String > {
+    private class SalvaDatabaseTask extends AsyncTask< ArrayList<Grafico>, Void, String > {
 
         @Override
         protected String doInBackground(ArrayList<Grafico> ... params) {
@@ -183,13 +189,36 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
                 /*DEBUG*/
                 Log.d(Costanti.NOME_APP, "aggiunta riga nel database");
-
             }
 
             String risultato = "Dati salvati nel database";
             return risultato;
         }
 
+
+
+        protected void onPostExecute(String risultato){
+            Log.d(Costanti.NOME_APP, risultato);
+
+        }
+    }
+
+
+
+    /*thread che in background salva il grafico in un file png*/
+    private class SalvaGraficoTask extends AsyncTask< Chart, Void, String > {
+
+        @Override
+        protected String doInBackground(Chart ... params) {
+
+            Chart chart = params[0];
+            Bitmap bitmap_chart = chart.getChartBitmap();
+
+
+
+            return "Grafico salvato in png";
+
+        }
 
 
         protected void onPostExecute(String risultato){
