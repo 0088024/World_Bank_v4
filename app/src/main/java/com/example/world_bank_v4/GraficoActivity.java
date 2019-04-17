@@ -43,7 +43,9 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
     private DbManager dbManager;
     private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
-    private Button button;
+    private Button button_salva_dati;
+    private Button button_salva_grafico;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +58,10 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
         /*in this example, a LineChart is initialized from xml*/
         chart = findViewById(R.id.chart);
-        button = findViewById(R.id.button);
-
-        button.setOnClickListener(this);
+        button_salva_grafico = findViewById(R.id.button_salva_grafico);
+        button_salva_grafico.setOnClickListener(this);
+        button_salva_dati = findViewById(R.id.button_salva_dati);
+        button_salva_dati.setOnClickListener(this);
 
         /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/

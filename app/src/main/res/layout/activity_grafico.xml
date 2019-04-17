@@ -7,13 +7,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="471dp"
+        android:layout_height="428dp"
         android:orientation="vertical">
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="434dp" />
+            android:layout_height="373dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -22,10 +22,16 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_salva_dati"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/salva_dati" />
+
+        <Button
+            android:id="@+id/button_salva_grafico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/salva_grafico" />
     </LinearLayout>
 
 </LinearLayout>
