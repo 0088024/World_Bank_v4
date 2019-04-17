@@ -32,11 +32,6 @@ import java.util.List;
 
 public class ListaPaesiActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-    private final String NOME_APP = "WorldBank: ";
-    private final String API_TOPIC_LIST = "https://api.worldbank.org/v2/topic?format=json";
-    private final String API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/";
-
-
     private URL url;
     private ListView listView;
     private ArrayList<Paese> lista_paesi;               /*lista che conterrà gli oggetti Paese*/
@@ -62,15 +57,16 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
             il file json scaricato da WorldBank*/
             intent_prec = getIntent();         /*ritorna l'intento ch ha startato questa activity*/
             if(intent_prec!=null){
-                json_file = intent_prec.getStringExtra("json_file_country");
+                json_file = intent_prec.getStringExtra(Costanti.KEY_JSON_FILE_COUNTRY);
                 /*se l'intento non contiene la stringa passata dall'attività genitore, significa che
                 l'attività è stata ripresa (per esempio l'utente torna da quella successiva) e non
                 lanciata da quella precedente, quindi carico in memoria il file dalle preferenze
                 condivise precedentemente salvate*/
                 if(json_file == null){
                     SharedPreferences sharedPreferences =
-                            getSharedPreferences("Preferences_Paesi", Context.MODE_PRIVATE);
-                    json_file = sharedPreferences.getString("json_file_country",
+                            getSharedPreferences(Costanti.PREFERENCES_FILE_PAESI,
+                                                                        Context.MODE_PRIVATE);
+                    json_file = sharedPreferences.getString(Costanti.KEY_JSON_FILE_COUNTRY,
                                                                 "File non esiste");
                 }
             }
@@ -78,20 +74,20 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
         /*se l'oggetto savedInstanceState non è null signifa che il sistema ha ricreato un'attività
         precedentemente distrutta e quindi ti fornisce l'oggetto Bundle salvato*/
         else{
-            json_file = savedInstanceState.getString("json_file_country");
+            json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_COUNTRY);
         }
 
         /*DEBUG*/
-        Log.d(NOME_APP + "JSON FILE ", json_file);
+        Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
         /*con la libreria GSON ottengo la corrispondente lista/array di paesi del file json*/
         MyGSON myGSON = new MyGSON();
         lista_paesi = myGSON.getListPaesi(json_file);
 
         /*DEBUG*/
-        Log.d(NOME_APP + " DIM LISTA ",  String.valueOf(lista_paesi.size()));
+        Log.d(Costanti.NOME_APP + " DIM LISTA ",  String.valueOf(lista_paesi.size()));
         for(int i = 0; i<lista_paesi.size(); i++)
-            Log.d(NOME_APP, lista_paesi.get(i).toString() + "\n");
+            Log.d(Costanti.NOME_APP, lista_paesi.get(i).toString() + "\n");
 
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
         paesi_adapter = new PaesiAdapter(this, R.layout.riga_layout, lista_paesi);
@@ -108,7 +104,7 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString("json_file_country", json_file);
+        savedInstanceState.putString(Costanti.KEY_JSON_FILE_COUNTRY, json_file);
     }
 
 
@@ -116,7 +112,7 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        json_file = savedInstanceState.getString("json_file_country",
+        json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_COUNTRY,
                                                         "File non esiste");
 
     }
@@ -130,9 +126,9 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
     public void onPause(){
         super.onPause();
         SharedPreferences sharedPref =
-                getSharedPreferences("Preferences_Paesi", Activity.MODE_PRIVATE);
+                getSharedPreferences(Costanti.PREFERENCES_FILE_PAESI, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("json_file_country", json_file);
+        editor.putString(Costanti.KEY_JSON_FILE_COUNTRY, json_file);
         editor.apply();
     }
 
@@ -142,17 +138,17 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
             /*indifferentemente dal paese selezionato scarica la l'unica lista degli
             argomenti, ma aggiungi il codice del paese al bundle nel'intento da passare*/
             try {
-                url = new URL(API_TOPIC_LIST);
+                url = new URL(Costanti.API_TOPIC_LIST);
             }
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
             catch (MalformedURLException e) {
-                Log.d(NOME_APP, e.getMessage());
+                Log.d(Costanti.NOME_APP, e.getMessage());
             }
 
             new DownloadFileTask().execute(url);
 
             StringBuilder sb = new StringBuilder();
-            sb.append(API_COUNTRY_LIST);
+            sb.append(Costanti.API_COUNTRY_LIST);
             sb.append(lista_paesi.get(position).getId() + "/");
             bundle = new Bundle();
             bundle.putString("idPaeseSelezionato", lista_paesi.get(position++).getId());
@@ -185,7 +181,7 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
                 }
 
             } catch (IOException e) {
-                Log.d(NOME_APP, e.getMessage());
+                Log.d(Costanti.NOME_APP, e.getMessage());
 
             } finally {
                 client.disconnect();
@@ -198,7 +194,7 @@ public class ListaPaesiActivity extends AppCompatActivity implements AdapterView
         protected void onPostExecute(String risultato) {
             int requestCode = 1;
             intent_succ = new Intent(getApplicationContext(), ListaArgomentiActivity.class);
-            bundle.putString("json_file_argomenti", risultato );
+            bundle.putString(Costanti.KEY_JSON_FILE_ARGOMENTI, risultato );
             intent_succ.putExtras(bundle);
             startActivityForResult(intent_succ,requestCode);
         }

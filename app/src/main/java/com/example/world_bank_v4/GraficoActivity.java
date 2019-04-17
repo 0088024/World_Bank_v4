@@ -35,8 +35,6 @@ import java.util.List;
 
 public class GraficoActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private final String NOME_APP = "WorldBank: ";
-
     private Intent intent_prec;
     private Bundle bundle;
     private String json_file;
@@ -69,8 +67,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         if(intent_prec != null) {
             bundle = intent_prec.getExtras();
             if(bundle!=null){
-                json_file = bundle.getString("json_file_indicatore_per_paese");
-                Log.d(NOME_APP, "uuuuuuuuuuuuuuuu");
+                json_file = bundle.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
             }
             /*se l'intento non contiene la stringa passata dall'attività genitore, significa che
             l'attività è stata ripresa (per esempio l'utente torna da quella successiva) e non
@@ -78,17 +75,17 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
             condivise precedentemente salvate*/
             else {
                 SharedPreferences sharedPreferences =
-                        getSharedPreferences("Preferences_Indicatore_Paese",
+                        getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
                                 Context.MODE_PRIVATE);
                 json_file =
-                        sharedPreferences.getString("json_file_indicatore_per_paese",
+                        sharedPreferences.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
                                 "File non esiste");
             }
         }
         /*se l'oggetto savedInstanceState non è null signifa che il sistema ha ricreato un'attività
         precedentemente distrutta e quindi ti fornisce l'oggetto Bundle salvato*/
         else{
-              json_file = savedInstanceState.getString("json_file_indicatore_per_paese");
+              json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
         }
 
         /*con la libreria GSON ottengo la corrispondente lista/array dei dati del grafico
@@ -97,9 +94,9 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         lista_grafico = myGSON.getListDatiGrafico(json_file);
 
         /*DEBUG*/
-        Log.d(NOME_APP + " DIM LISTA ",  String.valueOf(lista_grafico.size()));
+        Log.d(Costanti.NOME_APP + " DIM LISTA ",  String.valueOf(lista_grafico.size()));
         for(int i = 0; i<lista_grafico.size(); i++)
-            Log.d(NOME_APP, lista_grafico.get(i).toString() + "\n");
+            Log.d(Costanti.NOME_APP, lista_grafico.get(i).toString() + "\n");
 
         Grafico graf;
         List<Entry> entries = new ArrayList<Entry>();
@@ -119,7 +116,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         chart.invalidate(); // refresh
 
         /*DEBUG*/
-        Log.d(NOME_APP, "Disegnato Grafico");
+        Log.d(Costanti.NOME_APP, "Disegnato Grafico");
     }
 
 
@@ -130,7 +127,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString("json_file_indicatore_per_paese", json_file);
+        savedInstanceState.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, json_file);
 
     }
 
@@ -139,7 +136,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        json_file = savedInstanceState.getString("json_file_indicatore_per_paese",
+        json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
                 "File non esiste");
     }
 
@@ -152,9 +149,10 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
     public void onPause(){
         super.onPause();
         SharedPreferences sharedPref =
-                getSharedPreferences("Preferences_Indicatore_Paese", Activity.MODE_PRIVATE);
+                getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
+                                                            Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("json_file_indicatore_per_paese", json_file);
+        editor.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, json_file);
         editor.apply();
     }
 
@@ -184,7 +182,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
                 dbManager.addRow(elemento.getDate(), elemento.getvalue().toString());
 
                 /*DEBUG*/
-                Log.d(NOME_APP, "aggiunta riga nel database");
+                Log.d(Costanti.NOME_APP, "aggiunta riga nel database");
 
             }
 
@@ -195,7 +193,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
 
         protected void onPostExecute(String risultato){
-            Log.d(NOME_APP, risultato);
+            Log.d(Costanti.NOME_APP, risultato);
 
         }
     }
