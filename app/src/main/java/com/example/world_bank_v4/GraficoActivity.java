@@ -27,9 +27,12 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -60,8 +63,8 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         chart = findViewById(R.id.chart);
         button_salva_grafico = findViewById(R.id.button_salva_grafico);
         button_salva_grafico.setOnClickListener(this);
-        button_salva_dati = findViewById(R.id.button_salva_dati);
-        button_salva_dati.setOnClickListener(this);
+        /*button_salva_dati = findViewById(R.id.button_salva_dati);
+        button_salva_dati.setOnClickListener(this);*/
 
         /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
         il file json scaricato da WorldBank*/
@@ -160,16 +163,17 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
-
-
     @Override
     public void onClick(View v) {
 
-        if(button_salva_dati.isSelected())
-            new SalvaDatabaseTask().execute(lista_grafico);
-
-        if(button_salva_grafico.isSelected())
-            new SalvaGraficoTask().execute(chart);
+        switch(v.getId()) {
+            case R.id.button_salva_dati:
+                new SalvaDatabaseTask().execute(lista_grafico);
+                break;
+            case R.id.button_salva_grafico:
+                new SalvaGraficoTask().execute(chart);
+                break;
+        }
     }
 
 
@@ -212,8 +216,32 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         protected String doInBackground(Chart ... params) {
 
             Chart chart = params[0];
+            /* Returns the Bitmap object that represents the chart, this Bitmap always contains the
+            latest drawing state of the chart.*/
             Bitmap bitmap_chart = chart.getChartBitmap();
+            FileOutputStream outputStream;
+            try{
+                outputStream = openFileOutput("myGrafico",Context.MODE_PRIVATE);
+                /*la qualità 80% vale solo se il formato è JPEG*/
+                /**
+                 * Write a compressed version of the bitmap to the specified outputstream.
+                 * If this returns true, the bitmap can be reconstructed by passing a
+                 * corresponding inputstream to BitmapFactory.decodeStream(). Note: not
+                 * all Formats support all bitmap configs directly, so it is possible that
+                 * the returned bitmap from BitmapFactory could be in a different bitdepth,
+                 * and/or may have lost per-pixel alpha (e.g. JPEG only supports opaque
+                 * pixels).*/
+                bitmap_chart.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
+                outputStream.close();
 
+            } catch (FileNotFoundException e) {
+                Log.d(Costanti.NOME_APP, e.getMessage());
+                e.printStackTrace();
+            } catch (IOException e) {
+                Log.d(Costanti.NOME_APP, e.getMessage());
+
+                e.printStackTrace();
+            }
 
 
             return "Grafico salvato in png";
