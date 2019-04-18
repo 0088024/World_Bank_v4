@@ -1,0 +1,21 @@
+Cose da fare_
+
+1)  Implementare eridarietà per le classi ListActivity (oltre ad essere 1 ottimo esercizio x iniziare a palleggiare con Java,
+speriamo anche che, oltre a rendere piu' pulito e mantenibile il codice, ci permetta di usare poi il poliformismo)
+
+2) Migliorare file activity_main_xml
+
+3) Creare 1 nuovo file uguale a riga_layout.xml; chiamarlo riga_layout_argomenti.xml e migliorarlo. Sarà la vista dell'activity 
+ListaArgomenti
+
+4) Studiare libreria MPAndroidChart e migliorare l'esposizione del grafico (xes. invertire l'ascisse con le ordinate)
+
+5) Controllare tutte le situazioni che possono "uscire" dal normale flusso d'esecuzione (xes. se la pagina internet non
+risponde, etc etc
+
+6) Eliminare bug che nel caso la lista degli indicatori di quel paese è troppo grande per permettere di inviarlo
+tramite Bundle in 1 intent
+
+7) Il salvataggio delle shared preferences farlo con un altro thread?
+
+8) Come implementare la base di dati e la relativa schermata/funzionalità "Carica dati offline".
