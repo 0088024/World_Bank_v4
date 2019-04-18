@@ -11,7 +11,7 @@ ListaArgomenti
 4) Studiare libreria MPAndroidChart e migliorare l'esposizione del grafico (xes. invertire l'ascisse con le ordinate)
 
 5) Controllare tutte le situazioni che possono "uscire" dal normale flusso d'esecuzione (xes. se la pagina internet non
-risponde, etc etc
+risponde, il file grafico non è presente quando lo vado a caricare offline, etc etc)
 
 6) Eliminare bug che nel caso la lista degli indicatori di quel paese è troppo grande per permettere di inviarlo
 tramite Bundle in 1 intent
