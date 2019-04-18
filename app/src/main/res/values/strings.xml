@@ -12,6 +12,6 @@
     <string name="Menu_3">Show previously saved image</string>
     <string name="Menu_4">Upload data offline</string>
     <string name="salva_dati">SALVA DATI DATABASE</string>
-    <string name="button_salva_grafico">SALVA GRAFICO png</string>
-    <string name="salva_grafico">SALVA GRAFICO PNG</string>
+    <string name="button_salva_database">SALVA DATABASE</string>
+    <string name="button_salva_grafico">SALVA GRAFICO PNG</string>
 </resources>
