@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -162,7 +163,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
+    /*a seconda del bottone che è stato cliccato, lancia il relativo thread task in bakground*/
     @Override
     public void onClick(View v) {
 
@@ -221,16 +222,14 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
             Bitmap bitmap_chart = chart.getChartBitmap();
             FileOutputStream outputStream;
             try{
-                outputStream = openFileOutput("myGrafico",Context.MODE_PRIVATE);
-                /*la qualità 80% vale solo se il formato è JPEG*/
-                /**
-                 * Write a compressed version of the bitmap to the specified outputstream.
-                 * If this returns true, the bitmap can be reconstructed by passing a
-                 * corresponding inputstream to BitmapFactory.decodeStream(). Note: not
-                 * all Formats support all bitmap configs directly, so it is possible that
-                 * the returned bitmap from BitmapFactory could be in a different bitdepth,
-                 * and/or may have lost per-pixel alpha (e.g. JPEG only supports opaque
-                 * pixels).*/
+                outputStream = openFileOutput("myGrafico", Context.MODE_PRIVATE);
+                /*la qualità 80% vale solo se il formato è JPEG.
+                Write a compressed version of the bitmap to the specified outputstream.
+                If this returns true, the bitmap can be reconstructed by passing a
+                corresponding inputstream to BitmapFactory.decodeStream(). Note: not all Formats
+                support all bitmap configs directly, so it is possible that the returned bitmap
+                from BitmapFactory could be in a different bitdepth, and/or may have lost per-pixel
+                alpha (e.g. JPEG only supports opaque pixels).*/
                 bitmap_chart.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
                 outputStream.close();
 

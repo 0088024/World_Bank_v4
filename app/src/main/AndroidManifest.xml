@@ -11,7 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CaricaDati"
+        <activity
+            android:name=".MostraPngSalvatoPrecedentemente"
+            android:label="@string/title_activity_mostra_png_precedentemente_salvata"
+            android:parentActivityName=".CaricaDati">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".CaricaDati"
             android:label="@string/title_activity_carica_dati"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -45,10 +54,10 @@
         <activity
             android:name=".ListaPaesiActivity"
             android:label="@string/title_activity_lista_paese_activity"
-        android:parentActivityName=".MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
