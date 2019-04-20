@@ -6,9 +6,13 @@ public final class Costanti {
                                    istanziata tale classe*/
 
     public static final String NOME_APP = "WorldBank: ";
+
     public static final String API_TOPIC_LIST = "https://api.worldbank.org/v2/topic?format=json";
     public static final String API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/";
     public static final String API_TOPIC = "https://api.worldbank.org/v2/topic/";
+    public static final String API_COUNTRY_LIST_PER_PAGE_500 =
+            "https://api.worldbank.org/v2/country?format=json&per_page=500";
+
 
     public static final String KEY_JSON_FILE_COUNTRY = "json_file_country";
     public static final String KEY_JSON_FILE_ARGOMENTI = "json_file_argomenti";
@@ -24,14 +28,8 @@ public final class Costanti {
     public static final String PREFERENCES_FILE_INDICATORE_PER_PAESE =
                                             "Preferences_Indicatore_per_Paese";
 
-    public static final String API_COUNTRY_LIST_PER_PAGE_500 =
-                                     "https://api.worldbank.org/v2/country?format=json&per_page=500";
-
-
     public static final String ID_PAESE_SELEZIONATO = "idPaeseSelezionato";
-    ;
 
-
-
+    public static final String NOME_UNICO_FILE_PNG = "nome_unico_file.png";
 
 }
