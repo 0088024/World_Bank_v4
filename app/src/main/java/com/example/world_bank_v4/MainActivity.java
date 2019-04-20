@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
+        Intent intent;
         int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
@@ -70,9 +71,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.Menu_2:
 
             case R.id.Menu_3:
+                intent = new Intent(this, MostraPngSalvatoPrecedentemente.class);
+                startActivity(intent);
+                break;
 
             case R.id.Menu_4:
-                Intent intent = new Intent(this, CaricaDati.class);
+                intent = new Intent(this, CaricaDati.class);
                 startActivity(intent);
         }
         return false;

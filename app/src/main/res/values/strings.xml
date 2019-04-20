@@ -15,4 +15,5 @@
     <string name="salva_dati">SALVA DATI DATABASE</string>
     <string name="button_salva_database">SALVA DATABASE</string>
     <string name="button_salva_grafico">SALVA GRAFICO PNG</string>
+    <string name="button">button_generico</string>
 </resources>

@@ -220,9 +220,12 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
             /* Returns the Bitmap object that represents the chart, this Bitmap always contains the
             latest drawing state of the chart.*/
             Bitmap bitmap_chart = chart.getChartBitmap();
+            /*stream per scrivere il grafico bitmap sul disco*/
             FileOutputStream outputStream;
             try{
-                outputStream = openFileOutput("myGrafico", Context.MODE_PRIVATE);
+                /*apre 1 stream in scrittura verso 1 file nello storage interno, privato per l'app.
+                se il file non esiste lo crea*/
+                outputStream = openFileOutput(Costanti.NOME_UNICO_FILE_PNG, Context.MODE_PRIVATE);
                 /*la qualità 80% vale solo se il formato è JPEG.
                 Write a compressed version of the bitmap to the specified outputstream.
                 If this returns true, the bitmap can be reconstructed by passing a
@@ -230,7 +233,11 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
                 support all bitmap configs directly, so it is possible that the returned bitmap
                 from BitmapFactory could be in a different bitdepth, and/or may have lost per-pixel
                 alpha (e.g. JPEG only supports opaque pixels).*/
-                bitmap_chart.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
+                if(bitmap_chart.compress(Bitmap.CompressFormat.PNG, 80 , outputStream)){
+                    Log.d(Costanti.NOME_APP, "chart_bitmap compresso in PNG su file");
+                }
+                else  Log.d(Costanti.NOME_APP, "Errore compressione bitmap in PNG su file");
+
                 outputStream.close();
 
             } catch (FileNotFoundException e) {
@@ -238,10 +245,8 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
                 e.printStackTrace();
             } catch (IOException e) {
                 Log.d(Costanti.NOME_APP, e.getMessage());
-
                 e.printStackTrace();
             }
-
 
             return "Grafico salvato in png";
 

@@ -14,7 +14,7 @@
         <activity
             android:name=".MostraPngSalvatoPrecedentemente"
             android:label="@string/title_activity_mostra_png_precedentemente_salvata"
-            android:parentActivityName=".CaricaDati">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
