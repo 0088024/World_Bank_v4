@@ -69,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.Menu_2:
+                try {
+                    url = new URL(Costanti.API_TOPIC_LIST);
+                }
+                /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
+                catch (MalformedURLException e) {
+                    Log.d(Costanti.NOME_APP, e.getMessage());
+                }
+                new DownloadFileTask().execute(url);
+                break;
 
             case R.id.Menu_3:
                 intent = new Intent(this, MostraPngSalvatoPrecedentemente.class);
