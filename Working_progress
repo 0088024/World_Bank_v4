@@ -13,7 +13,8 @@ speriamo anche che, oltre a rendere piu' pulito e mantenibile il codice, ci perm
 5) Controllare tutte le situazioni che possono "uscire" dal normale flusso d'esecuzione (xes. se la pagina internet non
     risponde, il file grafico non è presente quando lo vado a caricare offline, etc etc)
 
-6) Eliminare bug che nel caso la lista degli indicatori di quel paese è troppo grande per permettere di inviarlo
+6) -------------------FATTO---------------
+  Eliminare bug che nel caso la lista degli indicatori di quel paese è troppo grande per permettere di inviarlo
         tramite Bundle in 1 intent
 
 7) Il salvataggio delle shared preferences farlo con un altro thread?
@@ -23,4 +24,5 @@ speriamo anche che, oltre a rendere piu' pulito e mantenibile il codice, ci perm
 9) Migliorare attività che mostra l'immagine: solo immagine o grafico reattivo? utilizzare le
     nuove o lasciare queste vecchie API?
 
-10) Implementare 2° percorso per arrivare al grafico
+10) -------------------FATTO---------------
+   Implementare 2° percorso per arrivare al grafico
