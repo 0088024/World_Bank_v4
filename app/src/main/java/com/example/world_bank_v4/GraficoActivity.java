@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -35,6 +36,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,10 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
     private Intent intent_prec;
     private Bundle bundle;
+    private URL url;
     private String json_file;
+    private String idPaeseSelezionato;
+    private String idIndicatoreSelezionato;
     private DbManager dbManager;
     private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
@@ -55,10 +60,12 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grafico);
+        /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
+        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
+        tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.graph);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         /*in this example, a LineChart is initialized from xml*/
         chart = findViewById(R.id.chart);
@@ -67,35 +74,75 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
 
-        /*ottengo l'intent ricevuto dall'attività genitore e ne estrapolo la stringa contenente
-        il file json scaricato da WorldBank*/
-        intent_prec = getIntent();
-        if(intent_prec != null) {
-            bundle = intent_prec.getExtras();
-            if(bundle!=null){
-                json_file = bundle.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
-            }
-            /*se l'intento non contiene la stringa passata dall'attività genitore, significa che
-            l'attività è stata ripresa (per esempio l'utente torna da quella successiva) e non
-            lanciata da quella precedente, quindi carico in memoria il file dalle preferenze
-            condivise precedentemente salvate*/
-            else {
-                SharedPreferences sharedPreferences =
-                        getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
-                                Context.MODE_PRIVATE);
-                json_file =
-                        sharedPreferences.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
-                                "File non esiste");
-            }
-        }
-        /*se l'oggetto savedInstanceState non è null signifa che il sistema ha ricreato un'attività
-        precedentemente distrutta e quindi ti fornisce l'oggetto Bundle salvato*/
-        else{
-              json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
-        }
+        for (; ; ) {
+            /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
+            è stata ripresa (per esempio l'utente torna da quella successiva) e reistanziata causa
+            vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
+            precedenza in onSaveInstancestate()*/
+            if (savedInstanceState != null) {
+                json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE
+                                                ,"File non esiste");
+                idPaeseSelezionato = savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO);
+                idIndicatoreSelezionato =
+                            savedInstanceState.getString(Costanti.ID_INDICATORE_SELEZIONATO);
 
-        /*con la libreria GSON ottengo la corrispondente lista/array dei dati del grafico
-         del file json*/
+                caricaLayoutLista();
+                break;
+            }
+            /*altrimenti se è == null, o è stata lanciata da 1 altra attività, oppure come sopra ma
+            il s.o. non gli ha passato l'oggetto Bundle*/
+            /*Per vedere quale caso è ottengo l'intent ricevuto dall'attività genitore e ne
+            estrapolo l'oggetto bundle contenente i dati passati*/
+            else {
+                intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
+                bundle = intent_prec.getExtras();
+                /*se null significa che l'attività è stata ripresa (per esempio l'utente torna da
+                quella successiva) e non lanciata da quella precedente, quindi carico in memoria i
+                dati dalle preferenze condivise precedentemente salvate*/
+                if (bundle == null) {
+                    SharedPreferences sharedPreferences =
+                            getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
+                                    Context.MODE_PRIVATE);
+                    json_file =
+                            sharedPreferences.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
+                                    "File non esiste");
+                    idIndicatoreSelezionato =
+                            sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
+                                    "File non esiste");
+
+                    if (sharedPreferences.contains(Costanti.ID_PAESE_SELEZIONATO)) {
+                        idPaeseSelezionato =
+                                sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
+                                        "File non esiste");
+                    }
+                    caricaLayoutLista();
+                    break;
+
+                }
+                /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
+                bundle ricevuto e scarico il file json*/
+                else {
+                    idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
+                    idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+                    /*scarica la lista dei valori dell'indicatore per paese json e trasformali in
+                    List<T> con GSON*/
+                    new DownloadFileTask().execute();
+                    break;
+                }
+
+            }
+        }/*chiude for*/
+
+    }
+
+
+
+    /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima al chart*/
+    private void caricaLayoutLista(){
+        /*DEBUG*/
+        Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
+
+        /*con la libreria GSON ottengo la corrispondente lista/array di argomenti del file json*/
         MyGSON myGSON = new MyGSON();
         lista_grafico = myGSON.getListDatiGrafico(json_file);
 
@@ -121,8 +168,15 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         chart.setData(lineData);
         chart.invalidate(); // refresh
 
-        /*DEBUG*/
-        Log.d(Costanti.NOME_APP, "Disegnato Grafico");
+    }
+
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return false;
     }
 
 
@@ -134,23 +188,16 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, json_file);
-
+        savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
+        savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
     }
 
 
-    /*viene chiamato dal sistema quando l'attività è ripresa: dopo onStop()*/
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
-                "File non esiste");
-    }
 
-
-    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua l'oggetto Bundle non viene
-    salvato. O meglio, non mi viene passato in Oncreate(). Eppure la guida dice che se l'attività
-    viene distrutta per vincoli di sistema dovrebbe ripristinarle e non crerae una nuova istanza.
-    perchè?????????????????????????????????' */
+    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
+    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
+    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
+    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
     @Override
     public void onPause(){
         super.onPause();
@@ -159,6 +206,9 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
                                                             Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, json_file);
+        editor.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
+        editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
+
         editor.apply();
     }
 
@@ -177,7 +227,68 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    /*thread che in background scarica in una stringa il file json dell'indicatore per paese, cioè
+    il grafico*/
+    private class DownloadFileTask extends AsyncTask<Void, Void, String> {
 
+        private InputStream risposta;
+        private StringBuilder sb;
+        private HttpURLConnection client;
+
+        @Override
+        protected String doInBackground(Void... urls) {
+
+            try {
+                /*costruisci la stringa api per ottenere una lista di valori relativi
+                all'indicatore per paese selezionato*/
+                StringBuilder api_indicatore_per_paese = new StringBuilder();
+                /*API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/"*/
+                api_indicatore_per_paese.append(Costanti.API_COUNTRY_LIST);
+                api_indicatore_per_paese.append(idPaeseSelezionato);
+                api_indicatore_per_paese.append("/indicator/");
+                api_indicatore_per_paese.append(idIndicatoreSelezionato);
+                api_indicatore_per_paese.append("?format=json&&per_page=10000");
+
+                /*DEBUG*/
+                Log.d(Costanti.NOME_APP + "API", api_indicatore_per_paese.toString());
+
+                url = new URL(api_indicatore_per_paese.toString());
+
+                /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
+                client = (HttpURLConnection) url.openConnection();
+
+                /*Recupero le informazioni inviate dal server*/
+                risposta = new BufferedInputStream(client.getInputStream());
+
+                /*leggo i caratteri e li appendo in sb*/
+                sb = new StringBuilder();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(risposta));
+                String nextLine = "";
+                while ((nextLine = reader.readLine()) != null) {
+                    sb.append(nextLine);
+
+                }
+            }
+            /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
+            catch (MalformedURLException e) {
+                Log.d(Costanti.NOME_APP, e.getMessage());
+            } catch (IOException e) {
+                Log.d(Costanti.NOME_APP, e.getMessage());
+
+            } finally {
+                client.disconnect();
+            }
+
+            /*convert StringBuilder to String using toString() method*/
+            return sb.toString();
+        }
+
+
+        protected void onPostExecute(String risultato) {
+            json_file = risultato;
+            caricaLayoutLista();
+        }
+    }
 
     /*thread che in background salva i dati nel database locale*/
     private class SalvaDatabaseTask extends AsyncTask< ArrayList<Grafico>, Void, String > {
@@ -196,8 +307,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
                 Log.d(Costanti.NOME_APP, "aggiunta riga nel database");
             }
 
-            String risultato = "Dati salvati nel database";
-            return risultato;
+            return "Dati salvati nel database";
         }
 
 
@@ -207,6 +317,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
         }
     }
+
 
 
 
