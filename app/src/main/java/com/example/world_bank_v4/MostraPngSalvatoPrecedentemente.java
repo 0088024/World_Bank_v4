@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
 import java.io.BufferedInputStream;
@@ -28,9 +29,23 @@ public class MostraPngSalvatoPrecedentemente extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostra_png_salvato_precedentemente);
+         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
+        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
+        tornare al livello principale o alla prima pagina.*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.indicator);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         imageView = findViewById(R.id.imageView);
         new CaricaFileTask(imageView).execute(Costanti.NOME_UNICO_FILE_PNG);
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        finish();
+        return false;
+    }
+
 
 
     /*thread che in background carica 1 file png*/

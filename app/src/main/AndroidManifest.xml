@@ -13,51 +13,28 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MostraPngSalvatoPrecedentemente"
-            android:label="@string/title_activity_mostra_png_precedentemente_salvata"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+            android:label="@string/title_activity_mostra_png_precedentemente_salvata">
         </activity>
         <activity
             android:name=".CaricaDati"
-            android:label="@string/title_activity_carica_dati"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+            android:label="@string/title_activity_carica_dati">
         </activity>
         <activity
             android:name=".GraficoActivity"
-            android:label="@string/title_activity_grafico"
-            android:parentActivityName=".ListaIndicatoriActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListaIndicatoriActivity" />
+            android:label="@string/title_activity_grafico" >
+
         </activity>
         <activity
             android:name=".ListaIndicatoriActivity"
-            android:label="@string/title_activity_lista_indicatori"
-            android:parentActivityName=".ListaArgomentiActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListaArgomentiActivity" />
+            android:label="@string/title_activity_lista_indicatori">
         </activity>
         <activity
             android:name=".ListaArgomentiActivity"
-            android:label="@string/title_activity_lista_argomenti"
-            android:parentActivityName=".ListaPaesiActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ListaPaesiActivity" />
+            android:label="@string/title_activity_lista_argomenti">
         </activity>
         <activity
             android:name=".ListaPaesiActivity"
-            android:label="@string/title_activity_lista_paese_activity"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+            android:label="@string/title_activity_lista_paese_activity" >
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>

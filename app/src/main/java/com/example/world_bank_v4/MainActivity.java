@@ -55,28 +55,25 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
 
         Intent intent;
+        Bundle bundle;
         int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
-                try {
-                    url = new URL(Costanti.API_COUNTRY_LIST_PER_PAGE_500);
-                }
-                /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
-                catch (MalformedURLException e) {
-                    Log.d(Costanti.NOME_APP, e.getMessage());
-                }
-                new DownloadFileTask().execute(url);
+                intent = new Intent(this, ListaPaesiActivity.class);
+                bundle = new Bundle();
+                bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
+                                                    ListaPaesiActivity.class.getName());
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
 
             case R.id.Menu_2:
-                try {
-                    url = new URL(Costanti.API_TOPIC_LIST);
-                }
-                /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
-                catch (MalformedURLException e) {
-                    Log.d(Costanti.NOME_APP, e.getMessage());
-                }
-                new DownloadFileTask().execute(url);
+                intent = new Intent(this, ListaArgomentiActivity.class);
+                bundle = new Bundle();
+                bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
+                                        ListaArgomentiActivity.class.getName());
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
 
             case R.id.Menu_3:
@@ -92,49 +89,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /*thread che in background scarica in una stringa il file json dei paesi*/
-    private class DownloadFileTask extends AsyncTask<URL, Void, String> {
-
-        private InputStream risposta;
-        private StringBuilder sb;
-        private HttpURLConnection client;
-
-        @Override
-        protected String doInBackground(URL... urls) {
-
-            try {
-                /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
-                client = (HttpURLConnection) urls[0].openConnection();
-
-                /*Recupero le informazioni inviate dal server*/
-                risposta = new BufferedInputStream(client.getInputStream());
-
-                /*leggo i caratteri e li appendo in sb*/
-                sb = new StringBuilder();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(risposta));
-                String nextLine = "";
-                while ((nextLine = reader.readLine()) != null) {
-                    sb.append(nextLine);
-                }
-
-            }  catch (IOException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
-
-            } finally {
-                client.disconnect();
-            }
-
-            /*convert StringBuilder to String using toString() method*/
-            return sb.toString();
-        }
-
-        protected void onPostExecute(String risultato){
-            int requestCode = 1;
-            intent = new Intent(getApplicationContext(), ListaPaesiActivity.class);
-            intent.putExtra(Costanti.KEY_JSON_FILE_COUNTRY, risultato);
-            startActivityForResult(intent, requestCode);
-        }
-    }
 
 
     @Override
