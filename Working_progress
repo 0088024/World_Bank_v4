@@ -11,7 +11,7 @@ speriamo anche che, oltre a rendere piu' pulito e mantenibile il codice, ci perm
 4) Studiare libreria MPAndroidChart e migliorare l'esposizione del grafico (xes. invertire l'ascisse con le ordinate)
 
 5) Controllare tutte le situazioni che possono "uscire" dal normale flusso d'esecuzione (xes. se la pagina internet non
-    risponde, il file grafico non è presente quando lo vado a caricare offline, etc etc)
+    risponde, il file grafico non è presente quando lo vado a caricare offline, etc etc), xes. con una finestra POP-UP??????
 
 6) -------------------FATTO---------------
   Eliminare bug che nel caso la lista degli indicatori di quel paese è troppo grande per permettere di inviarlo
