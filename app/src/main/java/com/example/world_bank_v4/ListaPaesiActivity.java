@@ -18,16 +18,22 @@ public class ListaPaesiActivity extends ListaGenericaActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*"specializza activity*/
         setContentView(R.layout.activity_lista_paese_activity);
         getSupportActionBar().setLogo(R.drawable.country);
-
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
-        TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {
-        };
+        TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
+        super.setIdListView(R.id.list_view_paesi);
+        super.setLista_oggetti(lista_paesi);
+        super.setTypeToken(listTypeToken);
+        super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_COUNTRY);
+        super.setNOME_FILE_PREFERNCES(Costanti.PREFERENCES_FILE_PAESI);
+        super.setAPI_WORLD_BANK(Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500);
 
-        super.specializzaActivity(R.id.list_view_paesi, lista_paesi, listTypeToken,
-                Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500, Costanti.KEY_JSON_FILE_COUNTRY,
-                Costanti.PREFERENCES_FILE_PAESI);
+        /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
+        a quest'ultima*/
+        super.caricaLista();
 
     }
 

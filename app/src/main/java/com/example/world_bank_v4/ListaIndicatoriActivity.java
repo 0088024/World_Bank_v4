@@ -19,16 +19,25 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*specializzaActivity*/
         setContentView(R.layout.activity_lista_indicatori);
         getSupportActionBar().setLogo(R.drawable.indicator);
-
         ArrayList<Indicatore> lista_indicatori = new ArrayList<Indicatore>();
         TypeToken<ArrayList<Indicatore>> listTypeToken = new TypeToken<ArrayList<Indicatore>>() {};
 
-        super.specializzaActivity(R.id.list_view, lista_indicatori, listTypeToken,
-                null,
-                Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO,
-                Costanti.PREFERENCES_FILE_INDICATORI_PER_ARGOMENTO);
+        super.setIdListView(R.id.list_view);
+        super.setLista_oggetti(lista_indicatori);
+        super.setTypeToken(listTypeToken);
+        super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO);
+        super.setNOME_FILE_PREFERNCES(Costanti.PREFERENCES_FILE_INDICATORI_PER_ARGOMENTO);
+        /*per costruire l'api devo aspettare che la classe ListaargomentiActivity mi passi
+        l'intento con l'argomento selezionato dall'utente*/
+        super.setAPI_WORLD_BANK(null);
+
+        /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
+        a quest'ultima*/
+        super.caricaLista();
     }
 
 
@@ -47,6 +56,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity
 
     @Override
     public void instanziaAdapter(){
+        Log.d(Costanti.NOME_APP,"ciaoooooooooooooooooooooooooooo");
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
         super.setAdapter(new IndicatoriAdapter(this, R.layout.riga_layout,
                 super.getListaOggetti()));

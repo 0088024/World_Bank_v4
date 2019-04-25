@@ -64,17 +64,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-    protected void specializzaActivity(int idListView, ArrayList list, TypeToken typeToken,
-                                       final String API_WORLD_BANK,
-                                       final String KEY_JSON_FILE,
-                                       final String NOME_FILE_PREFERENCES){
-        this.idListView = idListView;
-        this.lista_oggetti = list;
-        this.typeToken = typeToken;
-        this.API_WORLD_BANK = API_WORLD_BANK;
-        this.KEY_JSON_FILE = KEY_JSON_FILE;
-        this.NOME_FILE_PREFERNCES = NOME_FILE_PREFERENCES;
 
+    public void caricaLista(){
         for(;;) {
             /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
             è stata ripresa (per esempio l'utente torna da quella successiva) e reistanziata causa
@@ -82,15 +73,15 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             precedenza in onSaveInstancestate()*/
             if (savedInstanceState != null) {
                 json_file = savedInstanceState.getString(KEY_JSON_FILE,
-                                                    "File non esiste");
+                        "File non esiste");
                 nomeClasseSelezionata =
                         savedInstanceState.getString(Costanti.NOME_CLASSE_SELEZIONATA,
-                                                    "File non esiste");
+                                "File non esiste");
                 /*può tornare null se l'attività è stata lanciata dalla MainActivity piuttosto che
                 dalla ListaIndicatoriActivity, ma non ci interessa in questo punto del "percorso"*/
                 idIndicatoreSelezionato =
                         savedInstanceState.getString(Costanti.ID_INDICATORE_SELEZIONATO,
-                        "File non esiste");
+                                "File non esiste");
                 idArgomentoSelezionato =
                         savedInstanceState.getString(Costanti.ID_ARGOMENTO_SELEZIONATO,
                                 "File non esiste");
@@ -168,7 +159,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         }/*chiude for*/
 
     }
-
 
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima alla
     listView tramite l'adattatore che instanzia*/
@@ -295,6 +285,29 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         }
     }
 
+    public void setIdListView(int idListView){
+        this.idListView = idListView;
+    }
+
+    public void setLista_oggetti(ArrayList lista_oggetti) {
+        this.lista_oggetti = lista_oggetti;
+    }
+
+    public void setTypeToken(TypeToken typeToken) {
+        this.typeToken = typeToken;
+    }
+
+    public void setAPI_WORLD_BANK(String API_WORLD_BANK) {
+        this.API_WORLD_BANK = API_WORLD_BANK;
+    }
+
+    public void setKEY_JSON_FILE(String KEY_JSON_FILE) {
+        this.KEY_JSON_FILE = KEY_JSON_FILE;
+    }
+
+    public void setNOME_FILE_PREFERNCES(String NOME_FILE_PREFERENCES) {
+        this.NOME_FILE_PREFERNCES = NOME_FILE_PREFERENCES;
+    }
 
     public String costruisciApi(){
         return null;

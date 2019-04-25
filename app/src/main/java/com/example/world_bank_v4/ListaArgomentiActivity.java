@@ -19,15 +19,22 @@ public class ListaArgomentiActivity extends ListaGenericaActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*"specializza activity*/
         setContentView(R.layout.activity_lista_argomenti);
         getSupportActionBar().setLogo(R.drawable.topic);
-
         ArrayList<Argomento> lista_argomenti = new ArrayList<Argomento>();
         TypeToken<ArrayList<Argomento>> listTypeToken = new TypeToken<ArrayList<Argomento>>() {};
+        super.setIdListView( R.id.list_view);
+        super.setLista_oggetti(lista_argomenti);
+        super.setTypeToken(listTypeToken);
+        super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_ARGOMENTI);
+        super.setNOME_FILE_PREFERNCES(Costanti.PREFERENCES_FILE_ARGOMENTI);
+        super.setAPI_WORLD_BANK(Costanti.API_TOPIC_LIST_FORMAT_JSON);
 
-        super.specializzaActivity(R.id.list_view, lista_argomenti, listTypeToken,
-                Costanti.API_TOPIC_LIST_FORMAT_JSON,
-                Costanti.KEY_JSON_FILE_ARGOMENTI, Costanti.PREFERENCES_FILE_ARGOMENTI);
+        /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
+        a quest'ultima*/
+        super.caricaLista();
     }
 
 
