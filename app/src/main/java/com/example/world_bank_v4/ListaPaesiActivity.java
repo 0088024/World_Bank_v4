@@ -47,11 +47,8 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
     @Override
     public String costruisciApi(){
-        /*costruisci la stringa api per ottenere una lista di Paesi*/
-        StringBuilder api_indicatori_per_argomento = new StringBuilder();
-        /*API_COUNTRY_LIST = "https://api.worldbank.org/v2/country?format=json&per_page=500/"*/
-        api_indicatori_per_argomento.append(Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500);
-        return api_indicatori_per_argomento.toString();
+        /*API: https://api.worldbank.org/v2/country?format=json&per_page=500*/
+        return Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500;
     }
 
 

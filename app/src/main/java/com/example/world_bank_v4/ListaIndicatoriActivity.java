@@ -57,6 +57,8 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         /*API_TOPIC_LIST = "https://api.worldbank.org/v2/topic/"*/
         api_indicatori_per_argomento.append(Costanti.API_TOPIC_LIST);
         api_indicatori_per_argomento.append(super.getIdArgomentoSelezionato());
+        /*API_INDICATORE_PER_ARGOMENTO
+        https://api.worldbank.org/v2/topic/idArgomento/indicator?format=json&per_page=10000*/
         api_indicatori_per_argomento.append("/indicator?format=json&per_page=10000");
         return api_indicatori_per_argomento.toString();
     }

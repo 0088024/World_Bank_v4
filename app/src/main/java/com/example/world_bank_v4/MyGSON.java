@@ -29,7 +29,7 @@ public class MyGSON {
         JsonArray array_json = je2.getAsJsonArray();   /*qui ho l'array json degl'argomenti*/
         Log.d(Costanti.NOME_APP + " DIM[]", String.valueOf(array_json.size()));
 
-        /*con Gson mappo 1 a 1 gli oggetti del file json in oggetti Paese, i quali sono
+        /*con Gson mappo 1 a 1 gli oggetti del file json in oggetti<T>, i quali sono
         memorizzati in una Lista*/
         Gson gson = new Gson();
         ArrayList list = gson.fromJson(je2, typeToken.getType());

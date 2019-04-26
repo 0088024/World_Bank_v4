@@ -59,11 +59,8 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
 
     @Override
     public String costruisciApi(){
-        /*costruisci la stringa api per ottenere una lista di Argomenti*/
-        StringBuilder api_indicatori_per_argomento = new StringBuilder();
-        /*API_TOPIC_LIST = "https://api.worldbank.org/v2/TOPIC?format=json/*/
-        api_indicatori_per_argomento.append(Costanti.API_TOPIC_LIST_FORMAT_JSON);
-        return api_indicatori_per_argomento.toString();
+        /*API:  "https://api.worldbank.org/v2/topic?format=json/"*/
+        return (Costanti.API_TOPIC_LIST_FORMAT_JSON);
     }
 
 
