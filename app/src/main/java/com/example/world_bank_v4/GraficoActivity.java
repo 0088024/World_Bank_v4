@@ -144,7 +144,7 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
 
         /*con la libreria GSON ottengo la corrispondente lista/array di argomenti del file json*/
         MyGSON myGSON = new MyGSON();
-        lista_grafico = myGSON.getListDatiGrafico(json_file);
+        lista_grafico = myGSON.getList(json_file, new TypeToken<ArrayList<Grafico>>() {});
 
         /*DEBUG*/
         Log.d(Costanti.NOME_APP + " DIM LISTA ",  String.valueOf(lista_grafico.size()));
