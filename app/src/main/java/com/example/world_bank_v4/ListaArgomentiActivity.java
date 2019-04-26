@@ -52,8 +52,8 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
     @Override
     public void instanziaAdapter(){
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
-        super.setAdapter(new ArgomentiAdapter(this, R.layout.riga_layout,
-                super.getListaOggetti()));
+        super.setAdapter(new MyAdapter(this, R.layout.riga_layout,
+                super.getListaOggetti()));;
     }
 
 
@@ -93,15 +93,17 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Bundle bundle = new Bundle();
-        bundle.putString(Costanti.ID_PAESE_SELEZIONATO, super.getIdPaeseSelezionato());
-        bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA, super.getNomeClasseSelezionata());
+        super.onItemClick(parent, view, position, id);
+
+        Bundle bundle_succ = super.getBundleSucc();
+        bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, super.getIdPaeseSelezionato());
         ArrayList<Argomento> lista_argomenti = super.getListaOggetti();
-        bundle.putString(Costanti.ID_ARGOMENTO_SELEZIONATO,
+        bundle_succ.putString(Costanti.ID_ARGOMENTO_SELEZIONATO,
                                         lista_argomenti.get(position++).getId());
+
         /*questa attività lancia sempre l'attività ListIndicatoriActivity*/
         Intent intent_succ = new Intent(getApplicationContext(), ListaIndicatoriActivity.class);
-        intent_succ.putExtras(bundle);
+        intent_succ.putExtras(bundle_succ);
         startActivity(intent_succ);
     }
 

@@ -4,7 +4,6 @@ package com.example.world_bank_v4;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import com.google.gson.reflect.TypeToken;
@@ -40,8 +39,8 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     @Override
     public void instanziaAdapter(){
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
-        super.setAdapter(new PaesiAdapter(this, R.layout.riga_layout,
-                super.getListaOggetti()));
+        super.setAdapter(new MyAdapter(this, R.layout.riga_layout,
+                                                super.getListaOggetti()));
     }
 
 
@@ -82,11 +81,11 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Bundle bundle = new Bundle();
+        super.onItemClick(parent, view, position, id);
         ArrayList<Paese> lista_paesi = super.getListaOggetti();
-        bundle.putString(Costanti.ID_PAESE_SELEZIONATO, lista_paesi.get(position++).getId());
-        bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA, super.getNomeClasseSelezionata());
-        bundle.putString(Costanti.ID_INDICATORE_SELEZIONATO, super.getIdIndicatoreSelezionato());
+        Bundle bundle_succ = super.getBundleSucc();
+        bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, lista_paesi.get(position++).getId());
+        bundle_succ.putString(Costanti.ID_INDICATORE_SELEZIONATO, super.getIdIndicatoreSelezionato());
 
         Class<?> classe = ListaPaesiActivity.class;
         Intent intent_succ;
@@ -95,7 +94,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         else
             intent_succ = new Intent(getApplicationContext(), GraficoActivity.class);
 
-        intent_succ.putExtras(bundle);
+        intent_succ.putExtras(bundle_succ);
         startActivity(intent_succ);
     }
 

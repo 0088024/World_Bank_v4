@@ -65,10 +65,9 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
     @Override
     public void instanziaAdapter(){
-        Log.d(Costanti.NOME_APP,"ciaoooooooooooooooooooooooooooo");
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
-        super.setAdapter(new IndicatoriAdapter(this, R.layout.riga_layout,
-                super.getListaOggetti()));
+        super.setAdapter(new MyAdapter(this, R.layout.riga_layout,
+                                        super.getListaOggetti()));
     }
 
 
@@ -99,13 +98,14 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Bundle bundle = new Bundle();
-        bundle.putString(Costanti.ID_PAESE_SELEZIONATO, super.getIdPaeseSelezionato());
-        bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA, super.getNomeClasseSelezionata());
+        super.onItemClick(parent, view, position, id);
+        Bundle bundle_succ = super.getBundleSucc();
 
-        bundle.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, super.getIdArgomentoSelezionato());
+        bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, super.getIdPaeseSelezionato());
+
+        bundle_succ.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, super.getIdArgomentoSelezionato());
         ArrayList<Indicatore> lista_indicatori = super.getListaOggetti();
-        bundle.putString(Costanti.ID_INDICATORE_SELEZIONATO,
+        bundle_succ.putString(Costanti.ID_INDICATORE_SELEZIONATO,
                                                     lista_indicatori.get(position++).getId());
 
         Class<?> classe = ListaPaesiActivity.class;
@@ -115,7 +115,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         else
             intent_succ = new Intent(getApplicationContext(), ListaPaesiActivity.class);
 
-        intent_succ.putExtras(bundle);
+        intent_succ.putExtras(bundle_succ);
         startActivity(intent_succ);
     }
 
