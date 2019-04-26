@@ -36,7 +36,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private ArrayList lista_oggetti;
     private ArrayAdapter adapter;
     private Intent intent_prec;
-    private Bundle bundle;
+    private Bundle bundle_prec;
+    private Bundle bundle_succ;
     private String json_file;
     private String nomeClasseSelezionata;
     private String idIndicatoreSelezionato;
@@ -95,11 +96,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*Per vedere quale caso è ottengo l'intent ricevuto dall'attività genitore e ne
             estrapolo l'oggetto bundle contenente i dati passati*/
             intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
-            bundle = intent_prec.getExtras();
+            bundle_prec = intent_prec.getExtras();
             /*se null significa che l'attività è stata ripresa (per esempio l'utente torna da
             quella successiva) e non lanciata da quella precedente, quindi carico in memoria i
             dati dalle preferenze condivise precedentemente salvate*/
-            if (bundle == null) {
+            if (bundle_prec == null) {
                 SharedPreferences sharedPreferences =
                         getSharedPreferences(Costanti.PREFERENCES_FILE_PAESI, Context.MODE_PRIVATE);
                 json_file = sharedPreferences.getString(KEY_JSON_FILE, "File non esiste");
@@ -130,13 +131,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             }
             /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
             bundle ricevuto nell'intent e scarico i vari dati che serviranno*/
-            nomeClasseSelezionata = bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
+            nomeClasseSelezionata = bundle_prec.getString(Costanti.NOME_CLASSE_SELEZIONATA);
             /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
             piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
             punto del "percorso"*/
-            idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
-            idArgomentoSelezionato = bundle.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
-            idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
+            idIndicatoreSelezionato = bundle_prec.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+            idArgomentoSelezionato = bundle_prec.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
+            idPaeseSelezionato = bundle_prec.getString(Costanti.ID_PAESE_SELEZIONATO);
 
             /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
             new DownloadFileTask().execute();
@@ -217,6 +218,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        bundle_succ = new Bundle();
+        bundle_succ.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
     }
 
 
@@ -301,6 +304,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         this.NOME_FILE_PREFERNCES = NOME_FILE_PREFERENCES;
     }
 
+    public void setAdapter(ArrayAdapter adapter) { this.adapter = adapter; }
+
+
     public String costruisciApi(){
         return "Fare override. Questo è il metodo della superclasse";
     }
@@ -333,7 +339,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     public ListView getListView() { return listView; }
 
-    public void setAdapter(ArrayAdapter adapter) { this.adapter = adapter; }
+    public Bundle getBundleSucc() { return bundle_succ; }
 
 }
 
