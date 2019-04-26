@@ -2,17 +2,25 @@ package com.example.world_bank_v4;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
-public class ListaIndicatoriActivity extends ListaGenericaActivity
-        implements AdapterView.OnItemClickListener{
-
+public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
 
 
@@ -50,9 +58,10 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity
         api_indicatori_per_argomento.append(Costanti.API_TOPIC_LIST);
         api_indicatori_per_argomento.append(super.getIdArgomentoSelezionato());
         api_indicatori_per_argomento.append("/indicator?format=json&per_page=10000");
-        Log.d(Costanti.NOME_APP, api_indicatori_per_argomento.toString());
         return api_indicatori_per_argomento.toString();
     }
+
+
 
     @Override
     public void instanziaAdapter(){
@@ -62,12 +71,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity
                 super.getListaOggetti()));
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-        return false;
-    }
 
 
 
@@ -89,6 +92,8 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity
     public void onPause(){
         super.onPause();
     }
+
+
 
 
     @Override
@@ -113,6 +118,5 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity
         intent_succ.putExtras(bundle);
         startActivity(intent_succ);
     }
-
 
 }

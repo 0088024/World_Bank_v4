@@ -2,18 +2,26 @@ package com.example.world_bank_v4;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
-public class ListaArgomentiActivity extends ListaGenericaActivity
-        implements AdapterView.OnItemClickListener{
-
+public class ListaArgomentiActivity extends ListaGenericaActivity {
 
 
     @Override
@@ -23,8 +31,10 @@ public class ListaArgomentiActivity extends ListaGenericaActivity
         /*"specializza activity*/
         setContentView(R.layout.activity_lista_argomenti);
         getSupportActionBar().setLogo(R.drawable.topic);
+
         ArrayList<Argomento> lista_argomenti = new ArrayList<Argomento>();
         TypeToken<ArrayList<Argomento>> listTypeToken = new TypeToken<ArrayList<Argomento>>() {};
+
         super.setIdListView( R.id.list_view);
         super.setLista_oggetti(lista_argomenti);
         super.setTypeToken(listTypeToken);
@@ -46,11 +56,16 @@ public class ListaArgomentiActivity extends ListaGenericaActivity
                 super.getListaOggetti()));
     }
 
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-        return false;
+    public String costruisciApi(){
+        /*costruisci la stringa api per ottenere una lista di Argomenti*/
+        StringBuilder api_indicatori_per_argomento = new StringBuilder();
+        /*API_TOPIC_LIST = "https://api.worldbank.org/v2/TOPIC?format=json/*/
+        api_indicatori_per_argomento.append(Costanti.API_TOPIC_LIST_FORMAT_JSON);
+        return api_indicatori_per_argomento.toString();
     }
+
 
 
 
@@ -89,5 +104,9 @@ public class ListaArgomentiActivity extends ListaGenericaActivity
         intent_succ.putExtras(bundle);
         startActivity(intent_succ);
     }
+
+
+
+
 
 }

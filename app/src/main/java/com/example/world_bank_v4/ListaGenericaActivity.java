@@ -36,7 +36,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private ArrayList lista_oggetti;
     private ArrayAdapter adapter;
     private Intent intent_prec;
-    private Intent intent_succ;
     private Bundle bundle;
     private String json_file;
     private String nomeClasseSelezionata;
@@ -95,70 +94,58 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             il s.o. non gli ha passato l'oggetto Bundle*/
             /*Per vedere quale caso è ottengo l'intent ricevuto dall'attività genitore e ne
             estrapolo l'oggetto bundle contenente i dati passati*/
-            else {
-                intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
-                bundle = intent_prec.getExtras();
-                /*se null significa che l'attività è stata ripresa (per esempio l'utente torna da
-                quella successiva) e non lanciata da quella precedente, quindi carico in memoria i
-                dati dalle preferenze condivise precedentemente salvate*/
-                if (bundle == null) {
-                    SharedPreferences sharedPreferences =
-                            getSharedPreferences(Costanti.PREFERENCES_FILE_PAESI,
-                                    Context.MODE_PRIVATE);
-                    json_file = sharedPreferences.getString(KEY_JSON_FILE,
-                            "File non esiste");
-                    nomeClasseSelezionata =
-                            sharedPreferences.getString(Costanti.NOME_CLASSE_SELEZIONATA,
+            intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
+            bundle = intent_prec.getExtras();
+            /*se null significa che l'attività è stata ripresa (per esempio l'utente torna da
+            quella successiva) e non lanciata da quella precedente, quindi carico in memoria i
+            dati dalle preferenze condivise precedentemente salvate*/
+            if (bundle == null) {
+                SharedPreferences sharedPreferences =
+                        getSharedPreferences(Costanti.PREFERENCES_FILE_PAESI, Context.MODE_PRIVATE);
+                json_file = sharedPreferences.getString(KEY_JSON_FILE, "File non esiste");
+                nomeClasseSelezionata =
+                        sharedPreferences.getString(Costanti.NOME_CLASSE_SELEZIONATA,
                                     "File non esiste");
-                    /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
-                     dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
-                    if(sharedPreferences.contains(Costanti.ID_INDICATORE_SELEZIONATO)) {
-                        idIndicatoreSelezionato =
+                /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
+                dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
+                if(sharedPreferences.contains(Costanti.ID_INDICATORE_SELEZIONATO)) {
+                    idIndicatoreSelezionato =
                                 sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
                                         "File non esiste");
-                    }
-                    if(sharedPreferences.contains(Costanti.ID_ARGOMENTO_SELEZIONATO)) {
-                        idArgomentoSelezionato =
+                }
+                if(sharedPreferences.contains(Costanti.ID_ARGOMENTO_SELEZIONATO)) {
+                    idArgomentoSelezionato =
                                 sharedPreferences.getString(Costanti.ID_ARGOMENTO_SELEZIONATO,
                                         "File non esiste");
-                    }
-                    if(sharedPreferences.contains(Costanti.ID_PAESE_SELEZIONATO)) {
-                        idPaeseSelezionato =
+                }
+                if(sharedPreferences.contains(Costanti.ID_PAESE_SELEZIONATO)) {
+                    idPaeseSelezionato =
                                 sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
                                         "File non esiste");
-                    }
-
-                    caricaLayoutLista();
-                    break;
-
                 }
-                /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
-                bundle ricevuto nell'intent e scarico i vari dati che serviranno*/
-                else {
-                    nomeClasseSelezionata =
-                            bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
-                    /*può tornare null se l'attività è stata lanciata dalla MainActivity piuttosto
-                    che dalla ListaIndicatoriActivity, ma non ci interessa in questo punto del
-                    "percorso"*/
-                    idIndicatoreSelezionato =
-                            bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
-                    idArgomentoSelezionato =
-                            bundle.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
-                    if(this.getClass().getCanonicalName().
-                            contentEquals(ListaIndicatoriActivity.class.getCanonicalName()))
-                        this.API_WORLD_BANK = costruisciApi();
-                    idPaeseSelezionato =
-                            bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
 
-                    /*scarica la lista dei Paesi json e trasformali in List<Paese> con GSON*/
-                    new DownloadFileTask().execute();
-                    break;
-                }
+                caricaLayoutLista();
+                break;
 
             }
+            /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
+            bundle ricevuto nell'intent e scarico i vari dati che serviranno*/
+            nomeClasseSelezionata = bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
+            /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
+            piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
+            punto del "percorso"*/
+            idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+            idArgomentoSelezionato = bundle.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
+            idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
+
+            /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
+            new DownloadFileTask().execute();
+            break;
+
         }/*chiude for*/
 
     }
+
 
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima alla
     listView tramite l'adattatore che instanzia*/
@@ -181,11 +168,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         instanziaAdapter();
         listView.setAdapter(adapter);
 
-
     }
 
 
-
+    /*se l'utente preme il pulsante indietro l'attività viene semplicemente terminata ed espulsa
+    dallo stack activity, in modo da far tornare in 1°piano quella che l'aveva lanciata*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         finish();
@@ -223,7 +210,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         editor.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
         editor.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
         editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
-
         editor.apply();
     }
 
@@ -240,6 +226,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         private InputStream risposta;
         private StringBuilder sb;
         private HttpURLConnection client;
+
+        public DownloadFileTask(){
+            API_WORLD_BANK = costruisciApi();
+        }
 
         @Override
         protected String doInBackground(Void... voids) {
@@ -285,6 +275,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         }
     }
 
+
+
     public void setIdListView(int idListView){
         this.idListView = idListView;
     }
@@ -310,7 +302,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
     public String costruisciApi(){
-        return null;
+        return "Fare override. Questo è il metodo della superclasse";
     }
 
     public void instanziaAdapter(){ }
