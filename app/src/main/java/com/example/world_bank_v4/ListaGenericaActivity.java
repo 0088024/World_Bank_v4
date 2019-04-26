@@ -160,6 +160,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     }
 
+
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima alla
     listView tramite l'adattatore che instanzia*/
     private void caricaLayoutLista(){
@@ -285,6 +286,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         }
     }
 
+
+
     public void setIdListView(int idListView){
         this.idListView = idListView;
     }
@@ -310,7 +313,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
     public String costruisciApi(){
-        return null;
+        return "Fare override. Questo è il metodo della superclasse";
     }
 
     public void instanziaAdapter(){ }
