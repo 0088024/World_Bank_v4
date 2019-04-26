@@ -3,6 +3,7 @@ package com.example.world_bank_v4;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,6 +43,18 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         super.setAdapter(new PaesiAdapter(this, R.layout.riga_layout,
                 super.getListaOggetti()));
     }
+
+
+
+    @Override
+    public String costruisciApi(){
+        /*costruisci la stringa api per ottenere una lista di Paesi*/
+        StringBuilder api_indicatori_per_argomento = new StringBuilder();
+        /*API_COUNTRY_LIST = "https://api.worldbank.org/v2/country?format=json&per_page=500/"*/
+        api_indicatori_per_argomento.append(Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500);
+        return api_indicatori_per_argomento.toString();
+    }
+
 
 
 

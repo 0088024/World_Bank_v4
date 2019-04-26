@@ -2,12 +2,22 @@ package com.example.world_bank_v4;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -47,6 +57,17 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
     }
 
 
+    @Override
+    public String costruisciApi(){
+        /*costruisci la stringa api per ottenere una lista di Argomenti*/
+        StringBuilder api_indicatori_per_argomento = new StringBuilder();
+        /*API_TOPIC_LIST = "https://api.worldbank.org/v2/TOPIC?format=json/*/
+        api_indicatori_per_argomento.append(Costanti.API_TOPIC_LIST_FORMAT_JSON);
+        return api_indicatori_per_argomento.toString();
+    }
+
+
+
 
     /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
     prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
@@ -83,5 +104,9 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         intent_succ.putExtras(bundle);
         startActivity(intent_succ);
     }
+
+
+
+
 
 }
