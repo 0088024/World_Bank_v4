@@ -137,9 +137,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 else {
                     nomeClasseSelezionata =
                             bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
-                    /*può tornare null se l'attività è stata lanciata dalla MainActivity piuttosto
-                    che dalla ListaIndicatoriActivity, ma non ci interessa in questo punto del
-                    "percorso"*/
+                    /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
+                    piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
+                    punto del "percorso"*/
                     idIndicatoreSelezionato =
                             bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
                     idArgomentoSelezionato =

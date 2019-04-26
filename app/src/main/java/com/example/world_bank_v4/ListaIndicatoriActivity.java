@@ -10,9 +10,7 @@ import android.widget.AdapterView;
 import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
-public class ListaIndicatoriActivity extends ListaGenericaActivity
-        implements AdapterView.OnItemClickListener{
-
+public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
 
 
@@ -54,6 +52,8 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity
         return api_indicatori_per_argomento.toString();
     }
 
+
+
     @Override
     public void instanziaAdapter(){
         Log.d(Costanti.NOME_APP,"ciaoooooooooooooooooooooooooooo");
@@ -62,12 +62,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity
                 super.getListaOggetti()));
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-        return false;
-    }
 
 
 
@@ -89,6 +83,8 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity
     public void onPause(){
         super.onPause();
     }
+
+
 
 
     @Override

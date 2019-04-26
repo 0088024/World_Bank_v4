@@ -11,9 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 
-public class ListaArgomentiActivity extends ListaGenericaActivity
-        implements AdapterView.OnItemClickListener{
-
+public class ListaArgomentiActivity extends ListaGenericaActivity {
 
 
     @Override
@@ -23,8 +21,10 @@ public class ListaArgomentiActivity extends ListaGenericaActivity
         /*"specializza activity*/
         setContentView(R.layout.activity_lista_argomenti);
         getSupportActionBar().setLogo(R.drawable.topic);
+
         ArrayList<Argomento> lista_argomenti = new ArrayList<Argomento>();
         TypeToken<ArrayList<Argomento>> listTypeToken = new TypeToken<ArrayList<Argomento>>() {};
+
         super.setIdListView( R.id.list_view);
         super.setLista_oggetti(lista_argomenti);
         super.setTypeToken(listTypeToken);
@@ -44,12 +44,6 @@ public class ListaArgomentiActivity extends ListaGenericaActivity
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
         super.setAdapter(new ArgomentiAdapter(this, R.layout.riga_layout,
                 super.getListaOggetti()));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-        return false;
     }
 
 

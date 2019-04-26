@@ -10,9 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 
-public class ListaPaesiActivity extends ListaGenericaActivity
-        implements AdapterView.OnItemClickListener {
-
+public class ListaPaesiActivity extends ListaGenericaActivity {
 
 
     @Override
@@ -34,35 +32,25 @@ public class ListaPaesiActivity extends ListaGenericaActivity
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
         a quest'ultima*/
         super.caricaLista();
-
     }
+
+
 
     @Override
     public void instanziaAdapter(){
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
         super.setAdapter(new PaesiAdapter(this, R.layout.riga_layout,
                 super.getListaOggetti()));
-
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-        return false;
-    }
 
-
-    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
-    prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
-    dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
+    /*serve x salvare in un oggetto Bundle di sistema i dati dello stato dell'istanza.
+    E' chiamato dal sistema prima di far entrare l'attività in onPause(). Se però l'attività è
+    chiusa esplicitamente dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        /*savedInstanceState.putString(Costanti.KEY_JSON_FILE_COUNTRY, json_file);
-        savedInstanceState.putString(Costanti.NOME_CLASSE_SELEZIONATA, nome_classe_selezionata);*/
-        /*savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);*/
-
     }
 
 
@@ -75,6 +63,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity
     public void onPause(){
         super.onPause();
     }
+
 
 
     @Override
