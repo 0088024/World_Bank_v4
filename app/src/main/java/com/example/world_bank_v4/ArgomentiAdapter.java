@@ -27,14 +27,19 @@ public class ArgomentiAdapter extends MyGenericoAdapter {
             if (rowView == null) {
                 LayoutInflater inflater = (LayoutInflater)
                         getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                rowView = inflater.inflate(R.layout.riga_layout, null);
+                rowView = inflater.inflate(R.layout.riga_layout_argomenti, null);
             }
             /*prendi l'elemento nella posizione specificata alla chiamata di getView()*/
             MyElementoGenerico argomento = super.getList().get(position);
             if (argomento != null) {
                 /*ottieni i riferimenti agli elementi del layout per la riga caricato prima*/
-                TextView text_view_Argomento = rowView.findViewById(R.id.text_view_Nazione);
-                text_view_Argomento.setText(argomento.toString());
+                TextView textViewValue = rowView.findViewById(R.id.textViewValue);
+                textViewValue.setText(argomento.getValue());
+
+                TextView textViewSourceNote = rowView.findViewById(R.id.textViewSourceNote);
+                textViewSourceNote.setText(argomento.getSourceNote());
+
+
             }
 
             return rowView;

@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/text_view_Nazione"
+        android:id="@+id/textViewNazione"
         android:layout_width="0dp"
         android:layout_height="31dp"
         android:layout_marginStart="8dp"

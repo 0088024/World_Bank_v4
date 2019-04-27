@@ -16,4 +16,6 @@
     <string name="button_salva_database">SALVA DATABASE</string>
     <string name="button_salva_grafico">SALVA GRAFICO PNG</string>
     <string name="button">button_generico</string>
+    <string name="titolo_argomenti">value argomento</string>
+    <string name="note_argomenti">sourceNote argomento</string>
 </resources>
