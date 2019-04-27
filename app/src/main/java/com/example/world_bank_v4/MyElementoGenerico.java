@@ -27,7 +27,7 @@ public class MyElementoGenerico {
     }
 
 
-    public String getSource(){
+    public String getSourceNote(){
         return "Metodo della superclasse MyElementoGenerico";
     }
 

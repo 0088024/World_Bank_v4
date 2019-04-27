@@ -40,7 +40,7 @@ public class MyGenericoAdapter extends ArrayAdapter<MyElementoGenerico> {
         MyElementoGenerico elemento = list.get(position);
         if (elemento != null) {
             /*ottieni i riferimenti agli elementi del layout per la riga caricato prima*/
-            TextView text_view_elemento = rowView.findViewById(R.id.text_view_Nazione);
+            TextView text_view_elemento = rowView.findViewById(R.id.textViewNazione);
             text_view_elemento.setText(elemento.getName());
         }
 
