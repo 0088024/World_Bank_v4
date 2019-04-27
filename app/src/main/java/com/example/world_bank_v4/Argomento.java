@@ -1,30 +1,42 @@
 package com.example.world_bank_v4;
 
-public class Argomento {
+public class Argomento extends MyElementoGenerico {
 
-    private String id = null;
     private String value = null;
+    private String source = null;
+
 
     public Argomento(){}                /*serve per il Gson*/
 
-    public Argomento(String id, String value){
+    public Argomento(String id, String name, String value, String source) {
 
-        this.id = id;
+        super(id, null);
         this.value = value;
+        this.source = source;
+
     }
+
 
     @Override
     public String toString() {
-        return "Argomento [id = " + id + "; value = " + value + " ]";
+        return "Argomento [id = " +  super.getId() + "; value = " + value + " ]";
     }
 
+
+    @Override
     public String getValue() {
         return value;
     }
 
-    public String getId() {
-        return id;
+
+    @Override
+    public String getSource() {
+        return source;
     }
+
+
+
+
 
 }
 

@@ -3,7 +3,6 @@ package com.example.world_bank_v4;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import com.google.gson.reflect.TypeToken;
@@ -39,7 +38,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     @Override
     public void instanziaAdapter(){
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
-        super.setAdapter(new MyAdapter(this, R.layout.riga_layout,
+        super.setAdapter(new MyGenericoAdapter(this, R.layout.riga_layout,
                                                 super.getListaOggetti()));
     }
 

@@ -2,22 +2,11 @@ package com.example.world_bank_v4;
 
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -52,7 +41,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
     @Override
     public void instanziaAdapter(){
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
-        super.setAdapter(new MyAdapter(this, R.layout.riga_layout,
+        super.setAdapter(new ArgomentiAdapter(this, R.layout.riga_layout,
                 super.getListaOggetti()));;
     }
 

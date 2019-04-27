@@ -1,28 +1,26 @@
 package com.example.world_bank_v4;
 
-public class Indicatore {
+public class Indicatore extends MyElementoGenerico {
 
-    private String id = null;
-    private String name = null;
+
 
     public Indicatore(){}                /*serve per il Gson*/
 
+
+
     public Indicatore(String id, String name){
 
-        this.id = id;
-        this.name = name;
+        super(id, name);
     }
+
+
 
     @Override
     public String toString() {
-        return "Indicatore [id = " + id + "; value = " + name + " ]";
+        return "Indicatore [id = " + super.getId() + "; value = " + super.getName() + " ]";
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public String getId() {
-        return id;
-    }
+
+
 }

@@ -13,13 +13,13 @@ import java.util.ArrayList;
 
 /*classe adattatore per collegare i dati contenuti in un ArrayList alla lista view e definere
 il layout all'interno della riga da visualizzare*/
-public class MyAdapter<T> extends ArrayAdapter<T> {
+public class MyGenericoAdapter extends ArrayAdapter<MyElementoGenerico> {
 
-    private ArrayList<T> list;          /*lista di oggetti implementata con array ridimensionabile.
+    private ArrayList<MyElementoGenerico> list;          /*lista di oggetti implementata con array ridimensionabile.
                                         ArrayList<> implementa interfaccia List<>*/
 
 
-    public MyAdapter(Context context, int textViewResourceId, ArrayList<T> list){
+    public MyGenericoAdapter(Context context, int textViewResourceId, ArrayList list){
             super(context, textViewResourceId, list);
             this.list = list;
     }
@@ -37,14 +37,20 @@ public class MyAdapter<T> extends ArrayAdapter<T> {
             rowView = inflater.inflate(R.layout.riga_layout, null);
         }
         /*prendi l'elemento nella posizione specificata alla chiamata di getView()*/
-        T elemento = list.get(position);
+        MyElementoGenerico elemento = list.get(position);
         if (elemento != null) {
             /*ottieni i riferimenti agli elementi del layout per la riga caricato prima*/
-            TextView text_view_Nazione = rowView.findViewById(R.id.text_view_Nazione);
-            text_view_Nazione.setText(elemento.toString());
+            TextView text_view_elemento = rowView.findViewById(R.id.text_view_Nazione);
+            text_view_elemento.setText(elemento.getName());
         }
 
             return rowView;
+    }
+
+
+
+    public ArrayList<MyElementoGenerico> getList(){
+        return list;
     }
 
 }
