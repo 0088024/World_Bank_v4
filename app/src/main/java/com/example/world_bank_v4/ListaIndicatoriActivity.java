@@ -20,6 +20,8 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         /*specializzaActivity*/
         setContentView(R.layout.activity_lista_indicatori);
         getSupportActionBar().setLogo(R.drawable.indicator);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         ArrayList<Indicatore> lista_indicatori = new ArrayList<Indicatore>();
         TypeToken<ArrayList<Indicatore>> listTypeToken = new TypeToken<ArrayList<Indicatore>>() {};
 

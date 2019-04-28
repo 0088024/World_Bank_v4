@@ -20,7 +20,8 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         /*"specializza activity*/
         setContentView(R.layout.activity_lista_argomenti);
         getSupportActionBar().setLogo(R.drawable.topic);
-
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         ArrayList<Argomento> lista_argomenti = new ArrayList<Argomento>();
         TypeToken<ArrayList<Argomento>> listTypeToken = new TypeToken<ArrayList<Argomento>>() {};
 

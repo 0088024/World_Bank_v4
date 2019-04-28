@@ -41,7 +41,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraficoActivity extends AppCompatActivity implements View.OnClickListener{
+public class GraficoActivity extends ListaGenericaActivity implements {
 
     private Intent intent_prec;
     private Bundle bundle;
@@ -59,13 +59,13 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        /*"specializza activity*/
         setContentView(R.layout.activity_grafico);
-        /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
-        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
-        tornare al livello principale o alla prima pagina.*/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.graph);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         /*in this example, a LineChart is initialized from xml*/
         chart = findViewById(R.id.chart);
@@ -74,12 +74,13 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
 
+        /*
         for (; ; ) {
             /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
             è stata ripresa (per esempio l'utente torna da quella successiva) e reistanziata causa
             vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
             precedenza in onSaveInstancestate()*/
-            if (savedInstanceState != null) {
+            /*if (savedInstanceState != null) {
                 json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE
                                                 ,"File non esiste");
                 idPaeseSelezionato = savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO);
@@ -93,13 +94,13 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
             il s.o. non gli ha passato l'oggetto Bundle*/
             /*Per vedere quale caso è ottengo l'intent ricevuto dall'attività genitore e ne
             estrapolo l'oggetto bundle contenente i dati passati*/
-            else {
+            /*else {
                 intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
-                bundle = intent_prec.getExtras();
+                /*bundle = intent_prec.getExtras();
                 /*se null significa che l'attività è stata ripresa (per esempio l'utente torna da
                 quella successiva) e non lanciata da quella precedente, quindi carico in memoria i
                 dati dalle preferenze condivise precedentemente salvate*/
-                if (bundle == null) {
+                /*if (bundle == null) {
                     SharedPreferences sharedPreferences =
                             getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
                                     Context.MODE_PRIVATE);
@@ -121,17 +122,17 @@ public class GraficoActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
                 bundle ricevuto e scarico il file json*/
-                else {
+                /*else {
                     idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
                     idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
                     /*scarica la lista dei valori dell'indicatore per paese json e trasformali in
                     List<T> con GSON*/
-                    new DownloadFileTask().execute();
+                    /*new DownloadFileTask().execute();
                     break;
                 }
 
             }
-        }/*chiude for*/
+        } /*chiude for*/
 
     }
 
