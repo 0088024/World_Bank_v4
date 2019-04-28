@@ -41,7 +41,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraficoActivity extends ListaGenericaActivity implements {
+public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
 
     private Intent intent_prec;
     private Bundle bundle;
@@ -50,7 +50,7 @@ public class GraficoActivity extends ListaGenericaActivity implements {
     private String idPaeseSelezionato;
     private String idIndicatoreSelezionato;
     private DbManager dbManager;
-    private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
+    //private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
     private Button button_salva_database;
     private Button button_salva_grafico;
@@ -74,69 +74,33 @@ public class GraficoActivity extends ListaGenericaActivity implements {
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
 
-        /*
-        for (; ; ) {
-            /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
-            è stata ripresa (per esempio l'utente torna da quella successiva) e reistanziata causa
-            vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
-            precedenza in onSaveInstancestate()*/
-            /*if (savedInstanceState != null) {
-                json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE
-                                                ,"File non esiste");
-                idPaeseSelezionato = savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO);
-                idIndicatoreSelezionato =
-                            savedInstanceState.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+        ArrayList<Grafico> lista_grafico = new ArrayList<Grafico>();
+        TypeToken<ArrayList<Grafico>> listTypeToken = new TypeToken<ArrayList<Grafico>>() {
+        };
+        super.setTypeToken(listTypeToken);
+        super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
+        super.setNOME_FILE_PREFERNCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
+        /*per costruire l'api devo aspettare che la classe ListaIndicatoriActivity mi passi
+        l'intento con il Paese selezionato dall'utente*/
+        super.setAPI_WORLD_BANK(null);
 
-                caricaLayoutLista();
-                break;
-            }
-            /*altrimenti se è == null, o è stata lanciata da 1 altra attività, oppure come sopra ma
-            il s.o. non gli ha passato l'oggetto Bundle*/
-            /*Per vedere quale caso è ottengo l'intent ricevuto dall'attività genitore e ne
-            estrapolo l'oggetto bundle contenente i dati passati*/
-            /*else {
-                intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
-                /*bundle = intent_prec.getExtras();
-                /*se null significa che l'attività è stata ripresa (per esempio l'utente torna da
-                quella successiva) e non lanciata da quella precedente, quindi carico in memoria i
-                dati dalle preferenze condivise precedentemente salvate*/
-                /*if (bundle == null) {
-                    SharedPreferences sharedPreferences =
-                            getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
-                                    Context.MODE_PRIVATE);
-                    json_file =
-                            sharedPreferences.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
-                                    "File non esiste");
-                    idIndicatoreSelezionato =
-                            sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
-                                    "File non esiste");
-
-                    if (sharedPreferences.contains(Costanti.ID_PAESE_SELEZIONATO)) {
-                        idPaeseSelezionato =
-                                sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
-                                        "File non esiste");
-                    }
-                    caricaLayoutLista();
-                    break;
-
-                }
-                /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
-                bundle ricevuto e scarico il file json*/
-                /*else {
-                    idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
-                    idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
-                    /*scarica la lista dei valori dell'indicatore per paese json e trasformali in
-                    List<T> con GSON*/
-                    /*new DownloadFileTask().execute();
-                    break;
-                }
-
-            }
-        } /*chiude for*/
-
+        /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
+        a quest'ultima*/
+        super.caricaLista();
     }
-
-
+    @Override
+    public String costruisciApi(){
+    /*costruisci la stringa api per ottenere una lista di valori relativi
+    all'indicatore per paese selezionato*/
+    StringBuilder api_indicatore_per_paese = new StringBuilder();
+    /*API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/"*/
+    api_indicatore_per_paese.append(Costanti.API_COUNTRY_LIST);
+    api_indicatore_per_paese.append(super.getIdPaeseSelezionato());
+    /*API_INDICATORE_PER_PAESE
+    https://api.worldbank.org/v2/country/idPaese/indicator?format=json&per_page=10000*/
+    api_indicatore_per_paese.append("/indicator?format=json&&per_page=10000");
+    return api_indicatore_per_paese.toString();
+    }
 
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima al chart*/
     private void caricaLayoutLista(){
@@ -228,68 +192,7 @@ public class GraficoActivity extends ListaGenericaActivity implements {
         }
     }
 
-    /*thread che in background scarica in una stringa il file json dell'indicatore per paese, cioè
-    il grafico*/
-    private class DownloadFileTask extends AsyncTask<Void, Void, String> {
 
-        private InputStream risposta;
-        private StringBuilder sb;
-        private HttpURLConnection client;
-
-        @Override
-        protected String doInBackground(Void... urls) {
-
-            try {
-                /*costruisci la stringa api per ottenere una lista di valori relativi
-                all'indicatore per paese selezionato*/
-                StringBuilder api_indicatore_per_paese = new StringBuilder();
-                /*API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/"*/
-                api_indicatore_per_paese.append(Costanti.API_COUNTRY_LIST);
-                api_indicatore_per_paese.append(idPaeseSelezionato);
-                api_indicatore_per_paese.append("/indicator/");
-                api_indicatore_per_paese.append(idIndicatoreSelezionato);
-                api_indicatore_per_paese.append("?format=json&&per_page=10000");
-
-                /*DEBUG*/
-                Log.d(Costanti.NOME_APP + "API", api_indicatore_per_paese.toString());
-
-                url = new URL(api_indicatore_per_paese.toString());
-
-                /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
-                client = (HttpURLConnection) url.openConnection();
-
-                /*Recupero le informazioni inviate dal server*/
-                risposta = new BufferedInputStream(client.getInputStream());
-
-                /*leggo i caratteri e li appendo in sb*/
-                sb = new StringBuilder();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(risposta));
-                String nextLine = "";
-                while ((nextLine = reader.readLine()) != null) {
-                    sb.append(nextLine);
-
-                }
-            }
-            /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
-            catch (MalformedURLException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
-            } catch (IOException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
-
-            } finally {
-                client.disconnect();
-            }
-
-            /*convert StringBuilder to String using toString() method*/
-            return sb.toString();
-        }
-
-
-        protected void onPostExecute(String risultato) {
-            json_file = risultato;
-            caricaLayoutLista();
-        }
-    }
 
     /*thread che in background salva i dati nel database locale*/
     private class SalvaDatabaseTask extends AsyncTask< ArrayList<Grafico>, Void, String > {
