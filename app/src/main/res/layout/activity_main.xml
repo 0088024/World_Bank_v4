@@ -2,22 +2,109 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/imagebg1"
+    android:padding="16dp"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="405dp"
-        android:layout_height="343dp"
-        android:layout_marginTop="192dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginBottom="196dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="280dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/wb" />
+        app:srcCompat="@drawable/wb1" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="248dp"
+        android:layout_height="55dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="#ffffff"
+        android:textSize="42dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="34dp" />
+
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_marginEnd="0dp"
+        android:text="COUNTRY"
+        android:textColor="#2D2D2D"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:padding="0dp"
+        android:background="@drawable/background_normal"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.800"
+    //android:background="#646464"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignTop="@+id/button1"
+        android:layout_marginTop="10dp"
+        android:text="TOPICS"
+        android:textColor="#2D2D2D"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:padding="0dp"
+        android:background="@drawable/background_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button1"
+    //        android:background="#7F7F7F" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignTop="@+id/button1"
+        android:layout_marginTop="10dp"
+        android:text="SAVE IMAGE"
+        android:textColor="#2D2D2D"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:padding="0dp"
+        android:background="@drawable/background_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+    //android:background="#868686" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignTop="@+id/button1"
+        android:layout_marginTop="10dp"
+        android:text="SAVE DATE OFFLINE"
+        android:textColor="#2D2D2D"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:padding="0dp"
+        android:background="@drawable/background_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+    //android:background="#9F9F9F"/>
+
 
 </android.support.constraint.ConstraintLayout>
