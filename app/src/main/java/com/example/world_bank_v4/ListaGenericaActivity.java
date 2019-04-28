@@ -44,7 +44,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private String idArgomentoSelezionato;
     private String idPaeseSelezionato;
     private String KEY_JSON_FILE;
-    private String NOME_FILE_PREFERNCES;
+    private String NOME_FILE_PREFERENCES;
     private String API_WORLD_BANK;
     private TypeToken typeToken;
     private Bundle savedInstanceState;
@@ -204,7 +204,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onPause(){
         super.onPause();
         SharedPreferences sharedPref =
-                getSharedPreferences(NOME_FILE_PREFERNCES, Activity.MODE_PRIVATE);
+                getSharedPreferences(NOME_FILE_PREFERENCES, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(KEY_JSON_FILE, json_file);
         editor.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
@@ -300,8 +300,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         this.KEY_JSON_FILE = KEY_JSON_FILE;
     }
 
-    public void setNOME_FILE_PREFERNCES(String NOME_FILE_PREFERENCES) {
-        this.NOME_FILE_PREFERNCES = NOME_FILE_PREFERENCES;
+    public void setNOME_FILE_PREFERENCES(String NOME_FILE_PREFERENCES) {
+        this.NOME_FILE_PREFERENCES = NOME_FILE_PREFERENCES;
     }
 
     public void setAdapter(ArrayAdapter adapter) { this.adapter = adapter; }

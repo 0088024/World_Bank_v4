@@ -29,7 +29,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         super.setLista_oggetti(lista_argomenti);
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_ARGOMENTI);
-        super.setNOME_FILE_PREFERNCES(Costanti.PREFERENCES_FILE_ARGOMENTI);
+        super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_ARGOMENTI);
         super.setAPI_WORLD_BANK(Costanti.API_TOPIC_LIST_FORMAT_JSON);
 
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega

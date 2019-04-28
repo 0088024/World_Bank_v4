@@ -29,7 +29,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         super.setLista_oggetti(lista_indicatori);
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO);
-        super.setNOME_FILE_PREFERNCES(Costanti.PREFERENCES_FILE_INDICATORI_PER_ARGOMENTO);
+        super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORI_PER_ARGOMENTO);
         /*per costruire l'api devo aspettare che la classe ListaargomentiActivity mi passi
         l'intento con l'argomento selezionato dall'utente*/
         super.setAPI_WORLD_BANK(null);

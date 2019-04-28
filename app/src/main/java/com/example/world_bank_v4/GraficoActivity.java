@@ -50,7 +50,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private String idPaeseSelezionato;
     private String idIndicatoreSelezionato;
     private DbManager dbManager;
-    //private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
+    private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
     private Button button_salva_database;
     private Button button_salva_grafico;
@@ -79,7 +79,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         };
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
-        super.setNOME_FILE_PREFERNCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
+        super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
         /*per costruire l'api devo aspettare che la classe ListaIndicatoriActivity mi passi
         l'intento con il Paese selezionato dall'utente*/
         super.setAPI_WORLD_BANK(null);
@@ -90,20 +90,21 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
     @Override
     public String costruisciApi(){
-    /*costruisci la stringa api per ottenere una lista di valori relativi
-    all'indicatore per paese selezionato*/
-    StringBuilder api_indicatore_per_paese = new StringBuilder();
-    /*API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/"*/
-    api_indicatore_per_paese.append(Costanti.API_COUNTRY_LIST);
-    api_indicatore_per_paese.append(super.getIdPaeseSelezionato());
-    /*API_INDICATORE_PER_PAESE
-    https://api.worldbank.org/v2/country/idPaese/indicator?format=json&per_page=10000*/
-    api_indicatore_per_paese.append("/indicator?format=json&&per_page=10000");
-    return api_indicatore_per_paese.toString();
+        /*costruisci la stringa api per ottenere una lista di valori relativi
+        all'indicatore per paese selezionato*/
+        StringBuilder api_indicatore_per_paese = new StringBuilder();
+        /*API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/"*/
+        api_indicatore_per_paese.append(Costanti.API_COUNTRY_LIST);
+        api_indicatore_per_paese.append(super.getIdPaeseSelezionato());
+        /*API_INDICATORE_PER_PAESE
+        https://api.worldbank.org/v2/country/idPaese/indicator?format=json&per_page=10000*/
+        api_indicatore_per_paese.append("/indicator?format=json&&per_page=10000");
+        return api_indicatore_per_paese.toString();
     }
 
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima al chart*/
-    private void caricaLayoutLista(){
+    @Override
+    public void caricaLayoutLista(){
         /*DEBUG*/
         Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
@@ -155,26 +156,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         savedInstanceState.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, json_file);
         savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
         savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
-    }
-
-
-
-    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
-    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
-    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
-    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
-    @Override
-    public void onPause(){
-        super.onPause();
-        SharedPreferences sharedPref =
-                getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
-                                                            Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, json_file);
-        editor.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
-        editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
-
-        editor.apply();
     }
 
 
@@ -273,5 +254,64 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         }
     }
+
+    for (; ; ) {
+            /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
+            è stata ripresa (per esempio l'utente torna da quella successiva) e reistanziata causa
+            vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
+            precedenza in onSaveInstancestate()*/
+        if (savedInstanceState != null) {
+            json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE
+                    ,"File non esiste");
+            idPaeseSelezionato = savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO);
+            idIndicatoreSelezionato =
+                    savedInstanceState.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+
+            caricaLayoutLista();
+            break;
+        }
+            /*altrimenti se è == null, o è stata lanciata da 1 altra attività, oppure come sopra ma
+            il s.o. non gli ha passato l'oggetto Bundle*/
+            /*Per vedere quale caso è ottengo l'intent ricevuto dall'attività genitore e ne
+            estrapolo l'oggetto bundle contenente i dati passati*/
+        else {
+            intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
+            bundle = intent_prec.getExtras();
+                /*se null significa che l'attività è stata ripresa (per esempio l'utente torna da
+                quella successiva) e non lanciata da quella precedente, quindi carico in memoria i
+                dati dalle preferenze condivise precedentemente salvate*/
+            if (bundle == null) {
+                SharedPreferences sharedPreferences =
+                        getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
+                                Context.MODE_PRIVATE);
+                json_file =
+                        sharedPreferences.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
+                                "File non esiste");
+                idIndicatoreSelezionato =
+                        sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
+                                "File non esiste");
+
+                if (sharedPreferences.contains(Costanti.ID_PAESE_SELEZIONATO)) {
+                    idPaeseSelezionato =
+                            sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
+                                    "File non esiste");
+                }
+                caricaLayoutLista();
+                break;
+
+            }
+                /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
+                bundle ricevuto e scarico il file json*/
+            else {
+                idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
+                idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+                    /*scarica la lista dei valori dell'indicatore per paese json e trasformali in
+                    List<T> con GSON*/
+                new DownloadFileTask().execute();
+                break;
+            }
+
+        }
+    }/*chiude for*/
 
 }
