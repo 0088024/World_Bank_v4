@@ -20,6 +20,11 @@
         tools:layout_editor_absoluteX="49dp"
         tools:layout_editor_absoluteY="186dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"/>
+
     <TextView
         android:id="@+id/textViewSourceNote"
         android:layout_width="match_parent"
