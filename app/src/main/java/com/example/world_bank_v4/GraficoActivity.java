@@ -91,9 +91,11 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/"*/
         api_indicatore_per_paese.append(Costanti.API_COUNTRY_LIST);
         api_indicatore_per_paese.append(super.getIdPaeseSelezionato());
+        api_indicatore_per_paese.append("/indicator/");
+        api_indicatore_per_paese.append(super.getIdIndicatoreSelezionato());
         /*API_INDICATORE_PER_PAESE
         https://api.worldbank.org/v2/country/idPaese/indicator?format=json&per_page=10000*/
-        api_indicatore_per_paese.append("/indicator?format=json&&per_page=10000");
+        api_indicatore_per_paese.append("?format=json&&per_page=10000");
         return api_indicatore_per_paese.toString();
     }
 
@@ -101,8 +103,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     public void caricaLayoutLista(){
 
-        json_file = new String();
-        json_file.concat(super.getJsonFile());
+        json_file = (super.getJsonFile());
+
         /*DEBUG*/
         Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
@@ -155,6 +157,23 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         }
     }
 
+
+    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
+    prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
+    dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
+    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
+    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
+    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
 
 
     /*thread che in background salva i dati nel database locale*/

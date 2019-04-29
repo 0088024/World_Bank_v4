@@ -102,7 +102,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             dati dalle preferenze condivise precedentemente salvate*/
             if (bundle_prec == null) {
                 SharedPreferences sharedPreferences =
-                        getSharedPreferences(Costanti.PREFERENCES_FILE_PAESI, Context.MODE_PRIVATE);
+                        getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
                 json_file = sharedPreferences.getString(KEY_JSON_FILE, "File non esiste");
                 nomeClasseSelezionata =
                         sharedPreferences.getString(Costanti.NOME_CLASSE_SELEZIONATA,

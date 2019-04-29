@@ -93,9 +93,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
         super.onItemClick(parent, view, position, id);
         Bundle bundle_succ = super.getBundleSucc();
-
         bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, super.getIdPaeseSelezionato());
-
         bundle_succ.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, super.getIdArgomentoSelezionato());
         ArrayList<Indicatore> lista_indicatori = super.getListaOggetti();
         bundle_succ.putString(Costanti.ID_INDICATORE_SELEZIONATO,
