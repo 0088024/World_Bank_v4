@@ -43,12 +43,7 @@ import java.util.List;
 
 public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
 
-    private Intent intent_prec;
-    private Bundle bundle;
-    private URL url;
     private String json_file;
-    private String idPaeseSelezionato;
-    private String idIndicatoreSelezionato;
     private DbManager dbManager;
     private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
@@ -105,6 +100,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima al chart*/
     @Override
     public void caricaLayoutLista(){
+
+        json_file = new String();
+        json_file.concat(super.getJsonFile());
         /*DEBUG*/
         Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
@@ -136,26 +134,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     }
 
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         finish();
         return false;
-    }
-
-
-
-    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
-   prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
-   dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE, json_file);
-        savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
-        savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
     }
 
 
@@ -254,64 +236,5 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         }
     }
-
-    for (; ; ) {
-            /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
-            è stata ripresa (per esempio l'utente torna da quella successiva) e reistanziata causa
-            vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
-            precedenza in onSaveInstancestate()*/
-        if (savedInstanceState != null) {
-            json_file = savedInstanceState.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE
-                    ,"File non esiste");
-            idPaeseSelezionato = savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO);
-            idIndicatoreSelezionato =
-                    savedInstanceState.getString(Costanti.ID_INDICATORE_SELEZIONATO);
-
-            caricaLayoutLista();
-            break;
-        }
-            /*altrimenti se è == null, o è stata lanciata da 1 altra attività, oppure come sopra ma
-            il s.o. non gli ha passato l'oggetto Bundle*/
-            /*Per vedere quale caso è ottengo l'intent ricevuto dall'attività genitore e ne
-            estrapolo l'oggetto bundle contenente i dati passati*/
-        else {
-            intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
-            bundle = intent_prec.getExtras();
-                /*se null significa che l'attività è stata ripresa (per esempio l'utente torna da
-                quella successiva) e non lanciata da quella precedente, quindi carico in memoria i
-                dati dalle preferenze condivise precedentemente salvate*/
-            if (bundle == null) {
-                SharedPreferences sharedPreferences =
-                        getSharedPreferences(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE,
-                                Context.MODE_PRIVATE);
-                json_file =
-                        sharedPreferences.getString(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE,
-                                "File non esiste");
-                idIndicatoreSelezionato =
-                        sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
-                                "File non esiste");
-
-                if (sharedPreferences.contains(Costanti.ID_PAESE_SELEZIONATO)) {
-                    idPaeseSelezionato =
-                            sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
-                                    "File non esiste");
-                }
-                caricaLayoutLista();
-                break;
-
-            }
-                /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
-                bundle ricevuto e scarico il file json*/
-            else {
-                idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
-                idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
-                    /*scarica la lista dei valori dell'indicatore per paese json e trasformali in
-                    List<T> con GSON*/
-                new DownloadFileTask().execute();
-                break;
-            }
-
-        }
-    }/*chiude for*/
 
 }

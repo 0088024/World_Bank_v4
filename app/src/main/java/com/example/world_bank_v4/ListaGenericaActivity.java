@@ -150,7 +150,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima alla
     listView tramite l'adattatore che instanzia*/
-    private void caricaLayoutLista(){
+    protected void caricaLayoutLista(){
         /*DEBUG*/
         Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
@@ -312,6 +312,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
     public void instanziaAdapter(){ }
+
+    public String getJsonFile(){
+        return json_file;
+    }
 
     public String getNomeClasseSelezionata(){
         return nomeClasseSelezionata;
