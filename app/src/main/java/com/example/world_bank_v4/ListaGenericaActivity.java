@@ -44,7 +44,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private String idArgomentoSelezionato;
     private String idPaeseSelezionato;
     private String KEY_JSON_FILE;
-    private String NOME_FILE_PREFERNCES;
+    private String NOME_FILE_PREFERENCES;
     private String API_WORLD_BANK;
     private TypeToken typeToken;
     private Bundle savedInstanceState;
@@ -102,7 +102,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             dati dalle preferenze condivise precedentemente salvate*/
             if (bundle_prec == null) {
                 SharedPreferences sharedPreferences =
-                        getSharedPreferences(Costanti.PREFERENCES_FILE_PAESI, Context.MODE_PRIVATE);
+                        getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
                 json_file = sharedPreferences.getString(KEY_JSON_FILE, "File non esiste");
                 nomeClasseSelezionata =
                         sharedPreferences.getString(Costanti.NOME_CLASSE_SELEZIONATA,
@@ -150,7 +150,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima alla
     listView tramite l'adattatore che instanzia*/
-    private void caricaLayoutLista(){
+    protected void caricaLayoutLista(){
         /*DEBUG*/
         Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
@@ -204,7 +204,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onPause(){
         super.onPause();
         SharedPreferences sharedPref =
-                getSharedPreferences(NOME_FILE_PREFERNCES, Activity.MODE_PRIVATE);
+                getSharedPreferences(NOME_FILE_PREFERENCES, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(KEY_JSON_FILE, json_file);
         editor.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
@@ -300,8 +300,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         this.KEY_JSON_FILE = KEY_JSON_FILE;
     }
 
-    public void setNOME_FILE_PREFERNCES(String NOME_FILE_PREFERENCES) {
-        this.NOME_FILE_PREFERNCES = NOME_FILE_PREFERENCES;
+    public void setNOME_FILE_PREFERENCES(String NOME_FILE_PREFERENCES) {
+        this.NOME_FILE_PREFERENCES = NOME_FILE_PREFERENCES;
     }
 
     public void setAdapter(ArrayAdapter adapter) { this.adapter = adapter; }
@@ -312,6 +312,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
     public void instanziaAdapter(){ }
+
+    public String getJsonFile(){
+        return json_file;
+    }
 
     public String getNomeClasseSelezionata(){
         return nomeClasseSelezionata;

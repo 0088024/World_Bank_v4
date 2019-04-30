@@ -19,13 +19,15 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         /*"specializza activity*/
         setContentView(R.layout.activity_lista_paese_activity);
         getSupportActionBar().setLogo(R.drawable.country);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
         super.setIdListView(R.id.list_view_paesi);
         super.setLista_oggetti(lista_paesi);
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_COUNTRY);
-        super.setNOME_FILE_PREFERNCES(Costanti.PREFERENCES_FILE_PAESI);
+        super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_PAESI);
         super.setAPI_WORLD_BANK(Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500);
 
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
