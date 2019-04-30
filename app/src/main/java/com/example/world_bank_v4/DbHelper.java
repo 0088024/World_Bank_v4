@@ -8,11 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 /*classe "ottimizzata" per crezione, apertura e aggiornamento versione database*/
 public class DbHelper extends SQLiteOpenHelper {
 
-    private SQLiteDatabase mDataBase;
-    private Context mContext;
 
     /*COSTANTI*/
-    public static final String TABLE_NAME = "prova_indicatore";
+    public static final String TABLE_NAME = "indicatori_per_paese";
+    public static final String COLUMN_ID = "_id";
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_VALUE = "value";
 
@@ -26,11 +25,15 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
+    /*SQLite è typeless con una sola eccezione: il tipo di dato INTEGER PRIMARY KEY, che pretende,
+    sempre, un tipo di dato signed integer a 32-bit. Tentando di inserire un tipo di dato diverso,
+    si riceverà un messaggio di errore.*/
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String newTableQueryString  ="CREATE TABLE "+ TABLE_NAME + "(" + COLUMN_DATE +
-                " Integer PRIMARY KEY not null," + " COLUMN_VALUE_" + " REAL);";
+        String newTableQueryString  = "CREATE TABLE "+ TABLE_NAME + " (" + COLUMN_ID +
+                " Integer PRIMARY KEY autoincrement not null," + COLUMN_DATE + " text not null, " +
+                COLUMN_VALUE + " REAL );";
         db.execSQL(newTableQueryString );
 
     }

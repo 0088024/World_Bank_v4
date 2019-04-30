@@ -21,7 +21,7 @@ public class DbManager {
     }
 
 
-    public void addRow(String rowDate, String rowValue)
+    public void addRow(String rowDate, Float rowValue)
     {
         SQLiteDatabase db = dbhelper.getWritableDatabase();	/*ottiene il riferimento al database*/
         db.beginTransaction();
@@ -65,7 +65,8 @@ public class DbManager {
 
     public void save(String date, String value)
     {
-        SQLiteDatabase db = dbhelper.getWritableDatabase();	/*ottiene il riferimento al database*/
+        SQLiteDatabase db = dbhelper.getWritableDatabase();	/*ottiene il riferimento al database
+                                                            in scrittura*/
         ContentValues val = new ContentValues();
         val.put(DbHelper.COLUMN_DATE, date);
         val.put(DbHelper.COLUMN_VALUE, value);
@@ -73,7 +74,8 @@ public class DbManager {
 
         try
         {
-            db.insert(DbHelper.TABLE_NAME, null, val);
+            if(db.insert(DbHelper.TABLE_NAME, null, val) == -1)
+                throw  new SQLiteException("Errore in db.insert()");
             db.setTransactionSuccessful();
 
         }
@@ -89,7 +91,8 @@ public class DbManager {
 
     public boolean delete(long id)
     {
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        SQLiteDatabase db = dbhelper.getWritableDatabase(); /*ottiene il riferimento al database
+                                                            in scrittura*/
         db.beginTransaction();
 
         try
@@ -110,12 +113,14 @@ public class DbManager {
     }
 
 
+    /*ritorna tutte le righe della tabella DbHelper.TABLE_NAME*/
     public Cursor query()
     {
         Cursor crs=null;
         try
         {
-            SQLiteDatabase db = dbhelper.getReadableDatabase();
+            SQLiteDatabase db = dbhelper.getReadableDatabase();	/*ottiene il riferimento al database
+                                                                in lettura*/
             crs=db.query(DbHelper.TABLE_NAME, null, null, null,
                     null, null, null, null);
         }
@@ -124,6 +129,12 @@ public class DbManager {
         }
 
         return crs;
+    }
+
+
+    /*rilascia il puntatore all'oggetto, chiudendolo se l'ultima referenziazione è rilasciata*/
+    public void close(){
+        dbhelper.getReadableDatabase().close();
     }
 }
 

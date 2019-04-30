@@ -41,7 +41,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
+public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener {
 
     private String json_file;
     private DbManager dbManager;
@@ -70,8 +70,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         button_salva_database.setOnClickListener(this);
 
         ArrayList<Grafico> lista_grafico = new ArrayList<Grafico>();
-        TypeToken<ArrayList<Grafico>> listTypeToken = new TypeToken<ArrayList<Grafico>>() {
-        };
+        TypeToken<ArrayList<Grafico>> listTypeToken = new TypeToken<ArrayList<Grafico>>() {};
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
@@ -83,6 +82,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         a quest'ultima*/
         super.caricaLista();
     }
+
+
+
+
     @Override
     public String costruisciApi(){
         /*costruisci la stringa api per ottenere una lista di valori relativi
@@ -98,6 +101,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         api_indicatore_per_paese.append("?format=json&&per_page=10000");
         return api_indicatore_per_paese.toString();
     }
+
+
 
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima al chart*/
     @Override
@@ -143,6 +148,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
 
 
+
     /*a seconda del bottone che è stato cliccato, lancia il relativo thread task in bakground*/
     @Override
     public void onClick(View v) {
@@ -156,6 +162,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 break;
         }
     }
+
 
 
     /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
@@ -176,6 +183,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
 
 
+
     /*thread che in background salva i dati nel database locale*/
     private class SalvaDatabaseTask extends AsyncTask< ArrayList<Grafico>, Void, String > {
 
@@ -185,12 +193,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             ArrayList<Grafico> lista_grafico = params[0];
             dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
                                                                 database*/
-            for(int i=lista_grafico.size(); i>0; i--){
-                Grafico elemento = lista_grafico.get(i-1);
-                dbManager.addRow(elemento.getDate(), elemento.getvalue().toString());
-
-                /*DEBUG*/
-                Log.d(Costanti.NOME_APP, "aggiunta riga nel database");
+            for(int i=0; i<lista_grafico.size(); i++){
+                Grafico elemento = lista_grafico.get(i);
+                dbManager.addRow(elemento.getDate(), elemento.getvalue());
             }
 
             return "Dati salvati nel database";
@@ -254,6 +259,20 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Log.d(Costanti.NOME_APP, risultato);
 
         }
+    }
+
+
+
+
+
+    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
+    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
+    costosi da chiamare*/
+    @Override
+    protected void onDestroy(){
+        dbManager.close();
+        super.onDestroy();
+
     }
 
 }
