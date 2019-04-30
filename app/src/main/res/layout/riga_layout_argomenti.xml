@@ -9,20 +9,27 @@
         android:id="@+id/textViewValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginLeft="49dp"
-        android:layout_marginTop="186dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="30dp"
         android:text="@string/titolo_argomenti"
+        android:textStyle="bold"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="49dp"
         tools:layout_editor_absoluteY="186dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"/>
+
     <TextView
         android:id="@+id/textViewSourceNote"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="35dp"
         android:text="@string/note_argomenti"
         app:layout_constraintEnd_toEndOf="@+id/textViewValue"
         app:layout_constraintStart_toStartOf="@+id/textViewValue"
