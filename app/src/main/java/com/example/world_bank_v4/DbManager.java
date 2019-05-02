@@ -21,14 +21,24 @@ public class DbManager {
     }
 
 
-    public void addRow(String rowDate, Float rowValue)
+    public void addRow(RecordTabella recordTabella)
     {
         SQLiteDatabase db = dbhelper.getWritableDatabase();	/*ottiene il riferimento al database*/
         db.beginTransaction();
         try{
             ContentValues values = new ContentValues();
-            values.put(DbHelper.COLUMN_DATE, rowDate);
-            values.put(DbHelper.COLUMN_VALUE, rowValue);
+            /*il primo argomento è il nome della colonna dove inserire il secondo argomento come
+            valore*/
+            values.put(DbHelper.COLUMN_ID_PAESE, recordTabella.getIdPaese());
+            values.put(DbHelper.COLUMN_ID_INDICATORE, recordTabella.getIdIndicatore());
+            values.put(DbHelper.COLUMN_NOME_PAESE, recordTabella.getNomePaese());
+            values.put(DbHelper.COLUMN_NOME_INDICATORE, recordTabella.getNomeIndicatore());
+            /*inserisce i valori per tutti gli anni*/
+           for(int i = 0; i<recordTabella.getColonne_anni().size(); i++){
+                Float value = recordTabella.getColonne_anni().get(i).getvalue();
+                values.put(DbHelper.COLUMN_DATE + (DbHelper.ANNO_INIZIO + i), value.toString());
+            }
+
             db.insert(DbHelper.TABLE_NAME, null, values);
             db.setTransactionSuccessful();
         }
@@ -42,12 +52,12 @@ public class DbManager {
     }
 
 
-    public void deleteRow(long rowDate)
+    public void deleteRow(long id)
     {
         SQLiteDatabase db = dbhelper.getWritableDatabase();	/*ottiene il riferimento al database*/
         db.beginTransaction();
         try{
-            db.delete(DbHelper.TABLE_NAME, DbHelper.COLUMN_DATE + "=" + rowDate,
+            db.delete(DbHelper.TABLE_NAME, DbHelper.COLUMN_ID + "=" + id,
                     null);
             db.setTransactionSuccessful();
         }
@@ -63,31 +73,6 @@ public class DbManager {
 
 
 
-    public void save(String date, String value)
-    {
-        SQLiteDatabase db = dbhelper.getWritableDatabase();	/*ottiene il riferimento al database
-                                                            in scrittura*/
-        ContentValues val = new ContentValues();
-        val.put(DbHelper.COLUMN_DATE, date);
-        val.put(DbHelper.COLUMN_VALUE, value);
-        db.beginTransaction();
-
-        try
-        {
-            if(db.insert(DbHelper.TABLE_NAME, null, val) == -1)
-                throw  new SQLiteException("Errore in db.insert()");
-            db.setTransactionSuccessful();
-
-        }
-        catch (SQLiteException sqle){
-            /*Gestione delle eccezioni*/
-        }
-        finally {
-            db.endTransaction();
-        }
-
-    }
-
 
     public boolean delete(long id)
     {
@@ -97,7 +82,7 @@ public class DbManager {
 
         try
         {
-            if (db.delete(DbHelper.TABLE_NAME, DbHelper.COLUMN_DATE + "=?",
+            if (db.delete(DbHelper.TABLE_NAME, DbHelper.COLUMN_ID + "=?",
                     new String[]{Long.toString(id)})>0)
                 return true;
             return false;

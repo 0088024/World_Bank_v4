@@ -2,7 +2,7 @@ package com.example.world_bank_v4;
 
 public class Argomento extends MyElementoGenerico {
 
-    private String value = null;
+
     private String sourceNote = null;
 
 
@@ -10,24 +10,19 @@ public class Argomento extends MyElementoGenerico {
 
     public Argomento(String id, String name, String value, String sourceNote) {
 
-        super(id, null);
-        this.value = value;
+        super(id, null, value);
         this.sourceNote = sourceNote;
 
     }
 
 
+
     @Override
     public String toString() {
-        return "Argomento [id = " +  super.getId() + "; value = " + value + " sourceNote " +
-                                                    sourceNote + " ]";
+        return "Argomento [id = " +  super.getId() + "; value = " + super.getValue() +
+                " sourceNote " + sourceNote + " ]";
     }
 
-
-    @Override
-    public String getValue() {
-        return value;
-    }
 
 
     @Override

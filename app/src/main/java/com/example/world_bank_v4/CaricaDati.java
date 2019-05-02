@@ -1,5 +1,6 @@
 package com.example.world_bank_v4;
 
+
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +15,15 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+
 /*activity che carica e visualizza le n-tuple salvate nel database*/
-public class CaricaDati extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class CaricaDati extends AppCompatActivity
+        implements AdapterView.OnItemClickListener, View.OnClickListener {
+
 
     private DbManager dbManager;
     private ListView listView;
-    private CursorAdapter adapter;
+    private CursorAdapter cursorAdapter;
 
 
 
@@ -35,8 +39,8 @@ public class CaricaDati extends AppCompatActivity implements AdapterView.OnItemC
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         listView = findViewById(R.id.list_view_carica_dati);
-
-        new CaricaDatabaseTask().execute();
+        dbManager = new DbManager(this);
+        new CaricaDatabaseTask(dbManager).execute();
 
     }
 
@@ -104,24 +108,49 @@ public class CaricaDati extends AppCompatActivity implements AdapterView.OnItemC
 
 
 
+    @Override
+    public void onClick(View v) {
+        int position = listView.getPositionForView(v);
+        long id = cursorAdapter.getItemId(position);
+        if (dbManager.delete(id))
+            cursorAdapter.changeCursor(dbManager.query());
+    }
+
+
+
+
+
     /*thread che in background carica i dati dal database locale*/
-    private class CaricaDatabaseTask extends AsyncTask< Void, Void, String > {
+    private class CaricaDatabaseTask extends AsyncTask< Void, Void, Cursor > {
+
+        private DbManager dbManager;
+
+
+        public CaricaDatabaseTask(DbManager dbManager){
+            this.dbManager = dbManager;
+        }
+
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected Cursor doInBackground(Void... params) {
 
             dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
                                                                 database*/
             Cursor cursor = dbManager.query();
 
-            return showCursor(cursor);
+            return cursor;
         }
 
 
 
-        protected void onPostExecute(String risultato){
-            Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ risultato);
+        protected void onPostExecute(Cursor risultato){
+            Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(risultato));
+            cursorAdapter = new MyCursorAdapter(getApplicationContext(), risultato, 0,
+                                                getThis());
+            listView.setAdapter(cursorAdapter);
         }
+
+
     }
 
 
@@ -136,4 +165,7 @@ public class CaricaDati extends AppCompatActivity implements AdapterView.OnItemC
         super.onDestroy();
 
     }
+
+
+    public CaricaDati getThis() {return  this;}
 }

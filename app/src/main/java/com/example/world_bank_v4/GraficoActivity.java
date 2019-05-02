@@ -108,7 +108,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     public void caricaLayoutLista(){
 
-        json_file = (super.getJsonFile());
+        json_file = super.getJsonFile();
 
         /*DEBUG*/
         Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
@@ -155,7 +155,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         switch(v.getId()) {
             case R.id.button_salva_database:
-                new SalvaDatabaseTask().execute(lista_grafico);
+                dbManager = new DbManager(this);
+                new SalvaDatabaseTask(dbManager).execute(lista_grafico);
                 break;
             case R.id.button_salva_grafico:
                 new SalvaGraficoTask().execute(chart);
@@ -173,6 +174,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         super.onSaveInstanceState(savedInstanceState);
     }
 
+
+
     /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
     in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
     La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
@@ -187,16 +190,33 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     /*thread che in background salva i dati nel database locale*/
     private class SalvaDatabaseTask extends AsyncTask< ArrayList<Grafico>, Void, String > {
 
+        private DbManager dbManager;
+
+
+        public SalvaDatabaseTask(DbManager dbManager){
+            this.dbManager = dbManager;
+        }
+
+
         @Override
         protected String doInBackground(ArrayList<Grafico> ... params) {
 
             ArrayList<Grafico> lista_grafico = params[0];
-            dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
-                                                                database*/
-            for(int i=0; i<lista_grafico.size(); i++){
-                Grafico elemento = lista_grafico.get(i);
-                dbManager.addRow(elemento.getDate(), elemento.getvalue());
-            }
+            /*costruisci un oggetto recordTabella corrispondente all'indicatore per paese ottenuto*/
+            /*con la libreria GSON ottengo il corrispondente primo oggetto dell'array di elementi
+            del file json*/
+            MyGSON myGSON = new MyGSON();
+            JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);;
+            MyElementoGenerico country = myGSON.getObjectIntoElement(jsonElement,
+                    "country");
+            MyElementoGenerico indicator = myGSON.getObjectIntoElement(jsonElement,
+                    "indicator");
+
+
+            RecordTabella recordTabella = new RecordTabella(country, indicator, lista_grafico);
+
+            dbManager.addRow(recordTabella);
+
 
             return "Dati salvati nel database";
         }
