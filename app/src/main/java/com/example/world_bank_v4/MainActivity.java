@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_di_scelta,menu);
@@ -59,12 +58,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
+
                 intent = new Intent(this, ListaPaesiActivity.class);
                 bundle = new Bundle();
                 bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
                                                     ListaPaesiActivity.class.getName());
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent,1);
                 break;
 
             case R.id.Menu_2:
@@ -73,26 +73,38 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
                                         ListaArgomentiActivity.class.getName());
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent,2);
                 break;
 
             case R.id.Menu_3:
                 intent = new Intent(this, MostraPngSalvatoPrecedentemente.class);
-                startActivity(intent);
+                startActivityForResult(intent,3);
                 break;
 
             case R.id.Menu_4:
                 intent = new Intent(this, CaricaDati.class);
-                startActivity(intent);
+                startActivityForResult(intent,4);
         }
         return false;
     }
 
 
-
-
     @Override
-    protected void onActivityResult(int requestCodeID, int resultCode, Intent intent){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d(Costanti.NOME_APP,"onActivityResult");
+        if(requestCode == 1 || resultCode == 2 && resultCode == RESULT_CANCELED){
+
+            String error_message=data.getStringExtra("error");
+            Log.d(Costanti.NOME_APP+"MainActiv",error_message);
+            intent = new Intent(this, NotificationActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("error",error_message);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
+        }
+
 
     }
 

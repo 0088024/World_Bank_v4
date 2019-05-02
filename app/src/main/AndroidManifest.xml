@@ -19,6 +19,9 @@
             android:name=".CaricaDati"
             android:label="@string/title_activity_carica_dati"></activity>
         <activity
+            android:name=".NotificationActivity"
+            android:label="@string/title_activity_notification"></activity>
+        <activity
             android:name=".GraficoActivity"
             android:label="@string/title_activity_grafico"></activity>
         <activity

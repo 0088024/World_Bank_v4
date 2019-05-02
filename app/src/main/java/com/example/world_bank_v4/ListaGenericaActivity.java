@@ -1,6 +1,7 @@
 package com.example.world_bank_v4;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -26,6 +29,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class ListaGenericaActivity extends AppCompatActivity implements
                                                         AdapterView.OnItemClickListener {
@@ -38,7 +42,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private Intent intent_prec;
     private Bundle bundle_prec;
     private Bundle bundle_succ;
+    private Bundle bundle_main;
     private String json_file;
+    private String error_file;
     private String nomeClasseSelezionata;
     private String idIndicatoreSelezionato;
     private String idArgomentoSelezionato;
@@ -65,7 +71,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
-    public void caricaLista(){
+    public void caricaLista() {
         for(;;) {
             /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
             è stata ripresa (per esempio l'utente torna da quella successiva) e reistanziata causa
@@ -148,26 +154,38 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-    /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima alla
+    /*riceve il file json, se è corretto lo trasforma con GSON in una List<T>, e collega quest'ultima alla
     listView tramite l'adattatore che instanzia*/
     protected void caricaLayoutLista(){
         /*DEBUG*/
-        Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
+        Log.d(Costanti.NOME_APP + "ListGenActiv", json_file);
 
-        /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
-        MyGSON myGSON = new MyGSON();
-        lista_oggetti = myGSON.getList(json_file, typeToken);
+        if(error_file==null) {
 
-        /*DEBUG*/
-        for(int i = 0; i<lista_oggetti.size(); i++)
-            Log.d(Costanti.NOME_APP, lista_oggetti.get(i).toString() + "\n");
+            /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
+            MyGSON myGSON = new MyGSON();
+            lista_oggetti = myGSON.getList(json_file, typeToken);
+
+            /*DEBUG*/
+            for (int i = 0; i < lista_oggetti.size(); i++)
+                Log.d(Costanti.NOME_APP, lista_oggetti.get(i).toString() + "\n");
 
 
-        listView = findViewById(idListView);
-        listView.setOnItemClickListener(this);
+            listView = findViewById(idListView);
+            listView.setOnItemClickListener(this);
 
-        instanziaAdapter();
-        listView.setAdapter(adapter);
+            instanziaAdapter();
+            listView.setAdapter(adapter);
+        }
+        else{
+            Intent intent=new Intent();
+            bundle_main = new Bundle();
+            bundle_main.putString("error",error_file);
+            intent.putExtras(bundle_main);
+            setResult(RESULT_CANCELED,intent);
+            finish();
+
+        }
 
     }
 
@@ -223,12 +241,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-    /*thread che in background scarica in una stringa il file json dei paesi*/
+    /*thread che in background scarica in una stringa il file json di pertinenza*/
     private class DownloadFileTask extends AsyncTask<Void, Void, String> {
 
         private InputStream risposta;
         private StringBuilder sb;
         private HttpURLConnection client;
+        private int code;
 
         public DownloadFileTask(){
             API_WORLD_BANK = costruisciApi();
@@ -242,7 +261,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
                 client = (HttpURLConnection) url.openConnection();
 
-                /*Recupero le informazioni inviate dal server*/
+                /*Recupero le informazioni inviate dal server */
                 risposta = new BufferedInputStream(client.getInputStream());
 
                 /*leggo i caratteri e li appendo in sb*/
@@ -252,16 +271,27 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 while ((nextLine = reader.readLine()) != null) {
                     sb.append(nextLine);
                 }
+
+
             }
+
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
             catch (MalformedURLException e) {
                 Log.d(Costanti.NOME_APP, e.getMessage());
+                Log.d(Costanti.NOME_APP,"Malfcode");
+
             }
 
             catch (IOException e) {
                 Log.d(Costanti.NOME_APP, e.getMessage());
+                Log.d(Costanti.NOME_APP,"IOcode");
+                error_file= e.getMessage();
+                return error_file;
 
-            } finally {
+
+            }
+
+            finally {
                 client.disconnect();
             }
 
@@ -272,8 +302,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         protected void onPostExecute(String risultato) {
 
-            json_file = risultato;
-            caricaLayoutLista();
+                json_file = risultato;
+                caricaLayoutLista();
 
         }
     }
@@ -311,11 +341,26 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         return "Fare override. Questo è il metodo della superclasse";
     }
 
+    public void send_notifica(String message){
+
+    }
+
+    /*public void send_notifica() {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(ListaGenericaActivity.this);
+            builder.setIcon(R.drawable.world_bank);
+            builder.setTitle("Impossibile raggiungere il sito");
+            builder.setMessage("Impossibile trovare l'indirizzo IP del server di worldbank.org");
+            builder.show();
+
+    }*/ // Fare override
+
     public void instanziaAdapter(){ }
 
     public String getJsonFile(){
         return json_file;
     }
+
 
     public String getNomeClasseSelezionata(){
         return nomeClasseSelezionata;
