@@ -3,6 +3,7 @@ package com.example.world_bank_v4;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import com.google.gson.reflect.TypeToken;
@@ -107,7 +108,26 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), ListaPaesiActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivity(intent_succ);
+        startActivityForResult(intent_succ,0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Intent intent;
+
+        Log.d(Costanti.NOME_APP, "onActivityResult");
+        if (requestCode == 0 && resultCode == RESULT_CANCELED) {
+
+            String error_message = data.getStringExtra("error");
+            Log.d(Costanti.NOME_APP + "ListPaeActiv", error_message);
+            intent = new Intent(this, NotificationActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("error", error_message);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
+        }
     }
 
 }

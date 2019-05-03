@@ -23,9 +23,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private URL url;
     private Intent intent;
-
     private ImageView iv;
 
 
@@ -92,16 +90,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        Log.d(Costanti.NOME_APP,"onActivityResult");
-        if(requestCode == 1 || resultCode == 2 && resultCode == RESULT_CANCELED){
+        // Gestione della mancanza di connessione
 
-            String error_message=data.getStringExtra("error");
-            Log.d(Costanti.NOME_APP+"MainActiv",error_message);
-            intent = new Intent(this, NotificationActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("error",error_message);
-            intent.putExtras(bundle);
-            startActivity(intent);
+        Log.d(Costanti.NOME_APP,"onActivityResult");
+        if((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
+
+                String error_message = data.getStringExtra("error");
+                Log.d(Costanti.NOME_APP + "MainActiv", error_message);
+                intent = new Intent(this, NotificationActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("error", error_message);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
 
         }
 

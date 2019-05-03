@@ -26,7 +26,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownServiceException;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -146,6 +149,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             idPaeseSelezionato = bundle_prec.getString(Costanti.ID_PAESE_SELEZIONATO);
 
             /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
+            Log.d(Costanti.NOME_APP, "prima di DownloadFileTask");
             new DownloadFileTask().execute();
             break;
 
@@ -161,6 +165,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         Log.d(Costanti.NOME_APP + "ListGenActiv", json_file);
 
         if(error_file==null) {
+
 
             /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
             MyGSON myGSON = new MyGSON();
@@ -194,6 +199,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     dallo stack activity, in modo da far tornare in 1°piano quella che l'aveva lanciata*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent=new Intent();
+        setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
         finish();
         return false;
     }
@@ -251,6 +258,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         public DownloadFileTask(){
             API_WORLD_BANK = costruisciApi();
+            Log.d(Costanti.NOME_APP, "costruttore"+API_WORLD_BANK);
         }
 
         @Override
@@ -259,11 +267,16 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             try {
                 url = new URL(API_WORLD_BANK);
                 /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
+                Log.d(Costanti.NOME_APP, "prima di connection");
+                Log.d(Costanti.NOME_APP, API_WORLD_BANK);
                 client = (HttpURLConnection) url.openConnection();
-
+                Log.d(Costanti.NOME_APP, "dopo connection");
                 /*Recupero le informazioni inviate dal server */
+                Log.d(Costanti.NOME_APP,String.valueOf(client.getReadTimeout()));
+                Log.d(Costanti.NOME_APP, "dopo getInputStream");
+                client.setReadTimeout(2000); //Timeout in lettura
                 risposta = new BufferedInputStream(client.getInputStream());
-
+                Log.d(Costanti.NOME_APP, "dopo risposta");
                 /*leggo i caratteri e li appendo in sb*/
                 sb = new StringBuilder();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(risposta));
@@ -272,24 +285,46 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                     sb.append(nextLine);
                 }
 
-
             }
+
+
 
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
             catch (MalformedURLException e) {
                 Log.d(Costanti.NOME_APP, e.getMessage());
-                Log.d(Costanti.NOME_APP,"Malfcode");
+                Log.d(Costanti.NOME_APP,"MalformedURLException");
+                error_file= e.getMessage();
+                return error_file;
+
+            }
+
+            catch (SocketTimeoutException e) {
+                Log.d(Costanti.NOME_APP, e.getMessage());
+                Log.d(Costanti.NOME_APP,"SocketTimeoutException");
+                error_file= e.getMessage();
+                return error_file;
 
             }
 
             catch (IOException e) {
                 Log.d(Costanti.NOME_APP, e.getMessage());
-                Log.d(Costanti.NOME_APP,"IOcode");
+                Log.d(Costanti.NOME_APP,"IOException");
                 error_file= e.getMessage();
                 return error_file;
 
 
             }
+
+            catch (Exception e) {
+                Log.d(Costanti.NOME_APP, e.getMessage());
+                Log.d(Costanti.NOME_APP,"Exception");
+                error_file= e.getMessage();
+                return error_file;
+
+
+            }
+
+
 
             finally {
                 client.disconnect();
@@ -341,24 +376,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         return "Fare override. Questo è il metodo della superclasse";
     }
 
-    public void send_notifica(String message){
-
-    }
-
-    /*public void send_notifica() {
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(ListaGenericaActivity.this);
-            builder.setIcon(R.drawable.world_bank);
-            builder.setTitle("Impossibile raggiungere il sito");
-            builder.setMessage("Impossibile trovare l'indirizzo IP del server di worldbank.org");
-            builder.show();
-
-    }*/ // Fare override
-
     public void instanziaAdapter(){ }
 
     public String getJsonFile(){
         return json_file;
+    }
+
+    public String getErrorFile(){
+        return error_file;
     }
 
 
