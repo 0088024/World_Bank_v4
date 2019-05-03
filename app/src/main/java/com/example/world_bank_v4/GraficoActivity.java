@@ -198,6 +198,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     /*thread che in background salva i dati nel database locale*/
     private class SalvaDatabaseTask extends AsyncTask< ArrayList<ValoreGrafico>, Void, String > {
 
+        private DbManager dbManager;
+
+
+        public SalvaDatabaseTask(DbManager dbManager){
+            this.dbManager = dbManager;
+        }
+
         @Override
         protected String doInBackground(ArrayList<ValoreGrafico> ... params) {
 
