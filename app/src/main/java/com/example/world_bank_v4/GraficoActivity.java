@@ -168,7 +168,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         switch(v.getId()) {
             case R.id.button_salva_database:
-                new SalvaDatabaseTask().execute(lista_grafico);
+                dbManager = new DbManager(this);
+                new SalvaDatabaseTask(dbManager).execute(lista_grafico);
                 break;
             case R.id.button_salva_grafico:
                 new SalvaGraficoTask().execute(chart);
