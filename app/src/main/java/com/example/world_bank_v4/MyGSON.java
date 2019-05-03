@@ -19,10 +19,12 @@ public class MyGSON {
     }
 
 
-    public ArrayList getList(String file_json, TypeToken typeToken){
+    /*riceve un file json contenente 1 lista di elementi e istanzia e ritorna
+    la rispettiva lista Java*/
+    public ArrayList getListFromJson(String file_json, TypeToken typeToken){
 
-         /*attraverso il parser di Gson ottengo l'elemento che mi interessa, ovvero l'array di elementi
-        dello stesso tipo e ordinati in json*/
+         /*attraverso il parser di Gson ottengo l'elemento che mi interessa, ovvero l'array di
+         elementi dello stesso tipo e ordinati in json*/
         JsonElement je = new JsonParser().parse(file_json);
         JsonArray root = je.getAsJsonArray();
         JsonElement je2 = root.get(1);
@@ -41,6 +43,8 @@ public class MyGSON {
 
 
 
+    /*riceve un file json contenente 1 lista di elementi e ritorna 1 JsonElemnt che rappresenta
+    l'elemento json n° = index -1 */
     public JsonElement getJsonElementList(String file_json, int index){
         /*attraverso il parser di Gson ottengo l'elemento che mi interessa, ovvero l'array di
         elementi dello stesso tipo e ordinati in json*/
@@ -52,15 +56,15 @@ public class MyGSON {
         JsonArray elementi_grafico = je2.getAsJsonArray();  /*ottengo l'array json di oggetti*/
         JsonElement je_primo_elemento_grafico =
                 elementi_grafico.get(index);              /*ottengo il jsonElement che corrisponde
-                                                          al 1° oggetto dell'array json di oggetti*/
+                                                          ad 1 oggetto dell'array json di oggetti*/
 
         return je_primo_elemento_grafico;
 
     }
 
 
-    /*restituisce un MyElementoGenerico corrispondente all'elemento json memberName contenuto
-    nell'elemento jsonElement*/
+    /*istanzia e restituisce un MyElementoGenerico corrispondente all'elemento json memberName
+    contenuto nell'elemento jsonElement ricevuto*/
     public MyElementoGenerico getObjectIntoElement(JsonElement jsonElement, String memberName){
 
         /*ottengo l'ennesimo elemento all'interno di un elemento json*/

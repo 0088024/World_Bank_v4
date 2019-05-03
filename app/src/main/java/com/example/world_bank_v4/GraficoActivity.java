@@ -1,14 +1,9 @@
 package com.example.world_bank_v4;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,23 +16,12 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +29,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     private String json_file;
     private DbManager dbManager;
-    private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
+    private ArrayList<ValoreGrafico> lista_Valore_grafico;      /*lista che conterrà gli oggetti ValoreGrafico*/
     private LineChart chart;
     private Button button_salva_database;
     private Button button_salva_grafico;
@@ -69,8 +53,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
 
-        ArrayList<Grafico> lista_grafico = new ArrayList<Grafico>();
-        TypeToken<ArrayList<Grafico>> listTypeToken = new TypeToken<ArrayList<Grafico>>() {};
+        ArrayList<ValoreGrafico> lista_Valore_grafico = new ArrayList<ValoreGrafico>();
+        TypeToken<ArrayList<ValoreGrafico>> listTypeToken = new TypeToken<ArrayList<ValoreGrafico>>() {};
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
@@ -115,17 +99,17 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         /*con la libreria GSON ottengo la corrispondente lista/array di argomenti del file json*/
         MyGSON myGSON = new MyGSON();
-        lista_grafico = myGSON.getList(json_file, new TypeToken<ArrayList<Grafico>>() {});
+        lista_Valore_grafico = myGSON.getListFromJson(json_file, new TypeToken<ArrayList<ValoreGrafico>>() {});
 
         /*DEBUG*/
-        Log.d(Costanti.NOME_APP + " DIM LISTA ",  String.valueOf(lista_grafico.size()));
-        for(int i = 0; i<lista_grafico.size(); i++)
-            Log.d(Costanti.NOME_APP, lista_grafico.get(i).toString() + "\n");
+        Log.d(Costanti.NOME_APP + " DIM LISTA ",  String.valueOf(lista_Valore_grafico.size()));
+        for(int i = 0; i< lista_Valore_grafico.size(); i++)
+            Log.d(Costanti.NOME_APP, lista_Valore_grafico.get(i).toString() + "\n");
 
-        Grafico graf;
+        ValoreGrafico graf;
         List<Entry> entries = new ArrayList<Entry>();
-        for (int i=lista_grafico.size(); i>0;  i--) {
-            graf = lista_grafico.get(i-1);
+        for (int i = lista_Valore_grafico.size(); i>0; i--) {
+            graf = lista_Valore_grafico.get(i-1);
             if(graf.getvalue() == null){
                 graf.resetValue();
             }
@@ -141,12 +125,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        finish();
-        return false;
-    }
-
 
 
     /*a seconda del bottone che è stato cliccato, lancia il relativo thread task in bakground*/
@@ -156,7 +134,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         switch(v.getId()) {
             case R.id.button_salva_database:
                 dbManager = new DbManager(this);
-                new SalvaDatabaseTask(dbManager).execute(lista_grafico);
+                new SalvaDatabaseTask(dbManager).execute(lista_Valore_grafico);
                 break;
             case R.id.button_salva_grafico:
                 new SalvaGraficoTask().execute(chart);
@@ -188,7 +166,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
     /*thread che in background salva i dati nel database locale*/
-    private class SalvaDatabaseTask extends AsyncTask< ArrayList<Grafico>, Void, String > {
+    private class SalvaDatabaseTask extends AsyncTask< ArrayList<ValoreGrafico>, Void, String > {
 
         private DbManager dbManager;
 
@@ -199,9 +177,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
         @Override
-        protected String doInBackground(ArrayList<Grafico> ... params) {
+        protected String doInBackground(ArrayList<ValoreGrafico> ... params) {
 
-            ArrayList<Grafico> lista_grafico = params[0];
+            ArrayList<ValoreGrafico> lista_Valore_grafico = params[0];
             /*costruisci un oggetto recordTabella corrispondente all'indicatore per paese ottenuto*/
             /*con la libreria GSON ottengo il corrispondente primo oggetto dell'array di elementi
             del file json*/
@@ -213,7 +191,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                     "indicator");
 
 
-            RecordTabella recordTabella = new RecordTabella(country, indicator, lista_grafico);
+            RecordTabella recordTabella = new RecordTabella(country, indicator, lista_Valore_grafico);
 
             dbManager.addRow(recordTabella);
 
@@ -270,7 +248,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 e.printStackTrace();
             }
 
-            return "Grafico salvato in png";
+            return "ValoreGrafico salvato in png";
 
         }
 

@@ -2,6 +2,8 @@ package com.example.world_bank_v4;
 
 import java.util.ArrayList;
 
+
+
 public class RecordTabella {
 
     private long _id;
@@ -9,17 +11,17 @@ public class RecordTabella {
     private String idIndicatore;
     private String nomePaese;
     private String nomeIndicatore;
-    private ArrayList<Grafico> colonne_anni;      /*contiene i valori per ogni anno*/
+    private ArrayList<ValoreGrafico> colonne_anni;      /*contiene i valori per ogni anno*/
 
 
     public RecordTabella(MyElementoGenerico paese, MyElementoGenerico indicatore,
-                         ArrayList<Grafico> lista_grafico){
+                         ArrayList<ValoreGrafico> lista_Valore_grafico){
 
         this.idPaese = paese.getId();
         this.idIndicatore = indicatore.getId();
         this.nomePaese = paese.getValue();
         this.nomeIndicatore = indicatore.getValue();
-        this.colonne_anni = lista_grafico;
+        this.colonne_anni = lista_Valore_grafico;
 
     }
 
@@ -40,7 +42,7 @@ public class RecordTabella {
         return  nomeIndicatore;
     }
 
-    public ArrayList<Grafico> getColonne_anni(){
+    public ArrayList<ValoreGrafico> getColonne_anni(){
         return  colonne_anni;
     }
 }

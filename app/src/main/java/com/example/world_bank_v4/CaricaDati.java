@@ -46,6 +46,9 @@ public class CaricaDati extends AppCompatActivity
 
 
 
+
+    /*restituisce 1 stringa che mostra il contenuto di tutte le colonne del record puntato dal
+    cursore*/
     private String showCursor(Cursor cursor) {
         cursor.moveToPosition(-1);
         String cursorData = "\nCursor: [";
@@ -75,7 +78,7 @@ public class CaricaDati extends AppCompatActivity
     }
 
 
-
+    /*restituisce 1 stringa con il tipo di dato della colonna con indice "i" */
     private String getColumnType(Cursor cursor, int i) {
         try {
             cursor.moveToFirst();
@@ -143,10 +146,11 @@ public class CaricaDati extends AppCompatActivity
 
 
 
-        protected void onPostExecute(Cursor risultato){
-            Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(risultato));
-            cursorAdapter = new MyCursorAdapter(getApplicationContext(), risultato, 0,
-                                                getThis());
+        protected void onPostExecute(Cursor cursorRisultato){
+            Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(cursorRisultato));
+
+            cursorAdapter = new MyCursorAdapter(getApplicationContext(), cursorRisultato, 0,
+                    getThis());
             listView.setAdapter(cursorAdapter);
         }
 
