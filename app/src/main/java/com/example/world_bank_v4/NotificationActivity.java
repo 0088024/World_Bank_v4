@@ -42,7 +42,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
         Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
-        //Da implementare
+
 
     }
 
