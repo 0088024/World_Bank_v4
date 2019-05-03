@@ -35,7 +35,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
 
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
         a quest'ultima*/
-        Log.d(Costanti.NOME_APP, "prima di carica_lista");
+
         super.caricaLista();
     }
 
@@ -93,7 +93,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         /*questa attività lancia sempre l'attività ListIndicatoriActivity*/
         Intent intent_succ = new Intent(getApplicationContext(), ListaIndicatoriActivity.class);
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,0);
+        startActivityForResult(intent_succ,5);
     }
 
     @Override
@@ -101,11 +101,9 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
 
         Intent intent;
 
-        Log.d(Costanti.NOME_APP, "onActivityResult");
-        if (requestCode == 0 && resultCode == RESULT_CANCELED) {
+        if (requestCode == 5 && resultCode == RESULT_CANCELED) {
 
             String error_message = data.getStringExtra("error");
-            Log.d(Costanti.NOME_APP + "ListArgActiv", error_message);
             intent = new Intent(this, NotificationActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("error", error_message);

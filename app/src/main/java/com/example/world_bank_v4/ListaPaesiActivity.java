@@ -109,7 +109,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
         Intent intent;
 
-        Log.d(Costanti.NOME_APP, "onActivityResult");
+        Log.d(Costanti.NOME_APP, "onActivityResultPaesi");
         if (requestCode == 0 && resultCode == RESULT_CANCELED) {
 
             String error_message = data.getStringExtra("error");

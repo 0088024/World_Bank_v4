@@ -90,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        // Gestione della mancanza di connessione
-
         Log.d(Costanti.NOME_APP,"onActivityResult");
         if((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
 

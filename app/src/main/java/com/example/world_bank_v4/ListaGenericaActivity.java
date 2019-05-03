@@ -149,7 +149,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             idPaeseSelezionato = bundle_prec.getString(Costanti.ID_PAESE_SELEZIONATO);
 
             /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
-            Log.d(Costanti.NOME_APP, "prima di DownloadFileTask");
             new DownloadFileTask().execute();
             break;
 
@@ -158,14 +157,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-    /*riceve il file json, se è corretto lo trasforma con GSON in una List<T>, e collega quest'ultima alla
+    /* se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>, e collega quest'ultima alla
     listView tramite l'adattatore che instanzia*/
     protected void caricaLayoutLista(){
-        /*DEBUG*/
-        Log.d(Costanti.NOME_APP + "ListGenActiv", json_file);
 
         if(error_file==null) {
-
 
             /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
             MyGSON myGSON = new MyGSON();
@@ -254,11 +250,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         private InputStream risposta;
         private StringBuilder sb;
         private HttpURLConnection client;
-        private int code;
+
 
         public DownloadFileTask(){
             API_WORLD_BANK = costruisciApi();
-            Log.d(Costanti.NOME_APP, "costruttore"+API_WORLD_BANK);
+
         }
 
         @Override
@@ -267,16 +263,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             try {
                 url = new URL(API_WORLD_BANK);
                 /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
-                Log.d(Costanti.NOME_APP, "prima di connection");
-                Log.d(Costanti.NOME_APP, API_WORLD_BANK);
                 client = (HttpURLConnection) url.openConnection();
-                Log.d(Costanti.NOME_APP, "dopo connection");
                 /*Recupero le informazioni inviate dal server */
-                Log.d(Costanti.NOME_APP,String.valueOf(client.getReadTimeout()));
-                Log.d(Costanti.NOME_APP, "dopo getInputStream");
-                client.setReadTimeout(2000); //Timeout in lettura
+                client.setReadTimeout(2000); //Timeout in millisecondi per la lettura da stream
                 risposta = new BufferedInputStream(client.getInputStream());
-                Log.d(Costanti.NOME_APP, "dopo risposta");
                 /*leggo i caratteri e li appendo in sb*/
                 sb = new StringBuilder();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(risposta));
@@ -291,24 +281,21 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
             catch (MalformedURLException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
-                Log.d(Costanti.NOME_APP,"MalformedURLException");
+                Log.d(Costanti.NOME_APP,"MalformedURLException: "+e.getMessage());
                 error_file= e.getMessage();
                 return error_file;
 
             }
 
             catch (SocketTimeoutException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
-                Log.d(Costanti.NOME_APP,"SocketTimeoutException");
+                Log.d(Costanti.NOME_APP,"SocketTimeoutException: " +e.getMessage() );
                 error_file= e.getMessage();
                 return error_file;
 
             }
 
             catch (IOException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
-                Log.d(Costanti.NOME_APP,"IOException");
+                Log.d(Costanti.NOME_APP,"IOException: " +e.getMessage() );
                 error_file= e.getMessage();
                 return error_file;
 
@@ -316,8 +303,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             }
 
             catch (Exception e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
-                Log.d(Costanti.NOME_APP,"Exception");
+                Log.d(Costanti.NOME_APP,"Exception: "+e.getMessage() );
                 error_file= e.getMessage();
                 return error_file;
 
@@ -371,7 +357,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     public void setAdapter(ArrayAdapter adapter) { this.adapter = adapter; }
 
-
     public String costruisciApi(){
         return "Fare override. Questo è il metodo della superclasse";
     }
@@ -385,7 +370,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public String getErrorFile(){
         return error_file;
     }
-
 
     public String getNomeClasseSelezionata(){
         return nomeClasseSelezionata;

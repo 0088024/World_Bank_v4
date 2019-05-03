@@ -108,7 +108,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), ListaPaesiActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,0);
+        startActivityForResult(intent_succ,6);
     }
 
     @Override
@@ -116,11 +116,9 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
         Intent intent;
 
-        Log.d(Costanti.NOME_APP, "onActivityResult");
-        if (requestCode == 0 && resultCode == RESULT_CANCELED) {
+        if (requestCode == 6 && resultCode == RESULT_CANCELED) {
 
             String error_message = data.getStringExtra("error");
-            Log.d(Costanti.NOME_APP + "ListPaeActiv", error_message);
             intent = new Intent(this, NotificationActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("error", error_message);

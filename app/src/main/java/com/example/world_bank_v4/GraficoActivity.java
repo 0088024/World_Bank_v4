@@ -106,7 +106,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         err_msg = super.getErrorFile();
 
-        if(err_msg!=null) {
+        if(err_msg==null) {
 
             json_file = (super.getJsonFile());
 
@@ -155,6 +155,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent=new Intent();
+        setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
         finish();
         return false;
     }
