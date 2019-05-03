@@ -1,6 +1,7 @@
 package com.example.world_bank_v4;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -23,9 +26,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.UnknownServiceException;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class ListaGenericaActivity extends AppCompatActivity implements
                                                         AdapterView.OnItemClickListener {
@@ -38,7 +45,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private Intent intent_prec;
     private Bundle bundle_prec;
     private Bundle bundle_succ;
+    private Bundle bundle_main;
     private String json_file;
+    private String error_file;
     private String nomeClasseSelezionata;
     private String idIndicatoreSelezionato;
     private String idArgomentoSelezionato;
@@ -65,7 +74,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
-    public void caricaLista(){
+    public void caricaLista() {
         for(;;) {
             /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
             è stata ripresa (per esempio l'utente torna da quella successiva) e reistanziata causa
@@ -148,26 +157,36 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-    /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima alla
+    /* se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>, e collega quest'ultima alla
     listView tramite l'adattatore che instanzia*/
     protected void caricaLayoutLista(){
-        /*DEBUG*/
-        Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
-        /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
-        MyGSON myGSON = new MyGSON();
-        lista_oggetti = myGSON.getList(json_file, typeToken);
+        if(error_file==null) {
 
-        /*DEBUG*/
-        for(int i = 0; i<lista_oggetti.size(); i++)
-            Log.d(Costanti.NOME_APP, lista_oggetti.get(i).toString() + "\n");
+            /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
+            MyGSON myGSON = new MyGSON();
+            lista_oggetti = myGSON.getList(json_file, typeToken);
+
+            /*DEBUG*/
+            for (int i = 0; i < lista_oggetti.size(); i++)
+                Log.d(Costanti.NOME_APP, lista_oggetti.get(i).toString() + "\n");
 
 
-        listView = findViewById(idListView);
-        listView.setOnItemClickListener(this);
+            listView = findViewById(idListView);
+            listView.setOnItemClickListener(this);
 
-        instanziaAdapter();
-        listView.setAdapter(adapter);
+            instanziaAdapter();
+            listView.setAdapter(adapter);
+        }
+        else{
+            Intent intent=new Intent();
+            bundle_main = new Bundle();
+            bundle_main.putString("error",error_file);
+            intent.putExtras(bundle_main);
+            setResult(RESULT_CANCELED,intent);
+            finish();
+
+        }
 
     }
 
@@ -176,6 +195,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     dallo stack activity, in modo da far tornare in 1°piano quella che l'aveva lanciata*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent=new Intent();
+        setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
         finish();
         return false;
     }
@@ -223,15 +244,17 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-    /*thread che in background scarica in una stringa il file json dei paesi*/
+    /*thread che in background scarica in una stringa il file json di pertinenza*/
     private class DownloadFileTask extends AsyncTask<Void, Void, String> {
 
         private InputStream risposta;
         private StringBuilder sb;
         private HttpURLConnection client;
 
+
         public DownloadFileTask(){
             API_WORLD_BANK = costruisciApi();
+
         }
 
         @Override
@@ -241,10 +264,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 url = new URL(API_WORLD_BANK);
                 /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
                 client = (HttpURLConnection) url.openConnection();
-
-                /*Recupero le informazioni inviate dal server*/
+                /*Recupero le informazioni inviate dal server */
+                client.setReadTimeout(2000); //Timeout in millisecondi per la lettura da stream
                 risposta = new BufferedInputStream(client.getInputStream());
-
                 /*leggo i caratteri e li appendo in sb*/
                 sb = new StringBuilder();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(risposta));
@@ -252,16 +274,45 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 while ((nextLine = reader.readLine()) != null) {
                     sb.append(nextLine);
                 }
+
             }
+
+
+
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
             catch (MalformedURLException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
+                Log.d(Costanti.NOME_APP,"MalformedURLException: "+e.getMessage());
+                error_file= e.getMessage();
+                return error_file;
+
+            }
+
+            catch (SocketTimeoutException e) {
+                Log.d(Costanti.NOME_APP,"SocketTimeoutException: " +e.getMessage() );
+                error_file= e.getMessage();
+                return error_file;
+
             }
 
             catch (IOException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
+                Log.d(Costanti.NOME_APP,"IOException: " +e.getMessage() );
+                error_file= e.getMessage();
+                return error_file;
 
-            } finally {
+
+            }
+
+            catch (Exception e) {
+                Log.d(Costanti.NOME_APP,"Exception: "+e.getMessage() );
+                error_file= e.getMessage();
+                return error_file;
+
+
+            }
+
+
+
+            finally {
                 client.disconnect();
             }
 
@@ -272,8 +323,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         protected void onPostExecute(String risultato) {
 
-            json_file = risultato;
-            caricaLayoutLista();
+                json_file = risultato;
+                caricaLayoutLista();
 
         }
     }
@@ -306,7 +357,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     public void setAdapter(ArrayAdapter adapter) { this.adapter = adapter; }
 
-
     public String costruisciApi(){
         return "Fare override. Questo è il metodo della superclasse";
     }
@@ -315,6 +365,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     public String getJsonFile(){
         return json_file;
+    }
+
+    public String getErrorFile(){
+        return error_file;
     }
 
     public String getNomeClasseSelezionata(){

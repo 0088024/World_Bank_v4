@@ -43,12 +43,13 @@ import java.util.List;
 
 public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
 
-    private String json_file;
+    private String json_file,err_msg;
     private DbManager dbManager;
     private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
     private Button button_salva_database;
     private Button button_salva_grafico;
+    private Bundle bundle_main;
 
 
     @Override
@@ -103,41 +104,59 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     public void caricaLayoutLista(){
 
-        json_file = (super.getJsonFile());
+        err_msg = super.getErrorFile();
 
-        /*DEBUG*/
-        Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
+        if(err_msg==null) {
 
-        /*con la libreria GSON ottengo la corrispondente lista/array di argomenti del file json*/
-        MyGSON myGSON = new MyGSON();
-        lista_grafico = myGSON.getList(json_file, new TypeToken<ArrayList<Grafico>>() {});
+            json_file = (super.getJsonFile());
 
-        /*DEBUG*/
-        Log.d(Costanti.NOME_APP + " DIM LISTA ",  String.valueOf(lista_grafico.size()));
-        for(int i = 0; i<lista_grafico.size(); i++)
-            Log.d(Costanti.NOME_APP, lista_grafico.get(i).toString() + "\n");
+            /*DEBUG*/
+            Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
-        Grafico graf;
-        List<Entry> entries = new ArrayList<Entry>();
-        for (int i=lista_grafico.size(); i>0;  i--) {
-            graf = lista_grafico.get(i-1);
-            if(graf.getvalue() == null){
-                graf.resetValue();
+            /*con la libreria GSON ottengo la corrispondente lista/array di argomenti del file json*/
+            MyGSON myGSON = new MyGSON();
+            lista_grafico = myGSON.getList(json_file, new TypeToken<ArrayList<Grafico>>() {
+            });
+
+            /*DEBUG*/
+            Log.d(Costanti.NOME_APP + " DIM LISTA ", String.valueOf(lista_grafico.size()));
+            for (int i = 0; i < lista_grafico.size(); i++)
+                Log.d(Costanti.NOME_APP, lista_grafico.get(i).toString() + "\n");
+
+            Grafico graf;
+            List<Entry> entries = new ArrayList<Entry>();
+            for (int i = lista_grafico.size(); i > 0; i--) {
+                graf = lista_grafico.get(i - 1);
+                if (graf.getvalue() == null) {
+                    graf.resetValue();
+                }
+                entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
             }
-            entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
+
+            LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+            dataSet.setColor(Color.BLUE);
+            dataSet.setValueTextColor(Color.RED); // styling, ...
+            LineData lineData = new LineData(dataSet);
+            chart.setData(lineData);
+            chart.invalidate(); // refresh
+        }
+        else{
+
+            Intent intent=new Intent();
+            bundle_main = new Bundle();
+            bundle_main.putString("error",err_msg);
+            intent.putExtras(bundle_main);
+            setResult(RESULT_CANCELED,intent);
+            finish();
         }
 
-        LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
-        dataSet.setColor(Color.BLUE);
-        dataSet.setValueTextColor(Color.RED); // styling, ...
-        LineData lineData = new LineData(dataSet);
-        chart.setData(lineData);
-        chart.invalidate(); // refresh
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent=new Intent();
+        setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
         finish();
         return false;
     }

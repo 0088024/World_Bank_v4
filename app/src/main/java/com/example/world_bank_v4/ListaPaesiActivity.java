@@ -1,15 +1,20 @@
 package com.example.world_bank_v4;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class ListaPaesiActivity extends ListaGenericaActivity {
+
 
 
     @Override
@@ -17,6 +22,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         super.onCreate(savedInstanceState);
 
         /*"specializza activity*/
+
         setContentView(R.layout.activity_lista_paese_activity);
         getSupportActionBar().setLogo(R.drawable.country);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
@@ -32,7 +38,12 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
         a quest'ultima*/
+
         super.caricaLista();
+
+
+
+
     }
 
 
@@ -51,9 +62,6 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         /*API: https://api.worldbank.org/v2/country?format=json&per_page=500*/
         return Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500;
     }
-
-
-
 
     /*serve x salvare in un oggetto Bundle di sistema i dati dello stato dell'istanza.
     E' chiamato dal sistema prima di far entrare l'attività in onPause(). Se però l'attività è
@@ -93,7 +101,26 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), GraficoActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivity(intent_succ);
+        startActivityForResult(intent_succ,0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Intent intent;
+
+        Log.d(Costanti.NOME_APP, "onActivityResultPaesi");
+        if (requestCode == 0 && resultCode == RESULT_CANCELED) {
+
+            String error_message = data.getStringExtra("error");
+            Log.d(Costanti.NOME_APP + "ListPaeActiv", error_message);
+            intent = new Intent(this, NotificationActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("error", error_message);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
+        }
     }
 
 }

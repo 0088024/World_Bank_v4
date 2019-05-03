@@ -23,9 +23,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private URL url;
     private Intent intent;
-
     private ImageView iv;
 
 
@@ -39,10 +37,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         iv = findViewById(R.id.imageView);
-        iv.setImageResource(R.drawable.wb);
+        iv.setImageResource(R.drawable.wb1);
 
     }
-
 
 
     @Override
@@ -59,12 +56,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
+
                 intent = new Intent(this, ListaPaesiActivity.class);
                 bundle = new Bundle();
                 bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
                                                     ListaPaesiActivity.class.getName());
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent,1);
                 break;
 
             case R.id.Menu_2:
@@ -73,26 +71,39 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
                                         ListaArgomentiActivity.class.getName());
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent,2);
                 break;
 
             case R.id.Menu_3:
                 intent = new Intent(this, MostraPngSalvatoPrecedentemente.class);
-                startActivity(intent);
+                startActivityForResult(intent,3);
                 break;
 
             case R.id.Menu_4:
                 intent = new Intent(this, CaricaDati.class);
-                startActivity(intent);
+                startActivityForResult(intent,4);
         }
         return false;
     }
 
 
-
-
     @Override
-    protected void onActivityResult(int requestCodeID, int resultCode, Intent intent){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d(Costanti.NOME_APP,"onActivityResult");
+        if((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
+
+                String error_message = data.getStringExtra("error");
+                Log.d(Costanti.NOME_APP + "MainActiv", error_message);
+                intent = new Intent(this, NotificationActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("error", error_message);
+                intent.putExtras(bundle);
+                startActivity(intent);
+
+
+        }
+
 
     }
 
