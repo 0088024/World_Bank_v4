@@ -37,4 +37,7 @@ public final class Costanti {
 
     public static final String NOME_UNICO_FILE_PNG = "nome_unico_file.png";
 
+
+
+
 }

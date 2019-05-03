@@ -165,7 +165,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
             /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
             MyGSON myGSON = new MyGSON();
-            lista_oggetti = myGSON.getList(json_file, typeToken);
+            lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
 
             /*DEBUG*/
             for (int i = 0; i < lista_oggetti.size(); i++)

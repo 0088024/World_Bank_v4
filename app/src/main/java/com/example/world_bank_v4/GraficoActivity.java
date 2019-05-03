@@ -45,7 +45,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     private String json_file,err_msg;
     private DbManager dbManager;
-    private ArrayList<Grafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
+    private ArrayList<ValoreGrafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
     private Button button_salva_database;
     private Button button_salva_grafico;
@@ -70,9 +70,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
 
-        ArrayList<Grafico> lista_grafico = new ArrayList<Grafico>();
-        TypeToken<ArrayList<Grafico>> listTypeToken = new TypeToken<ArrayList<Grafico>>() {
-        };
+        ArrayList<ValoreGrafico> lista_grafico = new ArrayList<ValoreGrafico>();
+        TypeToken<ArrayList<ValoreGrafico>> listTypeToken =
+                new TypeToken<ArrayList<ValoreGrafico>>() {};
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
@@ -115,15 +115,15 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             /*con la libreria GSON ottengo la corrispondente lista/array di argomenti del file json*/
             MyGSON myGSON = new MyGSON();
-            lista_grafico = myGSON.getList(json_file, new TypeToken<ArrayList<Grafico>>() {
-            });
+            lista_grafico = myGSON.getListFromJson(json_file,
+                    new TypeToken<ArrayList<ValoreGrafico>>() {});
 
             /*DEBUG*/
             Log.d(Costanti.NOME_APP + " DIM LISTA ", String.valueOf(lista_grafico.size()));
             for (int i = 0; i < lista_grafico.size(); i++)
                 Log.d(Costanti.NOME_APP, lista_grafico.get(i).toString() + "\n");
 
-            Grafico graf;
+            ValoreGrafico graf;
             List<Entry> entries = new ArrayList<Entry>();
             for (int i = lista_grafico.size(); i > 0; i--) {
                 graf = lista_grafico.get(i - 1);
@@ -196,16 +196,16 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
     /*thread che in background salva i dati nel database locale*/
-    private class SalvaDatabaseTask extends AsyncTask< ArrayList<Grafico>, Void, String > {
+    private class SalvaDatabaseTask extends AsyncTask< ArrayList<ValoreGrafico>, Void, String > {
 
         @Override
-        protected String doInBackground(ArrayList<Grafico> ... params) {
+        protected String doInBackground(ArrayList<ValoreGrafico> ... params) {
 
-            ArrayList<Grafico> lista_grafico = params[0];
+            ArrayList<ValoreGrafico> lista_grafico = params[0];
             dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
                                                                 database*/
             for(int i=lista_grafico.size(); i>0; i--){
-                Grafico elemento = lista_grafico.get(i-1);
+                ValoreGrafico elemento = lista_grafico.get(i-1);
                 dbManager.addRow(elemento.getDate(), elemento.getvalue().toString());
 
                 /*DEBUG*/

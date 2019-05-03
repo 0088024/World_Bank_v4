@@ -4,15 +4,16 @@ public class MyElementoGenerico {
 
     private String id = null;
     private String name = null;
+    private String value = null;
 
 
     public MyElementoGenerico()  {}  /*serve x il GSON*/
 
-    public MyElementoGenerico(String id, String name){
+    public MyElementoGenerico(String id, String name, String value ){
 
         this.id = id;
         this.name = name;
-
+        this.value = value;
     }
 
 
@@ -22,9 +23,7 @@ public class MyElementoGenerico {
     }
 
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name; }
 
 
     public String getSourceNote(){
@@ -33,6 +32,6 @@ public class MyElementoGenerico {
 
 
     public String getValue(){
-        return "Metodo della superclasse MyElementoGenerico";
+        return value;
     }
 }
