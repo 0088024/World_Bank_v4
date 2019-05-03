@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         iv = findViewById(R.id.imageView);
-        iv.setImageResource(R.drawable.wb);
+        iv.setImageResource(R.drawable.wb1);
 
     }
 
