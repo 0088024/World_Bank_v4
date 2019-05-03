@@ -201,25 +201,26 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         @Override
         protected String doInBackground(ArrayList<ValoreGrafico> ... params) {
 
-            ArrayList<ValoreGrafico> lista_grafico = params[0];
-            dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
-                                                                database*/
-            for(int i=lista_grafico.size(); i>0; i--){
-                ValoreGrafico elemento = lista_grafico.get(i-1);
-                dbManager.addRow(elemento.getDate(), elemento.getvalue().toString());
 
-                /*DEBUG*/
-                Log.d(Costanti.NOME_APP, "aggiunta riga nel database");
-            }
-
-            return "Dati salvati nel database";
-        }
+              ArrayList<ValoreGrafico> lista_Valore_grafico = params[0];
+              /*costruisci un oggetto recordTabella corrispondente all'indicatore per paese ottenuto*/
+              /*con la libreria GSON ottengo il corrispondente primo oggetto dell'array di elementi
+              del file json*/
+              MyGSON myGSON = new MyGSON();
+              JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);;
+              MyElementoGenerico country = myGSON.getObjectIntoElement(jsonElement,
+                                 "country");
+              MyElementoGenerico indicator = myGSON.getObjectIntoElement(jsonElement,
+                                 "indicator");
 
 
+              RecordTabella recordTabella = new RecordTabella(country, indicator,
+                                            lista_Valore_grafico);
 
-        protected void onPostExecute(String risultato){
-            Log.d(Costanti.NOME_APP, risultato);
+              dbManager.addRow(recordTabella);
 
+
+              return "Dati salvati nel database";
         }
     }
 
