@@ -21,11 +21,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
 
     private Intent intent;
-    private ImageView iv;
+    private ImageView imageView;
 
+    private Button buttonPaese;
+    private Button buttonArgomento;
+    private Button buttonGrafico;
+    private Button buttonDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +40,18 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        iv = findViewById(R.id.imageView);
-        iv.setImageResource(R.drawable.wb1);
+        imageView = findViewById(R.id.imageView);
+        imageView.setImageResource(R.drawable.wb1);
+
+        buttonPaese = findViewById(R.id.buttonPaese);
+        buttonArgomento = findViewById(R.id.buttonArgomento);
+        buttonGrafico = findViewById(R.id.buttonGrafico);
+        buttonDatabase = findViewById(R.id.buttonDatabase);
+
+        buttonPaese.setOnClickListener(this);
+        buttonArgomento.setOnClickListener(this);
+        buttonGrafico.setOnClickListener(this);
+        buttonDatabase.setOnClickListener(this);
 
     }
 
@@ -108,5 +122,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        Bundle bundle;
+        int id = v.getId();         /*ottengo l'id del bottone selezionato*/
+        switch(id) {
+            case R.id.buttonPaese:
+
+                intent = new Intent(this, ListaPaesiActivity.class);
+                bundle = new Bundle();
+                bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
+                        ListaPaesiActivity.class.getName());
+                intent.putExtras(bundle);
+                startActivityForResult(intent,1);
+                break;
+
+            case R.id.buttonArgomento:
+                intent = new Intent(this, ListaArgomentiActivity.class);
+                bundle = new Bundle();
+                bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
+                        ListaArgomentiActivity.class.getName());
+                intent.putExtras(bundle);
+                startActivityForResult(intent,2);
+                break;
+
+            case R.id.buttonGrafico:
+                intent = new Intent(this, MostraPngSalvatoPrecedentemente.class);
+                startActivityForResult(intent,3);
+                break;
+
+            case R.id.buttonDatabase:
+                intent = new Intent(this, CaricaDati.class);
+                startActivityForResult(intent,4);
+        }
+    }
 }
 
