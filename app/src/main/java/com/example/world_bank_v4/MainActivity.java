@@ -114,8 +114,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 bundle.putString("error", error_message);
                 intent.putExtras(bundle);
                 startActivity(intent);
-
-
         }
 
 
