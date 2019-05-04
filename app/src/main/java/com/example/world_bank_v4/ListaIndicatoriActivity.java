@@ -60,7 +60,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
     @Override
     public void instanziaAdapter(){
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
-        super.setAdapter(new MyGenericoAdapter(this, R.layout.riga_layout,
+        super.setAdapter(new MyGenericoAdapter(this, R.layout.riga_layout_indicators,
                                         super.getListaOggetti()));
     }
 
