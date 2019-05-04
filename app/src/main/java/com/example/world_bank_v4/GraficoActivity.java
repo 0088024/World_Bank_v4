@@ -84,6 +84,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         a quest'ultima*/
         super.caricaLista();
     }
+
+
+
     @Override
     public String costruisciApi(){
         /*costruisci la stringa api per ottenere una lista di valori relativi
@@ -99,6 +102,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         api_indicatore_per_paese.append("?format=json&&per_page=10000");
         return api_indicatore_per_paese.toString();
     }
+
+
 
     /*riceve il file json, lo trasforma con GSON in una List<T>, e collega quest'ultima al chart*/
     @Override
@@ -153,6 +158,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         Intent intent=new Intent();
@@ -160,6 +167,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         finish();
         return false;
     }
+
+
 
 
     /*a seconda del bottone che è stato cliccato, lancia il relativo thread task in bakground*/
@@ -178,6 +187,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
 
 
+
     /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
     prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
     dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
@@ -185,6 +195,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
     }
+
+
+
 
     /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
     in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
@@ -194,6 +207,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     public void onPause(){
         super.onPause();
     }
+
 
 
     /*thread che in background salva i dati nel database locale*/
@@ -229,6 +243,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
               return "Dati salvati nel database";
+        }
+
+
+        @Override
+        protected void onPostExecute(String risultato){
+            Log.d(Costanti.NOME_APP, risultato);
+
         }
     }
 
@@ -277,11 +298,21 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         }
 
-
+        @Override
         protected void onPostExecute(String risultato){
             Log.d(Costanti.NOME_APP, risultato);
 
         }
+    }
+
+
+    /*richiamato giusto prima che l’activity venga distrutta.Se la memoria e’ poca, il metodo NON
+    verra’ richiamato e Android killera’ il processo associato all’applicazione
+    */
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        dbManager.close();
     }
 
 }

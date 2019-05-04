@@ -320,7 +320,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             return sb.toString();
         }
 
-
+        @Override
         protected void onPostExecute(String risultato) {
 
                 json_file = risultato;
@@ -328,6 +328,17 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         }
     }
+
+
+    /*richiamato giusto prima che l’activity venga distrutta.Se la memoria e’ poca, il metodo NON
+   verra’ richiamato e Android killera’ il processo associato all’applicazione
+   */
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+    }
+
+
 
 
 
