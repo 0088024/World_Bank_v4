@@ -161,7 +161,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     listView tramite l'adattatore che instanzia*/
     protected void caricaLayoutLista(){
 
-        if(error_file==null) {
+        if(error_file==null) {  // Controlla se ci sono stati eventuali errori
 
             /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
             MyGSON myGSON = new MyGSON();
@@ -178,7 +178,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             instanziaAdapter();
             listView.setAdapter(adapter);
         }
-        else{
+        else{  // Non si può continuare
             Intent intent=new Intent();
             bundle_main = new Bundle();
             bundle_main.putString("error",error_file);
@@ -277,8 +277,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
             }
 
-
-
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
             catch (MalformedURLException e) {
                 Log.d(Costanti.NOME_APP,"MalformedURLException: "+e.getMessage());
@@ -309,8 +307,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
             }
-
-
 
             finally {
                 client.disconnect();
