@@ -8,17 +8,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 
-import static android.app.Activity.RESULT_OK;
-
-public class DialogNoData extends AppCompatDialogFragment {
-
+public class DialogNoCountry extends AppCompatDialogFragment {
     private Intent intent;
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         Log.d(Costanti.NOME_APP,"builder ok");
         builder.setTitle("No data available!")
-                .setMessage("Want to try another indicator?")
+                .setMessage("Want to try another country?")
                 .setIcon(R.drawable.missing)
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
@@ -37,6 +34,7 @@ public class DialogNoData extends AppCompatDialogFragment {
 
         return builder.create();
     }
+
 
 
 
