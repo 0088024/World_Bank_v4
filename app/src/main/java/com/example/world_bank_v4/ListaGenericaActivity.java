@@ -238,7 +238,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         bundle_succ = new Bundle();
         bundle_succ.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
     }

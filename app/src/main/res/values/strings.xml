@@ -20,4 +20,7 @@
     <string name="button">button_generico</string>
     <string name="titolo_argomenti">value argomento</string>
     <string name="note_argomenti">sourceNote argomento</string>
+    <string name="buttonDeleteRigaDatabase">button delete riga database</string>
+    <string name="nomePaese">nome paese</string>
+    <string name="nomeIndicatore">nome indicatore</string>
 </resources>

@@ -119,7 +119,12 @@ public class DbManager {
 
     /*rilascia il puntatore all'oggetto, chiudendolo se l'ultima referenziazione è rilasciata*/
     public void close(){
-        dbhelper.getReadableDatabase().close();
+        SQLiteDatabase db = dbhelper.getReadableDatabase();
+        if( db.isOpen()){
+            db.close();
+        }
+        else {
+            Log.d(Costanti.NOME_APP, "Database non aperto");}
     }
 }
 
