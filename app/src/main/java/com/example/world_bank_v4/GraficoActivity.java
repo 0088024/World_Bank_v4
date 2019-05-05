@@ -1,7 +1,9 @@
 package com.example.world_bank_v4;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,6 +16,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -50,6 +54,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private Button button_salva_database;
     private Button button_salva_grafico;
     private Bundle bundle_main;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -63,16 +68,19 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
         /*in this example, a LineChart is initialized from xml*/
         chart = findViewById(R.id.chart);
         button_salva_grafico = findViewById(R.id.button_salva_grafico);
         button_salva_grafico.setOnClickListener(this);
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
+        progressBar = findViewById(R.id.progressBar);
 
-        ArrayList<ValoreGrafico> lista_grafico = new ArrayList<ValoreGrafico>();
+        lista_grafico = new ArrayList<ValoreGrafico>();
         TypeToken<ArrayList<ValoreGrafico>> listTypeToken =
                 new TypeToken<ArrayList<ValoreGrafico>>() {};
+
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
@@ -97,6 +105,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*API_INDICATORE_PER_PAESE
         https://api.worldbank.org/v2/country/idPaese/indicator?format=json&per_page=10000*/
         api_indicatore_per_paese.append("?format=json&&per_page=10000");
+        Log.d(Costanti.NOME_APP,"api_indicatore_per_paese:  " +api_indicatore_per_paese);
         return api_indicatore_per_paese.toString();
     }
 
@@ -113,10 +122,18 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             /*DEBUG*/
             Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
-            /*con la libreria GSON ottengo la corrispondente lista/array di argomenti del file json*/
+            /*con la libreria GSON ottengo la corrispondente lista/array di indicatori del file json*/
             MyGSON myGSON = new MyGSON();
             lista_grafico = myGSON.getListFromJson(json_file,
                     new TypeToken<ArrayList<ValoreGrafico>>() {});
+
+            // Controlla se non ci sono dati per costruire il grafico
+            if(lista_grafico == null){
+                Intent intent=new Intent();
+                setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
+                finish();
+                return; // Inutile proseguire
+            }
 
             /*DEBUG*/
             Log.d(Costanti.NOME_APP + " DIM LISTA ", String.valueOf(lista_grafico.size()));
@@ -141,7 +158,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             chart.invalidate(); // refresh
         }
         else{ // Non si può continuare
-
+            Log.d(Costanti.NOME_APP ," error_file: " + err_msg);
             Intent intent=new Intent();
             bundle_main = new Bundle();
             bundle_main.putString("error",err_msg);
@@ -197,46 +214,70 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
     /*thread che in background salva i dati nel database locale*/
-    private class SalvaDatabaseTask extends AsyncTask< ArrayList<ValoreGrafico>, Void, String > {
+    private class SalvaDatabaseTask extends AsyncTask< ArrayList<ValoreGrafico>, Integer, String > {
 
         private DbManager dbManager;
+        private int count = 1;
 
 
-        public SalvaDatabaseTask(DbManager dbManager){
+
+        public SalvaDatabaseTask(DbManager dbManager) {
             this.dbManager = dbManager;
         }
 
         @Override
-        protected String doInBackground(ArrayList<ValoreGrafico> ... params) {
+        protected String doInBackground(ArrayList<ValoreGrafico>... params) {
 
-
-              ArrayList<ValoreGrafico> lista_Valore_grafico = params[0];
-              /*costruisci un oggetto recordTabella corrispondente all'indicatore per paese ottenuto*/
+            ArrayList<ValoreGrafico> lista_Valore_grafico = params[0];
+            /*costruisci un oggetto recordTabella corrispondente all'indicatore per paese ottenuto*/
               /*con la libreria GSON ottengo il corrispondente primo oggetto dell'array di elementi
               del file json*/
-              MyGSON myGSON = new MyGSON();
-              JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);;
-              MyElementoGenerico country = myGSON.getObjectIntoElement(jsonElement,
-                                 "country");
-              MyElementoGenerico indicator = myGSON.getObjectIntoElement(jsonElement,
-                                 "indicator");
+            MyGSON myGSON = new MyGSON();
+            JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);
+            MyElementoGenerico country = myGSON.getObjectIntoElement(jsonElement,
+                    "country");
+            MyElementoGenerico indicator = myGSON.getObjectIntoElement(jsonElement,
+                    "indicator");
 
 
-              RecordTabella recordTabella = new RecordTabella(country, indicator,
-                                            lista_Valore_grafico);
-
-              dbManager.addRow(recordTabella);
+            RecordTabella recordTabella = new RecordTabella(country, indicator,
+                    lista_Valore_grafico);
 
 
-              return "Dati salvati nel database";
+            dbManager.addRow(recordTabella);
+
+            for (; count <= 10000; count++) {
+
+                publishProgress(count);
+                Log.d(Costanti.NOME_APP, String.valueOf(count));
+
+            }
+
+            return "Dati salvati nel database";
         }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
+        @Override
+        protected void onPostExecute(String risultato) {
+            Log.d(Costanti.NOME_APP, risultato);
+            progressBar.setVisibility(View.GONE);
+            DialogDataBase mydialog = new DialogDataBase();
+            mydialog.show(getSupportFragmentManager(),"mydialog");
+
+        }
+
     }
 
 
-
-
     /*thread che in background salva il grafico in un file png*/
-    private class SalvaGraficoTask extends AsyncTask< Chart, Void, String > {
+    private class SalvaGraficoTask extends AsyncTask< Chart, Integer, String > {
+
+        private int count =1;
+
 
         @Override
         protected String doInBackground(Chart ... params) {
@@ -273,13 +314,28 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 e.printStackTrace();
             }
 
+            for (; count<= 10000;count++) {
+
+                publishProgress(count);
+                Log.d(Costanti.NOME_APP, String.valueOf(count));
+
+            }
+
             return "Grafico salvato in png";
 
         }
 
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
 
+        @Override
         protected void onPostExecute(String risultato){
             Log.d(Costanti.NOME_APP, risultato);
+            progressBar.setVisibility(View.GONE);
+            DialogShowImage mydialog = new DialogShowImage();
+            mydialog.show(getSupportFragmentManager(),"mydialog");
 
         }
     }

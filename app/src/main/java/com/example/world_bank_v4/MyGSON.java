@@ -29,6 +29,12 @@ public class MyGSON {
         JsonArray root = je.getAsJsonArray();
         JsonElement je2 = root.get(1);
 
+        // Controlla se l'array non è vuoto
+        if(je2.isJsonArray()==false){
+            Log.d(Costanti.NOME_APP , "json vuoto!");
+            return null; // non si può proseguire
+        }
+
         /*DEBUG*/
         JsonArray array_json = je2.getAsJsonArray();   /*qui ho l'array json degl'argomenti*/
         Log.d(Costanti.NOME_APP + " DIM[]", String.valueOf(array_json.size()));

@@ -126,6 +126,10 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             startActivity(intent);
 
         }
+        else{
+            DialogNoData mydialog = new DialogNoData();
+            mydialog.show(getSupportFragmentManager(),"mydialog");
+        }
     }
 
 }
