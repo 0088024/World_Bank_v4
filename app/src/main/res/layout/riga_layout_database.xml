@@ -14,15 +14,15 @@
             android:id="@+id/textViewPaese"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="@string/nomePaese"
-            tools:text="@string/nomePaese" />
+            android:text="@string/nome_paese"
+            tools:text="@string/nome_paese" />
 
         <TextView
             android:id="@+id/textViewIndicatore"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:text="@string/nomeIndicatore"
-            tools:text="@string/nomeIndicatore" />
+            android:text="@string/nome_indicatore"
+            tools:text="@string/nome_indicatore" />
 
     </LinearLayout>
 
