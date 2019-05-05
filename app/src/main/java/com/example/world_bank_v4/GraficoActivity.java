@@ -177,8 +177,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         switch(v.getId()) {
             case R.id.button_salva_database:
-                dbManager = new DbManager(this);
-                new SalvaDatabaseTask(dbManager).execute(lista_grafico);
+                new SalvaDatabaseTask().execute(lista_grafico);
                 break;
             case R.id.button_salva_grafico:
                 new SalvaGraficoTask().execute(chart);
@@ -216,8 +215,11 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         private DbManager dbManager;
 
 
-        public SalvaDatabaseTask(DbManager dbManager){
-            this.dbManager = dbManager;
+        public SalvaDatabaseTask(){
+            this.dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
+                                                                database*/
+            setDbManager(dbManager);        /*passa alla classe contenitore un riferimento al
+                                            dbManager così lo potrà chiudere nella onDestroy()*/
         }
 
         @Override
@@ -313,6 +315,11 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     protected void onDestroy(){
         super.onDestroy();
         dbManager.close();
+    }
+
+
+    public void setDbManager(DbManager dbManager){
+        this.dbManager = dbManager;
     }
 
 }

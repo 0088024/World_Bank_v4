@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content"
-    android:layout_width="400dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="297dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="7dp"
-        android:layout_toLeftOf="@+id/buttonDati"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txt_Paese"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/textViewPaese"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/nomePaese"
+            tools:text="@string/nomePaese" />
 
         <TextView
-            android:id="@+id/txt_Indicatore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/textViewIndicatore"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="@string/nomeIndicatore"
+            tools:text="@string/nomeIndicatore" />
+
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/buttonDati"
+        android:id="@+id/imageButtonDati"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_toStartOf="@+id/buttonDelete"
+        android:layout_weight="1"
         app:srcCompat="@android:drawable/ic_menu_view" />
 
     <ImageButton
-        android:id="@+id/buttonDelete"
+        android:id="@+id/imageButtonDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_menu_delete" />
-</RelativeLayout>
+        android:layout_weight="1"
+        app:srcCompat="@android:drawable/ic_menu_delete" />
+
+</LinearLayout>
