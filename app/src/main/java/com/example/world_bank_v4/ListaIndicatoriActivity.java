@@ -117,7 +117,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         Intent intent;
 
         if (requestCode == 6 && resultCode == RESULT_CANCELED) {
-
+            // Errore imprevisto ad es. viene a mancare la connessione a internet
             String error_message = data.getStringExtra("error");
             intent = new Intent(this, NotificationActivity.class);
             Bundle bundle = new Bundle();
@@ -125,6 +125,11 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             intent.putExtras(bundle);
             startActivity(intent);
 
+        }
+        if(requestCode == 6 && resultCode == RESULT_FIRST_USER){
+            // Errore previsto ad es. nessun dato disponibile per un certo paese
+            DialogNoIndicator mydialog = new DialogNoIndicator();
+            mydialog.show(getSupportFragmentManager(),"mydialog");
         }
     }
 
