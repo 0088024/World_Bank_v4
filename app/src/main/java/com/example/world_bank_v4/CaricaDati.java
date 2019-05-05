@@ -107,15 +107,19 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
 
-
+    /*chiamato dal s.o. quando viene cliccato uno dei bottoni di ogni singola riga del layout*/
     @Override
     public void onClick(View v) {
+
         if(v.getId() == R.id.imageButtonDelete){
+            /*ritorna la posizione della vista con il bottone cliccato */
             int position = listView.getPositionForView(v);
+            /*ritorna l'id del record corrispondente alla vista con il bottone cliccato*/
             long id = cursorAdapter.getItemId(position);
             if (dbManager.delete(id))
-            /*Change the underlying cursor to a new cursor. If there is an existing cursor it will
-             be closed*/
+                /*Change the underlying cursor to a new cursor. If there is an existing cursor it
+                will be closed. Atomaticamente aggiorna anche la list view a cui è collegato
+                il Cursor Adapter*/
                 cursorAdapter.changeCursor(dbManager.query());
         }
 
@@ -178,24 +182,17 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
 
-
     private void caricaLayout(Cursor cursorRisultato){
 
 
         cursorAdapter = new MyCursorAdapter(this, cursorRisultato, 0,
-                getThis());
+                this);
 
         listView.setAdapter(cursorAdapter);
-
-
-
-
-
     }
 
 
 
-    public CaricaDati getThis() {return  this;}
 
     public void setDbManager(DbManager dbManager){
         this.dbManager = dbManager;
