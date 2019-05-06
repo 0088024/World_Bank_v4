@@ -54,6 +54,7 @@ public class MyCursorAdapter extends CursorAdapter {
     }
 
 
+
     /*Fornisce l’id del record in base alla posizione e viene usato x completare le condizioni di
     selezione richieste x la cancellazione.*/
     @Override
