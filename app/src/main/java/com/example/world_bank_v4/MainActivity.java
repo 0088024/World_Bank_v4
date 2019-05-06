@@ -116,6 +116,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         }
 
+        if((requestCode == 4 && resultCode == RESULT_CANCELED)){
+            DialogDataMissing mydialog = new DialogDataMissing();
+            mydialog.show(getSupportFragmentManager(), "mydialog");
+
+        }
     }
 
 

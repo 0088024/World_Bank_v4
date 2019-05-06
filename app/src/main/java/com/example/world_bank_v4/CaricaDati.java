@@ -161,7 +161,13 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         protected void onPostExecute(Cursor cursorRisultato){
             Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(cursorRisultato));
 
-            caricaLayout(cursorRisultato);
+            if(cursorRisultato.getCount()==0){
+                Intent intent=new Intent();
+                setResult(RESULT_CANCELED,intent); // Informa l'attività chiamante con un codice
+                finish();
+            }
+            else
+                caricaLayout(cursorRisultato);
 
 
         }
