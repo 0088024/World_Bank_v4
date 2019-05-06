@@ -5,10 +5,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
-import android.view.View;
+
 
 public class DialogDataBase extends AppCompatDialogFragment {
 

@@ -1,6 +1,8 @@
 package com.example.world_bank_v4;
 
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +24,11 @@ import java.util.ArrayList;
 public class CaricaDati extends AppCompatActivity implements View.OnClickListener {
 
 
-    private DbManager dbManager;
+    static private DbManager dbManager;
     private ListView listView;
-    private CursorAdapter cursorAdapter;
-
+    static private CursorAdapter cursorAdapter;
+    static private int position;
+    static private long id;
 
 
 
@@ -36,9 +39,10 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
          /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+
 
         listView = findViewById(R.id.list_view_carica_dati);
 
@@ -47,8 +51,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         new CaricaDatabaseTask().execute();
 
     }
-
-
 
 
     /*restituisce 1 stringa che mostra il contenuto di tutte le colonne del record puntato dal
@@ -96,9 +98,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     }
 
 
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         finish();
@@ -111,22 +110,26 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == R.id.imageButtonDelete){
+        if (v.getId() == R.id.imageButtonDelete) {
             /*ritorna la posizione della vista con il bottone cliccato */
-            int position = listView.getPositionForView(v);
+            position = listView.getPositionForView(v);
             /*ritorna l'id del record corrispondente alla vista con il bottone cliccato*/
-            long id = cursorAdapter.getItemId(position);
+            id = cursorAdapter.getItemId(position);
+            /* Mostra una alert Dialog per confermare l'operazione */
+            DialogDeleteRow mydialog = new DialogDeleteRow();
+            mydialog.show(getSupportFragmentManager(), "mydialog");
+
+        }
+    }
+    /* chiamato se effettivamente l'utente decide di cancellare la riga */
+    protected static void deleterow() {
             if (dbManager.delete(id))
                 /*Change the underlying cursor to a new cursor. If there is an existing cursor it
                 will be closed. Atomaticamente aggiorna anche la list view a cui è collegato
                 il Cursor Adapter*/
                 cursorAdapter.changeCursor(dbManager.query());
-        }
 
     }
-
-
-
 
 
     /*thread che in background carica i dati dal database locale*/
