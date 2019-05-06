@@ -20,4 +20,6 @@
     <string name="button">button_generico</string>
     <string name="titolo_argomenti">value argomento</string>
     <string name="note_argomenti">sourceNote argomento</string>
+    <string name="nome_indicatore">nome indicatore</string>
+
 </resources>

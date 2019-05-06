@@ -161,7 +161,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     listView tramite l'adattatore che instanzia*/
     protected void caricaLayoutLista(){
 
-        if(error_file==null) {
+        if(error_file==null) {  // Controlla se ci sono stati eventuali errori
 
             /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
             MyGSON myGSON = new MyGSON();
@@ -178,7 +178,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             instanziaAdapter();
             listView.setAdapter(adapter);
         }
-        else{
+        else{  // Non si può continuare
             Intent intent=new Intent();
             bundle_main = new Bundle();
             bundle_main.putString("error",error_file);
@@ -238,7 +238,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
         bundle_succ = new Bundle();
         bundle_succ.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
     }
@@ -265,7 +264,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
                 client = (HttpURLConnection) url.openConnection();
                 /*Recupero le informazioni inviate dal server */
-                client.setReadTimeout(2000); //Timeout in millisecondi per la lettura da stream
+                client.setReadTimeout(3000); //Timeout in millisecondi per la lettura da stream
                 risposta = new BufferedInputStream(client.getInputStream());
                 /*leggo i caratteri e li appendo in sb*/
                 sb = new StringBuilder();
@@ -276,8 +275,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 }
 
             }
-
-
 
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
             catch (MalformedURLException e) {
@@ -310,8 +307,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
             }
 
-
-
             finally {
                 client.disconnect();
             }
@@ -337,9 +332,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     protected void onDestroy(){
         super.onDestroy();
     }
-
-
-
 
 
     public void setIdListView(int idListView){

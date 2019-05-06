@@ -42,23 +42,25 @@ public class MyCursorAdapter extends CursorAdapter {
         String nomePaese = crs.getString(3);
         String nomeIndicatore = crs.getString(4);
 
-        TextView txt = v.findViewById(R.id.txt_Paese);
+        TextView txt = v.findViewById(R.id.textViewPaese);
         txt.setText(nomePaese);
-        txt = v.findViewById(R.id.txt_Indicatore);
+        txt = v.findViewById(R.id.textViewIndicatore);
         txt.setText(nomeIndicatore);
+        ImageButton buttonDelete = v.findViewById(R.id.imageButtonDelete);
+        buttonDelete.setOnClickListener(caricaDati);
+        ImageButton buttonDati = v.findViewById(R.id.imageButtonDati);
+        buttonDati.setOnClickListener(caricaDati);
 
-        ImageButton imgbtn=(ImageButton) v.findViewById(R.id.btn_delete);
-        /*imgbtn.setOnClickListener(clickListener);*/
     }
 
 
-
+    /*Fornisce l’id del record in base alla posizione e viene usato x completare le condizioni di
+    selezione richieste x la cancellazione.*/
     @Override
     public long getItemId(int position)
     {
         Cursor crs= getCursor();
         crs.moveToPosition(position);
-        /*return crs.getLong(crs.getColumnIndex(DatabaseStrings.FIELD_ID));*/
-        return 0;
+        return crs.getLong(crs.getColumnIndex(DbHelper.COLUMN_ID));
     }
 }

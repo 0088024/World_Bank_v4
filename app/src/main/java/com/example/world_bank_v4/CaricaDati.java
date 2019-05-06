@@ -10,20 +10,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 
 /*activity che carica e visualizza le n-tuple salvate nel database*/
-public class CaricaDati extends AppCompatActivity
-        implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class CaricaDati extends AppCompatActivity implements View.OnClickListener {
 
 
     private DbManager dbManager;
     private ListView listView;
     private CursorAdapter cursorAdapter;
+
 
 
 
@@ -39,8 +41,10 @@ public class CaricaDati extends AppCompatActivity
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         listView = findViewById(R.id.list_view_carica_dati);
-        dbManager = new DbManager(this);
-        new CaricaDatabaseTask(dbManager).execute();
+
+
+
+        new CaricaDatabaseTask().execute();
 
     }
 
@@ -103,20 +107,22 @@ public class CaricaDati extends AppCompatActivity
 
 
 
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-
-
+    /*chiamato dal s.o. quando viene cliccato uno dei bottoni di ogni singola riga del layout*/
     @Override
     public void onClick(View v) {
-        int position = listView.getPositionForView(v);
-        long id = cursorAdapter.getItemId(position);
-        if (dbManager.delete(id))
-            cursorAdapter.changeCursor(dbManager.query());
+
+        if(v.getId() == R.id.imageButtonDelete){
+            /*ritorna la posizione della vista con il bottone cliccato */
+            int position = listView.getPositionForView(v);
+            /*ritorna l'id del record corrispondente alla vista con il bottone cliccato*/
+            long id = cursorAdapter.getItemId(position);
+            if (dbManager.delete(id))
+                /*Change the underlying cursor to a new cursor. If there is an existing cursor it
+                will be closed. Atomaticamente aggiorna anche la list view a cui è collegato
+                il Cursor Adapter*/
+                cursorAdapter.changeCursor(dbManager.query());
+        }
+
     }
 
 
@@ -129,16 +135,19 @@ public class CaricaDati extends AppCompatActivity
         private DbManager dbManager;
 
 
-        public CaricaDatabaseTask(DbManager dbManager){
-            this.dbManager = dbManager;
+        public CaricaDatabaseTask(){
+
+            this.dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
+                                                                database*/
+            setDbManager(dbManager);        /*passa alla classe contenitore un riferimento al
+                                            dbManager così lo potrà chiudere nella onDestroy()*/
         }
 
 
         @Override
         protected Cursor doInBackground(Void... params) {
 
-            dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
-                                                                database*/
+
             Cursor cursor = dbManager.query();
 
             return cursor;
@@ -149,9 +158,9 @@ public class CaricaDati extends AppCompatActivity
         protected void onPostExecute(Cursor cursorRisultato){
             Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(cursorRisultato));
 
-            cursorAdapter = new MyCursorAdapter(getApplicationContext(), cursorRisultato, 0,
-                    getThis());
-            listView.setAdapter(cursorAdapter);
+            caricaLayout(cursorRisultato);
+
+
         }
 
 
@@ -171,5 +180,22 @@ public class CaricaDati extends AppCompatActivity
     }
 
 
-    public CaricaDati getThis() {return  this;}
+
+
+    private void caricaLayout(Cursor cursorRisultato){
+
+
+        cursorAdapter = new MyCursorAdapter(this, cursorRisultato, 0,
+                this);
+
+        listView.setAdapter(cursorAdapter);
+    }
+
+
+
+
+    public void setDbManager(DbManager dbManager){
+        this.dbManager = dbManager;
+    }
+
 }
