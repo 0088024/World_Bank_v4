@@ -333,7 +333,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         super.onDestroy();
     }
 
-
     public void setIdListView(int idListView){
         this.idListView = idListView;
     }

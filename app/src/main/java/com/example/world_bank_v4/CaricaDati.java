@@ -1,7 +1,6 @@
 package com.example.world_bank_v4;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -10,14 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+
 
 
 /*activity che carica e visualizza le n-tuple salvate nel database*/
@@ -39,7 +34,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
          /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
@@ -100,6 +95,8 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent=new Intent();
+        setResult(RESULT_OK,intent); // Informa l'attività chiamante con un codice
         finish();
         return false;
     }
@@ -160,11 +157,11 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
         protected void onPostExecute(Cursor cursorRisultato){
             Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(cursorRisultato));
-
+        /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
                 Intent intent=new Intent();
                 setResult(RESULT_CANCELED,intent); // Informa l'attività chiamante con un codice
-                finish();
+                finish(); // Non si può proseguire
             }
             else
                 caricaLayout(cursorRisultato);
