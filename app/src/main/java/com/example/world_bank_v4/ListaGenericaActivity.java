@@ -172,9 +172,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             MyGSON myGSON = new MyGSON();
             lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
 
-            /*DEBUG*/
+            /*DEBUG
             for (int i = 0; i < lista_oggetti.size(); i++)
-                Log.d(Costanti.NOME_APP, lista_oggetti.get(i).toString() + "\n");
+                Log.d(Costanti.NOME_APP, lista_oggetti.get(i).toString() + "\n");*/
 
 
             listView = findViewById(idListView);

@@ -27,11 +27,46 @@ public class MyGSON {
          elementi dello stesso tipo e ordinati in json*/
         JsonElement je = new JsonParser().parse(file_json);
         JsonArray root = je.getAsJsonArray();
+
+        /* Controlla se il file json presenta un messaggio di invalid format. Es:
+                        [
+
+                            {
+                                "message": [
+                                    {
+                                         "id": "175",
+                                         "key": "Invalid format",
+                                         "value": "The indicator was not found. It may have been deleted or archived."
+                                    }
+                                ]
+                            }
+
+                        ]
+        In questo caso infatti la size del array è uguale a 1 */
+        if(root.size()==1) {
+            Log.d(Costanti.NOME_APP, "size_array: " + root.size());
+            return null; // non si può proseguire
+        }
+
         JsonElement je2 = root.get(1);
 
-        // Controlla se l'array non è vuoto
+        /* Controlla se l'array non è vuoto, cioè non ci sono dati. Es:
+                     [
+
+                        {
+                            "page": 0,
+                            "pages": 0,
+                            "per_page": 0,
+                            "total": 0,
+                            "sourceid": null,
+                            "lastupdated": null
+                        },
+                        null
+
+                    ]
+        In questo caso infatti il secondo elemento del array vale null e quindi non rappresenta a sua volta un array */
         if(je2.isJsonArray()==false){
-            Log.d(Costanti.NOME_APP , "json vuoto!");
+            Log.d(Costanti.NOME_APP , "file json vuoto!");
             return null; // non si può proseguire
         }
 
@@ -42,6 +77,9 @@ public class MyGSON {
         /*con Gson mappo 1 a 1 gli oggetti del file json in oggetti<T>, i quali sono
         memorizzati in una Lista*/
         Gson gson = new Gson();
+        //JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);
+        //MyElementoGenerico message = gson.getObjectIntoElement(jsonElement,
+                //"message");
         ArrayList list = gson.fromJson(je2, typeToken.getType());
 
         return list;
