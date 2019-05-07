@@ -11,8 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
-
-
+import android.widget.ProgressBar;
 
 
 /*activity che carica e visualizza le n-tuple salvate nel database*/
@@ -24,6 +23,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     static private CursorAdapter cursorAdapter;
     static private int position;
     static private long id;
+    private ProgressBar progressBar;
 
 
 
@@ -37,6 +37,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        progressBar = findViewById(R.id.progressBar4);
 
 
         listView = findViewById(R.id.list_view_carica_dati);
@@ -130,9 +131,10 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
     /*thread che in background carica i dati dal database locale*/
-    private class CaricaDatabaseTask extends AsyncTask< Void, Void, Cursor > {
+    private class CaricaDatabaseTask extends AsyncTask< Void, Integer, Cursor > {
 
         private DbManager dbManager;
+        private int count=1;
 
 
         public CaricaDatabaseTask(){
@@ -147,16 +149,23 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         @Override
         protected Cursor doInBackground(Void... params) {
 
-
             Cursor cursor = dbManager.query();
+
+            // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
+            for (; count<= Costanti.progressBarTime;count++)
+                publishProgress(count);
 
             return cursor;
         }
 
-
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
 
         protected void onPostExecute(Cursor cursorRisultato){
             Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(cursorRisultato));
+            progressBar.setVisibility(View.GONE);
         /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
                 Intent intent=new Intent();

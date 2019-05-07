@@ -8,13 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+
 import java.io.File;
 
 
 public class MostraPngSalvatoPrecedentemente extends AppCompatActivity {
 
     private ImageView imageView;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -27,6 +31,7 @@ public class MostraPngSalvatoPrecedentemente extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.graph);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        progressBar = findViewById(R.id.progressBar5);
         imageView = findViewById(R.id.imageView);
         new CaricaFileTask(imageView).execute(Costanti.NOME_UNICO_FILE_PNG);
     }
@@ -43,8 +48,9 @@ public class MostraPngSalvatoPrecedentemente extends AppCompatActivity {
 
 
     /*thread che in background carica 1 file png*/
-    private class CaricaFileTask extends AsyncTask<String, Void, Bitmap> {
+    private class CaricaFileTask extends AsyncTask<String, Integer, Bitmap> {
         private ImageView imageView;
+        private int count=1;
 
         public CaricaFileTask(ImageView imageView) {
             this.imageView = imageView;
@@ -52,6 +58,10 @@ public class MostraPngSalvatoPrecedentemente extends AppCompatActivity {
 
         @Override
         protected Bitmap doInBackground(String... params) {
+            // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
+            for (; count<= Costanti.progressBarTime;count++)
+                publishProgress(count);
+
             /*Decode a file path into a bitmap. If the specified file name is null,
             or cannot be decoded into a bitmap, the function returns null.*/
             File file_png = new File(getApplicationContext().getFilesDir(), params[0]);
@@ -68,7 +78,13 @@ public class MostraPngSalvatoPrecedentemente extends AppCompatActivity {
 
         }
 
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+        }
+
         protected void onPostExecute(Bitmap risultato){
+            progressBar.setVisibility(View.GONE);
             /* Controlla se non è presente nessun file png in memoria  */
             if(risultato==null){
                 Intent intent=new Intent();

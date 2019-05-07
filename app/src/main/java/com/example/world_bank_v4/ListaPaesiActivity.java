@@ -1,12 +1,15 @@
 package com.example.world_bank_v4;
 
 
-import android.app.AlertDialog;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
+
+
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -14,6 +17,8 @@ import java.util.ArrayList;
 
 
 public class ListaPaesiActivity extends ListaGenericaActivity {
+
+    static ProgressBar progressBar1;
 
 
 
@@ -27,6 +32,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         getSupportActionBar().setLogo(R.drawable.country);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        progressBar1 = findViewById(R.id.progressBar1);
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
         super.setIdListView(R.id.list_view_paesi);
@@ -40,8 +46,6 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         a quest'ultima*/
 
         super.caricaLista();
-
-
 
 
     }
@@ -130,5 +134,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
     }
+
+
 
 }

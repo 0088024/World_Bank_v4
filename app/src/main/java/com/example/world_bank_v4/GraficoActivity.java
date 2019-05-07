@@ -54,7 +54,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private Button button_salva_database;
     private Button button_salva_grafico;
     private Bundle bundle_main;
-    private ProgressBar progressBar;
+    static ProgressBar progressBar;
 
 
     @Override
@@ -246,12 +246,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             dbManager.addRow(recordTabella);
 
-            for (; count <= 10000; count++) {
-
+            // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
+            for (; count <= Costanti.progressBarTime; count++)
                 publishProgress(count);
-                Log.d(Costanti.NOME_APP, String.valueOf(count));
 
-            }
 
             return "Dati salvati nel database";
         }
@@ -314,12 +312,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 e.printStackTrace();
             }
 
-            for (; count<= 10000;count++) {
-
+            // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
+            for (; count<= Costanti.progressBarTime;count++)
                 publishProgress(count);
-                Log.d(Costanti.NOME_APP, String.valueOf(count));
 
-            }
 
             return "Grafico salvato in png";
 

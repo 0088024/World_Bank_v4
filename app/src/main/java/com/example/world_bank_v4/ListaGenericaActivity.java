@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +61,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -70,6 +73,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+
     }
 
 
@@ -141,6 +145,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
             bundle ricevuto nell'intent e scarico i vari dati che serviranno*/
             nomeClasseSelezionata = bundle_prec.getString(Costanti.NOME_CLASSE_SELEZIONATA);
+            Log.d(Costanti.NOME_APP, "nomeclasse: "+ nomeClasseSelezionata);
             /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
             piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
             punto del "percorso"*/
@@ -244,11 +249,12 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
     /*thread che in background scarica in una stringa il file json di pertinenza*/
-    private class DownloadFileTask extends AsyncTask<Void, Void, String> {
+    private class DownloadFileTask extends AsyncTask<Void, Integer, String> {
 
         private InputStream risposta;
         private StringBuilder sb;
         private HttpURLConnection client;
+        private int count;
 
 
         public DownloadFileTask(){
@@ -258,6 +264,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         @Override
         protected String doInBackground(Void... voids) {
+
 
             try {
                 url = new URL(API_WORLD_BANK);
@@ -311,12 +318,78 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 client.disconnect();
             }
 
+            // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
+            for (; count <= Costanti.progressBarTime; count++) {
+                publishProgress(count);
+            }
+
             /*convert StringBuilder to String using toString() method*/
             return sb.toString();
         }
 
+
+        protected void onProgressUpdate(Integer... values) {
+            // Devo analizzare tutti i casi possibili per stabilire di quale attività mostrare la Progress Bar
+
+                if (nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaPaesiActivity"))
+                    ListaPaesiActivity.progressBar1.setVisibility(ProgressBar.VISIBLE);
+
+
+                if (nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaArgomentiActivity"))
+                    ListaArgomentiActivity.progressBar2.setVisibility(ProgressBar.VISIBLE);
+
+
+                if (idPaeseSelezionato != null && nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaPaesiActivity"))
+                    ListaArgomentiActivity.progressBar2.setVisibility(ProgressBar.VISIBLE);
+
+
+                if (idPaeseSelezionato != null && nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaArgomentiActivity"))
+                    GraficoActivity.progressBar.setVisibility(ProgressBar.VISIBLE);
+
+
+                if (idArgomentoSelezionato != null)
+                    ListaIndicatoriActivity.progressBar3.setVisibility(ProgressBar.VISIBLE);
+
+
+                if (idIndicatoreSelezionato != null && nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaPaesiActivity"))
+                    GraficoActivity.progressBar.setVisibility(ProgressBar.VISIBLE);
+
+
+                if (idIndicatoreSelezionato != null && nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaArgomentiActivity"))
+                    ListaPaesiActivity.progressBar1.setVisibility(ProgressBar.VISIBLE);
+
+        }
+
         @Override
         protected void onPostExecute(String risultato) {
+            // Devo analizzare tutti i casi possibili per stabilire di quale attività sopprimere la Progress Bar
+
+            if(nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaPaesiActivity")){
+                ListaPaesiActivity.progressBar1.setVisibility(View.GONE);
+
+            }
+            if(nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaArgomentiActivity")){
+                ListaArgomentiActivity.progressBar2.setVisibility(View.GONE);
+
+            }
+            if(idPaeseSelezionato!=null && nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaPaesiActivity")){
+                ListaArgomentiActivity.progressBar2.setVisibility(View.GONE);
+
+            }
+            if(idPaeseSelezionato!=null && nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaArgomentiActivity")){
+                GraficoActivity.progressBar.setVisibility(View.GONE);
+
+            }
+            if(idArgomentoSelezionato!=null){
+                ListaIndicatoriActivity.progressBar3.setVisibility(View.GONE);
+
+            }
+            if(idIndicatoreSelezionato!=null && nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaArgomentiActivity")){
+                ListaPaesiActivity.progressBar1.setVisibility(View.GONE);
+
+            }
+            if(idIndicatoreSelezionato!=null && nomeClasseSelezionata.contentEquals("com.example.world_bank_v4.ListaPaesiActivity"))
+                GraficoActivity.progressBar.setVisibility(View.GONE);
 
                 json_file = risultato;
                 caricaLayoutLista();

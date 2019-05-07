@@ -6,13 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
+
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
 public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
-
+    static ProgressBar progressBar3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        progressBar3 = findViewById(R.id.progressBar3);
         ArrayList<Indicatore> lista_indicatori = new ArrayList<Indicatore>();
         TypeToken<ArrayList<Indicatore>> listTypeToken = new TypeToken<ArrayList<Indicatore>>() {};
 
