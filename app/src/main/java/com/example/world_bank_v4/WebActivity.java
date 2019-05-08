@@ -11,8 +11,7 @@ import android.webkit.WebView;
 
 
 public class WebActivity extends AppCompatActivity {
-    private String error_file;
-    private Bundle bundle_main;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +29,6 @@ public class WebActivity extends AppCompatActivity {
 
 
 
-    }
-
-
-
-    protected void setResult() {
-
-        Intent intent=new Intent();
-        bundle_main = new Bundle();
-        bundle_main.putString("error",error_file);
-        intent.putExtras(bundle_main);
-        setResult(RESULT_CANCELED,intent);
-        finish();
     }
 
     /*se l'utente preme il pulsante indietro l'attività viene semplicemente terminata ed espulsa
