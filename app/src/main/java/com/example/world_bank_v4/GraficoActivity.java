@@ -170,14 +170,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        Intent intent=new Intent();
-        setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
-        finish();
-        return false;
-    }
-
 
     /*a seconda del bottone che è stato cliccato, lancia il relativo thread task in bakground*/
     @Override
