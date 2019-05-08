@@ -30,6 +30,14 @@ public class VisualizzaDati extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizza_dati);
 
+        /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
+        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
+        tornare al livello principale o alla prima pagina.*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.indicator);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        progressBar = findViewById(R.id.progressBar6);
+
         new CaricaDatabaseTask().execute();
 
     }
@@ -101,9 +109,9 @@ public class VisualizzaDati extends AppCompatActivity {
                 //set tag for each TableRow
                 inflateRow.setTag(i);
 
-                TextView txv = findViewById(R.id.textViewColonna);
+                TextView txv = inflateRow.findViewById(R.id.textViewColonna);
                 txv.setText(cursorRisultato.getColumnName(i));
-                txv = findViewById(R.id.textViewValore);
+                txv = inflateRow.findViewById(R.id.textViewValore);
                 txv.setText(cursorRisultato.getString(i));
 
                 //add TableRows to TableLayout
