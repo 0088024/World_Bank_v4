@@ -11,16 +11,19 @@ public class RecordTabella {
     private String idIndicatore;
     private String nomePaese;
     private String nomeIndicatore;
+    private String lastUpdated;
     private ArrayList<ValoreGrafico> colonne_anni;      /*contiene i valori per ogni anno*/
 
 
-    public RecordTabella(MyElementoGenerico paese, MyElementoGenerico indicatore,
+    public RecordTabella(Intestazione intestazione, MyElementoGenerico paese,
+                         MyElementoGenerico indicatore,
                          ArrayList<ValoreGrafico> lista_Valore_grafico){
 
         this.idPaese = paese.getId();
         this.idIndicatore = indicatore.getId();
         this.nomePaese = paese.getValue();
         this.nomeIndicatore = indicatore.getValue();
+        this.lastUpdated = intestazione.getLastUpdated();
         this.colonne_anni = lista_Valore_grafico;
 
     }
@@ -30,17 +33,20 @@ public class RecordTabella {
         return idPaese;
     }
 
-    public String getIdIndicatore(){
-        return  idIndicatore;
-    }
+    public String getIdIndicatore(){ return  idIndicatore; }
 
     public String getNomePaese(){
         return  nomePaese;
     }
 
+    public String getLastUpdated(){
+        return  lastUpdated;
+    }
+
     public String getNomeIndicatore(){
         return  nomeIndicatore;
     }
+
 
     public ArrayList<ValoreGrafico> getColonne_anni(){
         return  colonne_anni;

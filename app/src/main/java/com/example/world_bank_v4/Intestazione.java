@@ -31,4 +31,9 @@ public class Intestazione {
                 lastupdated + "]";
     }
 
+
+    public String getLastUpdated(){
+        return lastupdated;
+    }
+
 }
