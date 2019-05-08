@@ -30,6 +30,8 @@ public class VisualizzaDati extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizza_dati);
 
+        new CaricaDatabaseTask().execute();
+
     }
 
 
@@ -86,13 +88,16 @@ public class VisualizzaDati extends AppCompatActivity {
             }
 
             cursorRisultato.moveToFirst();
+
             TableRow inflateRow;
 
             TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
+
             for (int i = 0; i < cursorRisultato.getColumnCount(); i++) {
 
                 inflateRow = (TableRow) View.inflate(getApplicationContext(), R.layout.table_row,
                         null);
+
                 //set tag for each TableRow
                 inflateRow.setTag(i);
 
