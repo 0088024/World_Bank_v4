@@ -18,6 +18,8 @@ public final class Costanti {
     public static final String ID_PAESE_SELEZIONATO = "idPaeseSelezionato";
     public static final String ID_ARGOMENTO_SELEZIONATO = "idArgomentoSelezionato";
     public static final String ID_INDICATORE_SELEZIONATO = "idIndicatoreSelezionato";
+    public static final String ID_RECORD_TABELLA = "idRecordTabella";
+
 
 
     public static final String KEY_JSON_FILE_COUNTRY = "json_file_country";

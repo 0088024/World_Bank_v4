@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.world_bank_v4">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -12,28 +12,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaGenericaActivity"></activity>
+        <activity android:name=".ListaGenericaActivity" />
+        <activity
+            android:name=".VisualizzaDati"
+            android:label="@string/title_activity_visualizza_dati" />
         <activity
             android:name=".MostraPngSalvatoPrecedentemente"
-            android:label="@string/title_activity_mostra_png_precedentemente_salvata"></activity>
+            android:label="@string/title_activity_mostra_png_precedentemente_salvata" />
         <activity
             android:name=".CaricaDati"
-            android:label="@string/title_activity_carica_dati"></activity>
+            android:label="@string/title_activity_carica_dati" />
         <activity
             android:name=".NotificationActivity"
-            android:label="@string/title_activity_notification"></activity>
+            android:label="@string/title_activity_notification" />
         <activity
             android:name=".GraficoActivity"
-            android:label="@string/title_activity_grafico"></activity>
+            android:label="@string/title_activity_grafico" />
         <activity
             android:name=".ListaIndicatoriActivity"
-            android:label="@string/title_activity_lista_indicatori"></activity>
+            android:label="@string/title_activity_lista_indicatori" />
         <activity
             android:name=".ListaArgomentiActivity"
-            android:label="@string/title_activity_lista_argomenti"></activity>
+            android:label="@string/title_activity_lista_argomenti" />
         <activity
             android:name=".ListaPaesiActivity"
-            android:label="@string/title_activity_lista_paese_activity"></activity>
+            android:label="@string/title_activity_lista_paese_activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
