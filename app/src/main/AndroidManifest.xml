@@ -11,8 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity android:name=".ListaGenericaActivity"></activity>
+        <activity android:name=".WebActivity"></activity>
         <activity
             android:name=".MostraPngSalvatoPrecedentemente"
             android:label="@string/title_activity_mostra_png_precedentemente_salvata"></activity>
