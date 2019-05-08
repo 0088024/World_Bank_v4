@@ -43,8 +43,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
         listView = findViewById(R.id.list_view_carica_dati);
 
-
-
         new CaricaDatabaseTask().execute();
 
     }
@@ -210,7 +208,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
     private void caricaLayout(Cursor cursorRisultato){
-
 
         cursorAdapter = new MyCursorAdapter(this, cursorRisultato, 0,
                 this);
