@@ -19,6 +19,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NOME_PAESE = "nome_paese";
     public static final String COLUMN_NOME_INDICATORE = "nome_indicatore";
     public static final String COLUMN_DATE = "data";
+    public static final String COLUMN_SOURCE_ID = "sourceId";
+    public static final String COLUMN_LAST_UPDATED = "lastUpdated";
+
+
 
     public static final int ANNO_INIZIO = 1960;
     public static final int ANNO_FINE = 2018;
@@ -45,7 +49,8 @@ public class DbHelper extends SQLiteOpenHelper {
         istruzioneSql.append("CREATE TABLE "+ TABLE_NAME + " (" + COLUMN_ID +
                 " Integer PRIMARY KEY autoincrement not null," + COLUMN_ID_PAESE + " text not null,"
                 + COLUMN_ID_INDICATORE + " text not null," + COLUMN_NOME_PAESE + " text not null,"
-                + COLUMN_NOME_INDICATORE + " text not null");
+                + COLUMN_NOME_INDICATORE + " text not null," + COLUMN_SOURCE_ID + " text not null,"
+                + COLUMN_LAST_UPDATED + " text not null");
 
         for(int x = ANNO_INIZIO; x<=ANNO_FINE; x++) {
             istruzioneSql.append("," + COLUMN_DATE + x + " REAL ");

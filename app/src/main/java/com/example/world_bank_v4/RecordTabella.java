@@ -12,6 +12,7 @@ public class RecordTabella {
     private String nomePaese;
     private String nomeIndicatore;
     private String lastUpdated;
+    private String sourceid;
     private ArrayList<ValoreGrafico> colonne_anni;      /*contiene i valori per ogni anno*/
 
 
@@ -24,6 +25,8 @@ public class RecordTabella {
         this.nomePaese = paese.getValue();
         this.nomeIndicatore = indicatore.getValue();
         this.lastUpdated = intestazione.getLastUpdated();
+        this.sourceid = intestazione.getSourceId();
+
         this.colonne_anni = lista_Valore_grafico;
 
     }
@@ -39,13 +42,19 @@ public class RecordTabella {
         return  nomePaese;
     }
 
+    public String getNomeIndicatore(){
+        return  nomeIndicatore;
+    }
+
+    public String getSourceId(){
+        return  sourceid;
+    }
+
     public String getLastUpdated(){
         return  lastUpdated;
     }
 
-    public String getNomeIndicatore(){
-        return  nomeIndicatore;
-    }
+
 
 
     public ArrayList<ValoreGrafico> getColonne_anni(){

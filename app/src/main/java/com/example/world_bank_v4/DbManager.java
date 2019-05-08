@@ -33,6 +33,9 @@ public class DbManager {
             values.put(DbHelper.COLUMN_ID_INDICATORE, recordTabella.getIdIndicatore());
             values.put(DbHelper.COLUMN_NOME_PAESE, recordTabella.getNomePaese());
             values.put(DbHelper.COLUMN_NOME_INDICATORE, recordTabella.getNomeIndicatore());
+            values.put(DbHelper.COLUMN_SOURCE_ID, recordTabella.getSourceId());
+            values.put(DbHelper.COLUMN_LAST_UPDATED, recordTabella.getLastUpdated());
+
             /*inserisce i valori per tutti gli anni*/
            for(int i = 0; i<recordTabella.getColonne_anni().size(); i++){
                 Float value = recordTabella.getColonne_anni().get(i).getvalue();

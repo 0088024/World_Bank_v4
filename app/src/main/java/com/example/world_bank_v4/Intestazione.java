@@ -36,4 +36,8 @@ public class Intestazione {
         return lastupdated;
     }
 
+    public String getSourceId(){
+        return sourceid;
+    }
+
 }

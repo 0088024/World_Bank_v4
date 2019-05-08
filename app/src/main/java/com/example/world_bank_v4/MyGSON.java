@@ -123,4 +123,20 @@ public class MyGSON {
     }
 
 
+
+
+    public Intestazione getJsonElementIntestazione(String file_json){
+
+        /*attraverso il parser di Gson ottengo l'elemento che mi interessa, ovvero l'array di
+        elementi dello stesso tipo e ordinati in json*/
+        JsonElement je = new JsonParser().parse(file_json);
+        JsonArray root = je.getAsJsonArray();
+        JsonElement je2 = root.get(0);        /*ottengo il jsonElement che corrisponde all'elemento
+                                              intestazione*/
+        Gson gson = new Gson();
+        Intestazione intestazione = gson.fromJson(je2 , Intestazione.class);
+        return intestazione;
+    }
+
+
 }
