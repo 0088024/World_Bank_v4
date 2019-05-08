@@ -38,7 +38,10 @@ public class VisualizzaDati extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         progressBar = findViewById(R.id.progressBar6);
 
-        new CaricaDatabaseTask().execute();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        new CaricaDatabaseTask(bundle.getLong(Costanti.ID_RECORD_TABELLA)).execute();
 
     }
 
@@ -51,10 +54,11 @@ public class VisualizzaDati extends AppCompatActivity {
 
         private DbManager dbManager;
         private int count=1;
+        private long id;
 
 
-        public CaricaDatabaseTask(){
-
+        public CaricaDatabaseTask(long id){
+            this.id = id;
             this.dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
                                                                 database*/
             setDbManager(dbManager);        /*passa alla classe contenitore un riferimento al
@@ -65,7 +69,7 @@ public class VisualizzaDati extends AppCompatActivity {
         @Override
         protected Cursor doInBackground(Void... params) {
 
-            Cursor cursor = dbManager.query();
+            Cursor cursor = dbManager.query(id);
 
             // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
             for (; count<= Costanti.progressBarTime;count++)

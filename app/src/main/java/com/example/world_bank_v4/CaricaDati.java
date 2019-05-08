@@ -173,6 +173,8 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
             progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
+
+        @Override
         protected void onPostExecute(Cursor cursorRisultato){
             Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(cursorRisultato));
             progressBar.setVisibility(View.GONE);
@@ -194,19 +196,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
 
-    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
-    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
-    costosi da chiamare*/
-    @Override
-    protected void onDestroy(){
-        dbManager.close();
-        super.onDestroy();
-
-    }
-
-
-
-
     private void caricaLayout(Cursor cursorRisultato){
 
         cursorAdapter = new MyCursorAdapter(this, cursorRisultato, 0,
@@ -216,6 +205,16 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     }
 
 
+
+    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
+   necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
+   costosi da chiamare*/
+    @Override
+    protected void onDestroy(){
+        dbManager.close();
+        super.onDestroy();
+
+    }
 
 
     public void setDbManager(DbManager dbManager){

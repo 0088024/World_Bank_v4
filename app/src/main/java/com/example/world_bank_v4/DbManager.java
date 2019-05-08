@@ -117,6 +117,25 @@ public class DbManager {
     }
 
 
+    /*ritorna la righa della con il dato id*/
+    public Cursor query(long id)
+    {
+        Cursor crs=null;
+        try
+        {
+            SQLiteDatabase db = dbhelper.getReadableDatabase();	/*ottiene il riferimento al database
+                                                                in lettura*/
+            crs=db.query(DbHelper.TABLE_NAME, null, DbHelper.COLUMN_ID +" = " +id,
+                    null, null, null,  null, null);
+        }
+        catch(SQLiteException sqle)
+        {   return null;
+        }
+
+        return crs;
+    }
+
+
     /*rilascia il puntatore all'oggetto, chiudendolo se l'ultima referenziazione è rilasciata*/
     public void close(){
         SQLiteDatabase db = dbhelper.getReadableDatabase();
