@@ -19,8 +19,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_NOME_PAESE = "nome_paese";
     public static final String COLUMN_NOME_INDICATORE = "nome_indicatore";
     public static final String COLUMN_DATE = "data";
-    public static final String COLUMN_SOURCE_ID = "sourceId";
-    public static final String COLUMN_LAST_UPDATED = "lastUpdated";
+    public static final String COLUMN_SOURCE_ID = "source_id";
+    public static final String COLUMN_LAST_UPDATED = "last_updated";
 
 
 
