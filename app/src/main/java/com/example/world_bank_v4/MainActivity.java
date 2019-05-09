@@ -1,6 +1,7 @@
 package com.example.world_bank_v4;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -62,9 +63,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
-                intent = new Intent(this, WebActivity.class);
-                startActivityForResult(intent,10);
-
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.worldbank.org"));
+                startActivity(intent);
                 break;
 
             case R.id.Menu_2:
