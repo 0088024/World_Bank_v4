@@ -231,8 +231,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             MyElementoGenerico indicator = myGSON.getObjectIntoElement(jsonElement,
                     "indicator");
 
+            Intestazione intestazione = myGSON.getJsonElementIntestazione(json_file);
 
-            RecordTabella recordTabella = new RecordTabella(country, indicator,
+            RecordTabella recordTabella = new RecordTabella(intestazione, country, indicator,
                     lista_Valore_grafico);
 
 

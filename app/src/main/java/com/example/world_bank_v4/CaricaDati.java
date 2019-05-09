@@ -24,6 +24,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     static private int position;
     static private long id;
     private ProgressBar progressBar;
+    private Intent intent;
 
 
 
@@ -41,8 +42,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
         listView = findViewById(R.id.list_view_carica_dati);
-
-
 
         new CaricaDatabaseTask().execute();
 
@@ -108,17 +107,28 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
+        /*ritorna la posizione della vista con il bottone cliccato */
+        position = listView.getPositionForView(v);
+        /*ritorna l'id del record corrispondente alla vista con il bottone cliccato*/
+        id = cursorAdapter.getItemId(position);
+
         if (v.getId() == R.id.imageButtonDelete) {
-            /*ritorna la posizione della vista con il bottone cliccato */
-            position = listView.getPositionForView(v);
-            /*ritorna l'id del record corrispondente alla vista con il bottone cliccato*/
-            id = cursorAdapter.getItemId(position);
             /* Mostra una alert Dialog per confermare l'operazione */
             DialogDeleteRow mydialog = new DialogDeleteRow();
             mydialog.show(getSupportFragmentManager(), "mydialog");
+        }
 
+        if(v.getId() == R.id.imageButtonDati){
+            intent = new Intent(this, VisualizzaDati.class);
+            Bundle bundle = new Bundle();
+            bundle.putLong(Costanti.ID_RECORD_TABELLA, id);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
+
+
+
     /* chiamato se effettivamente l'utente decide di cancellare la riga */
     protected static void deleterow() {
             if (dbManager.delete(id))
@@ -163,10 +173,12 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
             progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
+
+        @Override
         protected void onPostExecute(Cursor cursorRisultato){
             Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(cursorRisultato));
             progressBar.setVisibility(View.GONE);
-        /* Controlla se la query ha prodotto nessun risultato */
+             /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
                 Intent intent=new Intent();
                 setResult(RESULT_CANCELED,intent); // Informa l'attività chiamante con un codice
@@ -184,21 +196,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
 
-    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
-    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
-    costosi da chiamare*/
-    @Override
-    protected void onDestroy(){
-        dbManager.close();
-        super.onDestroy();
-
-    }
-
-
-
-
     private void caricaLayout(Cursor cursorRisultato){
-
 
         cursorAdapter = new MyCursorAdapter(this, cursorRisultato, 0,
                 this);
@@ -207,6 +205,16 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     }
 
 
+
+    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
+   necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
+   costosi da chiamare*/
+    @Override
+    protected void onDestroy(){
+        dbManager.close();
+        super.onDestroy();
+
+    }
 
 
     public void setDbManager(DbManager dbManager){
