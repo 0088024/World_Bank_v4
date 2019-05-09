@@ -19,10 +19,10 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
     static private DbManager dbManager;
-    private ListView listView;
     static private CursorAdapter cursorAdapter;
     static private int position;
-    static private long id;
+    static private long id_record;
+    private ListView listView;
     private ProgressBar progressBar;
     private Intent intent;
 
@@ -110,7 +110,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         /*ritorna la posizione della vista con il bottone cliccato */
         position = listView.getPositionForView(v);
         /*ritorna l'id del record corrispondente alla vista con il bottone cliccato*/
-        id = cursorAdapter.getItemId(position);
+        id_record = cursorAdapter.getItemId(position);
 
         if (v.getId() == R.id.imageButtonDelete) {
             /* Mostra una alert Dialog per confermare l'operazione */
@@ -121,7 +121,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         if(v.getId() == R.id.imageButtonDati){
             intent = new Intent(this, VisualizzaDati.class);
             Bundle bundle = new Bundle();
-            bundle.putLong(Costanti.ID_RECORD_TABELLA, id);
+            bundle.putLong(Costanti.ID_RECORD_TABELLA, id_record);
             intent.putExtras(bundle);
             startActivity(intent);
         }
@@ -131,7 +131,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
     /* chiamato se effettivamente l'utente decide di cancellare la riga */
     protected static void deleterow() {
-            if (dbManager.delete(id))
+            if (dbManager.delete(id_record))
                 /*Change the underlying cursor to a new cursor. If there is an existing cursor it
                 will be closed. Atomaticamente aggiorna anche la list view a cui è collegato
                 il Cursor Adapter*/
@@ -178,7 +178,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         protected void onPostExecute(Cursor cursorRisultato){
             Log.d(Costanti.NOME_APP , ": CURSORE -->  "+ showCursor(cursorRisultato));
             progressBar.setVisibility(View.GONE);
-             /* Controlla se la query ha prodotto nessun risultato */
+            /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
                 Intent intent=new Intent();
                 setResult(RESULT_CANCELED,intent); // Informa l'attività chiamante con un codice
