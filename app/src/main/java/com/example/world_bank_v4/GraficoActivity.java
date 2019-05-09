@@ -222,8 +222,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             ArrayList<ValoreGrafico> lista_Valore_grafico = params[0];
             /*costruisci un oggetto recordTabella corrispondente all'indicatore per paese ottenuto*/
-              /*con la libreria GSON ottengo il corrispondente primo oggetto dell'array di elementi
-              del file json*/
+            /*con la libreria GSON ottengo il corrispondente primo oggetto dell'array di elementi
+            del file json*/
             MyGSON myGSON = new MyGSON();
             JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);
             MyElementoGenerico country = myGSON.getObjectIntoElement(jsonElement,
@@ -232,6 +232,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                     "indicator");
 
             Intestazione intestazione = myGSON.getJsonElementIntestazione(json_file);
+            Log.d(Costanti.NOME_APP, intestazione.toString());
 
             RecordTabella recordTabella = new RecordTabella(intestazione, country, indicator,
                     lista_Valore_grafico);

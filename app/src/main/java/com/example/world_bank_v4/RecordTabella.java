@@ -26,7 +26,6 @@ public class RecordTabella {
         this.nomeIndicatore = indicatore.getValue();
         this.lastUpdated = intestazione.getLastUpdated();
         this.sourceid = intestazione.getSourceId();
-
         this.colonne_anni = lista_Valore_grafico;
 
     }
