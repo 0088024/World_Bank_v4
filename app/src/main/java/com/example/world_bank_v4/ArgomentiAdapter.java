@@ -30,7 +30,7 @@ public class ArgomentiAdapter extends MyGenericoAdapter {
                 rowView = inflater.inflate(R.layout.riga_layout_argomenti, null);
             }
             /*prendi l'elemento nella posizione specificata alla chiamata di getView()*/
-            MyElementoGenerico argomento = super.getList().get(position);
+            ElementoGenerico argomento = super.getList().get(position);
             if (argomento != null) {
                 /*ottieni i riferimenti agli elementi del layout per la riga caricato prima*/
                 TextView textViewValue = rowView.findViewById(R.id.textViewValue);

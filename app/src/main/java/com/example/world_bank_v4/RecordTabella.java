@@ -16,8 +16,8 @@ public class RecordTabella {
     private ArrayList<ValoreGrafico> colonne_anni;      /*contiene i valori per ogni anno*/
 
 
-    public RecordTabella(Intestazione intestazione, MyElementoGenerico paese,
-                         MyElementoGenerico indicatore,
+    public RecordTabella(Intestazione intestazione, ElementoGenerico paese,
+                         ElementoGenerico indicatore,
                          ArrayList<ValoreGrafico> lista_Valore_grafico){
 
         this.idPaese = paese.getId();

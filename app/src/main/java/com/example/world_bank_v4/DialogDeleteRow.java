@@ -11,7 +11,10 @@ import android.util.Log;
 
 public class DialogDeleteRow extends AppCompatDialogFragment {
 
-    public Dialog onCreateDialog(Bundle savedInstanceState){
+    private String scelta_utente;
+
+
+    public Dialog onCreateDialog(final Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         Log.d(Costanti.NOME_APP, "builder ok");
         builder.setTitle("Warning!")
@@ -20,7 +23,8 @@ public class DialogDeleteRow extends AppCompatDialogFragment {
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        CaricaDati.deleterow();
+                        /*CaricaDati.deleterow();*/
+                        scelta_utente = "YES";
                     }
                 });
 
@@ -33,6 +37,11 @@ public class DialogDeleteRow extends AppCompatDialogFragment {
 
         return builder.show();
 
+    }
+
+
+    public String getScelta_utente(){
+        return scelta_utente;
     }
 
 }

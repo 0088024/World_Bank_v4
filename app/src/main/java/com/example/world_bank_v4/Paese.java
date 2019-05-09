@@ -1,6 +1,6 @@
 package com.example.world_bank_v4;
 
-public class Paese extends MyElementoGenerico {
+public class Paese extends ElementoGenerico {
 
 
     public Paese(){}                /*serve per il Gson*/

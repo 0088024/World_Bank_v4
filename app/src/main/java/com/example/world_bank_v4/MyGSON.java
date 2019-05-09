@@ -78,7 +78,7 @@ public class MyGSON {
         memorizzati in una Lista*/
         Gson gson = new Gson();
         //JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);
-        //MyElementoGenerico message = gson.getObjectIntoElement(jsonElement,
+        //ElementoGenerico message = gson.getObjectIntoElement(jsonElement,
                 //"message");
         ArrayList list = gson.fromJson(je2, typeToken.getType());
 
@@ -107,16 +107,16 @@ public class MyGSON {
     }
 
 
-    /*istanzia e restituisce un MyElementoGenerico corrispondente all'elemento json memberName
+    /*istanzia e restituisce un ElementoGenerico corrispondente all'elemento json memberName
     contenuto nell'elemento jsonElement ricevuto*/
-    public MyElementoGenerico getObjectIntoElement(JsonElement jsonElement, String memberName){
+    public ElementoGenerico getObjectIntoElement(JsonElement jsonElement, String memberName){
 
         /*ottengo l'ennesimo elemento all'interno di un elemento json*/
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         JsonElement element = jsonObject.get(memberName);
 
         Gson gson = new Gson();
-        MyElementoGenerico elementoGenerico = gson.fromJson(element, MyElementoGenerico.class);
+        ElementoGenerico elementoGenerico = gson.fromJson(element, ElementoGenerico.class);
 
         return elementoGenerico;
 
