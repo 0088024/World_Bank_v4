@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
-    static ProgressBar progressBar3;
+    private ProgressBar progressBar3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,20 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         super.caricaLista();
     }
 
+
+    @Override
+    protected void setProgressBarVisible(){
+        // Analizza i casi in cui la progressBar va soppressa
+        if (super.getIdArgomentoSelezionato()!=null)
+            progressBar3.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    @Override
+    protected void setProgressBarGone(){
+        // Analizza i casi in cui la progressBar va soppressa
+        if (super.getIdArgomentoSelezionato()!=null)
+            progressBar3.setVisibility(View.GONE);
+    }
 
     @Override
     public String costruisciApi(){

@@ -54,7 +54,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private Button button_salva_database;
     private Button button_salva_grafico;
     private Bundle bundle_main;
-    static ProgressBar progressBar;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -168,6 +168,22 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         }
 
 
+    }
+
+    @Override
+    protected void setProgressBarVisible(){
+        // Analizza i casi in cui la progressBar va attivata
+        if (super.getIdPaeseSelezionato()!=null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity") ||
+                (super.getIdIndicatoreSelezionato() != null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity")))
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    @Override
+    protected void setProgressBarGone(){
+        // Analizza i casi in cui la progressBar va soppressa
+        if(super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity") ||
+                (super.getIdIndicatoreSelezionato()!=null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity")))
+            progressBar.setVisibility(View.GONE);
     }
 
 

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class ListaPaesiActivity extends ListaGenericaActivity {
 
-    static ProgressBar progressBar1;
+    private ProgressBar progressBar1;
 
 
 
@@ -48,6 +48,21 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         super.caricaLista();
 
 
+    }
+    @Override
+    protected void setProgressBarVisible(){
+        // Analizza i casi in cui la progressBar va attivata
+        if (super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity") ||
+        (super.getIdIndicatoreSelezionato() != null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity")))
+            progressBar1.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    @Override
+    protected void setProgressBarGone(){
+        // Analizza i casi in cui la progressBar va soppressa
+        if(super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity") ||
+                (super.getIdIndicatoreSelezionato()!=null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity")))
+            progressBar1.setVisibility(View.GONE);
     }
 
 

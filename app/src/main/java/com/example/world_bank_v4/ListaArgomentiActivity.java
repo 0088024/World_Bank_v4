@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class ListaArgomentiActivity extends ListaGenericaActivity {
 
-    static ProgressBar progressBar2;
+    private ProgressBar progressBar2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,21 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         super.caricaLista();
     }
 
+    @Override
+    protected void setProgressBarVisible(){
+        // Analizza i casi in cui la progressBar va attivata
+        if (super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity") ||
+                (super.getIdPaeseSelezionato() != null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity")))
+            progressBar2.setVisibility(ProgressBar.VISIBLE);
+    }
 
+    @Override
+    protected void setProgressBarGone(){
+        // Analizza i casi in cui la progressBar va soppressa
+        if(super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity") ||
+                (super.getIdPaeseSelezionato()!=null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity")))
+            progressBar2.setVisibility(View.GONE);
+    }
 
     @Override
     public void instanziaAdapter(){
