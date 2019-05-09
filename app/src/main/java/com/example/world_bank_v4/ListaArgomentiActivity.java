@@ -45,17 +45,13 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
 
     @Override
     protected void setProgressBarVisible(){
-        // Analizza i casi in cui la progressBar va attivata
-        if (super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity") ||
-                (super.getIdPaeseSelezionato() != null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity")))
+
             progressBar2.setVisibility(ProgressBar.VISIBLE);
     }
 
     @Override
     protected void setProgressBarGone(){
-        // Analizza i casi in cui la progressBar va soppressa
-        if(super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity") ||
-                (super.getIdPaeseSelezionato()!=null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity")))
+
             progressBar2.setVisibility(View.GONE);
     }
 

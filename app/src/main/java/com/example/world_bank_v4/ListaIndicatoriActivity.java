@@ -46,15 +46,13 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
     @Override
     protected void setProgressBarVisible(){
-        // Analizza i casi in cui la progressBar va soppressa
-        if (super.getIdArgomentoSelezionato()!=null)
+
             progressBar3.setVisibility(ProgressBar.VISIBLE);
     }
 
     @Override
     protected void setProgressBarGone(){
-        // Analizza i casi in cui la progressBar va soppressa
-        if (super.getIdArgomentoSelezionato()!=null)
+
             progressBar3.setVisibility(View.GONE);
     }
 

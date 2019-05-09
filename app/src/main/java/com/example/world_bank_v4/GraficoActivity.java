@@ -172,17 +172,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     @Override
     protected void setProgressBarVisible(){
-        // Analizza i casi in cui la progressBar va attivata
-        if (super.getIdPaeseSelezionato()!=null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity") ||
-                (super.getIdIndicatoreSelezionato() != null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity")))
+
             progressBar.setVisibility(ProgressBar.VISIBLE);
     }
 
     @Override
     protected void setProgressBarGone(){
-        // Analizza i casi in cui la progressBar va soppressa
-        if(super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaArgomentiActivity") ||
-                (super.getIdIndicatoreSelezionato()!=null && super.getNomeClasseSelezionata().contentEquals("com.example.world_bank_v4.ListaPaesiActivity")))
+
             progressBar.setVisibility(View.GONE);
     }
 
