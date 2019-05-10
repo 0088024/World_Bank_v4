@@ -131,6 +131,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
+    // Se l'utente decide tramite dialog di cancellare definiticamente un database
     public void onFinishClickListener(String inputText) {
         if(inputText.contentEquals("delete")) {
             dbManager.delete(id_record);
