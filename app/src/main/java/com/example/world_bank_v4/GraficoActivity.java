@@ -134,13 +134,16 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 }
                 /*A Entry represents one single entry in the chart. Entry(float x, float y)*/
                 entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
+                Log.d(Costanti.NOME_APP, entries.toString());
             }
 
             /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
             LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
             dataSet.setColor(Color.BLUE);
             dataSet.setValueTextColor(Color.RED); // styling, ...
+            dataSet.setValueFormatter();
             LineData lineData = new LineData(dataSet);
+
             chart.setData(lineData);
             chart.invalidate(); // refresh
         }
