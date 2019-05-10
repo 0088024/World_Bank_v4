@@ -15,7 +15,8 @@ import android.widget.ProgressBar;
 
 
 /*activity che carica e visualizza le n-tuple salvate nel database*/
-public class CaricaDati extends AppCompatActivity implements View.OnClickListener, DialogDeleteRow.OnClickListener {
+public class CaricaDati extends AppCompatActivity implements View.OnClickListener,
+        DialogDeleteRow.OnClickListener {
 
 
     private DbManager dbManager;

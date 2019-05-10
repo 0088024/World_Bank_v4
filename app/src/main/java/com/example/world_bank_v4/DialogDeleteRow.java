@@ -28,7 +28,9 @@ public class DialogDeleteRow extends AppCompatDialogFragment{
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        /* casting dell'attività che ha passato il fragment */
                         OnClickListener listener = (OnClickListener) getActivity();
+                        Log.d(Costanti.NOME_APP,listener.toString());
                         listener.onFinishClickListener("delete");
                         DialogDeleteRow.this.dismiss();
                     }
