@@ -90,7 +90,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         return api_indicatore_per_paese.toString();
     }
 
-    /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>, e collega quest'ultima al chart*/
+    /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>,
+    e collega quest'ultima al chart*/
     @Override
     public void caricaLayoutLista(){
 
@@ -103,17 +104,17 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             /*DEBUG*/
             Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
-            /*con la libreria GSON ottengo la corrispondente lista/array di indicatori del file json*/
+            /*con la libreria GSON ottengo la corrispondente lista di indicatori del file json*/
             MyGSON myGSON = new MyGSON();
             lista_grafico = myGSON.getListFromJson(json_file,
                     new TypeToken<ArrayList<ValoreGrafico>>() {});
 
-            // Controlla se non ci sono dati per costruire il grafico
+            /*Controlla se non ci sono dati per costruire il grafico*/
             if(lista_grafico == null){
                 Intent intent=new Intent();
-                setResult(RESULT_FIRST_USER,intent); // Informa l'attività chiamante con un codice
+                setResult(RESULT_FIRST_USER,intent); /*Informa l'attività chiamante con un codice*/
                 finish();
-                return; // Inutile proseguire
+                return; /*Inutile proseguire*/
             }
 
             /*DEBUG*/
@@ -128,17 +129,20 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 if (graf.getvalue() == null) {
                     graf.resetValue();
                 }
+                /*A Entry represents one single entry in the chart. Entry(float x, float y)*/
                 entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
             }
 
-            LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+            /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
+            LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
             dataSet.setColor(Color.BLUE);
             dataSet.setValueTextColor(Color.RED); // styling, ...
             LineData lineData = new LineData(dataSet);
             chart.setData(lineData);
             chart.invalidate(); // refresh
         }
-        else{ // Non si può continuare
+
+        else{ /*Non si può continuare*/
             Log.d(Costanti.NOME_APP ," error_file: " + err_msg);
             Intent intent=new Intent();
             bundle_main = new Bundle();
