@@ -46,8 +46,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*"specializza activity*/
         setContentView(R.layout.activity_grafico);
         getSupportActionBar().setLogo(R.drawable.graph);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         /*in this example, a LineChart is initialized from xml*/
