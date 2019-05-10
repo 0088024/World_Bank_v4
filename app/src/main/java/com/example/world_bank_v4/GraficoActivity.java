@@ -141,7 +141,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
             dataSet.setColor(Color.BLUE);
             dataSet.setValueTextColor(Color.RED); // styling, ...
-            dataSet.setValueFormatter();
             LineData lineData = new LineData(dataSet);
 
             chart.setData(lineData);
