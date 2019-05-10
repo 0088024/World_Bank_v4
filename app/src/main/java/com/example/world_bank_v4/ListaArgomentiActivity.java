@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class ListaArgomentiActivity extends ListaGenericaActivity {
 
-    static ProgressBar progressBar2;
+    private ProgressBar progressBar2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,17 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         super.caricaLista();
     }
 
+    @Override
+    protected void setProgressBarVisible(){
 
+            progressBar2.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    @Override
+    protected void setProgressBarGone(){
+
+            progressBar2.setVisibility(View.GONE);
+    }
 
     @Override
     public void instanziaAdapter(){

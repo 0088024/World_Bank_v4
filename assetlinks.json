@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.example.world_bank_v4",
+    "sha256_cert_fingerprints":
+    ["CC:05:B9:4F:2B:BA:D7:CC:5A:CA:61:51:B7:A4:25:BB:AE:37:AD:49:11:61:4A:48:1E:F1:D1:18:51:4F:17:D9"]
+  }
+}]

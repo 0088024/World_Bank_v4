@@ -1,11 +1,13 @@
 package com.example.world_bank_v4;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -15,11 +17,11 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
     private Intent intent;
     private ImageView imageView;
-
     private Button buttonPaese;
     private Button buttonArgomento;
     private Button buttonGrafico;
     private Button buttonDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         buttonArgomento = findViewById(R.id.buttonArgomento);
         buttonGrafico = findViewById(R.id.buttonGrafico);
         buttonDatabase = findViewById(R.id.buttonDatabase);
+
 
         buttonPaese.setOnClickListener(this);
         buttonArgomento.setOnClickListener(this);
@@ -60,13 +63,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
-
-                intent = new Intent(this, ListaPaesiActivity.class);
-                bundle = new Bundle();
-                bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
-                                                    ListaPaesiActivity.class.getName());
-                intent.putExtras(bundle);
-                startActivityForResult(intent,1);
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.worldbank.org"));
+                startActivity(intent);
                 break;
 
             case R.id.Menu_2:

@@ -54,7 +54,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private Button button_salva_database;
     private Button button_salva_grafico;
     private Bundle bundle_main;
-    static ProgressBar progressBar;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -168,6 +168,18 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         }
 
 
+    }
+
+    @Override
+    protected void setProgressBarVisible(){
+
+            progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    @Override
+    protected void setProgressBarGone(){
+
+            progressBar.setVisibility(View.GONE);
     }
 
 

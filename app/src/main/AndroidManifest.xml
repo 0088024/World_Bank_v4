@@ -12,35 +12,50 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaGenericaActivity" />
-        <activity
-            android:name=".VisualizzaDati"
-            android:label="@string/title_activity_visualizza_dati" />
+        <activity android:name=".ListaGenericaActivity"></activity>
+        <activity android:name=".WebActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="worldbank.org" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MostraPngSalvatoPrecedentemente"
-            android:label="@string/title_activity_mostra_png_precedentemente_salvata" />
+            android:label="@string/title_activity_mostra_png_precedentemente_salvata"></activity>
         <activity
             android:name=".CaricaDati"
-            android:label="@string/title_activity_carica_dati" />
+            android:label="@string/title_activity_carica_dati"></activity>
         <activity
             android:name=".NotificationActivity"
-            android:label="@string/title_activity_notification" />
+            android:label="@string/title_activity_notification">
+        </activity>
         <activity
             android:name=".GraficoActivity"
-            android:label="@string/title_activity_grafico" />
+            android:label="@string/title_activity_grafico">
+        </activity>
         <activity
             android:name=".ListaIndicatoriActivity"
-            android:label="@string/title_activity_lista_indicatori" />
+            android:label="@string/title_activity_lista_indicatori">
+
+        </activity>
         <activity
             android:name=".ListaArgomentiActivity"
-            android:label="@string/title_activity_lista_argomenti" />
+            android:label="@string/title_activity_lista_argomenti">
+        </activity>
         <activity
             android:name=".ListaPaesiActivity"
-            android:label="@string/title_activity_lista_paese_activity" />
+            android:label="@string/title_activity_lista_paese_activity">
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
