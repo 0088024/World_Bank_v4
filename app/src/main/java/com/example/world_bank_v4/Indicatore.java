@@ -1,6 +1,6 @@
 package com.example.world_bank_v4;
 
-public class Indicatore extends MyElementoGenerico {
+public class Indicatore extends ElementoGenerico {
 
 
     public Indicatore(){}                /*serve per il Gson*/

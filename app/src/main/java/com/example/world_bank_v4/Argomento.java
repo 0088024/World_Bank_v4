@@ -1,6 +1,6 @@
 package com.example.world_bank_v4;
 
-public class Argomento extends MyElementoGenerico {
+public class Argomento extends ElementoGenerico {
 
 
     private String sourceNote = null;

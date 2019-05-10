@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -13,9 +12,9 @@ import java.util.ArrayList;
 
 /*classe adattatore per collegare i dati contenuti in un ArrayList alla lista view e definere
 il layout all'interno della riga da visualizzare*/
-public class MyGenericoAdapter extends ArrayAdapter<MyElementoGenerico> {
+public class MyGenericoAdapter extends ArrayAdapter<ElementoGenerico> {
 
-    private ArrayList<MyElementoGenerico> list;          /*lista di oggetti implementata con array ridimensionabile.
+    private ArrayList<ElementoGenerico> list;          /*lista di oggetti implementata con array ridimensionabile.
                                         ArrayList<> implementa interfaccia List<>*/
 
 
@@ -37,7 +36,7 @@ public class MyGenericoAdapter extends ArrayAdapter<MyElementoGenerico> {
             rowView = inflater.inflate(R.layout.riga_layout, null);
         }
         /*prendi l'elemento nella posizione specificata alla chiamata di getView()*/
-        MyElementoGenerico elemento = list.get(position);
+        ElementoGenerico elemento = list.get(position);
         if (elemento != null) {
             /*ottieni i riferimenti agli elementi del layout per la riga caricato prima*/
             TextView text_view_elemento = rowView.findViewById(R.id.textViewNazione);
@@ -49,7 +48,7 @@ public class MyGenericoAdapter extends ArrayAdapter<MyElementoGenerico> {
 
 
 
-    public ArrayList<MyElementoGenerico> getList(){
+    public ArrayList<ElementoGenerico> getList(){
         return list;
     }
 

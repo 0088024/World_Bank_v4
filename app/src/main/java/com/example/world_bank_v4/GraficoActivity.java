@@ -1,23 +1,15 @@
 package com.example.world_bank_v4;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -25,23 +17,12 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -238,9 +219,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             del file json*/
             MyGSON myGSON = new MyGSON();
             JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);
-            MyElementoGenerico country = myGSON.getObjectIntoElement(jsonElement,
+            ElementoGenerico country = myGSON.getObjectIntoElement(jsonElement,
                     "country");
-            MyElementoGenerico indicator = myGSON.getObjectIntoElement(jsonElement,
+            ElementoGenerico indicator = myGSON.getObjectIntoElement(jsonElement,
                     "indicator");
 
             Intestazione intestazione = myGSON.getJsonElementIntestazione(json_file);

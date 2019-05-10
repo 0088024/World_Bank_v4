@@ -27,6 +27,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".VisualizzaDati"
+            android:label="@string/title_activity_visualizza_dati"></activity>
+        <activity
             android:name=".MostraPngSalvatoPrecedentemente"
             android:label="@string/title_activity_mostra_png_precedentemente_salvata"></activity>
         <activity
