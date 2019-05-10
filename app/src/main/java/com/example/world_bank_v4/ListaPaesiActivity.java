@@ -27,11 +27,9 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         super.onCreate(savedInstanceState);
 
         /*"specializza activity*/
-
         setContentView(R.layout.activity_lista_paese_activity);
         getSupportActionBar().setLogo(R.drawable.country);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         progressBar1 = findViewById(R.id.progressBar1);
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
