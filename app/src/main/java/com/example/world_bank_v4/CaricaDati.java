@@ -43,7 +43,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        progressBar = findViewById(R.id.progressBar4);
+        progressBar = findViewById(R.id.progressBar);
         listView = findViewById(R.id.list_view_carica_dati);
 
         new CaricaDatabaseTask().execute();

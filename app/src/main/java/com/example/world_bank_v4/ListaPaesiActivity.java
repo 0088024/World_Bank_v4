@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class ListaPaesiActivity extends ListaGenericaActivity {
 
-    private ProgressBar progressBar1;
+    private ProgressBar progressBar;
 
 
 
@@ -31,7 +31,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         setContentView(R.layout.activity_lista_paese_activity);
         getSupportActionBar().setLogo(R.drawable.country);
 
-        progressBar1 = findViewById(R.id.progressBar1);
+        progressBar = findViewById(R.id.progressBar);
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
         super.setIdListView(R.id.list_view_paesi);
@@ -51,13 +51,13 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     @Override
     protected void setProgressBarVisible(){
 
-            progressBar1.setVisibility(ProgressBar.VISIBLE);
+            progressBar.setVisibility(ProgressBar.VISIBLE);
     }
 
     @Override
     protected void setProgressBarGone(){
 
-            progressBar1.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
     }
 
 
