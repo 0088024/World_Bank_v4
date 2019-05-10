@@ -18,13 +18,16 @@ import android.widget.ProgressBar;
 public class CaricaDati extends AppCompatActivity implements View.OnClickListener {
 
 
-    static private DbManager dbManager;
-    static private CursorAdapter cursorAdapter;
-    static private int position;
-    static private long id_record;
+    private DbManager dbManager;
+    private CursorAdapter cursorAdapter;
+    private int position;
+    private long id_record;
+
     private ListView listView;
     private ProgressBar progressBar;
     private Intent intent;
+    private Bundle bundle;
+    private Cursor cursor;
 
 
 
@@ -32,15 +35,14 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carica_dati);
-         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
+        /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         progressBar = findViewById(R.id.progressBar4);
-
-
         listView = findViewById(R.id.list_view_carica_dati);
 
         new CaricaDatabaseTask().execute();
@@ -116,11 +118,17 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
             /* Mostra una alert Dialog per confermare l'operazione */
             DialogDeleteRow mydialog = new DialogDeleteRow();
             mydialog.show(getSupportFragmentManager(), "mydialog");
+
+            String str = mydialog.getScelta_utente();
+            if(str == null)
+             Log.d(Costanti.NOME_APP, null);
+            dbManager.delete(id_record);
+            cursorAdapter.changeCursor(dbManager.query());
         }
 
         if(v.getId() == R.id.imageButtonDati){
             intent = new Intent(this, VisualizzaDati.class);
-            Bundle bundle = new Bundle();
+            bundle = new Bundle();
             bundle.putLong(Costanti.ID_RECORD_TABELLA, id_record);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -128,16 +136,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     }
 
 
-
-    /* chiamato se effettivamente l'utente decide di cancellare la riga */
-    protected static void deleterow() {
-            if (dbManager.delete(id_record))
-                /*Change the underlying cursor to a new cursor. If there is an existing cursor it
-                will be closed. Atomaticamente aggiorna anche la list view a cui è collegato
-                il Cursor Adapter*/
-                cursorAdapter.changeCursor(dbManager.query());
-
-    }
 
 
     /*thread che in background carica i dati dal database locale*/
@@ -160,8 +158,9 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         protected Cursor doInBackground(Void... params) {
 
             Cursor cursor = dbManager.query();
+            setCursor(cursor);
 
-            // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
+            /*Fammi vedere per un certo tempo stabilito da una costante la Progress Bar*/
             for (; count<= Costanti.progressBarTime;count++)
                 publishProgress(count);
 
@@ -181,13 +180,11 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
             /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
                 Intent intent=new Intent();
-                setResult(RESULT_CANCELED,intent); // Informa l'attività chiamante con un codice
-                finish(); // Non si può proseguire
+                setResult(RESULT_CANCELED,intent);  /*Informa l'attività chiamante con un codice*/
+                finish();                           /*Non si può proseguire*/
             }
             else
                 caricaLayout(cursorRisultato);
-
-
         }
 
 
@@ -211,11 +208,18 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
    costosi da chiamare*/
     @Override
     protected void onDestroy(){
+        cursor.close();
         dbManager.close();
         super.onDestroy();
 
     }
 
+
+
+
+    public void setCursor(Cursor cursor){
+        this.cursor = cursor;
+    }
 
     public void setDbManager(DbManager dbManager){
         this.dbManager = dbManager;

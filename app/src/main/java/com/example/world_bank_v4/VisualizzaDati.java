@@ -21,8 +21,7 @@ public class VisualizzaDati extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private DbManager dbManager;
-    private CursorAdapter cursorAdapter;
-
+    private Cursor cursor;
 
 
     @Override
@@ -70,6 +69,7 @@ public class VisualizzaDati extends AppCompatActivity {
         protected Cursor doInBackground(Void... params) {
 
             Cursor cursor = dbManager.query(id);
+            setCursor(cursor);
 
             // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
             for (; count<= Costanti.progressBarTime;count++)
@@ -120,8 +120,6 @@ public class VisualizzaDati extends AppCompatActivity {
 
                 //add TableRows to TableLayout
                 tableLayout.addView(inflateRow);
-
-
             }
         }
     }
@@ -186,10 +184,11 @@ public class VisualizzaDati extends AppCompatActivity {
 
 
     /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
-   necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
-   costosi da chiamare*/
+    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
+    costosi da chiamare*/
     @Override
     protected void onDestroy(){
+        cursor.close();
         dbManager.close();
         super.onDestroy();
 
@@ -197,7 +196,9 @@ public class VisualizzaDati extends AppCompatActivity {
 
 
 
-
+    public void setCursor(Cursor cursor){
+        this.cursor = cursor;
+    }
 
     public void setDbManager(DbManager dbManager){
         this.dbManager = dbManager;

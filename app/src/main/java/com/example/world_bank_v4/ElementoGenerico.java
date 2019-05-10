@@ -1,15 +1,15 @@
 package com.example.world_bank_v4;
 
-public class MyElementoGenerico {
+public class ElementoGenerico {
 
     private String id = null;
     private String name = null;
     private String value = null;
 
 
-    public MyElementoGenerico()  {}  /*serve x il GSON*/
+    public ElementoGenerico()  {}  /*serve x il GSON*/
 
-    public MyElementoGenerico(String id, String name, String value ){
+    public ElementoGenerico(String id, String name, String value ){
 
         this.id = id;
         this.name = name;
@@ -27,7 +27,7 @@ public class MyElementoGenerico {
 
 
     public String getSourceNote(){
-        return "Metodo della superclasse MyElementoGenerico";
+        return "Metodo della superclasse ElementoGenerico";
     }
 
 

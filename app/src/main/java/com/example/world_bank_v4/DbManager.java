@@ -91,14 +91,18 @@ public class DbManager {
             return false;
         }
         catch (SQLiteException sqle){
-            return false;
+            Log.e("DB ERROR", sqle.toString());
+            sqle.printStackTrace();
         }
         finally {
             db.setTransactionSuccessful();
 
             db.endTransaction();
         }
+
+        return true;
     }
+
 
 
     /*ritorna tutte le righe della tabella DbHelper.TABLE_NAME*/
