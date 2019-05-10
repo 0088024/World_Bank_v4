@@ -124,7 +124,7 @@ public class MyGSON {
 
 
 
-
+    /*ritorna il 1° elemento del file json che se il file è corretto, è l'elemento intestazione*/
     public Intestazione getJsonElementIntestazione(String file_json){
 
         /*attraverso il parser di Gson ottengo l'elemento che mi interessa, ovvero l'array di
