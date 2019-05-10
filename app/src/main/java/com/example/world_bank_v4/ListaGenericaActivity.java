@@ -282,14 +282,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
             catch (MalformedURLException e) {
                 Log.d(Costanti.NOME_APP,"MalformedURLException: "+e.getMessage());
-                error_file= e.getMessage();
+                error_file = e.getMessage();
                 return error_file;
 
             }
 
             catch (SocketTimeoutException e) {
                 Log.d(Costanti.NOME_APP,"SocketTimeoutException: " +e.getMessage() );
-                error_file= e.getMessage();
+                error_file = e.getMessage();
                 return error_file;
 
             }
@@ -304,7 +304,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
             catch (Exception e) {
                 Log.d(Costanti.NOME_APP,"Exception: "+e.getMessage() );
-                error_file= e.getMessage();
+                error_file = e.getMessage();
                 return error_file;
 
 
@@ -343,8 +343,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
     /*richiamato giusto prima che l’activity venga distrutta.Se la memoria e’ poca, il metodo NON
-   verra’ richiamato e Android killera’ il processo associato all’applicazione
-   */
+    verra’ richiamato e Android killera’ il processo associato all’applicazione*/
     @Override
     protected void onDestroy(){
         super.onDestroy();

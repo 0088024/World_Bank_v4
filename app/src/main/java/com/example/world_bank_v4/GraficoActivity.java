@@ -71,6 +71,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         a quest'ultima*/
         super.caricaLista();
     }
+
+
+
     @Override
     public String costruisciApi(){
         /*costruisci la stringa api per ottenere una lista di valori relativi
@@ -87,6 +90,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         Log.d(Costanti.NOME_APP,"api_indicatore_per_paese:  " +api_indicatore_per_paese);
         return api_indicatore_per_paese.toString();
     }
+
+
 
     /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>,
     e collega quest'ultima al chart*/
@@ -153,11 +158,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     }
 
+
     @Override
     protected void setProgressBarVisible(){
 
             progressBar.setVisibility(ProgressBar.VISIBLE);
     }
+
 
     @Override
     protected void setProgressBarGone(){
