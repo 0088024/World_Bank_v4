@@ -1,28 +1,26 @@
 Cose da fare:
 
-1)  Implementare eridarietà per le classi ListActivity (oltre ad essere 1 ottimo esercizio x iniziare a palleggiare con Java,
-speriamo anche che, oltre a rendere piu' pulito e mantenibile il codice, ci permetta di usare poi il poliformismo)
+1)  Implementare eridarietà per le classi CaricaDati e VisualizzaDati
 
-2) Migliorare file activity_main_xml
+2) Migliorare file activity_main_xml: voce menu "about us" e "contatti"
 
-3) Creare 1 nuovo file uguale a riga_layout.xml; chiamarlo riga_layout_argomenti.xml e migliorarlo. Sarà la vista dell'activity 
-    ListaArgomenti
 
-4) Studiare libreria MPAndroidChart e migliorare l'esposizione del grafico (xes. invertire l'ascisse con le ordinate)
+3) Studiare libreria MPAndroidChart e migliorare l'esposizione del grafico (xes. invertire
+ l'ascisse con le ordinate)
+ Migliorare attività che mostra l'immagine: solo immagine o grafico reattivo? utilizzare le
+ nuove o lasciare queste vecchie API?
 
-5) Controllare tutte le situazioni che possono "uscire" dal normale flusso d'esecuzione (xes. se la pagina internet non
+4) Controllare tutte le situazioni che possono "uscire" dal normale flusso d'esecuzione (xes. se la pagina internet non
     risponde, il file grafico non è presente quando lo vado a caricare offline, etc etc), xes. con una finestra POP-UP??????
 
-6) -------------------FATTO---------------
+5) -------------------FATTO MA RIMASTO CON BUNDLE DI onSavedInstanceState()--------------
   Eliminare bug che nel caso la lista degli indicatori di quel paese è troppo grande per permettere di inviarlo
         tramite Bundle in 1 intent
 
-7) Il salvataggio delle shared preferences farlo con un altro thread?
+6) Il salvataggio delle shared preferences farlo con un altro thread?
 
-8) Come implementare la base di dati e la relativa schermata/funzionalità "Carica dati offline".
 
-9) Migliorare attività che mostra l'immagine: solo immagine o grafico reattivo? utilizzare le
-    nuove o lasciare queste vecchie API?
 
-10) -------------------FATTO---------------
-   Implementare 2° percorso per arrivare al grafico
+
+
+
