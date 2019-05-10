@@ -35,7 +35,7 @@ public class VisualizzaDati extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        progressBar = findViewById(R.id.progressBar6);
+        progressBar = findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
