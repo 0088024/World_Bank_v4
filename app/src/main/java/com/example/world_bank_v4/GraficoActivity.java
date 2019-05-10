@@ -206,6 +206,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     public void onPause(){
         super.onPause();
+        dbManager.close();
+
     }
 
 
@@ -332,6 +334,18 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             mydialog.show(getSupportFragmentManager(),"mydialog");
 
         }
+    }
+
+
+
+
+
+    /*se le risorse sono aperte, le chiude*/
+    @Override
+    protected void onDestroy(){
+        if(!dbManager.isClosed())
+            dbManager.close();
+        super.onDestroy();
     }
 
 }
