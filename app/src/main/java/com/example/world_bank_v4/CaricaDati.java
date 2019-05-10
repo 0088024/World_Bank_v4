@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 
 
 /*activity che carica e visualizza le n-tuple salvate nel database*/
-public class CaricaDati extends AppCompatActivity implements View.OnClickListener {
+public class CaricaDati extends AppCompatActivity implements View.OnClickListener, DialogDeleteRow.OnClickListener {
 
 
     private DbManager dbManager;
@@ -119,11 +119,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
             DialogDeleteRow mydialog = new DialogDeleteRow();
             mydialog.show(getSupportFragmentManager(), "mydialog");
 
-            String str = mydialog.getScelta_utente();
-            if(str == null)
-             Log.d(Costanti.NOME_APP, null);
-            dbManager.delete(id_record);
-            cursorAdapter.changeCursor(dbManager.query());
         }
 
         if(v.getId() == R.id.imageButtonDati){
@@ -135,7 +130,13 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-
+    @Override
+    public void onFinishClickListener(String inputText) {
+        if(inputText.contentEquals("delete")) {
+            dbManager.delete(id_record);
+            cursorAdapter.changeCursor(dbManager.query());
+        }
+    }
 
 
     /*thread che in background carica i dati dal database locale*/
