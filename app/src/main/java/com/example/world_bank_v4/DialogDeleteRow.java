@@ -32,7 +32,6 @@ public class DialogDeleteRow extends AppCompatDialogFragment{
                         OnClickListener listener = (OnClickListener) getActivity();
                         Log.d(Costanti.NOME_APP,listener.toString());
                         listener.onFinishClickListener("delete");
-                        DialogDeleteRow.this.dismiss();
                     }
                 });
 
