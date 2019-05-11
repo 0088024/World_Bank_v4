@@ -58,7 +58,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private String API_WORLD_BANK;
     private TypeToken typeToken;
     private Bundle savedInstanceState;
-
+    private ProgressBar progressBar;
 
 
 
@@ -282,14 +282,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
             catch (MalformedURLException e) {
                 Log.d(Costanti.NOME_APP,"MalformedURLException: "+e.getMessage());
-                error_file= e.getMessage();
+                error_file = e.getMessage();
                 return error_file;
 
             }
 
             catch (SocketTimeoutException e) {
                 Log.d(Costanti.NOME_APP,"SocketTimeoutException: " +e.getMessage() );
-                error_file= e.getMessage();
+                error_file = e.getMessage();
                 return error_file;
 
             }
@@ -304,7 +304,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
             catch (Exception e) {
                 Log.d(Costanti.NOME_APP,"Exception: "+e.getMessage() );
-                error_file= e.getMessage();
+                error_file = e.getMessage();
                 return error_file;
 
 
@@ -343,8 +343,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
     /*richiamato giusto prima che l’activity venga distrutta.Se la memoria e’ poca, il metodo NON
-   verra’ richiamato e Android killera’ il processo associato all’applicazione
-   */
+    verra’ richiamato e Android killera’ il processo associato all’applicazione*/
     @Override
     protected void onDestroy(){
         super.onDestroy();
@@ -375,6 +374,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
     public void setAdapter(ArrayAdapter adapter) { this.adapter = adapter; }
+
+    public void setProgressBar(int id){
+        this.progressBar = findViewById(id);
+    }
 
     public String costruisciApi(){
         return "Fare override. Questo è il metodo della superclasse";
@@ -418,9 +421,20 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     public Bundle getBundleSucc() { return bundle_succ; }
 
-    protected void setProgressBarVisible(){} // Fare override nelle classi specifiche
 
-    protected void setProgressBarGone(){} // Fare override nelle classi specifiche
+
+    protected void setProgressBarVisible(){
+
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
+
+    protected void setProgressBarGone(){
+
+        progressBar.setVisibility(View.GONE);
+    }
+
+
 
 }
 

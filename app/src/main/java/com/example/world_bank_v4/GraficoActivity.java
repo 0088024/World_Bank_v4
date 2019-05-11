@@ -46,8 +46,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*"specializza activity*/
         setContentView(R.layout.activity_grafico);
         getSupportActionBar().setLogo(R.drawable.graph);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         /*in this example, a LineChart is initialized from xml*/
@@ -56,7 +54,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         button_salva_grafico.setOnClickListener(this);
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
-        progressBar = findViewById(R.id.progressBar);
+        super.setProgressBar(R.id.progressBar);
 
         lista_grafico = new ArrayList<ValoreGrafico>();
         TypeToken<ArrayList<ValoreGrafico>> listTypeToken =
@@ -73,6 +71,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         a quest'ultima*/
         super.caricaLista();
     }
+
+
+
     @Override
     public String costruisciApi(){
         /*costruisci la stringa api per ottenere una lista di valori relativi
@@ -90,7 +91,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         return api_indicatore_per_paese.toString();
     }
 
-    /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>, e collega quest'ultima al chart*/
+
+
+    /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>,
+    e collega quest'ultima al chart*/
     @Override
     public void caricaLayoutLista(){
 
@@ -103,17 +107,17 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             /*DEBUG*/
             Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
-            /*con la libreria GSON ottengo la corrispondente lista/array di indicatori del file json*/
+            /*con la libreria GSON ottengo la corrispondente lista di indicatori del file json*/
             MyGSON myGSON = new MyGSON();
             lista_grafico = myGSON.getListFromJson(json_file,
                     new TypeToken<ArrayList<ValoreGrafico>>() {});
 
-            // Controlla se non ci sono dati per costruire il grafico
+            /*Controlla se non ci sono dati per costruire il grafico*/
             if(lista_grafico == null){
                 Intent intent=new Intent();
-                setResult(RESULT_FIRST_USER,intent); // Informa l'attività chiamante con un codice
+                setResult(RESULT_FIRST_USER,intent); /*Informa l'attività chiamante con un codice*/
                 finish();
-                return; // Inutile proseguire
+                return; /*Inutile proseguire*/
             }
 
             /*DEBUG*/
@@ -128,17 +132,22 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 if (graf.getvalue() == null) {
                     graf.resetValue();
                 }
+                /*A Entry represents one single entry in the chart. Entry(float x, float y)*/
                 entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
+                Log.d(Costanti.NOME_APP, entries.toString());
             }
 
-            LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
+            /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
+            LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
             dataSet.setColor(Color.BLUE);
             dataSet.setValueTextColor(Color.RED); // styling, ...
             LineData lineData = new LineData(dataSet);
+
             chart.setData(lineData);
             chart.invalidate(); // refresh
         }
-        else{ // Non si può continuare
+
+        else{ /*Non si può continuare*/
             Log.d(Costanti.NOME_APP ," error_file: " + err_msg);
             Intent intent=new Intent();
             bundle_main = new Bundle();
@@ -151,11 +160,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     }
 
+
     @Override
     protected void setProgressBarVisible(){
 
             progressBar.setVisibility(ProgressBar.VISIBLE);
     }
+
 
     @Override
     protected void setProgressBarGone(){
@@ -170,8 +181,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         switch(v.getId()) {
             case R.id.button_salva_database:
-                dbManager = new DbManager(this);
-                new SalvaDatabaseTask(dbManager).execute(lista_grafico);
+                new SalvaDatabaseTask().execute(lista_grafico);
                 break;
             case R.id.button_salva_grafico:
                 new SalvaGraficoTask().execute(chart);
@@ -188,6 +198,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         super.onSaveInstanceState(savedInstanceState);
     }
 
+
+
     /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
     in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
     La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
@@ -195,7 +207,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     public void onPause(){
         super.onPause();
+        if(!dbManager.isClosed())
+            dbManager.close();
     }
+
 
 
     /*thread che in background salva i dati nel database locale*/
@@ -206,9 +221,15 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
 
-        public SalvaDatabaseTask(DbManager dbManager) {
-            this.dbManager = dbManager;
+        public SalvaDatabaseTask() {
+
+            this.dbManager = new DbManager(getApplicationContext()); /*oggetto per interagire con il
+                                                                                database*/
+            setDbManager(dbManager);        /*passa alla classe contenitore un riferimento al
+                                            dbManager così lo potrà chiudere nella onDestroy()*/
+
         }
+
 
         @Override
         protected String doInBackground(ArrayList<ValoreGrafico>... params) {
@@ -241,10 +262,12 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             return "Dati salvati nel database";
         }
 
+
         @Override
         protected void onProgressUpdate(Integer... values) {
             progressBar.setVisibility(ProgressBar.VISIBLE);
         }
+
 
         @Override
         protected void onPostExecute(String risultato) {
@@ -256,6 +279,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         }
 
     }
+
 
 
     /*thread che in background salva il grafico in un file png*/
@@ -322,5 +346,23 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         }
     }
+
+
+
+
+
+    /*se le risorse sono aperte, le chiude*/
+    @Override
+    protected void onDestroy(){
+        if(!dbManager.isClosed())
+            dbManager.close();
+        super.onDestroy();
+    }
+
+
+    public void setDbManager(DbManager dbManager){
+        this.dbManager = dbManager;
+    }
+
 
 }

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class ListaPaesiActivity extends ListaGenericaActivity {
 
-    private ProgressBar progressBar;
 
 
 
@@ -31,10 +30,10 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         setContentView(R.layout.activity_lista_paese_activity);
         getSupportActionBar().setLogo(R.drawable.country);
 
-        progressBar = findViewById(R.id.progressBar);
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
         super.setIdListView(R.id.list_view_paesi);
+        super.setProgressBar(R.id.progressBar);
         super.setLista_oggetti(lista_paesi);
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_COUNTRY);
@@ -48,17 +47,9 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
 
     }
-    @Override
-    protected void setProgressBarVisible(){
 
-            progressBar.setVisibility(ProgressBar.VISIBLE);
-    }
 
-    @Override
-    protected void setProgressBarGone(){
 
-            progressBar.setVisibility(View.GONE);
-    }
 
 
 
@@ -117,6 +108,8 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         intent_succ.putExtras(bundle_succ);
         startActivityForResult(intent_succ,0);
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
