@@ -190,8 +190,7 @@ public class VisualizzaDati extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        cursor.close();
-        dbManager.close();
+
 
     }
 
