@@ -198,6 +198,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         super.onSaveInstanceState(savedInstanceState);
     }
 
+
+
     /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
     in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
     La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
@@ -208,6 +210,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         if(!dbManager.isClosed())
             dbManager.close();
     }
+
 
 
     /*thread che in background salva i dati nel database locale*/
@@ -226,6 +229,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                                             dbManager così lo potrà chiudere nella onDestroy()*/
 
         }
+
 
         @Override
         protected String doInBackground(ArrayList<ValoreGrafico>... params) {
@@ -258,10 +262,12 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             return "Dati salvati nel database";
         }
 
+
         @Override
         protected void onProgressUpdate(Integer... values) {
             progressBar.setVisibility(ProgressBar.VISIBLE);
         }
+
 
         @Override
         protected void onPostExecute(String risultato) {
@@ -273,6 +279,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         }
 
     }
+
 
 
     /*thread che in background salva il grafico in un file png*/
