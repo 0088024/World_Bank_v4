@@ -379,11 +379,23 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         this.progressBar = findViewById(id);
     }
 
+    protected void setProgressBarVisible(){
+
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    protected void setProgressBarGone(){
+
+        progressBar.setVisibility(View.GONE);
+    }
+
+
     public String costruisciApi(){
         return "Fare override. Questo è il metodo della superclasse";
     }
 
     public void instanziaAdapter(){ }
+
 
     public String getJsonFile(){
         return json_file;
@@ -421,18 +433,12 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     public Bundle getBundleSucc() { return bundle_succ; }
 
+    public ProgressBar getProgressBar() { return progressBar; }
 
 
-    protected void setProgressBarVisible(){
-
-        progressBar.setVisibility(ProgressBar.VISIBLE);
-    }
 
 
-    protected void setProgressBarGone(){
 
-        progressBar.setVisibility(View.GONE);
-    }
 
 
 
