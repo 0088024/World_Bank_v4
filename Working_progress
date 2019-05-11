@@ -2,24 +2,27 @@ Cose da fare:
 
 1)  Implementare eridarietà per le classi CaricaDati e VisualizzaDati
 
-2) Migliorare file activity_main_xml: voce menu "about us" e "contatti"
 
-
-3) Studiare libreria MPAndroidChart e migliorare l'esposizione del grafico (xes. invertire
+2) Studiare libreria MPAndroidChart e migliorare l'esposizione del grafico (xes. invertire
  l'ascisse con le ordinate)
  Migliorare attività che mostra l'immagine: solo immagine o grafico reattivo? utilizzare le
  nuove o lasciare queste vecchie API?
 
-4) Controllare tutte le situazioni che possono "uscire" dal normale flusso d'esecuzione (xes. se la pagina internet non
+3) Controllare tutte le situazioni che possono "uscire" dal normale flusso d'esecuzione (xes. se la pagina internet non
     risponde, il file grafico non è presente quando lo vado a caricare offline, etc etc), xes. con una finestra POP-UP??????
 
-5) -------------------FATTO MA RIMASTO CON BUNDLE DI onSavedInstanceState()--------------
+4) -------------------FATTO MA RIMASTO CON BUNDLE DI onSavedInstanceState()--------------
   Eliminare bug che nel caso la lista degli indicatori di quel paese è troppo grande per permettere di inviarlo
         tramite Bundle in 1 intent
 
-6) Il salvataggio delle shared preferences farlo con un altro thread?
+5) Il salvataggio delle shared preferences farlo con un altro thread?
 
-7) Prendere ora corrente
+6) Prendere ora corrente
+
+
+X ALESSIO !!!!
+
+7) Migliorare file activity_main_xml: voce menu "about us" e "contatti"
 
 8) fare layout carica dati
 
