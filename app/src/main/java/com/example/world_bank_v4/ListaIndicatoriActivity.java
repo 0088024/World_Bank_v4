@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
-    private ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +24,11 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         setContentView(R.layout.activity_lista_indicatori);
         getSupportActionBar().setLogo(R.drawable.indicator);
 
-        progressBar = findViewById(R.id.progressBar);
         ArrayList<Indicatore> lista_indicatori = new ArrayList<Indicatore>();
         TypeToken<ArrayList<Indicatore>> listTypeToken = new TypeToken<ArrayList<Indicatore>>() {};
 
         super.setIdListView(R.id.list_view);
+        super.setProgressBar(R.id.progressBar);
         super.setLista_oggetti(lista_indicatori);
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO);
@@ -43,17 +43,8 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
     }
 
 
-    @Override
-    protected void setProgressBarVisible(){
 
-            progressBar.setVisibility(ProgressBar.VISIBLE);
-    }
 
-    @Override
-    protected void setProgressBarGone(){
-
-            progressBar.setVisibility(View.GONE);
-    }
 
     @Override
     public String costruisciApi(){

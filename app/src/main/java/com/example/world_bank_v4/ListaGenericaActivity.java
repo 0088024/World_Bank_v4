@@ -58,7 +58,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private String API_WORLD_BANK;
     private TypeToken typeToken;
     private Bundle savedInstanceState;
-
+    private ProgressBar progressBar;
 
 
 
@@ -375,6 +375,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     public void setAdapter(ArrayAdapter adapter) { this.adapter = adapter; }
 
+    public void setProgressBar(int id){
+        this.progressBar = findViewById(id);
+    }
+
     public String costruisciApi(){
         return "Fare override. Questo è il metodo della superclasse";
     }
@@ -417,9 +421,20 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     public Bundle getBundleSucc() { return bundle_succ; }
 
-    protected void setProgressBarVisible(){} // Fare override nelle classi specifiche
 
-    protected void setProgressBarGone(){} // Fare override nelle classi specifiche
+
+    protected void setProgressBarVisible(){
+
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
+
+    protected void setProgressBarGone(){
+
+        progressBar.setVisibility(View.GONE);
+    }
+
+
 
 }
 

@@ -54,7 +54,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         button_salva_grafico.setOnClickListener(this);
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
-        progressBar = findViewById(R.id.progressBar);
+        super.setProgressBar(R.id.progressBar);
 
         lista_grafico = new ArrayList<ValoreGrafico>();
         TypeToken<ArrayList<ValoreGrafico>> listTypeToken =

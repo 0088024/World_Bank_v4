@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class ListaArgomentiActivity extends ListaGenericaActivity {
 
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +24,11 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         setContentView(R.layout.activity_lista_argomenti);
         getSupportActionBar().setLogo(R.drawable.topic);
 
-        progressBar = findViewById(R.id.progressBar);
         ArrayList<Argomento> lista_argomenti = new ArrayList<Argomento>();
         TypeToken<ArrayList<Argomento>> listTypeToken = new TypeToken<ArrayList<Argomento>>() {};
 
         super.setIdListView( R.id.list_view);
+        super.setProgressBar(R.id.progressBar);
         super.setLista_oggetti(lista_argomenti);
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_ARGOMENTI);
@@ -42,17 +41,9 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         super.caricaLista();
     }
 
-    @Override
-    protected void setProgressBarVisible(){
 
-            progressBar.setVisibility(ProgressBar.VISIBLE);
-    }
 
-    @Override
-    protected void setProgressBarGone(){
 
-            progressBar.setVisibility(View.GONE);
-    }
 
     @Override
     public void instanziaAdapter(){
