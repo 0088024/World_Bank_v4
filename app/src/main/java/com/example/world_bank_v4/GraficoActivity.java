@@ -205,6 +205,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     public void onPause(){
         super.onPause();
+        if(!dbManager.isClosed())
+            dbManager.close();
     }
 
 
