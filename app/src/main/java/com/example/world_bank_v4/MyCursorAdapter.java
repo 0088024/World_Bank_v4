@@ -2,7 +2,6 @@ package com.example.world_bank_v4;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
@@ -44,7 +43,7 @@ public class MyCursorAdapter extends CursorAdapter {
 
         TextView txt = v.findViewById(R.id.textViewPaese);
         txt.setText(nomePaese);
-        txt = v.findViewById(R.id.textViewIndicatore);
+        txt = v.findViewById(R.id.textViewNazione);
         txt.setText(nomeIndicatore);
         ImageButton buttonDelete = v.findViewById(R.id.imageButtonDelete);
         buttonDelete.setOnClickListener(caricaDati);

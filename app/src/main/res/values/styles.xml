@@ -27,7 +27,7 @@
     <style name="styleLayoutIndicators">
         <item name="android:textColor">#565656</item>
         <item name="android:textSize">10sp</item>
-        <item name="android:textStyle">normal</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:paddingLeft">10dp</item>
     </style>
 
