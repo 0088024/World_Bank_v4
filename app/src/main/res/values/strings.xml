@@ -22,5 +22,7 @@
     <string name="titolo_argomenti">value argomento</string>
     <string name="note_argomenti">sourceNote argomento</string>
     <string name="nome_indicatore">nome indicatore</string>
+    <string name="text_view_colonna">text view colonna</string>
+    <string name="text_view_valore">text view valore</string>
 
 </resources>

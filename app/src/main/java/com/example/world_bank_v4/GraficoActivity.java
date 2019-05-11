@@ -35,7 +35,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private Button button_salva_database;
     private Button button_salva_grafico;
     private Bundle bundle_main;
-    private ProgressBar progressBar;
 
 
     @Override
@@ -54,6 +53,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         button_salva_grafico.setOnClickListener(this);
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
+
         super.setProgressBar(R.id.progressBar);
 
         lista_grafico = new ArrayList<ValoreGrafico>();
@@ -164,14 +164,14 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     protected void setProgressBarVisible(){
 
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+            super.getProgressBar().setVisibility(ProgressBar.VISIBLE);
     }
 
 
     @Override
     protected void setProgressBarGone(){
 
-            progressBar.setVisibility(View.GONE);
+            super.getProgressBar().setVisibility(View.GONE);
     }
 
 
@@ -207,8 +207,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     public void onPause(){
         super.onPause();
-        if(!dbManager.isClosed())
-            dbManager.close();
     }
 
 
@@ -265,14 +263,14 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+            getProgressBar().setVisibility(ProgressBar.VISIBLE);
         }
 
 
         @Override
         protected void onPostExecute(String risultato) {
             Log.d(Costanti.NOME_APP, risultato);
-            progressBar.setVisibility(View.GONE);
+            getProgressBar().setVisibility(View.GONE);
             DialogDataBase mydialog = new DialogDataBase();
             mydialog.show(getSupportFragmentManager(),"mydialog");
 
@@ -334,13 +332,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-            progressBar.setVisibility(ProgressBar.VISIBLE);
+            getProgressBar().setVisibility(ProgressBar.VISIBLE);
         }
 
         @Override
         protected void onPostExecute(String risultato){
             Log.d(Costanti.NOME_APP, risultato);
-            progressBar.setVisibility(View.GONE);
+            getProgressBar().setVisibility(View.GONE);
             DialogShowImage mydialog = new DialogShowImage();
             mydialog.show(getSupportFragmentManager(),"mydialog");
 
@@ -354,8 +352,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     /*se le risorse sono aperte, le chiude*/
     @Override
     protected void onDestroy(){
-        if(!dbManager.isClosed())
-            dbManager.close();
+
         super.onDestroy();
     }
 
@@ -364,5 +361,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         this.dbManager = dbManager;
     }
 
+    public ProgressBar getProgressBar() { return super.getProgressBar(); }
 
 }
