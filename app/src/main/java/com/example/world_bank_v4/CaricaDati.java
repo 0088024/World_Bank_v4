@@ -213,8 +213,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onPause(){
         super.onPause();
-        cursor.close();
-        dbManager.close();
+
     }
 
 
