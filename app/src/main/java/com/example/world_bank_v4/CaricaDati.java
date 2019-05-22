@@ -28,8 +28,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     private ProgressBar progressBar;
     private Intent intent;
     private Bundle bundle;
-    private Cursor cursor;
-
 
 
     @Override
@@ -162,7 +160,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         protected Cursor doInBackground(Void... params) {
 
             Cursor cursor = dbManager.query();
-            setCursor(cursor);
 
             /*Fammi vedere per un certo tempo stabilito da una costante la Progress Bar*/
             for (; count<= Costanti.progressBarTime;count++)
@@ -226,11 +223,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     }
 
 
-
-
-    public void setCursor(Cursor cursor){
-        this.cursor = cursor;
-    }
 
     public void setDbManager(DbManager dbManager){
         this.dbManager = dbManager;
