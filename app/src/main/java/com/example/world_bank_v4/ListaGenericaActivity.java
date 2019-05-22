@@ -348,7 +348,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         Intent intent;
 
         this.requestCode= requestCode;
-        this.ReturningWithResult=false;
+        ReturningWithResult=false;
 
         // Controllo dei codici di risposta delle attività lanciate
 
