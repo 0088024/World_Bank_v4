@@ -12,7 +12,6 @@ public class Argomento extends ElementoGenerico {
 
         super(id, null, value);
         this.sourceNote = sourceNote;
-
     }
 
 

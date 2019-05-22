@@ -161,19 +161,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
 
 
-    @Override
-    protected void setProgressBarVisible(){
-
-            super.getProgressBar().setVisibility(ProgressBar.VISIBLE);
-    }
-
-
-    @Override
-    protected void setProgressBarGone(){
-
-            super.getProgressBar().setVisibility(View.GONE);
-    }
-
 
     /*a seconda del bottone che è stato cliccato, lancia il relativo thread task in bakground*/
     @Override
@@ -225,7 +212,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                                                                                 database*/
             setDbManager(dbManager);        /*passa alla classe contenitore un riferimento al
                                             dbManager così lo potrà chiudere nella onDestroy()*/
-
         }
 
 
@@ -352,15 +338,27 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     /*se le risorse sono aperte, le chiude*/
     @Override
     protected void onDestroy(){
-        if(!dbManager.isClosed())
-            dbManager.close();
+        dbManager.close();
         super.onDestroy();
+    }
+
+
+    @Override
+    protected void setProgressBarVisible(){
+        super.getProgressBar().setVisibility(ProgressBar.VISIBLE);
+    }
+
+
+    @Override
+    protected void setProgressBarGone(){
+        super.getProgressBar().setVisibility(View.GONE);
     }
 
 
     public void setDbManager(DbManager dbManager){
         this.dbManager = dbManager;
     }
+
 
     public ProgressBar getProgressBar() { return super.getProgressBar(); }
 
