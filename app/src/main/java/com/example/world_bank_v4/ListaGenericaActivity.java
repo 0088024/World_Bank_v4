@@ -370,7 +370,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         }
     }
     /* per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
-     * che l'attività è stata ripristinata allo stato originale */
+     * che l'attività è stata ripristinata allo stato originale.  */
     @Override
     protected void onPostResume() {
         super.onPostResume();
