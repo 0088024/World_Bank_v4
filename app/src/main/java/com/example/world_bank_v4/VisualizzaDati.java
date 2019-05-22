@@ -201,6 +201,8 @@ public class VisualizzaDati extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         dbManager.close();
+        if(!cursor.isClosed())
+            cursor.close();
         super.onDestroy();
     }
 

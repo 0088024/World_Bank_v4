@@ -20,6 +20,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
     private DbManager dbManager;
+    private Cursor cursor;
     private CursorAdapter cursorAdapter;
     private int position;
     private long id_record;
@@ -28,8 +29,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     private ProgressBar progressBar;
     private Intent intent;
     private Bundle bundle;
-    private Cursor cursor;
-
 
 
     @Override
@@ -222,18 +221,20 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onDestroy(){
         dbManager.close();
+        if(!cursor.isClosed())
+            cursor.close();
         super.onDestroy();
     }
 
 
 
+    public void setDbManager(DbManager dbManager){
+        this.dbManager = dbManager;
+    }
 
     public void setCursor(Cursor cursor){
         this.cursor = cursor;
     }
 
-    public void setDbManager(DbManager dbManager){
-        this.dbManager = dbManager;
-    }
 
 }

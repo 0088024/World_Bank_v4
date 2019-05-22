@@ -37,7 +37,7 @@ public class DbManager {
             values.put(DbHelper.COLUMN_LAST_UPDATED, recordTabella.getLastUpdated());
 
             /*inserisce i valori per tutti gli anni*/
-           for(int i = 0; i<recordTabella.getColonne_anni().size(); i++){
+            for(int i = 0; i<recordTabella.getColonne_anni().size(); i++){
                 Float value = recordTabella.getColonne_anni().get(i).getvalue();
                 values.put(DbHelper.COLUMN_DATE + (DbHelper.ANNO_INIZIO + i), value.toString());
             }
@@ -154,4 +154,3 @@ public class DbManager {
 
 
 }
-
