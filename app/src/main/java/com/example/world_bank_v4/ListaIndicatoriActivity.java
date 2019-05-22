@@ -115,7 +115,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), ListaPaesiActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,6);
+        startActivityForResult(intent_succ,Costanti.lista_indicatori);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
         Intent intent;
 
-        if (requestCode == 6 && resultCode == RESULT_CANCELED) {
+        if (requestCode == Costanti.lista_indicatori && resultCode == RESULT_CANCELED) {
             // Errore imprevisto ad es. viene a mancare la connessione a internet
             String error_message = data.getStringExtra("error");
             intent = new Intent(this, NotificationActivity.class);
@@ -133,7 +133,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             startActivity(intent);
 
         }
-        if(requestCode == 6 && resultCode == RESULT_FIRST_USER){
+        if(requestCode == Costanti.lista_indicatori && resultCode == RESULT_FIRST_USER){
             // Errore previsto ad es. nessun dato disponibile per un certo paese
             mReturningWithResult = true;
         }

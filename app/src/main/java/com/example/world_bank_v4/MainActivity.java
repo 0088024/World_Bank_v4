@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
                         ListaPaesiActivity.class.getName());
                 intent.putExtras(bundle);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent,Costanti.lista_paesi_code);
                 break;
 
             case R.id.buttonArgomento:
@@ -111,24 +111,24 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
                         ListaArgomentiActivity.class.getName());
                 intent.putExtras(bundle);
-                startActivityForResult(intent,2);
+                startActivityForResult(intent,Costanti.lista_argomenti_code);
                 break;
 
             case R.id.buttonGrafico:
                 intent = new Intent(this, MostraPngSalvatoPrecedentemente.class);
-                startActivityForResult(intent,3);
+                startActivityForResult(intent,Costanti.mostra_grafico_code);
                 break;
 
             case R.id.buttonDatabase:
                 intent = new Intent(this, CaricaDati.class);
-                startActivityForResult(intent,4);
+                startActivityForResult(intent,Costanti.mostra_database_code);
         }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        if((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
+        if((requestCode == Costanti.lista_paesi_code || requestCode == Costanti.lista_argomenti_code) && resultCode == RESULT_CANCELED){
 
             String error_message = data.getStringExtra("error");
             intent = new Intent(this, NotificationActivity.class);
@@ -139,13 +139,13 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         }
 
-        if((requestCode == 3 && resultCode == RESULT_CANCELED)){
+        if((requestCode == Costanti.mostra_grafico_code && resultCode == RESULT_CANCELED)){
             DialogImageMissing mydialog = new DialogImageMissing();
             mydialog.show(getSupportFragmentManager(), "mydialog");
 
         }
 
-        if((requestCode == 4 && resultCode == RESULT_CANCELED)){
+        if((requestCode == Costanti.mostra_database_code && resultCode == RESULT_CANCELED)){
             DialogDataMissing mydialog = new DialogDataMissing();
             mydialog.show(getSupportFragmentManager(), "mydialog");
 

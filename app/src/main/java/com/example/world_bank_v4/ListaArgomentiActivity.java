@@ -97,7 +97,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         /*questa attività lancia sempre l'attività ListIndicatoriActivity*/
         Intent intent_succ = new Intent(getApplicationContext(), ListaIndicatoriActivity.class);
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,5);
+        startActivityForResult(intent_succ,Costanti.lista_argomenti_code);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
 
         Intent intent;
 
-        if (requestCode == 5 && resultCode == RESULT_CANCELED) {
+        if (requestCode == Costanti.lista_argomenti_code && resultCode == RESULT_CANCELED) {
 
             String error_message = data.getStringExtra("error");
             intent = new Intent(this, NotificationActivity.class);
