@@ -102,19 +102,8 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
 
-        Intent intent;
-
-        if (requestCode == Costanti.lista_argomenti_code && resultCode == RESULT_CANCELED) {
-
-            String error_message = data.getStringExtra("error");
-            intent = new Intent(this, NotificationActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("error", error_message);
-            intent.putExtras(bundle);
-            startActivity(intent);
-
-        }
     }
 
 

@@ -115,7 +115,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             /*Controlla se non ci sono dati per costruire il grafico*/
             if(lista_grafico == null){
                 Intent intent=new Intent();
-                setResult(RESULT_FIRST_USER,intent); /*Informa l'attività chiamante con un codice*/
+                setResult(Costanti.noData,intent); /*Informa l'attività chiamante con un codice*/
                 finish();
                 return; /*Inutile proseguire*/
             }

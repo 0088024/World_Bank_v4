@@ -45,9 +45,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
     }
 
 
-
-
-
     @Override
     public String costruisciApi(){
         /*costruisci la stringa api per ottenere una lista di indicatori relativi all'argomento
@@ -93,9 +90,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         super.onPause();
     }
 
-
-
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -115,41 +109,12 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), ListaPaesiActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,Costanti.lista_indicatori);
+        startActivityForResult(intent_succ,Costanti.lista_indicatori_code);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        Intent intent;
-
-        if (requestCode == Costanti.lista_indicatori && resultCode == RESULT_CANCELED) {
-            // Errore imprevisto ad es. viene a mancare la connessione a internet
-            String error_message = data.getStringExtra("error");
-            intent = new Intent(this, NotificationActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("error", error_message);
-            intent.putExtras(bundle);
-            startActivity(intent);
-
-        }
-        if(requestCode == Costanti.lista_indicatori && resultCode == RESULT_FIRST_USER){
-            // Errore previsto ad es. nessun dato disponibile per un certo paese
-            mReturningWithResult = true;
-        }
-    }
-    /* per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
-       * che l'attività è stata ripristinata allo stato originale */
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        if (mReturningWithResult) {
-            // Commit your transactions here.
-            DialogNoIndicator mydialog = new DialogNoIndicator();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
-        }
-        // Reset the boolean flag back to false for next time.
-        mReturningWithResult = false;
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }
