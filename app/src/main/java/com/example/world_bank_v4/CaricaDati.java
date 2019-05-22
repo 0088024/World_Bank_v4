@@ -20,6 +20,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
     private DbManager dbManager;
+    private Cursor cursor;
     private CursorAdapter cursorAdapter;
     private int position;
     private long id_record;
@@ -28,8 +29,6 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     private ProgressBar progressBar;
     private Intent intent;
     private Bundle bundle;
-    private Cursor cursor;
-
 
 
     @Override
@@ -131,8 +130,9 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+
     @Override
-    // Se l'utente decide tramite dialog di cancellare definiticamente un database
+    /*Se l'utente decide tramite dialog di cancellare definiticamente una riga di database*/
     public void onFinishClickListener(String inputText) {
         if(inputText.contentEquals("delete")) {
             dbManager.delete(id_record);
@@ -220,22 +220,21 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     /*se le risorse sono aperte, le chiude*/
     @Override
     protected void onDestroy(){
+        dbManager.close();
         if(!cursor.isClosed())
             cursor.close();
-        if(!dbManager.isClosed())
-            dbManager.close();
         super.onDestroy();
     }
 
 
 
+    public void setDbManager(DbManager dbManager){
+        this.dbManager = dbManager;
+    }
 
     public void setCursor(Cursor cursor){
         this.cursor = cursor;
     }
 
-    public void setDbManager(DbManager dbManager){
-        this.dbManager = dbManager;
-    }
 
 }

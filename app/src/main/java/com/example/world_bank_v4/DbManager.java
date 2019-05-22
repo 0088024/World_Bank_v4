@@ -153,12 +153,5 @@ public class DbManager {
     }
 
 
-    /*ritorna vero se il database è chiuso*/
-    public boolean isClosed(){
-        SQLiteDatabase db = dbhelper.getReadableDatabase();
-        if(db.isOpen())
-            return false;
-        else return true;
-    }
 }
 
