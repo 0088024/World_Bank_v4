@@ -99,6 +99,8 @@ public class VisualizzaDati extends AppCompatActivity {
 
             }
 
+            /*costruisci le righe della tabella layout riempendole con i valori del record del
+            database*/
             cursorRisultato.moveToFirst();
 
             TableRow inflateRow;
@@ -198,10 +200,7 @@ public class VisualizzaDati extends AppCompatActivity {
     /*se le risorse sono aperte, le chiude*/
     @Override
     protected void onDestroy(){
-        if(!cursor.isClosed())
-            cursor.close();
-        if(!dbManager.isClosed())
-            dbManager.close();
+        dbManager.close();
         super.onDestroy();
     }
 

@@ -131,8 +131,9 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+
     @Override
-    // Se l'utente decide tramite dialog di cancellare definiticamente un database
+    /*Se l'utente decide tramite dialog di cancellare definiticamente una riga di database*/
     public void onFinishClickListener(String inputText) {
         if(inputText.contentEquals("delete")) {
             dbManager.delete(id_record);
@@ -220,10 +221,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
     /*se le risorse sono aperte, le chiude*/
     @Override
     protected void onDestroy(){
-        if(!cursor.isClosed())
-            cursor.close();
-        if(!dbManager.isClosed())
-            dbManager.close();
+        dbManager.close();
         super.onDestroy();
     }
 
