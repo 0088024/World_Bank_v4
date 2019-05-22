@@ -338,7 +338,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     /*se le risorse sono aperte, le chiude*/
     @Override
     protected void onDestroy(){
-        dbManager.close();
+        if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
+                                l'utente torna indietro.*/
+            dbManager.close();
         super.onDestroy();
     }
 

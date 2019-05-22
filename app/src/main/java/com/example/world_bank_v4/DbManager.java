@@ -146,7 +146,6 @@ public class DbManager {
     /*rilascia il puntatore all'oggetto, chiudendolo se l'ultima referenziazione è rilasciata*/
     public void close(){
         SQLiteDatabase db = dbhelper.getReadableDatabase();
-
         if(db.isOpen())
             db.close();
         else {
