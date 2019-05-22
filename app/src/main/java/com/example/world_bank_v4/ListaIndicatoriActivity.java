@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
+    private boolean mReturningWithResult = false;
 
 
     @Override
@@ -40,10 +41,8 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
         a quest'ultima*/
         super.caricaLista();
+
     }
-
-
-
 
 
     @Override
@@ -91,9 +90,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         super.onPause();
     }
 
-
-
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -113,29 +109,12 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), ListaPaesiActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,6);
+        startActivityForResult(intent_succ,Costanti.lista_indicatori_code);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        Intent intent;
-
-        if (requestCode == 6 && resultCode == RESULT_CANCELED) {
-            // Errore imprevisto ad es. viene a mancare la connessione a internet
-            String error_message = data.getStringExtra("error");
-            intent = new Intent(this, NotificationActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("error", error_message);
-            intent.putExtras(bundle);
-            startActivity(intent);
-
-        }
-        if(requestCode == 6 && resultCode == RESULT_FIRST_USER){
-            // Errore previsto ad es. nessun dato disponibile per un certo paese
-            DialogNoIndicator mydialog = new DialogNoIndicator();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
-        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }

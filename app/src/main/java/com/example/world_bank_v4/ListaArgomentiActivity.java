@@ -97,24 +97,13 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         /*questa attività lancia sempre l'attività ListIndicatoriActivity*/
         Intent intent_succ = new Intent(getApplicationContext(), ListaIndicatoriActivity.class);
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,5);
+        startActivityForResult(intent_succ,Costanti.lista_argomenti_code);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
 
-        Intent intent;
-
-        if (requestCode == 5 && resultCode == RESULT_CANCELED) {
-
-            String error_message = data.getStringExtra("error");
-            intent = new Intent(this, NotificationActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("error", error_message);
-            intent.putExtras(bundle);
-            startActivity(intent);
-
-        }
     }
 
 

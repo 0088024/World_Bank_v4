@@ -41,6 +41,13 @@ public final class Costanti {
 
     public static final Integer progressBarTime = 10000;
 
+    public static final Integer lista_paesi_code = 0;
+    public static final Integer lista_argomenti_code = 1;
+    public static final Integer lista_indicatori_code = 2;
+    public static final Integer mostra_grafico_code =3;
+    public static final Integer mostra_database_code =4;
+    public static final Integer noData =5;
+
 
 
 

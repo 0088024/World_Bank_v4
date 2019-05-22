@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class ListaPaesiActivity extends ListaGenericaActivity {
 
-
+    private boolean mReturningWithResult = false;
 
 
     @Override
@@ -47,10 +47,6 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
 
     }
-
-
-
-
 
 
     @Override
@@ -113,31 +109,8 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
 
-        Intent intent;
-
-        Log.d(Costanti.NOME_APP, "onActivityResultPaesi");
-
-        // Controllo dei codici di risposta delle attività lanciate
-
-        if (requestCode == 0 && resultCode == RESULT_CANCELED) {
-            // Errore imprevisto ad es. viene a mancare la connessione a internet
-            String error_message = data.getStringExtra("error");
-            Log.d(Costanti.NOME_APP + "ListPaeActiv", error_message);
-            intent = new Intent(this, NotificationActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("error", error_message);
-            intent.putExtras(bundle);
-            startActivity(intent);
-
-        }
-        if(requestCode == 0 && resultCode == RESULT_FIRST_USER){
-            // Errore previsto ad es. nessun dato disponibile per un certo paese
-            DialogNoCountry mydialog = new DialogNoCountry();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
-        }
     }
-
-
 
 }
