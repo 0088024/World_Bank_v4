@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
+    private boolean mReturningWithResult = false;
 
 
     @Override
@@ -40,6 +41,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
         a quest'ultima*/
         super.caricaLista();
+
     }
 
 
@@ -133,9 +135,21 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         }
         if(requestCode == 6 && resultCode == RESULT_FIRST_USER){
             // Errore previsto ad es. nessun dato disponibile per un certo paese
+            mReturningWithResult = true;
+        }
+    }
+    /* per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
+       * che l'attività è stata ripristinata allo stato originale */
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (mReturningWithResult) {
+            // Commit your transactions here.
             DialogNoIndicator mydialog = new DialogNoIndicator();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
+        // Reset the boolean flag back to false for next time.
+        mReturningWithResult = false;
     }
 
 }

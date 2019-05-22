@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class ListaPaesiActivity extends ListaGenericaActivity {
 
-
+    private boolean mReturningWithResult = false;
 
 
     @Override
@@ -133,9 +133,21 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         }
         if(requestCode == 0 && resultCode == RESULT_FIRST_USER){
             // Errore previsto ad es. nessun dato disponibile per un certo paese
+            mReturningWithResult = true;
+        }
+    }
+    /* per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
+     * che l'attività è stata ripristinata allo stato originale */
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (mReturningWithResult) {
+            // Commit your transactions here.
             DialogNoCountry mydialog = new DialogNoCountry();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
+        // Reset the boolean flag back to false for next time.
+        mReturningWithResult = false;
     }
 
 

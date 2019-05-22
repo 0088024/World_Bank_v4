@@ -90,36 +90,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-        if((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
-
-                String error_message = data.getStringExtra("error");
-                intent = new Intent(this, NotificationActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("error", error_message);
-                intent.putExtras(bundle);
-                startActivity(intent);
-
-        }
-
-        if((requestCode == 3 && resultCode == RESULT_CANCELED)){
-            DialogImageMissing mydialog = new DialogImageMissing();
-            mydialog.show(getSupportFragmentManager(), "mydialog");
-
-        }
-
-        if((requestCode == 4 && resultCode == RESULT_CANCELED)){
-            DialogDataMissing mydialog = new DialogDataMissing();
-            mydialog.show(getSupportFragmentManager(), "mydialog");
-
-        }
-    }
-
-
-
-    @Override
     public void onClick(View v) {
         Intent intent;
         Bundle bundle;
@@ -152,6 +122,33 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             case R.id.buttonDatabase:
                 intent = new Intent(this, CaricaDati.class);
                 startActivityForResult(intent,4);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        if((requestCode == 1 || requestCode == 2) && resultCode == RESULT_CANCELED){
+
+            String error_message = data.getStringExtra("error");
+            intent = new Intent(this, NotificationActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("error", error_message);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
+        }
+
+        if((requestCode == 3 && resultCode == RESULT_CANCELED)){
+            DialogImageMissing mydialog = new DialogImageMissing();
+            mydialog.show(getSupportFragmentManager(), "mydialog");
+
+        }
+
+        if((requestCode == 4 && resultCode == RESULT_CANCELED)){
+            DialogDataMissing mydialog = new DialogDataMissing();
+            mydialog.show(getSupportFragmentManager(), "mydialog");
+
         }
     }
 }
