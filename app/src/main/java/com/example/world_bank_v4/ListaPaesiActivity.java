@@ -120,7 +120,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
         // Controllo dei codici di risposta delle attività lanciate
 
-        if (requestCode == 0 && resultCode == RESULT_CANCELED) {
+        if (requestCode == Costanti.lista_paesi_code && resultCode == RESULT_CANCELED) {
             // Errore imprevisto ad es. viene a mancare la connessione a internet
             String error_message = data.getStringExtra("error");
             Log.d(Costanti.NOME_APP + "ListPaeActiv", error_message);
@@ -131,7 +131,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
             startActivity(intent);
 
         }
-        if(requestCode == 0 && resultCode == RESULT_FIRST_USER){
+        if(requestCode == Costanti.lista_paesi_code && resultCode == RESULT_FIRST_USER){
             // Errore previsto ad es. nessun dato disponibile per un certo paese
             mReturningWithResult = true;
         }
