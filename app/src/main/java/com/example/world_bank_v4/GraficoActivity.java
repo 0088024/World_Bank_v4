@@ -344,7 +344,11 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         chart.setDrawGridBackground(true);
         chart.setDrawBorders(true);
-        chart.getLegend().setYOffset(39);
+        Legend legend = chart.getLegend();
+        legend.setYOffset(10);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+
 
         YAxis yAxisleft = chart.getAxisLeft();
         yAxisleft.setDrawLabels(true);          //etichetta sugli assi
@@ -355,7 +359,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelRotationAngle(60f);    /*imposta l'angolo per disegnare le etichette dell'asse
+        xAxis.setLabelRotationAngle(45f);    /*imposta l'angolo per disegnare le etichette dell'asse
                                              x (in gradi)*/
         xAxis.setDrawGridLines(true);
         xAxis.mDecimals = 0;
