@@ -363,7 +363,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         }
 
-        if((requestCode == Costanti.lista_paesi_code || requestCode == Costanti.lista_indicatori_code)&& resultCode == Costanti.noData){
+        if(resultCode == Costanti.noData){
             // Errore previsto ad es. nessun dato disponibile per un certo paese
             ReturningWithResult = true;
         }

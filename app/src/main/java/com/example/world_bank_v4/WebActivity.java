@@ -26,20 +26,6 @@ public class WebActivity extends AppCompatActivity {
 
         webView.loadUrl(appLinkData.toString());
 
-        //WebSettings webSettings = webView.getSettings();
-        //webSettings.setJavaScriptEnabled(true);
-
     }
-
-
-    /*se l'utente preme il pulsante indietro l'attività viene semplicemente terminata ed espulsa
-    dallo stack activity, in modo da far tornare in 1°piano quella che l'aveva lanciata*/
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        Intent intent=new Intent();
-        setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
-        finish();
-        return false;
-    }*/
 
 }
