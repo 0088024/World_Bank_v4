@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -335,6 +336,34 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     public void costruisciGrafico(){
 
+
+        Description description = new Description();
+        description.setText("ANNI");
+        description.setTextSize(12f);
+        chart.setDescription(description);
+
+        chart.setDrawGridBackground(true);
+        chart.setDrawBorders(true);
+        chart.getLegend().setYOffset();
+
+        YAxis yAxisleft = chart.getAxisLeft();
+        yAxisleft.setDrawLabels(true);          //etichetta sugli assi
+        yAxisleft.setDrawAxisLine(true);        //linea dell'asse
+        yAxisleft.setDrawGridLines(true);       //linea della griglia
+        yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
+        yAxisleft.setTextSize(12);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelRotationAngle(60f);    /*imposta l'angolo per disegnare le etichette dell'asse
+                                             x (in gradi)*/
+        xAxis.setDrawGridLines(true);
+        xAxis.mDecimals = 0;
+        xAxis.setGranularity(1f);           /*only intervals of 1*/
+        xAxis.setTextSize(12);
+        xAxis.getFormattedLabel()
+
+
         ValoreGrafico graf;
         List<Entry> entries = new ArrayList<Entry>();
         for (int i = lista_grafico.size(); i > 0; i--) {
@@ -354,31 +383,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         LineData lineData = new LineData(dataSet);
 
         chart.setData(lineData);
-
-
-        Description description = new Description();
-        description.setText("ANNI");
-        description.setTextSize(12f);
-        chart.setDescription(description);
-
-
-        chart.setDrawGridBackground(true);
-        chart.setDrawBorders(true);
-
-
-        XAxis xAxis = chart.getXAxis();
-        YAxis yAxis = chart.getAxis(null);
-
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelRotationAngle(5f);    /*imposta l'angolo per disegnare le etichette dell'asse
-                                            x (in gradi)*/
-
-        xAxis.setDrawGridLines(true);
-        xAxis.mDecimals = 0;
-
-        xAxis.setGranularity(1f);           /*only intervals of 1*/
-        xAxis.setTextSize(12);
-        yAxis.setTextSize(12);
 
         chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
                             (ridisegna). Questo è necessario per rendere effettive le modifiche
