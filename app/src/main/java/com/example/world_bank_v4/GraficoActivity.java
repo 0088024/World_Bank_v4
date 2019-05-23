@@ -13,6 +13,10 @@ import android.widget.ProgressBar;
 
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -125,26 +129,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             for (int i = 0; i < lista_grafico.size(); i++)
                 Log.d(Costanti.NOME_APP, lista_grafico.get(i).toString() + "\n");
 
-            ValoreGrafico graf;
-            List<Entry> entries = new ArrayList<Entry>();
-            for (int i = lista_grafico.size(); i > 0; i--) {
-                graf = lista_grafico.get(i - 1);
-                if (graf.getvalue() == null) {
-                    graf.resetValue();
-                }
-                /*A Entry represents one single entry in the chart. Entry(float x, float y)*/
-                entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
-                Log.d(Costanti.NOME_APP, entries.toString());
-            }
 
-            /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
-            LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
-            dataSet.setColor(Color.BLUE);
-            dataSet.setValueTextColor(Color.RED); // styling, ...
-            LineData lineData = new LineData(dataSet);
-
-            chart.setData(lineData);
-            chart.invalidate(); // refresh
+            /*costruisci grafico*/
+            costruisciGrafico();
         }
 
         else{ /*Non si può continuare*/
@@ -343,6 +330,51 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             dbManager.close();
         super.onDestroy();
     }
+
+
+
+    public void costruisciGrafico(){
+
+        ValoreGrafico graf;
+        List<Entry> entries = new ArrayList<Entry>();
+        for (int i = lista_grafico.size(); i > 0; i--) {
+            graf = lista_grafico.get(i - 1);
+            if (graf.getvalue() == null) {
+                graf.resetValue();
+            }
+            /*A Entry represents one single entry in the chart. Entry(float x, float y)*/
+            entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
+            Log.d(Costanti.NOME_APP, entries.toString());
+        }
+
+        /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
+        LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
+        dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextColor(Color.RED); // styling, ...
+        LineData lineData = new LineData(dataSet);
+
+        chart.setData(lineData);
+
+
+        Description description = new Description();
+        description.setText("ANNI");
+        chart.setDescription(description);
+
+        XAxis xAxis = chart.getXAxis();
+        YAxis yAxis = chart.getAxis(null);
+
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        xAxis.setDrawGridLines(false);
+        xAxis.mDecimals = 0;
+
+        xAxis.setGranularity(1f); // only intervals of 1
+        xAxis.setTextSize(12);
+        yAxis.setTextSize(12);
+
+        chart.invalidate(); // refresh
+    }
+
 
 
     @Override
