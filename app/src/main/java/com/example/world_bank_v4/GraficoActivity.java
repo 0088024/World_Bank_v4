@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.MPPointF;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
@@ -340,6 +343,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         Description description = new Description();
         description.setText("ANNI");
         description.setTextSize(12f);
+        description.setPosition(950, 1150);
         chart.setDescription(description);
 
         chart.setDrawGridBackground(true);
@@ -347,6 +351,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         /*imposta leggenda*/
         Legend legend = chart.getLegend();
+        legend.setTextSize(16);
         legend.setYOffset(10);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
@@ -358,7 +363,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         yAxisleft.setDrawGridLines(true);       //linea della griglia
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
         yAxisleft.setTextSize(12);
-        yAxisleft.setZeroLineColor(Color.BLUE);
+        yAxisleft.setZeroLineColor(Color.BLACK);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -367,8 +372,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         xAxis.mDecimals = 0;
         xAxis.setGranularity(1f);           /*only intervals of 1*/
         xAxis.setTextSize(12);
-
-        xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        xAxis.setTypeface(Typeface.SERIF);
 
 
         ValoreGrafico graf;
@@ -387,6 +391,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
         dataSet.setColor(Color.BLUE);
         dataSet.setValueTextColor(Color.RED); // styling, ...
+        dataSet.setValueTextSize(10);
         LineData lineData = new LineData(dataSet);
 
         chart.setData(lineData);
