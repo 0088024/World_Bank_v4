@@ -336,7 +336,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     public void costruisciGrafico(){
 
-
+        /*imposta etichetta descrizione*/
         Description description = new Description();
         description.setText("ANNI");
         description.setTextSize(12f);
@@ -344,9 +344,11 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         chart.setDrawGridBackground(true);
         chart.setDrawBorders(true);
+
+        /*imposta leggenda*/
         Legend legend = chart.getLegend();
         legend.setYOffset(10);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
 
 
@@ -356,15 +358,17 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         yAxisleft.setDrawGridLines(true);       //linea della griglia
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
         yAxisleft.setTextSize(12);
+        yAxisleft.setZeroLineColor(Color.BLUE);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelRotationAngle(45f);    /*imposta l'angolo per disegnare le etichette dell'asse
-                                             x (in gradi)*/
+        xAxis.setLabelRotationAngle(45f);    /*imposta angolo dele etichette asse x (in gradi)*/
         xAxis.setDrawGridLines(true);
         xAxis.mDecimals = 0;
         xAxis.setGranularity(1f);           /*only intervals of 1*/
         xAxis.setTextSize(12);
+
+        xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
 
 
         ValoreGrafico graf;
