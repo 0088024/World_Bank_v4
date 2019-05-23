@@ -153,7 +153,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             bundle_main = new Bundle();
             bundle_main.putString("error",err_msg);
             intent.putExtras(bundle_main);
-            setResult(RESULT_CANCELED,intent);
+            setResult(RESULT_FIRST_USER,intent);
             finish();
         }
 

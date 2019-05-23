@@ -81,9 +81,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 startActivityForResult(intent,3);
                 break;
 
-            case R.id.Menu_4:
-                intent = new Intent(this, CaricaDati.class);
-                startActivityForResult(intent,4);
         }
         return false;
     }
@@ -128,24 +125,24 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        if((requestCode == Costanti.lista_paesi_code || requestCode == Costanti.lista_argomenti_code) && resultCode == RESULT_CANCELED){
+        if((requestCode == Costanti.lista_paesi_code || requestCode == Costanti.lista_argomenti_code) && resultCode == RESULT_FIRST_USER){
 
-            String error_message = data.getStringExtra("error");
-            intent = new Intent(this, NotificationActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("error", error_message);
-            intent.putExtras(bundle);
-            startActivity(intent);
+                String error_message = data.getStringExtra("error");
+                intent = new Intent(this, NotificationActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("error", error_message);
+                intent.putExtras(bundle);
+                startActivity(intent);
 
         }
 
-        if((requestCode == Costanti.mostra_grafico_code && resultCode == RESULT_CANCELED)){
+        if((requestCode == Costanti.mostra_grafico_code && resultCode == RESULT_FIRST_USER)){
             DialogImageMissing mydialog = new DialogImageMissing();
             mydialog.show(getSupportFragmentManager(), "mydialog");
 
         }
 
-        if((requestCode == Costanti.mostra_database_code && resultCode == RESULT_CANCELED)){
+        if((requestCode == Costanti.mostra_database_code && resultCode == RESULT_FIRST_USER)){
             DialogDataMissing mydialog = new DialogDataMissing();
             mydialog.show(getSupportFragmentManager(), "mydialog");
 
