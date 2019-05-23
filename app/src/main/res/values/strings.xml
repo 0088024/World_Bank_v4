@@ -22,6 +22,15 @@
     <string name="note_argomenti">sourceNote argomento</string>
     <string name="nome_indicatore">nome indicatore</string>
     <string name="text_view_colonna">text view colonna</string>
-    <string name="text_view_valore">text view valore\n</string>
+    <string name="text_view_valore">text view valore</string>
+    <string name="TextView1">Alessio Rufini\n</string>
+    <string name="TextView2">329 8736943</string>
+    <string name="TextView3">alessio.rufini@inwind.it</string>
+    <string name="TextView4">Daniele Ferraro</string>
+    <string name="TextView5">339 7926059</string>
+    <string name="TextView6">f.daniele81@tiscali.it</string>
+    <string name="TextView7">Geremia Petricca</string>
+    <string name="TextView8">320 5641325</string>
+    <string name="TextView9">geremia7777@gmail.com</string>
 
 </resources>

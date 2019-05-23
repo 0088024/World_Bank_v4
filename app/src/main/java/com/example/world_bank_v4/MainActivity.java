@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 break;
 
             case R.id.Menu_3:
-                intent = new Intent(this, MostraPngSalvatoPrecedentemente.class);
-                startActivityForResult(intent,3);
+                DialogContacts mydialog = new DialogContacts();
+                mydialog.show(getSupportFragmentManager(), "mydialog");
                 break;
 
         }
