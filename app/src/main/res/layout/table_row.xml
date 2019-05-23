@@ -6,13 +6,28 @@
 
     <TextView
         android:id="@+id/textViewColonna"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:height="45dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:layout_marginRight="0dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/border"
         android:text="@string/text_view_colonna" />
+
 
     <TextView
         android:id="@+id/textViewValore"
-        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:height="45dp"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:background="@drawable/border"
         android:text="@string/text_view_valore" />
+
+
+
 </TableRow>
