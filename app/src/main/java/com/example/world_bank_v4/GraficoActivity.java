@@ -362,15 +362,21 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         chart.setDescription(description);
 
 
+        chart.setDrawGridBackground(true);
+        chart.setDrawBorders(true);
+
+
         XAxis xAxis = chart.getXAxis();
         YAxis yAxis = chart.getAxis(null);
 
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelRotationAngle(5f);    /*imposta l'angolo per disegnare le etichette dell'asse
+                                            x (in gradi)*/
 
-        xAxis.setDrawGridLines(false);
+        xAxis.setDrawGridLines(true);
         xAxis.mDecimals = 0;
 
-        xAxis.setGranularity(1f); // only intervals of 1
+        xAxis.setGranularity(1f);           /*only intervals of 1*/
         xAxis.setTextSize(12);
         yAxis.setTextSize(12);
 
