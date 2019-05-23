@@ -88,7 +88,7 @@ public class MostraPngSalvatoPrecedentemente extends AppCompatActivity {
             /* Controlla se non è presente nessun file png in memoria  */
             if(risultato==null){
                 Intent intent=new Intent();
-                setResult(RESULT_CANCELED,intent); // Informa l'attività chiamante con un codice
+                setResult(RESULT_FIRST_USER,intent); // Informa l'attività chiamante con un codice
                 finish(); // Non si può proseguire
             }
             else

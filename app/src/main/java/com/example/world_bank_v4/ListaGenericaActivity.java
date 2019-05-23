@@ -186,7 +186,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             bundle_main = new Bundle();
             bundle_main.putString("error",error_file);
             intent.putExtras(bundle_main);
-            setResult(RESULT_CANCELED,intent);
+            setResult(RESULT_FIRST_USER,intent);
             finish();
 
         }
@@ -352,8 +352,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         // Controllo dei codici di risposta delle attività lanciate
 
-        if ((requestCode == Costanti.lista_paesi_code || requestCode == Costanti.lista_argomenti_code ||
-                requestCode == Costanti.lista_indicatori_code) && resultCode == RESULT_CANCELED) {
+        if (resultCode == RESULT_FIRST_USER) {
             // Errore imprevisto ad es. viene a mancare la connessione a internet
             String error_message = data.getStringExtra("error");
             intent = new Intent(this, NotificationActivity.class);
@@ -364,7 +363,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         }
 
-        if((requestCode == Costanti.lista_paesi_code || requestCode == Costanti.lista_indicatori_code)&& resultCode == Costanti.noData){
+        if(resultCode == Costanti.noData){
             // Errore previsto ad es. nessun dato disponibile per un certo paese
             ReturningWithResult = true;
         }

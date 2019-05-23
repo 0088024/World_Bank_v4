@@ -183,7 +183,7 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
             /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
                 Intent intent=new Intent();
-                setResult(RESULT_CANCELED,intent);  /*Informa l'attività chiamante con un codice*/
+                setResult(RESULT_FIRST_USER,intent);  /*Informa l'attività chiamante con un codice*/
                 finish();                           /*Non si può proseguire*/
             }
             else
