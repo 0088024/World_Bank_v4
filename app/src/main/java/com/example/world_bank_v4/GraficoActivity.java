@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,10 @@ import android.widget.ProgressBar;
 
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -125,26 +130,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             for (int i = 0; i < lista_grafico.size(); i++)
                 Log.d(Costanti.NOME_APP, lista_grafico.get(i).toString() + "\n");
 
-            ValoreGrafico graf;
-            List<Entry> entries = new ArrayList<Entry>();
-            for (int i = lista_grafico.size(); i > 0; i--) {
-                graf = lista_grafico.get(i - 1);
-                if (graf.getvalue() == null) {
-                    graf.resetValue();
-                }
-                /*A Entry represents one single entry in the chart. Entry(float x, float y)*/
-                entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
-                Log.d(Costanti.NOME_APP, entries.toString());
-            }
 
-            /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
-            LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
-            dataSet.setColor(Color.BLUE);
-            dataSet.setValueTextColor(Color.RED); // styling, ...
-            LineData lineData = new LineData(dataSet);
-
-            chart.setData(lineData);
-            chart.invalidate(); // refresh
+            /*costruisci grafico*/
+            costruisciGrafico();
         }
 
         else{ /*Non si può continuare*/
@@ -343,6 +331,67 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             dbManager.close();
         super.onDestroy();
     }
+
+
+
+    public void costruisciGrafico(){
+
+
+        Description description = new Description();
+        description.setText("ANNI");
+        description.setTextSize(12f);
+        chart.setDescription(description);
+
+        chart.setDrawGridBackground(true);
+        chart.setDrawBorders(true);
+        Legend legend = chart.getLegend();
+        legend.setYOffset(10);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+
+
+        YAxis yAxisleft = chart.getAxisLeft();
+        yAxisleft.setDrawLabels(true);          //etichetta sugli assi
+        yAxisleft.setDrawAxisLine(true);        //linea dell'asse
+        yAxisleft.setDrawGridLines(true);       //linea della griglia
+        yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
+        yAxisleft.setTextSize(12);
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelRotationAngle(45f);    /*imposta l'angolo per disegnare le etichette dell'asse
+                                             x (in gradi)*/
+        xAxis.setDrawGridLines(true);
+        xAxis.mDecimals = 0;
+        xAxis.setGranularity(1f);           /*only intervals of 1*/
+        xAxis.setTextSize(12);
+
+
+        ValoreGrafico graf;
+        List<Entry> entries = new ArrayList<Entry>();
+        for (int i = lista_grafico.size(); i > 0; i--) {
+            graf = lista_grafico.get(i - 1);
+            if (graf.getvalue() == null) {
+                graf.resetValue();
+            }
+            /*A Entry represents one single entry in the chart. Entry(float x, float y)*/
+            entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
+            Log.d(Costanti.NOME_APP, entries.toString());
+        }
+
+        /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
+        LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
+        dataSet.setColor(Color.BLUE);
+        dataSet.setValueTextColor(Color.RED); // styling, ...
+        LineData lineData = new LineData(dataSet);
+
+        chart.setData(lineData);
+
+        chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
+                            (ridisegna). Questo è necessario per rendere effettive le modifiche
+                            apportate al grafico*/
+    }
+
 
 
     @Override

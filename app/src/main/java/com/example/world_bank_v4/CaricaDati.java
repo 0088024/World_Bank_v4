@@ -206,18 +206,18 @@ public class CaricaDati extends AppCompatActivity implements View.OnClickListene
 
 
 
-    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
-    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
-    costosi da chiamare. Tuttavia forse è meglio rilasciarlo qui le risorse perchè in caso di
-    poca memoria la onDestroy() potrebbe non essere chiamata*/
+
     @Override
     protected void onPause(){
         super.onPause();
-
     }
 
 
     /*se le risorse sono aperte, le chiude*/
+    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
+    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
+    costosi da chiamare. Tuttavia forse è meglio rilasciarlo qui le risorse perchè in caso di
+    poca memoria la onDestroy() potrebbe non essere chiamata*/
     @Override
     protected void onDestroy(){
         dbManager.close();
