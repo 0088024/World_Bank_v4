@@ -358,7 +358,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         Description description = new Description();
         description.setText("ANNI");
+        description.setTextSize(12f);
         chart.setDescription(description);
+
 
         XAxis xAxis = chart.getXAxis();
         YAxis yAxis = chart.getAxis(null);
@@ -372,7 +374,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         xAxis.setTextSize(12);
         yAxis.setTextSize(12);
 
-        chart.invalidate(); // refresh
+        chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
+                            (ridisegna). Questo è necessario per rendere effettive le modifiche
+                            apportate al grafico*/
     }
 
 
