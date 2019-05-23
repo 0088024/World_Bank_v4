@@ -344,7 +344,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         chart.setDrawGridBackground(true);
         chart.setDrawBorders(true);
-        chart.getLegend().setYOffset();
+        chart.getLegend().setYOffset(39);
 
         YAxis yAxisleft = chart.getAxisLeft();
         yAxisleft.setDrawLabels(true);          //etichetta sugli assi
@@ -361,7 +361,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         xAxis.mDecimals = 0;
         xAxis.setGranularity(1f);           /*only intervals of 1*/
         xAxis.setTextSize(12);
-        xAxis.getFormattedLabel()
 
 
         ValoreGrafico graf;
