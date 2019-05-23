@@ -352,8 +352,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         // Controllo dei codici di risposta delle attività lanciate
 
-        if ((requestCode == Costanti.lista_paesi_code || requestCode == Costanti.lista_argomenti_code ||
-                requestCode == Costanti.lista_indicatori_code) && resultCode == RESULT_CANCELED) {
+        if (resultCode == RESULT_CANCELED) {
             // Errore imprevisto ad es. viene a mancare la connessione a internet
             String error_message = data.getStringExtra("error");
             intent = new Intent(this, NotificationActivity.class);
