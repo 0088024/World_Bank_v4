@@ -453,7 +453,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         /*imposta LineDataSet:rappresenta le caretteristiche comuni(style) di 1 insieme di valori*/
         /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
-        final LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
+        final LineDataSet dataSet = new LineDataSet(entries, super.getNomePaeseSelezionato() +
+                "  " + super.getNomeIndicatoreSelezionato());
         dataSet.setColor(blu_grafico);
 
         /*dataSet.enableDashedLine(20f,20f, 0f);*/  /*linea tratteggiata*/
