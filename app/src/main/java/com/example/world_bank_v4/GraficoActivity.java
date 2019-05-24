@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -26,6 +27,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.renderer.XAxisRenderer;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.gson.JsonElement;
@@ -405,15 +407,19 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
         final LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
         dataSet.setColor(Color.BLUE);
+
+        dataSet.enableDashedLine(20f,10f, 0f);
         dataSet.setValueTextColor(Color.RED);
         dataSet.setValueTextSize(11f);
         dataSet.setDrawCircles(true);
-        dataSet.setCircleRadius(2.4f);
+        dataSet.setCircleRadius(2.5f);
         dataSet.setCircleColor(Color.BLUE);
         dataSet.setCircleHoleRadius(1f);
         dataSet.setCircleHoleColor(Color.BLUE);
-        dataSet.setLineWidth(1.4f);
-
+        dataSet.setLineWidth(1.5f);
+        /*dataSet.setDrawFilled(true);
+        dataSet.setFillColor(Color.BLUE);*/
+        /*formattiamo i valori disegnati all'interno del grafico*/
         dataSet.setValueFormatter(new IValueFormatter() {
 
             @Override
