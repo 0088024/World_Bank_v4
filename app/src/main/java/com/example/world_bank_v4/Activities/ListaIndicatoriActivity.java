@@ -92,16 +92,21 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         super.onPause();
     }
 
+
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         super.onItemClick(parent, view, position, id);
         Bundle bundle_succ = super.getBundleSucc();
         bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, super.getIdPaeseSelezionato());
+        bundle_succ.putString(Costanti.NOME_PAESE_SELEZIONATO, super.getNomePaeseSelezionato());
         bundle_succ.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, super.getIdArgomentoSelezionato());
         ArrayList<Indicatore> lista_indicatori = super.getListaOggetti();
         bundle_succ.putString(Costanti.ID_INDICATORE_SELEZIONATO,
                                                     lista_indicatori.get(position++).getId());
+        bundle_succ.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
+                lista_indicatori.get(position++).getName());
 
         Class<?> classe = ListaPaesiActivity.class;
         Intent intent_succ;

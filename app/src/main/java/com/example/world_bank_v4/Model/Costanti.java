@@ -15,6 +15,8 @@ public final class Costanti {
             "https://api.worldbank.org/v2/country?format=json&per_page=500";
 
     public static final String NOME_CLASSE_SELEZIONATA = "nome_classe_selezionata";
+    public static final String NOME_PAESE_SELEZIONATO = "nome_paese_selezionato";
+    public static final String NOME_INDICATORE_SELEZIONATO = "nome_indicatore_selezionato";
     public static final String ID_PAESE_SELEZIONATO = "idPaeseSelezionato";
     public static final String ID_ARGOMENTO_SELEZIONATO = "idArgomentoSelezionato";
     public static final String ID_INDICATORE_SELEZIONATO = "idIndicatoreSelezionato";

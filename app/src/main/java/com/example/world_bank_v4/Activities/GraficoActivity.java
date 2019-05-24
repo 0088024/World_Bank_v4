@@ -57,7 +57,7 @@ import java.util.List;
 
 public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
 
-    private String json_file,err_msg;
+    private String json_file, err_msg;
     private DbManager dbManager;
     private ArrayList<ValoreGrafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
@@ -70,11 +70,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         /*"specializza activity*/
         setContentView(R.layout.activity_grafico);
         getSupportActionBar().setLogo(R.drawable.graph);
-
 
         /*in this example, a LineChart is initialized from xml*/
         chart = findViewById(R.id.chart);
@@ -92,6 +90,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
+
         /*per costruire l'api devo aspettare che la classe ListaIndicatoriActivity mi passi
         l'intento con il Paese selezionato dall'utente*/
         super.setAPI_WORLD_BANK(null);
@@ -208,24 +207,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
 
 
-    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
-    prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
-    dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-
-
-    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
-    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
-    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
-    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
 
 
 
@@ -363,6 +344,24 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
 
+    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
+        prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
+        dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+
+
+    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
+    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
+    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
+    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
 
 
     /*se le risorse sono aperte, le chiude*/

@@ -48,8 +48,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private String error_file;
     private String nomeClasseSelezionata;
     private String idIndicatoreSelezionato;
+    private String nomeIndicatoreSelezionato;
     private String idArgomentoSelezionato;
     private String idPaeseSelezionato;
+    private String nomePaeseSelezionato;
     private String KEY_JSON_FILE;
     private String NOME_FILE_PREFERENCES;
     private String API_WORLD_BANK;
@@ -94,11 +96,18 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 idIndicatoreSelezionato =
                         savedInstanceState.getString(Costanti.ID_INDICATORE_SELEZIONATO,
                                 "File non esiste");
+                nomeIndicatoreSelezionato =
+                        savedInstanceState.getString(Costanti.NOME_INDICATORE_SELEZIONATO,
+                                "File non esiste");
+
                 idArgomentoSelezionato =
                         savedInstanceState.getString(Costanti.ID_ARGOMENTO_SELEZIONATO,
                                 "File non esiste");
                 idPaeseSelezionato =
                         savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO,
+                                "File non esiste");
+                nomeIndicatoreSelezionato =
+                        savedInstanceState.getString(Costanti.NOME_INDICATORE_SELEZIONATO,
                                 "File non esiste");
                 caricaLayoutLista();
                 break;
@@ -126,6 +135,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                                 sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
                                         "File non esiste");
                 }
+                if(sharedPreferences.contains(Costanti.NOME_INDICATORE_SELEZIONATO)) {
+                    nomeIndicatoreSelezionato =
+                            sharedPreferences.getString(Costanti.NOME_INDICATORE_SELEZIONATO,
+                                    "File non esiste");
+                }
                 if(sharedPreferences.contains(Costanti.ID_ARGOMENTO_SELEZIONATO)) {
                     idArgomentoSelezionato =
                                 sharedPreferences.getString(Costanti.ID_ARGOMENTO_SELEZIONATO,
@@ -135,6 +149,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                     idPaeseSelezionato =
                                 sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
                                         "File non esiste");
+                }
+                if(sharedPreferences.contains(Costanti.NOME_PAESE_SELEZIONATO)) {
+                    nomePaeseSelezionato =
+                            sharedPreferences.getString(Costanti.NOME_PAESE_SELEZIONATO,
+                                    "File non esiste");
                 }
 
                 caricaLayoutLista();
@@ -149,8 +168,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
             punto del "percorso"*/
             idIndicatoreSelezionato = bundle_prec.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+            nomeIndicatoreSelezionato = bundle_prec.getString(Costanti.NOME_INDICATORE_SELEZIONATO);
             idArgomentoSelezionato = bundle_prec.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
             idPaeseSelezionato = bundle_prec.getString(Costanti.ID_PAESE_SELEZIONATO);
+            nomePaeseSelezionato = bundle_prec.getString(Costanti.NOME_PAESE_SELEZIONATO);
 
             /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
             new DownloadFileTask().execute();
@@ -211,8 +232,12 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         savedInstanceState.putString(KEY_JSON_FILE, json_file);
         savedInstanceState.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
         savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
+        savedInstanceState.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
+                nomeIndicatoreSelezionato);
         savedInstanceState.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
         savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
+        savedInstanceState.putString(Costanti.NOME_PAESE_SELEZIONATO,
+                nomePaeseSelezionato);
     }
 
 
@@ -230,8 +255,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         editor.putString(KEY_JSON_FILE, json_file);
         editor.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
         editor.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
+        editor.putString(Costanti.NOME_INDICATORE_SELEZIONATO, nomeIndicatoreSelezionato);
         editor.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
         editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
+        editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
         editor.apply();
     }
 
@@ -254,7 +281,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         public DownloadFileTask(){
             API_WORLD_BANK = costruisciApi();
-
         }
 
         @Override
@@ -365,8 +391,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             ReturningWithResult = true;
         }
     }
-    /* per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
-     * che l'attività è stata ripristinata allo stato originale.  */
+
+
+    /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
+    che l'attività è stata ripristinata allo stato originale.  */
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -455,6 +483,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     public String getIdIndicatoreSelezionato(){
         return idIndicatoreSelezionato;
+    }
+
+    public String getNomeIndicatoreSelezionato(){
+        return nomeIndicatoreSelezionato;
+    }
+
+    public String getNomePaeseSelezionato(){
+        return nomePaeseSelezionato;
     }
 
     public String getIdArgomentoSelezionato(){

@@ -92,6 +92,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
 
         Bundle bundle_succ = super.getBundleSucc();
         bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, super.getIdPaeseSelezionato());
+        bundle_succ.putString(Costanti.NOME_PAESE_SELEZIONATO, super.getNomePaeseSelezionato());
         ArrayList<Argomento> lista_argomenti = super.getListaOggetti();
         bundle_succ.putString(Costanti.ID_ARGOMENTO_SELEZIONATO,
                                         lista_argomenti.get(position++).getId());
