@@ -13,8 +13,8 @@ import android.widget.ProgressBar;
 
 import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Controller.DbManager;
-import com.example.world_bank_v4.Views.DialogDataBase;
-import com.example.world_bank_v4.Views.DialogShowImage;
+import com.example.world_bank_v4.Dialog.DialogDataBase;
+import com.example.world_bank_v4.Dialog.DialogShowImage;
 import com.example.world_bank_v4.Model.ElementoGenerico;
 import com.example.world_bank_v4.Model.Intestazione;
 import com.example.world_bank_v4.Controller.MyGSON;

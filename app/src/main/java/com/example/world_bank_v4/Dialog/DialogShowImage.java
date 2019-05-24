@@ -1,37 +1,35 @@
-package com.example.world_bank_v4.Views;
+package com.example.world_bank_v4.Dialog;
 
 import android.app.AlertDialog;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 
 import com.example.world_bank_v4.Model.Costanti;
+import com.example.world_bank_v4.Activities.MostraGraficoActivity;
 import com.example.world_bank_v4.R;
 
+public class DialogShowImage extends AppCompatDialogFragment {
 
-public class DialogDeleteRow extends AppCompatDialogFragment{
-
-    public interface OnClickListener {
-        void onFinishClickListener(String inputText);
-    }
+    private Intent intent;
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Log.d(Costanti.NOME_APP, "builder ok");
-        builder.setTitle("Warning!")
-                .setIcon(R.drawable.warning)
-                .setMessage("Do you really want to delete it?")
+        Log.d(Costanti.NOME_APP,"builder ok");
+        builder.setTitle("Saving completed!")
+                .setMessage("Do you want to check now?")
+                .setIcon(R.drawable.successfull)
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /* casting dell'attività che ha passato il fragment */
-                        OnClickListener listener = (OnClickListener) getActivity();
-                        Log.d(Costanti.NOME_APP,listener.toString());
-                        listener.onFinishClickListener("delete");
+
+                        Log.d(Costanti.NOME_APP,"onClick ok");
+
+                        intent = new Intent(getContext(), MostraGraficoActivity.class);
+                        startActivity(intent);
                     }
                 });
 
@@ -43,33 +41,28 @@ public class DialogDeleteRow extends AppCompatDialogFragment{
         });
 
         return builder.create();
-
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-package com.example.world_bank_v4.Views;
+package com.example.world_bank_v4.Dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

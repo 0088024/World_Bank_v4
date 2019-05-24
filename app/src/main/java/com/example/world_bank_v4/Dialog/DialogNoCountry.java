@@ -1,4 +1,4 @@
-package com.example.world_bank_v4.Views;
+package com.example.world_bank_v4.Dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -12,15 +12,14 @@ import com.example.world_bank_v4.Activities.MainActivity;
 import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 
-public class DialogNoIndicator extends AppCompatDialogFragment {
-
+public class DialogNoCountry extends AppCompatDialogFragment {
     private Intent intent;
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         Log.d(Costanti.NOME_APP,"builder ok");
         builder.setTitle("No data available!")
-                .setMessage("Want to try another indicator?")
+                .setMessage("Want to try another country?")
                 .setIcon(R.drawable.missing)
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     @Override
@@ -39,5 +38,20 @@ public class DialogNoIndicator extends AppCompatDialogFragment {
 
         return builder.create();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

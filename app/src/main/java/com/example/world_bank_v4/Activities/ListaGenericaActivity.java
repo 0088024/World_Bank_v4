@@ -16,8 +16,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.world_bank_v4.Model.Costanti;
-import com.example.world_bank_v4.Views.DialogNoCountry;
-import com.example.world_bank_v4.Views.DialogNoIndicator;
+import com.example.world_bank_v4.Dialog.DialogNoCountry;
+import com.example.world_bank_v4.Dialog.DialogNoIndicator;
 import com.example.world_bank_v4.Controller.MyGSON;
 import com.google.gson.reflect.TypeToken;
 

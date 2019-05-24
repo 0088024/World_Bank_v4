@@ -1,57 +1,75 @@
-package com.example.world_bank_v4.Views;
+package com.example.world_bank_v4.Dialog;
 
 import android.app.AlertDialog;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 
-import com.example.world_bank_v4.Activities.MainActivity;
 import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 
-public class DialogNoCountry extends AppCompatDialogFragment {
-    private Intent intent;
+
+public class DialogDeleteRow extends AppCompatDialogFragment{
+
+    public interface OnClickListener {
+        void onFinishClickListener(String inputText);
+    }
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Log.d(Costanti.NOME_APP,"builder ok");
-        builder.setTitle("No data available!")
-                .setMessage("Want to try another country?")
-                .setIcon(R.drawable.missing)
+        Log.d(Costanti.NOME_APP, "builder ok");
+        builder.setTitle("Warning!")
+                .setIcon(R.drawable.warning)
+                .setMessage("Do you really want to delete it?")
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        /* casting dell'attività che ha passato il fragment */
+                        OnClickListener listener = (OnClickListener) getActivity();
+                        Log.d(Costanti.NOME_APP,listener.toString());
+                        listener.onFinishClickListener("delete");
                     }
                 });
 
         builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+
             }
         });
 
         return builder.create();
+
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

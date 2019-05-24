@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.world_bank_v4.Model.Costanti;
-import com.example.world_bank_v4.Views.DialogContacts;
-import com.example.world_bank_v4.Views.DialogDataMissing;
-import com.example.world_bank_v4.Views.DialogImageMissing;
+import com.example.world_bank_v4.Dialog.DialogContacts;
+import com.example.world_bank_v4.Dialog.DialogDataMissing;
+import com.example.world_bank_v4.Dialog.DialogImageMissing;
 import com.example.world_bank_v4.R;
 
 

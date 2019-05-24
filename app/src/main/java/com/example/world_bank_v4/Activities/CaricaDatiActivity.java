@@ -17,7 +17,7 @@ import com.example.world_bank_v4.Adapters.MyCursorAdapter;
 import com.example.world_bank_v4.Controller.DbManager;
 import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
-import com.example.world_bank_v4.Views.DialogDeleteRow;
+import com.example.world_bank_v4.Dialog.DialogDeleteRow;
 
 
 /*activity che carica e visualizza le n-tuple salvate nel database*/
