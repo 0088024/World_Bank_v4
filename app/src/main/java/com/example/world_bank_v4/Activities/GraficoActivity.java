@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.ColorSpace;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -124,7 +125,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         err_msg = super.getErrorFile(); // Controlla se ci sono stati eventuali errori
 
-        if(err_msg==null) {
+        if(err_msg == null) {
 
             json_file = (super.getJsonFile());  // Recupera il relativo file json
 
@@ -144,14 +145,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 return; /*Inutile proseguire*/
             }
 
-            /*DEBUG*/
-            Log.d(Costanti.NOME_APP + " DIM LISTA ", String.valueOf(lista_grafico.size()));
-            for (int i = 0; i < lista_grafico.size(); i++)
-                Log.d(Costanti.NOME_APP, lista_grafico.get(i).toString() + "\n");
-
-
-            /*costruisci grafico*/
-            costruisciGrafico();
+            /*costruisci grafico in un thread in background*/
+            new CostruisciGraficoTask().execute();
         }
 
         else{ /*Non si può continuare*/
@@ -167,6 +162,31 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     }
 
+
+    private class CostruisciGraficoTask extends AsyncTask<Void, Integer, String>{
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            costruisciGrafico();
+            return "Grafico costruito";
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            getProgressBar().setVisibility(ProgressBar.VISIBLE);
+        }
+
+
+        @Override
+        protected void onPostExecute(String risultato) {
+            Log.d(Costanti.NOME_APP, risultato);
+            getProgressBar().setVisibility(View.GONE);
+            chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
+                            (ridisegna). Questo è necessario per rendere effettive le modifiche
+                            apportate al grafico*/
+        }
+
+    }
 
 
     /*a seconda del bottone che è stato cliccato, lancia il relativo thread task in bakground*/
@@ -237,7 +257,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                     "indicator");
 
             Intestazione intestazione = myGSON.getJsonElementIntestazione(json_file);
-            Log.d(Costanti.NOME_APP, intestazione.toString());
 
             RecordTabella recordTabella = new RecordTabella(intestazione, country, indicator,
                     lista_Valore_grafico);
@@ -355,15 +374,20 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     public void costruisciGrafico(){
 
+
+        int blu_grafico = getResources().getColor(R.color.blu_grafico, null);
+
         /*imposta etichetta descrizione*/
         Description description = new Description();
-        description.setText("ANNI");
+        description.setText("Anni");
         description.setTextSize(12f);
-        description.setPosition(950, 1150);
+        description.setPosition(950, 1130);
+
         chart.setDescription(description);
         chart.setDrawGridBackground(true);
         chart.setDrawBorders(true);
         chart.setBorderColor(Color.BLACK);
+        chart.setBorderWidth(1.5f);
         chart.setAutoScaleMinMaxEnabled(false);/*Flag that indicates if auto scaling on the y
         axis is enabled. If enabled the y axis automatically adjusts to the min and max y values of
         the current x axis range ogni volta che cambia la vista. Default: false*/
@@ -372,23 +396,30 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*imposta leggenda*/
         Legend legend = chart.getLegend();
         legend.setTextSize(16);
-        legend.setYOffset(10);
+        legend.setFormSize(10);
+        legend.setYOffset(15);
+        legend.setTextColor(Color.BLACK);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
 
-        /*imposta assi*/
+        /*imposta asse y destro e sinistro*/
         YAxis yAxisleft = chart.getAxisLeft();  /*Per default tutti i dati aggiunti al grafico
                                                 vengono confrontati con YAxis sinistro del grafico*/
         yAxisleft.setDrawGridLines(true);       //linea della griglia
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
-        yAxisleft.setZeroLineColor(Color.BLACK);
+        yAxisleft.setZeroLineColor(Color.GRAY);
         yAxisleft.setTextSize(12);
+        YAxis yAxisRight = chart.getAxisRight();
+        yAxisRight.setTextSize(12);
 
-
+        /*imposta asse x*/
         XAxis xAxis = chart.getXAxis();      /*acquisisce 1 istanza dell'asse x*/
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelRotationAngle(45f);    /*imposta angolo dele etichette asse x (in gradi)*/
         xAxis.setDrawGridLines(true);
+        float[] array_float = {6f, 6f};
+        DashPathEffect dashPathEffect = new DashPathEffect(array_float, 0f);
+        xAxis.setGridDashedLine(dashPathEffect);
         xAxis.setGranularity(1f);            /*only intervals of 1*/
         xAxis.setTextSize(12);
         /*questo metodo serve per avere gli anni senza il punto che indica il millesimo*/
@@ -399,9 +430,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 return String.valueOf((int)value); /*lo casto in 1 int per eliminare la virgola*/
             }
         });
-        xAxis.setTypeface(Typeface.MONOSPACE);
 
 
+        /*wrap ogegtti ValoreGrafico dentro Entry*/
         ValoreGrafico graf;
         List<Entry> entries = new ArrayList<Entry>();
         for (int i = lista_grafico.size(); i > 0; i--) {
@@ -411,23 +442,20 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             }
             /*A Entry represents one single entry in the chart. Entry(float x, float y)*/
             entries.add(new Entry(Float.parseFloat(graf.getDate()), graf.getvalue()));
-            Log.d(Costanti.NOME_APP, entries.toString());
         }
 
         /*imposta LineDataSet:rappresenta le caretteristiche comuni(style) di 1 insieme di valori*/
         /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
         final LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
-        dataSet.setColor(Color.BLUE);
+        dataSet.setColor(blu_grafico);
 
-        /*dataSet.enableDashedLine(20f,10f, 0f);*/
-        dataSet.setValueTextColor(Color.RED);
-        dataSet.setValueTextSize(11f);
+        /*dataSet.enableDashedLine(20f,20f, 0f);*/  /*linea tratteggiata*/
         dataSet.setDrawCircles(true);
         dataSet.setCircleRadius(2.5f);
-        dataSet.setCircleColor(Color.BLUE);
+        dataSet.setCircleColor(blu_grafico);
         dataSet.setCircleHoleRadius(1f);
-        dataSet.setCircleHoleColor(Color.BLUE);
-        dataSet.setLineWidth(1.5f);
+        dataSet.setCircleHoleColor(Color.WHITE);
+        dataSet.setLineWidth(2f);
         /*dataSet.setDrawFilled(true);
         dataSet.setFillColor(Color.BLUE);*/
         /*formattiamo i valori disegnati all'interno del grafico*/
@@ -444,9 +472,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
 
-        chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
-                            (ridisegna). Questo è necessario per rendere effettive le modifiche
-                            apportate al grafico*/
+
     }
 
 
