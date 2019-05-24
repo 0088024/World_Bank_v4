@@ -419,7 +419,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         final LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
         dataSet.setColor(Color.BLUE);
 
-        dataSet.enableDashedLine(20f,10f, 0f);
+        /*dataSet.enableDashedLine(20f,10f, 0f);*/
         dataSet.setValueTextColor(Color.RED);
         dataSet.setValueTextSize(11f);
         dataSet.setDrawCircles(true);
