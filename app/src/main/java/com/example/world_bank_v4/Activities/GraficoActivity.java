@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,18 +14,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.example.world_bank_v4.Model.Costanti;
+import com.example.world_bank_v4.Activities.ListaGenericaActivity;
 import com.example.world_bank_v4.Controller.DbManager;
+import com.example.world_bank_v4.Controller.MyGSON;
 import com.example.world_bank_v4.Dialog.DialogDataBase;
 import com.example.world_bank_v4.Dialog.DialogShowImage;
+import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Model.ElementoGenerico;
 import com.example.world_bank_v4.Model.Intestazione;
-import com.example.world_bank_v4.Controller.MyGSON;
-import com.example.world_bank_v4.R;
 import com.example.world_bank_v4.Model.RecordTabella;
 import com.example.world_bank_v4.Model.ValoreGrafico;
+import com.example.world_bank_v4.R;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -31,6 +36,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.renderer.XAxisRenderer;
+import com.github.mikephil.charting.utils.MPPointF;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
@@ -345,35 +355,51 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
     public void costruisciGrafico(){
 
-
+        /*imposta etichetta descrizione*/
         Description description = new Description();
         description.setText("ANNI");
         description.setTextSize(12f);
+        description.setPosition(950, 1150);
         chart.setDescription(description);
-
         chart.setDrawGridBackground(true);
         chart.setDrawBorders(true);
+        chart.setBorderColor(Color.BLACK);
+        chart.setAutoScaleMinMaxEnabled(false);/*Flag that indicates if auto scaling on the y
+        axis is enabled. If enabled the y axis automatically adjusts to the min and max y values of
+        the current x axis range ogni volta che cambia la vista. Default: false*/
+        chart.setTouchEnabled(true);    /*Default = true*/
+
+        /*imposta leggenda*/
         Legend legend = chart.getLegend();
+        legend.setTextSize(16);
         legend.setYOffset(10);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
 
-
-        YAxis yAxisleft = chart.getAxisLeft();
-        yAxisleft.setDrawLabels(true);          //etichetta sugli assi
-        yAxisleft.setDrawAxisLine(true);        //linea dell'asse
+        /*imposta assi*/
+        YAxis yAxisleft = chart.getAxisLeft();  /*Per default tutti i dati aggiunti al grafico
+                                                vengono confrontati con YAxis sinistro del grafico*/
         yAxisleft.setDrawGridLines(true);       //linea della griglia
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
+        yAxisleft.setZeroLineColor(Color.BLACK);
         yAxisleft.setTextSize(12);
 
-        XAxis xAxis = chart.getXAxis();
+
+        XAxis xAxis = chart.getXAxis();      /*acquisisce 1 istanza dell'asse x*/
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelRotationAngle(45f);    /*imposta l'angolo per disegnare le etichette dell'asse
-                                             x (in gradi)*/
+        xAxis.setLabelRotationAngle(45f);    /*imposta angolo dele etichette asse x (in gradi)*/
         xAxis.setDrawGridLines(true);
-        xAxis.mDecimals = 0;
-        xAxis.setGranularity(1f);           /*only intervals of 1*/
+        xAxis.setGranularity(1f);            /*only intervals of 1*/
         xAxis.setTextSize(12);
+        /*questo metodo serve per avere gli anni senza il punto che indica il millesimo*/
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                return String.valueOf((int)value); /*lo casto in 1 int per eliminare la virgola*/
+            }
+        });
+        xAxis.setTypeface(Typeface.MONOSPACE);
 
 
         ValoreGrafico graf;
@@ -388,12 +414,34 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Log.d(Costanti.NOME_APP, entries.toString());
         }
 
+        /*imposta LineDataSet:rappresenta le caretteristiche comuni(style) di 1 insieme di valori*/
         /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
-        LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
+        final LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
         dataSet.setColor(Color.BLUE);
-        dataSet.setValueTextColor(Color.RED); // styling, ...
-        LineData lineData = new LineData(dataSet);
 
+        dataSet.enableDashedLine(20f,10f, 0f);
+        dataSet.setValueTextColor(Color.RED);
+        dataSet.setValueTextSize(11f);
+        dataSet.setDrawCircles(true);
+        dataSet.setCircleRadius(2.5f);
+        dataSet.setCircleColor(Color.BLUE);
+        dataSet.setCircleHoleRadius(1f);
+        dataSet.setCircleHoleColor(Color.BLUE);
+        dataSet.setLineWidth(1.5f);
+        /*dataSet.setDrawFilled(true);
+        dataSet.setFillColor(Color.BLUE);*/
+        /*formattiamo i valori disegnati all'interno del grafico*/
+        dataSet.setValueFormatter(new IValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex,
+                                            ViewPortHandler viewPortHandler) {
+                return "";      /*non disegniamo i valori*/
+
+            }
+        });
+
+        LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
 
         chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
