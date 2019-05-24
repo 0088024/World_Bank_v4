@@ -144,7 +144,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
             bundle ricevuto nell'intent e scarico i vari dati che serviranno*/
             nomeClasseSelezionata = bundle_prec.getString(Costanti.NOME_CLASSE_SELEZIONATA);
-            Log.d(Costanti.NOME_APP, "nomeclasse: "+ nomeClasseSelezionata);
+            Log.d(Costanti.NOME_APP, "nomeClasseSelezionata = "+ nomeClasseSelezionata);
             /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
             piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
             punto del "percorso"*/

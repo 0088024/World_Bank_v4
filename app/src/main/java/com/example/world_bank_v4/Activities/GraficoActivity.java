@@ -8,6 +8,7 @@ import android.graphics.ColorSpace;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +39,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.renderer.XAxisRenderer;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.ViewPortHandler;
@@ -399,6 +403,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         legend.setFormSize(10);
         legend.setYOffset(15);
         legend.setTextColor(Color.BLACK);
+        legend.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
 
@@ -409,8 +414,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
         yAxisleft.setZeroLineColor(Color.GRAY);
         yAxisleft.setTextSize(12);
+        yAxisleft.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextSize(12);
+        yAxisRight.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
         /*imposta asse x*/
         XAxis xAxis = chart.getXAxis();      /*acquisisce 1 istanza dell'asse x*/
@@ -430,6 +437,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 return String.valueOf((int)value); /*lo casto in 1 int per eliminare la virgola*/
             }
         });
+        xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
 
         /*wrap ogegtti ValoreGrafico dentro Entry*/
@@ -456,8 +464,15 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         dataSet.setCircleHoleRadius(1f);
         dataSet.setCircleHoleColor(Color.WHITE);
         dataSet.setLineWidth(2f);
-        /*dataSet.setDrawFilled(true);
-        dataSet.setFillColor(Color.BLUE);*/
+        dataSet.setDrawFilled(true);
+        dataSet.setFillColor(blu_grafico);
+        dataSet.setFillAlpha(85);
+        dataSet.setFillFormatter(new IFillFormatter() {
+            @Override
+            public float getFillLinePosition(ILineDataSet dataSet, LineDataProvider dataProvider) {
+                return 0f;
+            }
+        });
         /*formattiamo i valori disegnati all'interno del grafico*/
         dataSet.setValueFormatter(new IValueFormatter() {
 
