@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListaGenericaActivity"></activity>
-        <activity android:name=".WebActivity">
+        <activity android:name=".Activities.ListaGenericaActivity"></activity>
+        <activity android:name=".Activities.WebActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -27,36 +27,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".VisualizzaDati"
+            android:name=".Activities.VisualizzaDatiActivity"
             android:label="@string/title_activity_visualizza_dati"></activity>
         <activity
-            android:name=".MostraPngSalvatoPrecedentemente"
+            android:name=".Activities.MostraGraficoActivity"
             android:label="@string/title_activity_mostra_png_precedentemente_salvata"></activity>
         <activity
-            android:name=".CaricaDati"
+            android:name=".Activities.CaricaDatiActivity"
             android:label="@string/title_activity_carica_dati"></activity>
         <activity
-            android:name=".NotificationActivity"
+            android:name=".Activities.NotificationActivity"
             android:label="@string/title_activity_notification">
         </activity>
         <activity
-            android:name=".GraficoActivity"
+            android:name=".Activities.GraficoActivity"
             android:label="@string/title_activity_grafico">
         </activity>
         <activity
-            android:name=".ListaIndicatoriActivity"
+            android:name=".Activities.ListaIndicatoriActivity"
             android:label="@string/title_activity_lista_indicatori">
 
         </activity>
         <activity
-            android:name=".ListaArgomentiActivity"
+            android:name=".Activities.ListaArgomentiActivity"
             android:label="@string/title_activity_lista_argomenti">
         </activity>
         <activity
-            android:name=".ListaPaesiActivity"
+            android:name=".Activities.ListaPaesiActivity"
             android:label="@string/title_activity_lista_paese_activity">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
