@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -24,7 +25,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.MPPointF;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
@@ -345,9 +348,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         description.setTextSize(12f);
         description.setPosition(950, 1150);
         chart.setDescription(description);
-
         chart.setDrawGridBackground(true);
         chart.setDrawBorders(true);
+        chart.setBorderColor(Color.BLACK);
+        chart.setAutoScaleMinMaxEnabled(false);/*Flag that indicates if auto scaling on the y
+        axis is enabled. If enabled the y axis automatically adjusts to the min and max y values of
+        the current x axis range ogni volta che cambia la vista. Default: false*/
+        chart.setTouchEnabled(true);    /*Default = true*/
 
         /*imposta leggenda*/
         Legend legend = chart.getLegend();
@@ -356,23 +363,30 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
 
-
-        YAxis yAxisleft = chart.getAxisLeft();
-        yAxisleft.setDrawLabels(true);          //etichetta sugli assi
-        yAxisleft.setDrawAxisLine(true);        //linea dell'asse
+        /*imposta assi*/
+        YAxis yAxisleft = chart.getAxisLeft();  /*Per default tutti i dati aggiunti al grafico
+                                                vengono confrontati con YAxis sinistro del grafico*/
         yAxisleft.setDrawGridLines(true);       //linea della griglia
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
-        yAxisleft.setTextSize(12);
         yAxisleft.setZeroLineColor(Color.BLACK);
+        yAxisleft.setTextSize(12);
 
-        XAxis xAxis = chart.getXAxis();
+
+        XAxis xAxis = chart.getXAxis();      /*acquisisce 1 istanza dell'asse x*/
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setLabelRotationAngle(45f);    /*imposta angolo dele etichette asse x (in gradi)*/
         xAxis.setDrawGridLines(true);
-        xAxis.mDecimals = 0;
-        xAxis.setGranularity(1f);           /*only intervals of 1*/
+        xAxis.setGranularity(1f);            /*only intervals of 1*/
         xAxis.setTextSize(12);
-        xAxis.setTypeface(Typeface.SERIF);
+        /*questo metodo serve per avere gli anni senza il punto che indica il millesimo*/
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                return String.valueOf((int)value); /*lo casto in 1 int per eliminare la virgola*/
+            }
+        });
+        xAxis.setTypeface(Typeface.MONOSPACE);
 
 
         ValoreGrafico graf;
@@ -387,13 +401,30 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Log.d(Costanti.NOME_APP, entries.toString());
         }
 
+        /*imposta LineDataSet:rappresenta le caretteristiche comuni(style) di 1 insieme di valori*/
         /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
-        LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
+        final LineDataSet dataSet = new LineDataSet(entries, super.getIdIndicatoreSelezionato());
         dataSet.setColor(Color.BLUE);
-        dataSet.setValueTextColor(Color.RED); // styling, ...
-        dataSet.setValueTextSize(10);
-        LineData lineData = new LineData(dataSet);
+        dataSet.setValueTextColor(Color.RED);
+        dataSet.setValueTextSize(11f);
+        dataSet.setDrawCircles(true);
+        dataSet.setCircleRadius(2.4f);
+        dataSet.setCircleColor(Color.BLUE);
+        dataSet.setCircleHoleRadius(1f);
+        dataSet.setCircleHoleColor(Color.BLUE);
+        dataSet.setLineWidth(1.4f);
 
+        dataSet.setValueFormatter(new IValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex,
+                                            ViewPortHandler viewPortHandler) {
+                return "";      /*non disegniamo i valori*/
+
+            }
+        });
+
+        LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
 
         chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
