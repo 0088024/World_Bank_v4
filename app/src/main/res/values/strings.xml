@@ -37,5 +37,7 @@
     <string name="aboutinfo">
         questa app è stata sviluppata tramite indicazioni segnalate dal prof. Regoli
     </string>
+    <string name="titolo_grafico">titolo grafico</string>
+    <string name="sottotitolo_chart">sottotitolo chart</string>
 
 </resources>

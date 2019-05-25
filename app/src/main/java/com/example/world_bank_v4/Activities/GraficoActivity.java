@@ -3,20 +3,19 @@ package com.example.world_bank_v4.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorSpace;
 import android.graphics.DashPathEffect;
-import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.example.world_bank_v4.Activities.ListaGenericaActivity;
 import com.example.world_bank_v4.Controller.DbManager;
 import com.example.world_bank_v4.Controller.MyGSON;
 import com.example.world_bank_v4.Dialog.DialogDataBase;
@@ -32,6 +31,8 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -43,8 +44,6 @@ import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.renderer.XAxisRenderer;
-import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
@@ -61,6 +60,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private DbManager dbManager;
     private ArrayList<ValoreGrafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
+    private TextView textView_chart_titolo;
+    private TextView textView_chart_sottotitolo;
     private Button button_salva_database;
     private Button button_salva_grafico;
     private Bundle bundle_main;
@@ -76,6 +77,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         /*in this example, a LineChart is initialized from xml*/
         chart = findViewById(R.id.chart);
+        textView_chart_titolo = findViewById(R.id.textView_chart_titolo);
+        textView_chart_sottotitolo = findViewById(R.id.textView_chart_sottotitolo);
+
         button_salva_grafico = findViewById(R.id.button_salva_grafico);
         button_salva_grafico.setOnClickListener(this);
         button_salva_database = findViewById(R.id.button_salva_database);
@@ -166,6 +170,24 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
 
 
+
+    /*a seconda del bottone che è stato cliccato, lancia il relativo thread task in bakground*/
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId()) {
+            case R.id.button_salva_database:
+                new SalvaDatabaseTask().execute(lista_grafico);
+                break;
+            case R.id.button_salva_grafico:
+                new SalvaGraficoTask().execute(chart);
+                break;
+        }
+    }
+
+
+
+
     private class CostruisciGraficoTask extends AsyncTask<Void, Integer, String>{
 
         @Override
@@ -184,26 +206,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         protected void onPostExecute(String risultato) {
             Log.d(Costanti.NOME_APP, risultato);
             getProgressBar().setVisibility(View.GONE);
+            textView_chart_titolo.setText(getNomePaeseSelezionato());
+            textView_chart_sottotitolo.setText(getNomeIndicatoreSelezionato());
             chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
                             (ridisegna). Questo è necessario per rendere effettive le modifiche
                             apportate al grafico*/
         }
 
-    }
-
-
-    /*a seconda del bottone che è stato cliccato, lancia il relativo thread task in bakground*/
-    @Override
-    public void onClick(View v) {
-
-        switch(v.getId()) {
-            case R.id.button_salva_database:
-                new SalvaDatabaseTask().execute(lista_grafico);
-                break;
-            case R.id.button_salva_grafico:
-                new SalvaGraficoTask().execute(chart);
-                break;
-        }
     }
 
 
@@ -289,7 +298,14 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Chart chart = params[0];
             /* Returns the Bitmap object that represents the chart, this Bitmap always contains the
             latest drawing state of the chart.*/
-            Bitmap bitmap_chart = chart.getChartBitmap();
+            /*Bitmap bitmap_chart = chart.getChartBitmap();*/
+            LinearLayout view = findViewById(R.id.linearLayout);
+            Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
+                                            Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            /*disegna la vista nel canvas che a sua volta avvole il bitmpa*/
+            view.draw(canvas);
+
             /*stream per scrivere il grafico bitmap sul disco*/
             FileOutputStream outputStream;
             try{
@@ -303,7 +319,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 support all bitmap configs directly, so it is possible that the returned bitmap
                 from BitmapFactory could be in a different bitdepth, and/or may have lost per-pixel
                 alpha (e.g. JPEG only supports opaque pixels).*/
-                if(bitmap_chart.compress(Bitmap.CompressFormat.PNG, 80 , outputStream)){
+                if(bitmap.compress(Bitmap.CompressFormat.PNG, 80 , outputStream)){
                     Log.d(Costanti.NOME_APP, "chart_bitmap compresso in PNG su file");
                 }
                 else  Log.d(Costanti.NOME_APP, "Errore compressione bitmap in PNG su file");
@@ -375,7 +391,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
 
-    public void costruisciGrafico(){
+    public void costruisciGrafico() {
 
 
         int blu_grafico = getResources().getColor(R.color.blu_grafico, null);
@@ -384,9 +400,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         Description description = new Description();
         description.setText("Anni");
         description.setTextSize(12f);
-        description.setPosition(950, 1070);
+        description.setPosition(950, 860);
 
         chart.setDescription(description);
+        chart.setClipValuesToContent(true);
         chart.setDrawGridBackground(true);
         chart.setDrawBorders(true);
         chart.setBorderColor(Color.BLACK);
@@ -398,15 +415,31 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         /*imposta leggenda*/
         Legend legend = chart.getLegend();
-        legend.setTextSize(16);
-        legend.setFormSize(10);
-        legend.setTextColor(Color.BLACK);
+        legend.setTextColor(blu_grafico);
         legend.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        legend.setTextSize(16);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
         legend.setDrawInside(false);
         legend.setWordWrapEnabled(true);
+        legend.setYEntrySpace(20f);
+        /*legenda personalizzata*/
+        legend.setXEntrySpace(20f);
+        LegendEntry legendEntry = new LegendEntry();
+        legendEntry.form = Legend.LegendForm.LINE;
+        legendEntry.formColor = blu_grafico;
+        legendEntry.label = "estimated values";
+        legendEntry.formSize = 12;
+        LegendEntry legendEntry2 = new LegendEntry();
+        legendEntry2.form = Legend.LegendForm.CIRCLE;
+        legendEntry2.formColor = blu_grafico;
+        legendEntry2.label = "reported values";
+        legendEntry2.formLineWidth = 2;
+        legendEntry2.formSize = 12;
+        LegendEntry[] legends = {legendEntry, legendEntry2};
+        legend.setCustom(legends);
+
 
         /*imposta asse y destro e sinistro*/
         YAxis yAxisleft = chart.getAxisLeft();  /*Per default tutti i dati aggiunti al grafico
@@ -435,11 +468,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
 
-                return String.valueOf((int)value); /*lo casto in 1 int per eliminare la virgola*/
+                return String.valueOf((int) value); /*lo casto in 1 int per eliminare la virgola*/
             }
         });
         xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-
 
 
         /*wrap ogegtti ValoreGrafico dentro Entry*/
@@ -456,15 +488,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         /*imposta LineDataSet:rappresenta le caretteristiche comuni(style) di 1 insieme di valori*/
         /*add entries to dataset: LineaDataSet( Entry yVals, String label);*/
-        final LineDataSet dataSet = new LineDataSet(entries, super.getNomePaeseSelezionato() +
-                "  " + super.getNomeIndicatoreSelezionato());
+        final LineDataSet dataSet = new LineDataSet(entries, "estimated");
         dataSet.setColor(blu_grafico);
-
         /*dataSet.enableDashedLine(20f,20f, 0f);*/  /*linea tratteggiata*/
         dataSet.setDrawCircles(true);
         dataSet.setCircleRadius(2.5f);
         dataSet.setCircleColor(blu_grafico);
-        dataSet.setCircleHoleRadius(1f);
+        dataSet.setCircleHoleRadius(0.5f);
         dataSet.setCircleHoleColor(Color.WHITE);
         dataSet.setLineWidth(2f);
         dataSet.setDrawFilled(true);
@@ -476,28 +506,31 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 return 0f;
             }
         });
+        dataSet.setValueTextSize(12f);
+        dataSet.setValueTextColor(Color.RED);
+        dataSet.setDrawValues(true);
         /*formattiamo i valori disegnati all'interno del grafico*/
         dataSet.setValueFormatter(new IValueFormatter() {
 
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex,
                                             ViewPortHandler viewPortHandler) {
-                return "";      /*non disegniamo i valori*/
-
+                if (value == 0.0)
+                    return "";                              /*non disegniamo i valori*/
+                else return (String.valueOf(value));
             }
+
+
         });
 
-        LineData lineData = new LineData(dataSet);
-        chart.setData(lineData);
-
-
+        
     }
 
 
-
+    
     @Override
     protected void setProgressBarVisible(){
-        super.getProgressBar().setVisibility(ProgressBar.VISIBLE);
+        getProgressBar().setVisibility(ProgressBar.VISIBLE);
     }
 
 
