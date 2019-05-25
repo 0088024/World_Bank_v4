@@ -106,8 +106,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 idPaeseSelezionato =
                         savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO,
                                 "File non esiste");
-                nomeIndicatoreSelezionato =
-                        savedInstanceState.getString(Costanti.NOME_INDICATORE_SELEZIONATO,
+                nomePaeseSelezionato =
+                        savedInstanceState.getString(Costanti.NOME_PAESE_SELEZIONATO,
                                 "File non esiste");
                 caricaLayoutLista();
                 break;
@@ -163,7 +163,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
             bundle ricevuto nell'intent e scarico i vari dati che serviranno*/
             nomeClasseSelezionata = bundle_prec.getString(Costanti.NOME_CLASSE_SELEZIONATA);
-            Log.d(Costanti.NOME_APP, "nomeClasseSelezionata = "+ nomeClasseSelezionata);
             /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
             piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
             punto del "percorso"*/
@@ -191,7 +190,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
             MyGSON myGSON = new MyGSON();
             lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
-
 
             listView = findViewById(idListView);
             listView.setOnItemClickListener(this);
@@ -351,18 +349,16 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         @Override
         protected void onProgressUpdate(Integer... values) {
 
-            setProgressBarVisible();  // Attiva la progressBar
+            setProgressBarVisible();   /*Attiva la progressBar*/
         }
 
 
         @Override
         protected void onPostExecute(String risultato) {
 
-                setProgressBarGone();  // Sopprimi la progressBar
-
+                setProgressBarGone();  /*Sopprimi la progressBar*/
                 json_file = risultato;
                 caricaLayoutLista();
-
         }
     }
 
@@ -394,7 +390,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
     /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
-    che l'attività è stata ripristinata allo stato originale.  */
+    che l'attività è stata ripristinata allo stato originale*/
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -461,7 +457,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         progressBar.setVisibility(View.GONE);
     }
 
-
     public String costruisciApi(){
         return "Fare override. Questo è il metodo della superclasse";
     }
@@ -514,13 +509,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public Bundle getBundleSucc() { return bundle_succ; }
 
     public ProgressBar getProgressBar() { return progressBar; }
-
-
-
-
-
-
-
 
 }
 

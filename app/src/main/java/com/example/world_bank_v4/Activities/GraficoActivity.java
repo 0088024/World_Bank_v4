@@ -398,9 +398,11 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         /*imposta etichetta descrizione*/
         Description description = new Description();
-        description.setText("Anni");
+        description.setText("ANNI");
         description.setTextSize(12f);
         description.setPosition(950, 860);
+        description.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+
 
         chart.setDescription(description);
         chart.setClipValuesToContent(true);
@@ -416,7 +418,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*imposta leggenda*/
         Legend legend = chart.getLegend();
         legend.setTextColor(blu_grafico);
-        legend.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        legend.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         legend.setTextSize(16);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -436,7 +438,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         legendEntry2.formColor = blu_grafico;
         legendEntry2.label = "reported values";
         legendEntry2.formLineWidth = 2;
-        legendEntry2.formSize = 12;
+        legendEntry2.formSize = 10;
         LegendEntry[] legends = {legendEntry, legendEntry2};
         legend.setCustom(legends);
 
@@ -448,10 +450,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
         yAxisleft.setZeroLineColor(Color.GRAY);
         yAxisleft.setTextSize(12);
-        yAxisleft.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        yAxisleft.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextSize(12);
-        yAxisRight.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        yAxisRight.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
 
         /*imposta asse x*/
         XAxis xAxis = chart.getXAxis();      /*acquisisce 1 istanza dell'asse x*/
@@ -471,7 +473,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 return String.valueOf((int) value); /*lo casto in 1 int per eliminare la virgola*/
             }
         });
-        xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
 
 
         /*wrap ogegtti ValoreGrafico dentro Entry*/
@@ -523,14 +525,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         });
 
-        float upper_limit = dataSet.getYMax();
-        Log.d(Costanti.NOME_APP, String.valueOf(upper_limit));
-        LimitLine ll = new LimitLine(upper_limit, "upper limit");
-        ll.setLineColor(Color.GREEN);
-        ll.setLineWidth(2);
-        ll.setTextColor(Color.GREEN);
-        ll.setTextSize(12f);
-        yAxisleft.setDrawLimitLinesBehindData(true);
 
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
