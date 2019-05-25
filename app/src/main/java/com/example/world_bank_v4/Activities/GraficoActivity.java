@@ -418,14 +418,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*imposta leggenda*/
         Legend legend = chart.getLegend();
         legend.setTextColor(blu_grafico);
-        legend.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        legend.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
         legend.setTextSize(16);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
         legend.setDrawInside(false);
         legend.setWordWrapEnabled(true);
-        legend.setYEntrySpace(20f);
         /*legenda personalizzata*/
         legend.setXEntrySpace(20f);
         LegendEntry legendEntry = new LegendEntry();
@@ -450,10 +449,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
         yAxisleft.setZeroLineColor(Color.GRAY);
         yAxisleft.setTextSize(12);
-        yAxisleft.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        yAxisleft.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         YAxis yAxisRight = chart.getAxisRight();
         yAxisRight.setTextSize(12);
-        yAxisRight.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        yAxisRight.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
         /*imposta asse x*/
         XAxis xAxis = chart.getXAxis();      /*acquisisce 1 istanza dell'asse x*/
@@ -525,7 +524,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         });
 
-
+        /*non visualizzare etichette asse y destro per valori >>>>, per non far comprimere troppo
+        il grafico*/
+        if(dataSet.getYMax()>1000)
+            yAxisRight.setEnabled(false);
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
     }

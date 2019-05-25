@@ -74,7 +74,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-
     }
 
 

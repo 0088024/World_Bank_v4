@@ -91,10 +91,11 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
         super.onItemClick(parent, view, position, id);
         ArrayList<Paese> lista_paesi = super.getListaOggetti();
+        int posizione = position++;
         Bundle bundle_succ = super.getBundleSucc();
-        bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, lista_paesi.get(position++).getId());
+        bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, lista_paesi.get(posizione).getId());
         bundle_succ.putString(Costanti.NOME_PAESE_SELEZIONATO,
-                                                    lista_paesi.get(position++).getName());
+                                                    lista_paesi.get(posizione).getName());
         bundle_succ.putString(Costanti.ID_INDICATORE_SELEZIONATO,
                                                     super.getIdIndicatoreSelezionato());
         bundle_succ.putString(Costanti.NOME_INDICATORE_SELEZIONATO,

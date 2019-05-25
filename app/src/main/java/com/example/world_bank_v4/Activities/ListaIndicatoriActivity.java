@@ -98,15 +98,16 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         super.onItemClick(parent, view, position, id);
+        int posizione = position++;
         Bundle bundle_succ = super.getBundleSucc();
         bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, super.getIdPaeseSelezionato());
         bundle_succ.putString(Costanti.NOME_PAESE_SELEZIONATO, super.getNomePaeseSelezionato());
         bundle_succ.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, super.getIdArgomentoSelezionato());
         ArrayList<Indicatore> lista_indicatori = super.getListaOggetti();
         bundle_succ.putString(Costanti.ID_INDICATORE_SELEZIONATO,
-                                                    lista_indicatori.get(position++).getId());
+                                                    lista_indicatori.get(posizione).getId());
         bundle_succ.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
-                lista_indicatori.get(position++).getName());
+                lista_indicatori.get(posizione).getName());
 
         Class<?> classe = ListaPaesiActivity.class;
         Intent intent_succ;

@@ -89,13 +89,13 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         super.onItemClick(parent, view, position, id);
-
+        int posizione = position++;
         Bundle bundle_succ = super.getBundleSucc();
         bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, super.getIdPaeseSelezionato());
         bundle_succ.putString(Costanti.NOME_PAESE_SELEZIONATO, super.getNomePaeseSelezionato());
         ArrayList<Argomento> lista_argomenti = super.getListaOggetti();
         bundle_succ.putString(Costanti.ID_ARGOMENTO_SELEZIONATO,
-                                        lista_argomenti.get(position++).getId());
+                                        lista_argomenti.get(posizione).getId());
 
         /*questa attività lancia sempre l'attività ListIndicatoriActivity*/
         Intent intent_succ = new Intent(getApplicationContext(), ListaIndicatoriActivity.class);
