@@ -28,7 +28,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
         /*"specializza activity*/
 
-        setContentView(R.layout.activity_lista_paese_activity);
+        setContentView(R.layout.activity_lista_paese);
         getSupportActionBar().setLogo(R.drawable.country);
 
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
