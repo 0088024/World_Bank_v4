@@ -384,7 +384,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         Description description = new Description();
         description.setText("Anni");
         description.setTextSize(12f);
-        description.setPosition(950, 1130);
+        description.setPosition(950, 1070);
 
         chart.setDescription(description);
         chart.setDrawGridBackground(true);
@@ -400,11 +400,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         Legend legend = chart.getLegend();
         legend.setTextSize(16);
         legend.setFormSize(10);
-        legend.setYOffset(15);
         legend.setTextColor(Color.BLACK);
         legend.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
+        legend.setDrawInside(false);
+        legend.setWordWrapEnabled(true);
 
         /*imposta asse y destro e sinistro*/
         YAxis yAxisleft = chart.getAxisLeft();  /*Per default tutti i dati aggiunti al grafico
@@ -437,6 +439,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             }
         });
         xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+
 
 
         /*wrap ogegtti ValoreGrafico dentro Entry*/
