@@ -523,8 +523,22 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         });
 
-        
+        float upper_limit = dataSet.getYMax();
+        Log.d(Costanti.NOME_APP, String.valueOf(upper_limit));
+        LimitLine ll = new LimitLine(upper_limit, "upper limit");
+        ll.setLineColor(Color.GREEN);
+        ll.setLineWidth(2);
+        ll.setTextColor(Color.GREEN);
+        ll.setTextSize(12f);
+        yAxisleft.setDrawLimitLinesBehindData(true);
+
+        LineData lineData = new LineData(dataSet);
+        chart.setData(lineData);
     }
+
+
+
+
 
 
     
