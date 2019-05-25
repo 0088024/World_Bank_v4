@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.world_bank_v4.Dialog.DialogAbout;
 import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Dialog.DialogContacts;
 import com.example.world_bank_v4.Dialog.DialogDataMissing;
@@ -72,12 +73,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 break;
 
             case R.id.Menu_2:
-                intent = new Intent(this, ListaArgomentiActivity.class);
-                bundle = new Bundle();
-                bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
-                                        ListaArgomentiActivity.class.getName());
-                intent.putExtras(bundle);
-                startActivityForResult(intent,2);
+                DialogAbout mydialogabout = new DialogAbout();
+                mydialogabout.show(getSupportFragmentManager(), "mydialog");
                 break;
 
             case R.id.Menu_3:
