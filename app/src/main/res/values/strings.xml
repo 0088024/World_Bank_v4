@@ -5,6 +5,8 @@
     <string name="title_activity_lista_paese_activity">Select Countries</string>
     <string name="title_activity_lista_argomenti">Select Topics</string>
     <string name="title_activity_lista_indicatori">Select Indicators</string>
+    <string name="logo3">FPR-IOL2018</string>
+    <string name="about_wb">About as ...</string>
     <string name="title_activity_grafico">Ceck Graph</string>
     <string name="title_activity_carica_dati">Carica Dati Offline</string>
     <string name="title_activity_mostra_png_precedentemente_salvata">Immagine png</string>
@@ -23,14 +25,17 @@
     <string name="nome_indicatore">nome indicatore</string>
     <string name="text_view_colonna">text view colonna</string>
     <string name="text_view_valore">text view valore</string>
-    <string name="TextView1">Alessio Rufini\n</string>
-    <string name="TextView2">329 8736943</string>
-    <string name="TextView3">alessio.rufini@inwind.it</string>
-    <string name="TextView4">Daniele Ferraro</string>
-    <string name="TextView5">339 7926059</string>
-    <string name="TextView6">f.daniele81@tiscali.it</string>
-    <string name="TextView7">Geremia Petricca</string>
-    <string name="TextView8">320 5641325</string>
-    <string name="TextView9">geremia7777@gmail.com</string>
+    <string name="alessio">Alessio Rufini\n</string>
+    <string name="tel_alessio">329 8736943</string>
+    <string name="email_alessio">alessio.rufini@inwind.it</string>
+    <string name="daniele">Daniele Ferraro</string>
+    <string name="tel_daniele">339 7926059</string>
+    <string name="email_daniele">f.daniele81@tiscali.it</string>
+    <string name="geremia">Geremia Petricca</string>
+    <string name="tel_geremia">320 5641325</string>
+    <string name="email_geremia">geremia7777@gmail.com</string>
+    <string name="aboutinfo">
+        questa app è stata sviluppata tramite indicazioni segnalate dal prof. Regoli
+    </string>
 
 </resources>
