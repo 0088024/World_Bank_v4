@@ -1,5 +1,6 @@
 package com.example.world_bank_v4.Activities;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;

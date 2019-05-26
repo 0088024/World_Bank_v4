@@ -13,19 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activities.ListaGenericaActivity"></activity>
-        <activity android:name=".Activities.WebActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="http"
-                    android:host="worldbank.org" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".Activities.VisualizzaDatiActivity"
             android:label="@string/title_activity_visualizza_dati"></activity>
