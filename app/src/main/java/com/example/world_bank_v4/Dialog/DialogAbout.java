@@ -22,7 +22,7 @@ public class DialogAbout extends AppCompatDialogFragment {
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(inflater.inflate(R.layout.about_layout, null));
 
-        builder.setTitle("about as...")
+        builder.setTitle("ABOUT AS...")
                 .setIcon(R.drawable.about)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

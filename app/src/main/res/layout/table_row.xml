@@ -20,11 +20,12 @@
 
     <TextView
         android:id="@+id/textViewValore"
-        android:gravity="center"
+        android:gravity=""
         android:height="45dp"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:hint="10dp"
         android:background="@drawable/border"
         android:text="@string/text_view_valore" />
 

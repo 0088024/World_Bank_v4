@@ -7,18 +7,28 @@
 
     <TextView
         android:id="@+id/textView10"
+        style="@style/styleDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="141dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="141dp"
-        android:textStyle="bold"
-        android:textSize="23sp"
-        android:textColor="#000000"
-        android:text="@string/logo3"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="256dp"
+        android:text="@string/dialog_contacts1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textabout2"
+        style="@style/styleContactsCourse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="100dp"
+        android:text="@string/dialog_contacts3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <ImageView
         android:id="@+id/imageView4"
