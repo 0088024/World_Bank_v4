@@ -77,6 +77,20 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
+
+
+    /*qui vengono recuperati i dati o dal sito e dal disco. Vengono recuperati qui perchè questo
+    metodo viene chiamato sia quando l'attività è creata che quando è ripresa dopo onPause() e/o
+    onStop()*/
+    @Override
+    public void onResume(){
+        super.onResume();
+        caricaVariabili();
+    }
+
+
+
+
     /*ottiene dal sito o dal disco i dati che occorrono a riempire la ListView, e li collega
     a quest'ultima*/
     public void caricaVariabili() {
@@ -181,6 +195,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
+
     /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>,
     e collega quest'ultima alla listView tramite l'adattatore che instanzia*/
     protected void caricaLayoutLista(){
@@ -210,15 +225,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     }
 
-
-    /*qui vengono recuperati i dati o dal sito e dal disco. Vengono recuperati qui perchè questo
-    metodo viene chiamato sia quando l'attività è creata che quando è ripresa dopo onPause() e/o
-    onStop()*/
-    @Override
-    public void onResume(){
-        super.onResume();
-        caricaVariabili();
-    }
 
 
     /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
