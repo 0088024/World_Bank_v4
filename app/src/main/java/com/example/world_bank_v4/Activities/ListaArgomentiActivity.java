@@ -26,6 +26,12 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         setContentView(R.layout.activity_lista_argomenti);
         getSupportActionBar().setLogo(R.drawable.topic);
 
+    }
+
+
+
+    @Override
+    public void onResume(){
         ArrayList<Argomento> lista_argomenti = new ArrayList<Argomento>();
         TypeToken<ArrayList<Argomento>> listTypeToken = new TypeToken<ArrayList<Argomento>>() {};
 
@@ -36,17 +42,14 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_ARGOMENTI);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_ARGOMENTI);
         super.setAPI_WORLD_BANK(Costanti.API_TOPIC_LIST_FORMAT_JSON);
-    }
-
-
-
-    @Override
-    public void onResume(){
         super.onResume();
     }
 
 
-
+    @Override
+    public void onRestart(){
+        super.onRestart();
+    }
 
 
     @Override

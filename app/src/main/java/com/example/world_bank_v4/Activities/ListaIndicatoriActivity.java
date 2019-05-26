@@ -27,6 +27,11 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         setContentView(R.layout.activity_lista_indicatori);
         getSupportActionBar().setLogo(R.drawable.indicator);
 
+    }
+
+
+    @Override
+    public void onResume(){
         ArrayList<Indicatore> lista_indicatori = new ArrayList<Indicatore>();
         TypeToken<ArrayList<Indicatore>> listTypeToken = new TypeToken<ArrayList<Indicatore>>() {};
 
@@ -36,20 +41,16 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORI_PER_ARGOMENTO);
-        /*per costruire l'api devo aspettare che la classe ListaargomentiActivity mi passi
+        /*per costruire l'api devo aspettare che la classe ListaArgomentiActivity mi passi
         l'intento con l'argomento selezionato dall'utente*/
         super.setAPI_WORLD_BANK(null);
-
-        /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
-        a quest'ultima*/
-        /*super.caricaVariabili();*/
-
+        super.onResume();
     }
 
 
     @Override
-    public void onResume(){
-        super.onResume();
+    public void onRestart(){
+        super.onRestart();
     }
 
 

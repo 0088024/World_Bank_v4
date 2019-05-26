@@ -30,6 +30,18 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         setContentView(R.layout.activity_lista_paese);
         getSupportActionBar().setLogo(R.drawable.country);
 
+    }
+
+
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+    }
+
+
+    @Override
+    public void onResume(){
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
         super.setIdListView(R.id.list_view_paesi);
@@ -39,12 +51,6 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_COUNTRY);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_PAESI);
         super.setAPI_WORLD_BANK(Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500);
-    }
-
-
-
-    @Override
-    public void onResume(){
         super.onResume();
     }
 

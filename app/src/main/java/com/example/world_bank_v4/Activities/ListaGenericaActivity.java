@@ -68,6 +68,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + "CREATE");
         this.savedInstanceState = savedInstanceState;
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
@@ -85,7 +86,15 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onResume(){
         super.onResume();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + "RESUME");
         caricaVariabili();
+    }
+
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + "RESTART");
     }
 
 
@@ -233,6 +242,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + "SAVE_INSTANCE_STATE");
         savedInstanceState.putString(KEY_JSON_FILE, json_file);
         savedInstanceState.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
         savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
@@ -253,6 +263,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onPause(){
         super.onPause();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + "PAUSE");
         SharedPreferences sharedPref =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -435,7 +446,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     verra’ richiamato e Android killera’ il processo associato all’applicazione*/
     @Override
     protected void onDestroy(){
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + "DESTROY");
+
         super.onDestroy();
+
     }
 
 
