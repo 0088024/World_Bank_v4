@@ -411,7 +411,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         chart.setDrawBorders(true);
         chart.setBorderColor(Color.BLACK);
         chart.setBorderWidth(1.5f);
-        chart.setAutoScaleMinMaxEnabled(false);/*Flag that indicates if auto scaling on the y
+        chart.setAutoScaleMinMaxEnabled(false);      /*Flag that indicates if auto scaling on the y
         axis is enabled. If enabled the y axis automatically adjusts to the min and max y values of
         the current x axis range ogni volta che cambia la vista. Default: false*/
         chart.setTouchEnabled(true);    /*Default = true*/
