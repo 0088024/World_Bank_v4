@@ -32,7 +32,6 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
-import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -101,7 +100,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
         a quest'ultima*/
-        super.caricaLista();
+        super.caricaVariabili();
     }
 
 
@@ -380,6 +379,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
 
 
+
     /*se le risorse sono aperte, le chiude*/
     @Override
     protected void onDestroy(){
@@ -391,6 +391,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
 
+    /*imposta tutte le caratteristiche desiderate del grafico*/
     public void costruisciGrafico() {
 
 

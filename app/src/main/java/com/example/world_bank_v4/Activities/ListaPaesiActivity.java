@@ -44,7 +44,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
         a quest'ultima*/
 
-        super.caricaLista();
+        super.caricaVariabili();
 
 
     }

@@ -78,7 +78,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
-    public void caricaLista() {
+    public void caricaVariabili() {
         for(;;) {
             /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
             è stata ripresa (per esempio l'utente torna da quella successiva) e reistanziata causa
@@ -180,8 +180,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-    /* se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>, e collega quest'ultima alla
-    listView tramite l'adattatore che instanzia*/
+    /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>,
+    e collega quest'ultima alla listView tramite l'adattatore che instanzia*/
     protected void caricaLayoutLista(){
 
         if(error_file==null) {  // Controlla se ci sono stati eventuali errori
@@ -189,6 +189,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
             MyGSON myGSON = new MyGSON();
             lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
+            /*DEBUG*/
+            Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
             listView = findViewById(idListView);
             listView.setOnItemClickListener(this);
@@ -203,7 +205,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             intent.putExtras(bundle_main);
             setResult(RESULT_FIRST_USER,intent);
             finish();
-
         }
 
     }
@@ -361,6 +362,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent intent;
@@ -415,6 +417,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     protected void onDestroy(){
         super.onDestroy();
     }
+
+
 
     public void setIdListView(int idListView){
         this.idListView = idListView;
