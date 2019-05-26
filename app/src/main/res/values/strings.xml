@@ -39,5 +39,10 @@
     </string>
     <string name="titolo_grafico">titolo grafico</string>
     <string name="sottotitolo_chart">sottotitolo chart</string>
+    <string name="button_cerca_paese">SELECT COUNTRY</string>
+    <string name="button_carica_png">LOAD PREVIOUS IMAGE</string>
+    <string name="button_cerca_argomento">SELECT TOPIC</string>
+    <string name="button_carica_database">LOAD DATA OFFLINE</string>
+
 
 </resources>

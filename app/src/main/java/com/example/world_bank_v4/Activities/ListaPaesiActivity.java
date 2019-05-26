@@ -29,7 +29,6 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         /*"specializza activity*/
         setContentView(R.layout.activity_lista_paese);
         getSupportActionBar().setLogo(R.drawable.country);
-
     }
 
 
@@ -38,6 +37,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     public void onRestart(){
         super.onRestart();
     }
+
 
 
     @Override
