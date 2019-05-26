@@ -77,7 +77,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-
+    /*ottiene dal sito o dal disco i dati che occorrono a riempire la ListView, e li collega
+    a quest'ultima*/
     public void caricaVariabili() {
         for(;;) {
             /*se non è null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
@@ -210,14 +211,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-    /*se l'utente preme il pulsante indietro l'attività viene semplicemente terminata ed espulsa
-    dallo stack activity, in modo da far tornare in 1°piano quella che l'aveva lanciata*/
+    /*qui vengono recuperati i dati o dal sito e dal disco. Vengono recuperati qui perchè questo
+    metodo viene chiamato sia quando l'attività è creata che quando è ripresa dopo onPause() e/o
+    onStop()*/
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        Intent intent=new Intent();
-        setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
-        finish();
-        return false;
+    public void onResume(){
+        super.onResume();
+        caricaVariabili();
     }
 
 
@@ -259,6 +259,20 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
         editor.apply();
     }
+
+
+
+    /*se l'utente preme il pulsante indietro l'attività viene semplicemente terminata ed espulsa
+   dallo stack activity, in modo da far tornare in 1°piano quella che l'aveva lanciata*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent=new Intent();
+        setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
+        finish();
+        return false;
+    }
+
+
 
 
     @Override

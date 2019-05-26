@@ -36,11 +36,13 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_ARGOMENTI);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_ARGOMENTI);
         super.setAPI_WORLD_BANK(Costanti.API_TOPIC_LIST_FORMAT_JSON);
+    }
 
-        /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
-        a quest'ultima*/
 
-        super.caricaVariabili();
+
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 
 
@@ -102,6 +104,12 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         intent_succ.putExtras(bundle_succ);
         startActivityForResult(intent_succ,Costanti.lista_argomenti_code);
     }
+
+
+
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

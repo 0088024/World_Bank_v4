@@ -42,9 +42,17 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
         /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
         a quest'ultima*/
-        super.caricaVariabili();
+        /*super.caricaVariabili();*/
 
     }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+    }
+
+
 
 
     @Override
@@ -119,6 +127,9 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         intent_succ.putExtras(bundle_succ);
         startActivityForResult(intent_succ,Costanti.lista_indicatori_code);
     }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

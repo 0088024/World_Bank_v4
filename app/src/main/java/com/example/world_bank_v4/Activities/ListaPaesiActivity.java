@@ -27,7 +27,6 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         super.onCreate(savedInstanceState);
 
         /*"specializza activity*/
-
         setContentView(R.layout.activity_lista_paese);
         getSupportActionBar().setLogo(R.drawable.country);
 
@@ -40,13 +39,13 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_COUNTRY);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_PAESI);
         super.setAPI_WORLD_BANK(Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500);
-
-        /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
-        a quest'ultima*/
-
-        super.caricaVariabili();
+    }
 
 
+
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 
 
