@@ -96,7 +96,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:indeterminate="false"
-        android:indeterminateTint="@color/blu_grafico"
+        android:indeterminateTint="@color/colorActionBar"
         android:progressTint="@color/colorActionBar"
         android:progressTintMode="src_in"
         android:visibility="gone"
