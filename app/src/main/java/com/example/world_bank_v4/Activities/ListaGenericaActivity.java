@@ -88,6 +88,20 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         super.onResume();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + "RESUME");
         caricaVariabili();
+        /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
+        che l'attività è stata ripristinata allo stato originale*/
+        if (ReturningWithResult==true && requestCode == Costanti.lista_paesi_code) {
+            // Commit your transactions here.
+            DialogNoCountry mydialog = new DialogNoCountry();
+            mydialog.show(getSupportFragmentManager(),"mydialog");
+        }
+        if (ReturningWithResult==true && requestCode == Costanti.lista_indicatori_code) {
+            // Commit your transactions here.
+            DialogNoIndicator mydialog = new DialogNoIndicator();
+            mydialog.show(getSupportFragmentManager(),"mydialog");
+        }
+        // Reset the boolean flag back to false for next time.
+        ReturningWithResult = false;
     }
 
 
@@ -419,27 +433,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             ReturningWithResult = true;
         }
     }
-
-
-    /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
-    che l'attività è stata ripristinata allo stato originale*/
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        if (ReturningWithResult==true && requestCode == Costanti.lista_paesi_code) {
-            // Commit your transactions here.
-            DialogNoCountry mydialog = new DialogNoCountry();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
-        }
-        if (ReturningWithResult==true && requestCode == Costanti.lista_indicatori_code) {
-            // Commit your transactions here.
-            DialogNoIndicator mydialog = new DialogNoIndicator();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
-        }
-        // Reset the boolean flag back to false for next time.
-        ReturningWithResult = false;
-    }
-
 
 
     /*richiamato giusto prima che l’activity venga distrutta.Se la memoria e’ poca, il metodo NON
