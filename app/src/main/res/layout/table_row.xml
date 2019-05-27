@@ -2,32 +2,32 @@
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tableRow"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/verde_acqua">
 
     <TextView
         android:id="@+id/textViewColonna"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:height="45dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:layout_marginRight="0dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:text="@string/text_view_colonna" />
+        android:layout_marginRight="0dp"
+        android:height="45dp"
+        android:background="@color/verde_acqua"
+        android:gravity="center"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/text_view_colonna"
+        android:textStyle="bold" />
 
 
     <TextView
         android:id="@+id/textViewValore"
-        android:gravity="center"
-        android:height="45dp"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:background="@drawable/border"
-        android:text="@string/text_view_valore" />
-
+        android:height="45dp"
+        android:background="@color/verde_acqua"
+        android:gravity="center"
+        android:text="@string/text_view_valore"
+        android:textStyle="bold" />
 
 
 </TableRow>
