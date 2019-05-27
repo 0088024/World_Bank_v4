@@ -32,8 +32,8 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visualizza_dati);
         this.savedInstanceState = savedInstanceState;
+        setContentView(R.layout.activity_visualizza_dati);
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
@@ -67,17 +67,27 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         super.onResume();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
         progressBar = findViewById(R.id.progressBar);
-        /*se non è stata lanciata da CaricaDati ma ripresa dopo onPause(), deve recuperare le
-        variabili d'istanza da disco*/
-        if(savedInstanceState == null){
-            /*carica dati da disco*/
-        }
-        else{
-            intent = getIntent();
-            bundle = intent.getExtras();
+        /*se è stata lanciata da CaricaDati*/
+        intent = getIntent();
+        bundle = intent.getExtras();
+        if(bundle != null) {
             id_record = bundle.getLong(Costanti.ID_RECORD_TABELLA);
-            new CaricaDatabaseTask(id_record).execute();
+            Log.d(Costanti.NOME_APP, String.valueOf(id_record));
         }
+        /*altrimenti se non è stata lanciata da CaricaDati ma ripresa dopo onPause()*/
+        else {
+
+            /*e ha ricevuto il bundle dal S.O., le varibili le ha già recuperate in
+            onRestoreInstanceState(9*/
+            if (savedInstanceState != null) { }
+            /*se invece come sopra, ma non ha ricevuto il Bundle deve recuperare da disco le varibili
+            di stato*/
+            if (savedInstanceState == null) {
+                Log.d(Costanti.NOME_APP, "recupera dati da disco");
+            }
+        }
+        new CaricaDatabaseTask(id_record).execute();
+
     }
 
 
@@ -248,10 +258,14 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
-        dbManager.close();
+        if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
+                               l'utente torna indietro.*/
+            dbManager.close();
+
         if(!cursor.isClosed())
             cursor.close();
         super.onDestroy();
+
     }
 
 

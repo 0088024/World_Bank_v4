@@ -231,7 +231,10 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onDestroy(){
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
-        dbManager.close();
+        if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
+                               l'utente torna indietro.*/
+            dbManager.close();
+
         if(!cursor.isClosed())
             cursor.close();
         super.onDestroy();
