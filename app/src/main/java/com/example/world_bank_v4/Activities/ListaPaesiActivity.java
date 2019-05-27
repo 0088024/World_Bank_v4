@@ -39,6 +39,14 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     }
 
 
+    /*ripristina lo stato dell'istanza precedentemente salvato nel Bundle ora ricevuto dal S.O.
+    Quest'ultimo chiama questo metodo solo se bundle != null */
+    @Override
+    public void onRestoreInstanceState(Bundle bundle) {
+        super.onRestoreInstanceState(bundle);
+    }
+
+
 
     @Override
     public void onResume(){
