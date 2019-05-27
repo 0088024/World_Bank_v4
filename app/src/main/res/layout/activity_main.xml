@@ -12,82 +12,86 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/Image_Main"
-        android:layout_marginTop="25dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toTopOf="@id/buttonPaese"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/wb1" />
+        app:srcCompat="@drawable/wb_norid" />
 
     <Button
         android:id="@+id/buttonPaese"
         style="@style/styleButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/h_button_Main"
         android:layout_alignTop="@+id/imageView"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/background_normal"
         android:drawableLeft="@drawable/ic_launcher"
         android:padding="0dp"
         android:text="@string/select_country"
         app:layout_constraintBottom_toTopOf="@+id/buttonArgomento"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/buttonArgomento"
         style="@style/styleButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/h_button_Main"
         android:layout_alignTop="@+id/buttonPaese"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/background_normal"
         android:drawableLeft="@drawable/ic_launcher"
         android:padding="0dp"
         android:text="@string/select_topics"
         app:layout_constraintBottom_toTopOf="@+id/buttonGrafico"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonPaese" />
+
 
     <Button
         android:id="@+id/buttonGrafico"
         style="@style/styleButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/h_button_Main"
-        android:layout_alignTop="@+id/buttonPaese"
-        android:layout_marginTop="15dp"
+        android:layout_alignTop="@+id/buttonArgomento"
+        android:layout_marginTop="8dp"
         android:background="@drawable/background_normal"
-        android:drawableLeft="@drawable/graphic"
+        android:drawableLeft="@drawable/ic_launcher"
         android:padding="0dp"
         android:text="@string/load_previus_image"
         app:layout_constraintBottom_toTopOf="@+id/buttonDatabase"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonArgomento" />
+
 
     <Button
         android:id="@+id/buttonDatabase"
         style="@style/styleButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/h_button_Main"
-        android:layout_alignTop="@+id/buttonPaese"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="155dp"
+        android:layout_alignTop="@+id/buttonGrafico"
+        android:layout_marginTop="8dp"
         android:background="@drawable/background_normal"
         android:drawableLeft="@drawable/storage2"
         android:padding="0dp"
         android:text="@string/loading_data_offline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonGrafico" />
+
 
 
 </android.support.constraint.ConstraintLayout>
