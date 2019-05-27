@@ -22,29 +22,21 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private DbManager dbManager;
     private Cursor cursor;
+    private Intent intent;
+    private Bundle bundle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizza_dati);
-
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
-
-        progressBar = findViewById(R.id.progressBar);
-
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        new CaricaDatabaseTask(bundle.getLong(Costanti.ID_RECORD_TABELLA)).execute();
-
     }
 
 
@@ -54,7 +46,16 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
-
+        progressBar = findViewById(R.id.progressBar);
+        /*se non è stata lanciata da CaricaDati ma ripresa dopo onPause(), deve recuperare le
+        variabili d'istanza da disco*/
+        intent = getIntent();
+        bundle = intent.getExtras();
+        if(bundle == null){
+            /*carica dati da disco*/
+        }
+        else
+            new CaricaDatabaseTask(bundle.getLong(Costanti.ID_RECORD_TABELLA)).execute();
     }
 
 

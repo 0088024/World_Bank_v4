@@ -48,7 +48,6 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
-
     }
 
 
@@ -60,7 +59,6 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         progressBar = findViewById(R.id.progressBar);
         listView = findViewById(R.id.list_view_carica_dati);
         new CaricaDatabaseTask().execute();
-
     }
 
 
@@ -203,8 +201,6 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
             else
                 caricaLayout(cursorRisultato);
         }
-
-
     }
 
 
