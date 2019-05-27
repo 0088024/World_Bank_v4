@@ -23,7 +23,7 @@
             android:id="@+id/tableLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/verde_acqua"
+            android:background="@drawable/border"
             android:gravity="top"></TableLayout>
 
     </ScrollView>

@@ -3,7 +3,7 @@
     android:id="@+id/tableRow"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/verde_acqua">
+    android:background="@drawable/border">
 
     <TextView
         android:id="@+id/textViewColonna"
@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="0dp"
         android:height="45dp"
-        android:background="@color/verde_acqua"
         android:gravity="center"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
