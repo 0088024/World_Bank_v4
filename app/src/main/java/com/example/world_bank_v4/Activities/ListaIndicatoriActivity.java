@@ -55,7 +55,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
 
 
-
     @Override
     public String costruisciApi(){
         /*costruisci la stringa api per ottenere una lista di indicatori relativi all'argomento
@@ -77,28 +76,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         /*l'adattatore prende i dati dalla lista e li passa alla vista*/
         super.setAdapter(new MyGenericoAdapter(this, R.layout.riga_layout_indicators,
                                         super.getListaOggetti()));
-    }
-
-
-
-
-    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
-    prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
-    dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-
-
-    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
-    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
-    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
-    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
-    @Override
-    public void onPause(){
-        super.onPause();
     }
 
 
@@ -130,6 +107,14 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
     }
 
 
+    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
+    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
+    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
+    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
 
 
     @Override

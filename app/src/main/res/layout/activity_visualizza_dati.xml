@@ -21,9 +21,9 @@
 
         <TableLayout
             android:id="@+id/tableLayout"
-            android:background="#000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/verde_acqua"
             android:gravity="top"></TableLayout>
 
     </ScrollView>
