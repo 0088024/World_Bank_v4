@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_di_scelta,menu);
-
         return true;
     }
 

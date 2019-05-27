@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/Menu_1"
-        android:title="@string/Menu_1"/>
+        android:icon="@drawable/world_bank"
+        android:title="@string/Menu_1" />
+
     <item
         android:id="@+id/Menu_2"
-        android:title="@string/Menu_2"/>
+        android:icon="@drawable/world_bank"
+        android:title="@string/Menu_2" />
 
     <item
         android:id="@+id/Menu_3"
-        android:title="@string/Menu_3"/>
+        android:icon="@drawable/world_bank"
+        android:title="@string/Menu_3" />
+
 
 </menu>
