@@ -24,12 +24,16 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     private Cursor cursor;
     private Intent intent;
     private Bundle bundle;
+    private long id_record;
+    private Bundle savedInstanceState;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizza_dati);
+        this.savedInstanceState = savedInstanceState;
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
@@ -41,6 +45,22 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
 
 
 
+    /*ripristina lo stato dell'istanza precedentemente salvato nel Bundle ora ricevuto dal S.O.
+    Quest'ultimo chiama questo metodo solo se bundle != null */
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d(Costanti.NOME_APP,
+                this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
+
+        /*se è != null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
+        è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
+        vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
+        precedenza in onSaveInstancestate()*/
+        id_record = savedInstanceState.getLong(Costanti.ID_RECORD_TABELLA);
+    }
+
+
 
     @Override
     public void onResume() {
@@ -49,13 +69,15 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         /*se non è stata lanciata da CaricaDati ma ripresa dopo onPause(), deve recuperare le
         variabili d'istanza da disco*/
-        intent = getIntent();
-        bundle = intent.getExtras();
-        if(bundle == null){
+        if(savedInstanceState == null){
             /*carica dati da disco*/
         }
-        else
-            new CaricaDatabaseTask(bundle.getLong(Costanti.ID_RECORD_TABELLA)).execute();
+        else{
+            intent = getIntent();
+            bundle = intent.getExtras();
+            id_record = bundle.getLong(Costanti.ID_RECORD_TABELLA);
+            new CaricaDatabaseTask(id_record).execute();
+        }
     }
 
 
@@ -193,6 +215,20 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         setResult(RESULT_OK,intent); // Informa l'attività chiamante con un codice
         finish();
         return false;
+    }
+
+
+
+
+
+
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
+        savedInstanceState.putLong(Costanti.ID_RECORD_TABELLA, id_record);
     }
 
 

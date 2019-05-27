@@ -216,7 +216,6 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
 
 
 
-
     @Override
     protected void onPause(){
         super.onPause();
