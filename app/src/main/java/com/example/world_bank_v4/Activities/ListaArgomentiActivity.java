@@ -21,11 +21,9 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         /*"specializza activity*/
         setContentView(R.layout.activity_lista_argomenti);
         getSupportActionBar().setLogo(R.drawable.topic);
-
     }
 
 
@@ -34,8 +32,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
     public void onResume(){
         ArrayList<Argomento> lista_argomenti = new ArrayList<Argomento>();
         TypeToken<ArrayList<Argomento>> listTypeToken = new TypeToken<ArrayList<Argomento>>() {};
-
-        super.setIdListView( R.id.list_view);
+        super.setIdListView(R.id.list_view);
         super.setProgressBar(R.id.progressBar);
         super.setLista_oggetti(lista_argomenti);
         super.setTypeToken(listTypeToken);

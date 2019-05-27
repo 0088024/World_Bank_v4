@@ -35,6 +35,9 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
+
         progressBar = findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
@@ -45,6 +48,14 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     }
 
 
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
+
+    }
 
 
 
@@ -192,14 +203,14 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-
-
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
     }
 
 
     /*se le risorse sono aperte, le chiude*/
     @Override
     protected void onDestroy(){
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
         dbManager.close();
         if(!cursor.isClosed())
             cursor.close();

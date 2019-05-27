@@ -47,10 +47,18 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
 
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
         progressBar = findViewById(R.id.progressBar);
         listView = findViewById(R.id.list_view_carica_dati);
-
         new CaricaDatabaseTask().execute();
 
     }
@@ -216,6 +224,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onPause(){
         super.onPause();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
     }
 
 
@@ -226,6 +235,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     poca memoria la onDestroy() potrebbe non essere chiamata*/
     @Override
     protected void onDestroy(){
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
         dbManager.close();
         if(!cursor.isClosed())
             cursor.close();
