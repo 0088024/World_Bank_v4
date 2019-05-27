@@ -84,6 +84,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestoreInstanceState(Bundle bundle){
         super.onRestoreInstanceState(bundle);
+        Log.d(Costanti.NOME_APP,
+                this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
+
         /*se è != null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
         è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
         vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
@@ -445,9 +448,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     protected void onDestroy(){
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
-
         super.onDestroy();
-
     }
 
 
