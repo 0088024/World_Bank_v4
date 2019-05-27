@@ -1,6 +1,6 @@
 package com.example.world_bank_v4.Activities;
 
-import android.app.SearchManager;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -65,12 +65,13 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item){
 
         Intent intent;
-        Bundle bundle;
         int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.worldbank.org"));
-                startActivity(intent);
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(Costanti.WORLDBANK_SITE));
+                /* If there are more than one browser installed, a window will appear to allow the user to choose what he prefers.*/
+                startActivity(Intent.createChooser(intent,Costanti.CHOOSE_BROWSER));
                 break;
 
             case R.id.Menu_2:
