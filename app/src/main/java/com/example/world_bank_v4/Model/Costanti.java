@@ -31,6 +31,7 @@ public final class Costanti {
                                             "json_file_indicatori_per_argomento";
     public static final String KEY_JSON_FILE_INDICATORE_PER_PAESE =
                                             "json_file_indicatore_per_paese";
+    public static final String KEY_RECORD_ID = "id_record_visualizza_dati";
 
     public static final String PREFERENCES_FILE_PAESI = "Preferences_Paesi";
     public static final String PREFERENCES_FILE_ARGOMENTI = "Preferences_Argomenti";
@@ -38,6 +39,7 @@ public final class Costanti {
                                             "Preferences_Indicatori_per_argomento";
     public static final String PREFERENCES_FILE_INDICATORE_PER_PAESE =
                                             "Preferences_Indicatore_per_Paese";
+    public static final String PREFERENCES_FILE_VISUALIZZA_DATI = "Preferences_Visualizza_Dati";
 
 
     public static final String NOME_UNICO_FILE_PNG = "nome_unico_file.png";

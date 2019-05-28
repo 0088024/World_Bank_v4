@@ -1,6 +1,8 @@
 package com.example.world_bank_v4.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +28,6 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     private Bundle bundle;
     private long id_record;
     private Bundle savedInstanceState;
-
 
 
     @Override
@@ -73,19 +74,23 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         bundle = intent.getExtras();
         if(bundle != null) {
             id_record = bundle.getLong(Costanti.ID_RECORD_TABELLA);
-            Log.d(Costanti.NOME_APP, String.valueOf(id_record));
+            Log.d(Costanti.NOME_APP, "recuperati dati da bundle_prec: " +
+                    String.valueOf(id_record));
         }
         /*altrimenti se non è stata lanciata da CaricaDati ma ripresa dopo onPause()*/
         else {
-
-            /*e ha ricevuto il bundle dal S.O., le varibili le ha già recuperate in
-            onRestoreInstanceState(9*/
-            if (savedInstanceState != null) { }
-            /*se invece come sopra, ma non ha ricevuto il Bundle deve recuperare da disco le varibili
-            di stato*/
+            /*e non ha ricevuto il Bundle in onRestoreInstanceState(), deve recuperare da disco
+            le varibili di stato*/
             if (savedInstanceState == null) {
-                Log.d(Costanti.NOME_APP, "recupera dati da disco");
+                SharedPreferences sharedPreferences =
+                        getSharedPreferences(Costanti.PREFERENCES_FILE_VISUALIZZA_DATI,
+                                                        Context.MODE_PRIVATE);
+                id_record = sharedPreferences.getLong(Costanti.KEY_RECORD_ID, 0);
+                Log.d(Costanti.NOME_APP, "recuperati dati da disco: "+
+                        String.valueOf(id_record));
             }
+            /*se invece ha già ricevuto il bundle dal S.O., le varibili le ha già recuperate in
+            onRestoreInstanceState()*/
         }
         new CaricaDatabaseTask(id_record).execute();
 
