@@ -1,5 +1,6 @@
 package com.example.world_bank_v4.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -124,6 +125,12 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
+        SharedPreferences sharedPref =
+                getSharedPreferences(Costanti.PREFERENCES_FILE_VISUALIZZA_DATI,
+                        Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putLong(Costanti.KEY_RECORD_ID, id_record);
+        editor.apply();
     }
 
 
