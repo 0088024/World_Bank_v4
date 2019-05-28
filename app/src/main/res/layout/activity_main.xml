@@ -86,7 +86,7 @@
         android:drawableLeft="@drawable/storageok"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="@string/loading_data_offline"
+        android:text="@string/load_data_offline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
