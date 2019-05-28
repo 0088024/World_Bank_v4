@@ -27,6 +27,7 @@ public class MostraGraficoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
         setContentView(R.layout.mostra_png_salvato_prima);
          /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
@@ -34,10 +35,18 @@ public class MostraGraficoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.graph);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+    }
+
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
         progressBar = findViewById(R.id.progressBar5);
         imageView = findViewById(R.id.imageView);
         new CaricaFileTask(imageView).execute(Costanti.NOME_UNICO_FILE_PNG);
     }
+
 
 
     @Override
