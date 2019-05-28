@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorbackgroundlist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.ListaPaesiActivity">
@@ -9,7 +10,7 @@
     <ListView
         android:id="@+id/list_view_paesi"
         android:layout_width="0dp"
-        android:layout_height="509dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

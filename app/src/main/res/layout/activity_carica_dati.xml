@@ -10,7 +10,7 @@
     <ListView
         android:id="@+id/list_view_carica_dati"
         android:layout_width="0dp"
-        android:layout_height="509dp"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
