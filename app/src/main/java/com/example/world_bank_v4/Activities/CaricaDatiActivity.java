@@ -62,6 +62,44 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     }
 
 
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESTART");
+    }
+
+
+
+
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
+    }
+
+
+    /*se le risorse sono aperte, le chiude*/
+    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
+    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
+    costosi da chiamare. Tuttavia forse è meglio rilasciarlo qui le risorse perchè in caso di
+    poca memoria la onDestroy() potrebbe non essere chiamata*/
+    @Override
+    protected void onDestroy(){
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
+        if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
+                               l'utente torna indietro.*/
+            dbManager.close();
+
+        if(!cursor.isClosed())
+            cursor.close();
+        super.onDestroy();
+    }
+
+
+
+
     /*restituisce 1 stringa che mostra il contenuto di tutte le colonne del record puntato dal
     cursore*/
     private String showCursor(Cursor cursor) {
@@ -214,31 +252,6 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         listView.setAdapter(cursorAdapter);
     }
 
-
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
-    }
-
-
-    /*se le risorse sono aperte, le chiude*/
-    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
-    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
-    costosi da chiamare. Tuttavia forse è meglio rilasciarlo qui le risorse perchè in caso di
-    poca memoria la onDestroy() potrebbe non essere chiamata*/
-    @Override
-    protected void onDestroy(){
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
-        if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
-                               l'utente torna indietro.*/
-            dbManager.close();
-
-        if(!cursor.isClosed())
-            cursor.close();
-        super.onDestroy();
-    }
 
 
 

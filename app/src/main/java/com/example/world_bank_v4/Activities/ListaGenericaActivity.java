@@ -107,7 +107,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                                                 "File non esiste");
         nomePaeseSelezionato = savedInstanceState.getString(Costanti.NOME_PAESE_SELEZIONATO,
                                                 "File non esiste");
-        caricaLayoutLista();
+        caricaLayout();
     }
 
 
@@ -143,6 +143,58 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onRestart(){
         super.onRestart();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESTART");
+    }
+
+
+
+    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
+    prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
+    dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
+        savedInstanceState.putString(KEY_JSON_FILE, json_file);
+        savedInstanceState.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
+        savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
+        savedInstanceState.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
+                nomeIndicatoreSelezionato);
+        savedInstanceState.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
+        savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
+        savedInstanceState.putString(Costanti.NOME_PAESE_SELEZIONATO,
+                nomePaeseSelezionato);
+    }
+
+
+
+    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
+    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
+    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
+    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
+        SharedPreferences sharedPref =
+                getSharedPreferences(NOME_FILE_PREFERENCES, Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(KEY_JSON_FILE, json_file);
+        editor.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
+        editor.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
+        editor.putString(Costanti.NOME_INDICATORE_SELEZIONATO, nomeIndicatoreSelezionato);
+        editor.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
+        editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
+        editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
+        editor.apply();
+    }
+
+
+    /*richiamato giusto prima che l’activity venga distrutta.Se la memoria e’ poca, il metodo NON
+    verra’ richiamato e Android killera’ il processo associato all’applicazione*/
+    @Override
+    protected void onDestroy(){
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
+        super.onDestroy();
     }
 
 
@@ -196,7 +248,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                                     "File non esiste");
                 }
 
-                caricaLayoutLista();
+                caricaLayout();
                 return;
             }
 
@@ -223,7 +275,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>,
     e collega quest'ultima alla listView tramite l'adattatore che instanzia*/
-    protected void caricaLayoutLista(){
+    protected void caricaLayout(){
 
         if(error_file==null) {  // Controlla se ci sono stati eventuali errori
 
@@ -251,48 +303,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
-    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
-    prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
-    dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
-        savedInstanceState.putString(KEY_JSON_FILE, json_file);
-        savedInstanceState.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
-        savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
-        savedInstanceState.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
-                nomeIndicatoreSelezionato);
-        savedInstanceState.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
-        savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
-        savedInstanceState.putString(Costanti.NOME_PAESE_SELEZIONATO,
-                nomePaeseSelezionato);
-    }
-
-
-
-    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
-    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
-    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
-    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
-    @Override
-    public void onPause(){
-        super.onPause();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
-        SharedPreferences sharedPref =
-                getSharedPreferences(NOME_FILE_PREFERENCES, Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(KEY_JSON_FILE, json_file);
-        editor.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
-        editor.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
-        editor.putString(Costanti.NOME_INDICATORE_SELEZIONATO, nomeIndicatoreSelezionato);
-        editor.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
-        editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
-        editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
-        editor.apply();
-    }
-
-
 
     /*se l'utente preme il pulsante indietro l'attività viene semplicemente terminata ed espulsa
    dallo stack activity, in modo da far tornare in 1°piano quella che l'aveva lanciata*/
@@ -312,6 +322,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         bundle_succ = new Bundle();
         bundle_succ.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
     }
+
 
 
     /*thread che in background scarica in una stringa il file json di pertinenza*/
@@ -404,9 +415,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
                 setProgressBarGone();  /*Sopprimi la progressBar*/
                 json_file = risultato;
-                caricaLayoutLista();
+                caricaLayout();
         }
     }
+
 
 
     @Override
@@ -433,15 +445,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             // Errore previsto ad es. nessun dato disponibile per un certo paese
             ReturningWithResult = true;
         }
-    }
-
-
-    /*richiamato giusto prima che l’activity venga distrutta.Se la memoria e’ poca, il metodo NON
-    verra’ richiamato e Android killera’ il processo associato all’applicazione*/
-    @Override
-    protected void onDestroy(){
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
-        super.onDestroy();
     }
 
 

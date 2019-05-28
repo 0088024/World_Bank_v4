@@ -62,6 +62,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
 
 
 
+
     @Override
     public void onResume() {
         super.onResume();
@@ -89,6 +90,53 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         new CaricaDatabaseTask(id_record).execute();
 
     }
+
+
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESTART");
+    }
+
+
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
+        savedInstanceState.putLong(Costanti.ID_RECORD_TABELLA, id_record);
+    }
+
+
+
+    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
+    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
+    costosi da chiamare. Tuttavia forse è meglio rilasciarlo qui le risorse perchè in caso di
+    poca memoria la onDestroy() potrebbe non essere chiamata*/
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
+    }
+
+
+
+    /*se le risorse sono aperte, le chiude*/
+    @Override
+    protected void onDestroy(){
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
+        if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
+                               l'utente torna indietro.*/
+            dbManager.close();
+
+        if(!cursor.isClosed())
+            cursor.close();
+        super.onDestroy();
+
+    }
+
 
 
 
@@ -225,47 +273,6 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         setResult(RESULT_OK,intent); // Informa l'attività chiamante con un codice
         finish();
         return false;
-    }
-
-
-
-
-
-
-
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
-        savedInstanceState.putLong(Costanti.ID_RECORD_TABELLA, id_record);
-    }
-
-
-
-    /*chiude il database: è ottimale lasciare aperta la connessione al database x tutto il tempo
-    necessario ad accedervi, in quanto getWritableDatabase() getReadableDatabase() sono
-    costosi da chiamare. Tuttavia forse è meglio rilasciarlo qui le risorse perchè in caso di
-    poca memoria la onDestroy() potrebbe non essere chiamata*/
-    @Override
-    protected void onPause(){
-        super.onPause();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
-    }
-
-
-    /*se le risorse sono aperte, le chiude*/
-    @Override
-    protected void onDestroy(){
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
-        if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
-                               l'utente torna indietro.*/
-            dbManager.close();
-
-        if(!cursor.isClosed())
-            cursor.close();
-        super.onDestroy();
-
     }
 
 
