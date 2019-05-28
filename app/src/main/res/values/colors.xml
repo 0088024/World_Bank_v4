@@ -3,6 +3,7 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorNero">#000000</color>
     <color name="colorActionBar">#A0A0A0</color>
     <color name="colorAccent">#888666</color>
     <color name="colorbackgroundlist">#77A7FFEB</color>

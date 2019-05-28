@@ -8,7 +8,7 @@
     <string name="select_country">SELECT COUNTRY</string>
     <string name="select_topics">SELECT TOPICS</string>
     <string name="load_previus_image">LOAD PREVIUS IMAGE</string>
-    <string name="loading_data_offline">LOADIN DATA OFFLINE</string>
+    <string name="load_data_offline">LOAD DATA OFFLINE</string>
     <string name="dialog_contacts1">FPR-IOL2018</string>
     <string name="dialog_contacts2">Mobile Programming</string>
     <string name="dialog_contacts3">CORSO DI LAUREA ING. INFORMATICA</string>
