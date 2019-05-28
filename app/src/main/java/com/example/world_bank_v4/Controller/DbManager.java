@@ -156,4 +156,50 @@ public class DbManager {
     }
 
 
+    /*restituisce 1 stringa che mostra il contenuto di tutte le colonne del record puntato dal
+    cursore*/
+    public String showCursor(Cursor cursor) {
+        cursor.moveToPosition(-1);
+        String cursorData = "\nCursor: [";
+        try {
+            String[] colName = cursor.getColumnNames();
+            for(int i=0; i<colName.length; i++) {
+                String dataType = getColumnType(cursor, i);
+                cursorData += colName[i] + dataType;
+                if (i<colName.length-1)
+                    cursorData+= ", ";
+            }
+        } catch (Exception e) {
+            Log.e( "<<SCHEMA>>" , e.getMessage() );
+        }
+        cursorData += "]";
+        cursor.moveToPosition(-1);
+        while (cursor.moveToNext()) {
+            String cursorRow = "\n[";
+            for (int i = 0; i < cursor.getColumnCount(); i++) {
+                cursorRow += cursor.getString(i);
+                if (i<cursor.getColumnCount()-1)
+                    cursorRow += ", ";
+            }
+            cursorData += cursorRow + "]";
+        }
+        return cursorData + "\n";
+    }
+
+
+    /*restituisce 1 stringa con il tipo di dato della colonna con indice "i" */
+    public String getColumnType(Cursor cursor, int i) {
+        try {
+            cursor.moveToFirst();
+            int result = cursor.getType(i);
+            String[] types = { ":NULL", ":INT", ":FLOAT", ":STR", ":BLOB", ":UNK" };
+            cursor.moveToPosition(-1);
+            return types[result];
+        } catch (Exception e) {
+            return " ";
+        }
+    }
+
+
+
 }

@@ -22,6 +22,7 @@ import com.example.world_bank_v4.Dialog.DialogDataBase;
 import com.example.world_bank_v4.Dialog.DialogShowImage;
 import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Model.ElementoGenerico;
+import com.example.world_bank_v4.Model.Indicatore;
 import com.example.world_bank_v4.Model.Intestazione;
 import com.example.world_bank_v4.Model.RecordTabella;
 import com.example.world_bank_v4.Model.ValoreGrafico;
@@ -71,39 +72,35 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
 
-
         /*"specializza activity*/
         setContentView(R.layout.activity_grafico);
         getSupportActionBar().setLogo(R.drawable.graph);
+    }
 
+
+    @Override
+    public void onResume(){
         /*in this example, a LineChart is initialized from xml*/
         chart = findViewById(R.id.chart);
         textView_chart_titolo = findViewById(R.id.textView_chart_titolo);
         textView_chart_sottotitolo = findViewById(R.id.textView_chart_sottotitolo);
-
         button_salva_grafico = findViewById(R.id.button_salva_grafico);
         button_salva_grafico.setOnClickListener(this);
         button_salva_database = findViewById(R.id.button_salva_database);
         button_salva_database.setOnClickListener(this);
-
         super.setProgressBar(R.id.progressBar);
-
         lista_grafico = new ArrayList<ValoreGrafico>();
         TypeToken<ArrayList<ValoreGrafico>> listTypeToken =
                 new TypeToken<ArrayList<ValoreGrafico>>() {};
-
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
-
         /*per costruire l'api devo aspettare che la classe ListaIndicatoriActivity mi passi
         l'intento con il Paese selezionato dall'utente*/
         super.setAPI_WORLD_BANK(null);
-
-        /*ottiene dal sito a dal disco i dati che occorrono a riempire la ListView, e li collega
-        a quest'ultima*/
-        super.caricaVariabili();
+        super.onResume();
     }
+
 
 
 
@@ -179,7 +176,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             setResult(RESULT_FIRST_USER,intent);
             finish();
         }
-
 
     }
 

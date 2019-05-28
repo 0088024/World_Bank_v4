@@ -424,6 +424,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent intent;
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
+
 
         this.requestCode= requestCode;
         ReturningWithResult=false;
