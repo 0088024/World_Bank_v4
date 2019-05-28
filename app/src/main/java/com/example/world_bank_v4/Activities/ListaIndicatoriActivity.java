@@ -48,10 +48,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
     }
 
 
-    @Override
-    public void onRestart(){
-        super.onRestart();
-    }
 
 
 
@@ -106,15 +102,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         startActivityForResult(intent_succ,Costanti.lista_indicatori_code);
     }
 
-
-    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
-    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
-    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
-    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
-    @Override
-    public void onPause(){
-        super.onPause();
-    }
 
 
     @Override

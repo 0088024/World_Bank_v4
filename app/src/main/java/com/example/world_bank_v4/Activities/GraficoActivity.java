@@ -107,6 +107,19 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
 
+    /*se le risorse sono aperte, le chiude*/
+    @Override
+    protected void onDestroy(){
+        if(dbManager != null) {  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
+                                l'utente torna indietro.*/
+            dbManager.close();
+        }
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
+        super.onDestroy();
+    }
+
+
+
     @Override
     public String costruisciApi(){
         /*costruisci la stringa api per ottenere una lista di valori relativi
@@ -123,60 +136,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         Log.d(Costanti.NOME_APP,"api_indicatore_per_paese:  " +api_indicatore_per_paese);
         return api_indicatore_per_paese.toString();
     }
-
-
-
-    /*serve x salvare in un oggetto Bundle di sistema il file json*. E' chiamato dal sistema
-    prima di far entrare l'attività in onPause(). Se però l'attività è chiusa esplicitamente
-    dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
-
-    }
-
-
-    @Override
-    public void onRestart(){
-        super.onRestart();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESTART");
-    }
-
-
-   /* @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
-    }*/
-
-
-
-    /*unico metodo sicuro per salvare dati: se infatti non li salvo qua, l'oggetto Bundle salvato
-    in onSaveInstanceState() non viene salvato. O meglio, non mi viene passato in Oncreate().
-    La guida dice che se l'attività viene distrutta per vincoli di sistema, il s.o. dovrebbe, ma
-    non è sicuro, ripristinare (e quindi passando il Bundle) e non crerae una nuova istanza.*/
-    @Override
-    public void onPause(){
-        super.onPause();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
-
-    }
-
-
-
-    /*se le risorse sono aperte, le chiude*/
-    @Override
-    protected void onDestroy(){
-        if(dbManager != null) {  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
-                                l'utente torna indietro.*/
-            dbManager.close();
-        }
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
-        super.onDestroy();
-    }
-
-
 
 
 
