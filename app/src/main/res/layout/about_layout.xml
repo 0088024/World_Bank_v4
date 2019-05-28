@@ -3,51 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#98AFC7">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textabout"
+        android:layout_width="356dp"
+        android:layout_height="155dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="43dp"
+        android:paddingLeft="3sp"
+        android:paddingRight="2sp"
+        android:text="@string/aboutinfo"
+        android:textColor="#000000"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <TextView
         android:id="@+id/textabout1"
+        style="@style/styleDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="256dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="234dp"
         android:text="@string/about_wb"
-        android:textColor="#000000"
-        android:textSize="23sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textabout" />
 
     <TextView
-        android:id="@+id/textabout2"
+        android:id="@+id/textView11"
+        style="@style/styleDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="114dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="166dp"
-        android:text="CORSO DI LAUREA ING. INFORMATICA"
-        android:textSize="13sp"
-        android:textStyle="bold"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="320dp"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.395"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textabout3"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="114dp"
-        android:layout_marginTop="76dp"
-        android:layout_marginEnd="214dp"
+        android:layout_width="356dp"
+        android:layout_height="155dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="40dp"
+        android:paddingLeft="3sp"
+        android:paddingRight="2sp"
         android:text="@string/aboutinfo"
+        android:textColor="#000000"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.353"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textabout1" />
+
+
 
 </android.support.constraint.ConstraintLayout>

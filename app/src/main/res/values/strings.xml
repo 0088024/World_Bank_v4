@@ -5,8 +5,14 @@
     <string name="title_activity_lista_paese_activity">Select Countries</string>
     <string name="title_activity_lista_argomenti">Select Topics</string>
     <string name="title_activity_lista_indicatori">Select Indicators</string>
-    <string name="logo3">FPR-IOL2018</string>
-    <string name="about_wb">About as ...</string>
+    <string name="select_country">SELECT COUNTRY</string>
+    <string name="select_topics">SELECT TOPICS</string>
+    <string name="load_previus_image">LOAD PREVIUS IMAGE</string>
+    <string name="loading_data_offline">LOADIN DATA OFFLINE</string>
+    <string name="dialog_contacts1">FPR-IOL2018</string>
+    <string name="dialog_contacts2">Mobile Programming</string>
+    <string name="dialog_contacts3">CORSO DI LAUREA ING. INFORMATICA</string>
+    <string name="about_wb">App World Bank</string>
     <string name="title_activity_grafico">Ceck Graph</string>
     <string name="title_activity_carica_dati">Carica Dati Offline</string>
     <string name="title_activity_mostra_png_precedentemente_salvata">Immagine png</string>
@@ -35,7 +41,30 @@
     <string name="tel_geremia">320 5641325</string>
     <string name="email_geremia">geremia7777@gmail.com</string>
     <string name="aboutinfo">
-        questa app è stata sviluppata tramite indicazioni segnalate dal prof. Regoli
+        Questa app è stata sviluppata tramite indicazioni segnalate dal prof. Regoli.
+        Inizialmente è stata effettuata un analisi delle caratteristiche richieste e successivamete
+        dopo la suddivisione dei compiti è iniziato lo sviluppo.
+        Abbiamo cercato di realizzare un app robusta e piacevole nella ricerca.
+        A partire dalla versione 5 (o 1.5) il linguaggio Java si è molto evoluto, diventando
+        estremamente più complesso e potente, e obbligando gli sviluppatori ad aggiornare le
+        proprie conoscenze non senza sforzi. Tale svolta è dovuta essenzialmente alla
+        concorrenza spietata dei nuovi linguaggi che sono nati in questi anni, e che cercano di
+        insediare la leadership che Java si è saputa creare in diverse nicchie tecnologiche. Il
+        cambiamento di rotta che il linguaggio ha subito va verso una complessità maggiore, con
+        l’introduzione di nuove potenti caratteristiche, come le enumerazioni, i generics o le
+        annotazioni.
+        La versione 5 di Java, per esigenze di marketing è nota anche sotto il nome di “Tiger”
+        (in italiano “tigre”).
+        Questo testo affronta in modo approfondito le nuove caratteristiche introdotte da Tiger
+        ma senza tralasciare tutte le altre evoluzioni del linguaggio dalla versione 1.0 in poi.
+        Lo studio di questo testo quindi, oltre che al neofita che si avvicina alla programmazione
+        orientata agli oggetti, è consigliato anche al programmatore Java già affermato che vuole
+        aggiornarsi alle principali caratteristiche della versione 5 di Java.
+        Come già detto, è un testo molto adatto alla didattica, e quindi dovrebbe risultare un
+        ottimo strumento per diversi corsi di programmazione sia universitari sia aziendali.
+        Infine, il libro copre tutti gli argomenti che fanno parte della certificazione Sun Certified
+        Java Programmer (codice CX-310-055), e quindi può risultare molto utile anche per
+        prepararsi al test finale.
     </string>
     <string name="titolo_grafico">titolo grafico</string>
     <string name="sottotitolo_chart">sottotitolo chart</string>

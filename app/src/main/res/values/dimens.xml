@@ -1,4 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="body_width">150dp</dimen>
+    <dimen name="Image_Main">280dp</dimen>
+    <dimen name="h_button_Main">59dp</dimen>
+
 </resources>

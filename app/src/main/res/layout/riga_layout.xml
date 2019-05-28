@@ -10,10 +10,11 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="31dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/background_row"
         style="@style/styleLayout"
         android:text="@string/nome_paese"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,6 +22,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@android:color/darker_gray"/>
 
 
 </android.support.constraint.ConstraintLayout>
