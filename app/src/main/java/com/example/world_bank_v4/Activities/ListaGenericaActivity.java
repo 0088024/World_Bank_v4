@@ -84,9 +84,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestoreInstanceState(Bundle bundle){
         super.onRestoreInstanceState(bundle);
+        if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName())
+            return;
+
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
-
         /*se è != null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
         è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
         vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
@@ -94,19 +96,19 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         json_file = savedInstanceState.getString(KEY_JSON_FILE,
                     "File non esiste");
         nomeClasseSelezionata = savedInstanceState.getString(Costanti.NOME_CLASSE_SELEZIONATA,
-                                                "File non esiste");
+                    "File non esiste");
         /*può tornare null se l'attività è stata lanciata dalla MainActivity piuttosto che
         dalla ListaIndicatoriActivity, ma non ci interessa in questo punto del "percorso"*/
         idIndicatoreSelezionato = savedInstanceState.getString(Costanti.ID_INDICATORE_SELEZIONATO,
-                                                "File non esiste");
+                    "File non esiste");
         nomeIndicatoreSelezionato = savedInstanceState.getString(Costanti.NOME_INDICATORE_SELEZIONATO,
-                                                "File non esiste");
+                    "File non esiste");
         idArgomentoSelezionato = savedInstanceState.getString(Costanti.ID_ARGOMENTO_SELEZIONATO,
-                                                "File non esiste");
+                    "File non esiste");
         idPaeseSelezionato = savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO,
-                                                "File non esiste");
+                    "File non esiste");
         nomePaeseSelezionato = savedInstanceState.getString(Costanti.NOME_PAESE_SELEZIONATO,
-                                                "File non esiste");
+                    "File non esiste");
         caricaLayout();
     }
 
@@ -153,6 +155,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+        /*causa eccessiva dimensione di alcune liste di indicatori, tali da generare ExceptionBundle
+        size, l'activity ListaIndicatori non salva lo stato dell'istanza nel bundle, ma solo sul
+        disco*/
+        if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName())
+            return;
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
         savedInstanceState.putString(KEY_JSON_FILE, json_file);
         savedInstanceState.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);

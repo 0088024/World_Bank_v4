@@ -79,6 +79,4 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         startActivityForResult(intent_succ,Costanti.lista_argomenti_code);
     }
 
-
-
 }
