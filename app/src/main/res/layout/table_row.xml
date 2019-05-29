@@ -3,34 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tableRow"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/textViewColonna"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
         android:background="@drawable/border"
-        android:gravity="center"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
         android:text="@string/text_view_colonna"
+        android:gravity="center"
+        android:padding="8dp"
         android:textStyle="bold" />
 
 
     <TextView
         android:id="@+id/textViewValore"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="2dp"
-        android:autoText="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/border"
-        android:gravity="clip_horizontal|center"
-        android:paddingLeft="4dp"
         android:text="@string/text_view_valore"
-        android:textStyle="normal|italic"
-        app:autoSizeTextType="none" />
-
+        android:padding="8dp"
+        android:textStyle="normal" />
 
 
 </TableRow>
