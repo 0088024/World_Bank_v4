@@ -83,7 +83,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestoreInstanceState(Bundle bundle){
         super.onRestoreInstanceState(bundle);
-        this.savedInstanceState = savedInstanceState;
+        this.savedInstanceState = bundle;
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName())
             return;
 
@@ -93,22 +93,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
         vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
         precedenza in onSaveInstancestate()*/
-        json_file = savedInstanceState.getString(KEY_JSON_FILE,
-                    "File non esiste");
-        nomeClasseSelezionata = savedInstanceState.getString(Costanti.NOME_CLASSE_SELEZIONATA,
-                    "File non esiste");
-        /*può tornare null se l'attività è stata lanciata dalla MainActivity piuttosto che
-        dalla ListaIndicatoriActivity, ma non ci interessa in questo punto del "percorso"*/
-        idIndicatoreSelezionato = savedInstanceState.getString(Costanti.ID_INDICATORE_SELEZIONATO,
-                    "File non esiste");
-        nomeIndicatoreSelezionato = savedInstanceState.getString(Costanti.NOME_INDICATORE_SELEZIONATO,
-                    "File non esiste");
-        idArgomentoSelezionato = savedInstanceState.getString(Costanti.ID_ARGOMENTO_SELEZIONATO,
-                    "File non esiste");
-        idPaeseSelezionato = savedInstanceState.getString(Costanti.ID_PAESE_SELEZIONATO,
-                    "File non esiste");
-        nomePaeseSelezionato = savedInstanceState.getString(Costanti.NOME_PAESE_SELEZIONATO,
-                    "File non esiste");
+        getFromBundle(bundle);
     }
 
 
@@ -220,40 +205,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             quella successiva) e non lanciata da quella precedente, quindi carico in memoria i
             dati dalle preferenze condivise precedentemente salvate*/
             if (bundle_prec == null) {
-                SharedPreferences sharedPreferences =
-                        getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
-                json_file = sharedPreferences.getString(KEY_JSON_FILE, "File non esiste");
-                nomeClasseSelezionata =
-                        sharedPreferences.getString(Costanti.NOME_CLASSE_SELEZIONATA,
-                                "File non esiste");
-                /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
-                dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
-                if (sharedPreferences.contains(Costanti.ID_INDICATORE_SELEZIONATO)) {
-                    idIndicatoreSelezionato =
-                            sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
-                                    "File non esiste");
-                }
-                if (sharedPreferences.contains(Costanti.NOME_INDICATORE_SELEZIONATO)) {
-                    nomeIndicatoreSelezionato =
-                            sharedPreferences.getString(Costanti.NOME_INDICATORE_SELEZIONATO,
-                                    "File non esiste");
-                }
-                if (sharedPreferences.contains(Costanti.ID_ARGOMENTO_SELEZIONATO)) {
-                    idArgomentoSelezionato =
-                            sharedPreferences.getString(Costanti.ID_ARGOMENTO_SELEZIONATO,
-                                    "File non esiste");
-                }
-                if (sharedPreferences.contains(Costanti.ID_PAESE_SELEZIONATO)) {
-                    idPaeseSelezionato =
-                            sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
-                                    "File non esiste");
-                }
-                if (sharedPreferences.contains(Costanti.NOME_PAESE_SELEZIONATO)) {
-                    nomePaeseSelezionato =
-                            sharedPreferences.getString(Costanti.NOME_PAESE_SELEZIONATO,
-                                    "File non esiste");
-                }
 
+                getFromSharedPreferences(); /*recupero le variabili di stato da disco*/
                 caricaLayout();
                 return;
             }
@@ -261,15 +214,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati dal
             bundle ricevuto nell'intent e scarico i vari dati che serviranno*/
             else{
-                nomeClasseSelezionata = bundle_prec.getString(Costanti.NOME_CLASSE_SELEZIONATA);
-                 /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
-                piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
-                punto del "percorso"*/
-                idIndicatoreSelezionato = bundle_prec.getString(Costanti.ID_INDICATORE_SELEZIONATO);
-                nomeIndicatoreSelezionato = bundle_prec.getString(Costanti.NOME_INDICATORE_SELEZIONATO);
-                idArgomentoSelezionato = bundle_prec.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
-                idPaeseSelezionato = bundle_prec.getString(Costanti.ID_PAESE_SELEZIONATO);
-                nomePaeseSelezionato = bundle_prec.getString(Costanti.NOME_PAESE_SELEZIONATO);
+                getFromBundle(bundle_prec); /*recupero le variabili di stato dal bundle ricevuto*/
                 /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
                 new DownloadFileTask().execute();
                 return;
@@ -277,8 +222,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         }
         /*altrimenti se il bundle è stato già recuerato in onRestoreInstanceSate()*/
-        else { caricaLayout(); }
-
+        else {caricaLayout();}
     }
 
 
@@ -431,6 +375,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Intent intent;
@@ -459,6 +404,60 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         }
     }
 
+
+
+    /*leggi dalle SharedPreferences e imposta le relativi variabili*/
+    private void getFromSharedPreferences(){
+
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
+        json_file = sharedPreferences.getString(KEY_JSON_FILE, "File non esiste");
+        nomeClasseSelezionata =
+                sharedPreferences.getString(Costanti.NOME_CLASSE_SELEZIONATA,
+                        "File non esiste");
+                /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
+                dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
+        if (sharedPreferences.contains(Costanti.ID_INDICATORE_SELEZIONATO)) {
+            idIndicatoreSelezionato =
+                    sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
+                            "File non esiste");
+        }
+        if (sharedPreferences.contains(Costanti.NOME_INDICATORE_SELEZIONATO)) {
+            nomeIndicatoreSelezionato =
+                    sharedPreferences.getString(Costanti.NOME_INDICATORE_SELEZIONATO,
+                            "File non esiste");
+        }
+        if (sharedPreferences.contains(Costanti.ID_ARGOMENTO_SELEZIONATO)) {
+            idArgomentoSelezionato =
+                    sharedPreferences.getString(Costanti.ID_ARGOMENTO_SELEZIONATO,
+                            "File non esiste");
+        }
+        if (sharedPreferences.contains(Costanti.ID_PAESE_SELEZIONATO)) {
+            idPaeseSelezionato =
+                    sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
+                            "File non esiste");
+        }
+        if (sharedPreferences.contains(Costanti.NOME_PAESE_SELEZIONATO)) {
+            nomePaeseSelezionato =
+                    sharedPreferences.getString(Costanti.NOME_PAESE_SELEZIONATO,
+                            "File non esiste");
+        }
+    }
+
+
+    private void getFromBundle(Bundle bundle){
+          nomeClasseSelezionata = bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
+          /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
+          piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
+          punto del "percorso"*/
+          idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+          nomeIndicatoreSelezionato = bundle.getString(Costanti.NOME_INDICATORE_SELEZIONATO);
+          idArgomentoSelezionato = bundle.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
+          idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
+          nomePaeseSelezionato = bundle.getString(Costanti.NOME_PAESE_SELEZIONATO);
+          json_file = bundle.getString(KEY_JSON_FILE);
+
+    }
 
 
     public void setIdListView(int idListView){
