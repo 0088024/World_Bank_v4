@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/wbdata"
     android:padding="8dp">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/border_white"
         android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:adjustViewBounds="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="24dp"
+            android:adjustViewBounds="false"
             android:contentDescription="@string/image_world_bank"
             android:cropToPadding="false"
             app:srcCompat="@drawable/wb_norid" />
@@ -41,13 +32,14 @@
             android:id="@+id/buttonPaese"
             style="@style/styleButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_grafico"
             android:drawableStart="@drawable/lente"
+            android:gravity="center"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:text="@string/select_country" />
@@ -57,9 +49,9 @@
             style="@style/styleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_grafico"
             android:drawableStart="@drawable/lente"
@@ -72,12 +64,13 @@
             style="@style/styleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_grafico"
             android:drawableStart="@drawable/graphicok"
+            android:gravity="center"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:text="@string/load_previus_image" />
@@ -87,16 +80,17 @@
             style="@style/styleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_grafico"
             android:drawableStart="@drawable/storageok"
+            android:gravity="center"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:text="@string/load_data_offline" />
     </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</ScrollView>
