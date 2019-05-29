@@ -93,7 +93,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
         vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
         precedenza in onSaveInstancestate()*/
-        getFromBundle(bundle);
+        getStateFromBundle(bundle);
     }
 
 
@@ -206,7 +206,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             dati dalle preferenze condivise precedentemente salvate*/
             if (bundle_prec == null) {
 
-                getFromSharedPreferences(); /*recupero le variabili di stato da disco*/
+                getStateFromSharedPreferences(); /*recupero le variabili di stato da disco*/
                 caricaLayout();
                 return;
             }
@@ -214,7 +214,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati dal
             bundle ricevuto nell'intent e scarico i vari dati che serviranno*/
             else{
-                getFromBundle(bundle_prec); /*recupero le variabili di stato dal bundle ricevuto*/
+                getStateFromBundle(bundle_prec); /*recupero le variabili di stato dal bundle ricevuto*/
                 /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
                 new DownloadFileTask().execute();
                 return;
@@ -406,8 +406,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
-    /*leggi dalle SharedPreferences e imposta le relativi variabili*/
-    private void getFromSharedPreferences(){
+    /*leggi dalle SharedPreferences e imposta le relativi variabili di stato dell'istanza*/
+    private void getStateFromSharedPreferences(){
 
         SharedPreferences sharedPreferences =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
@@ -445,7 +445,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
 
-    private void getFromBundle(Bundle bundle){
+    /*leggi dal Bundle e imposta le relativi variabili di stato dell'istanza*/
+    private void getStateFromBundle(Bundle bundle){
           nomeClasseSelezionata = bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
           /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
           piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
