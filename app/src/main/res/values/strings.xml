@@ -73,6 +73,7 @@
     <string name="button_cerca_argomento">SELECT TOPIC</string>
     <string name="button_carica_database">LOAD DATA OFFLINE</string>
     <string name="image_world_bank">image world bank</string>
+    <string name="image_png">image.png</string>
 
 
 </resources>
