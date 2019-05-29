@@ -258,25 +258,26 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 return;
             }
 
-            /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati del
+            /*altrimenti è stata lanciata da 1 attività precedente: nè recupero i dati dal
             bundle ricevuto nell'intent e scarico i vari dati che serviranno*/
-            nomeClasseSelezionata = bundle_prec.getString(Costanti.NOME_CLASSE_SELEZIONATA);
-            /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
-            piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
-            punto del "percorso"*/
-            idIndicatoreSelezionato = bundle_prec.getString(Costanti.ID_INDICATORE_SELEZIONATO);
-            nomeIndicatoreSelezionato = bundle_prec.getString(Costanti.NOME_INDICATORE_SELEZIONATO);
-            idArgomentoSelezionato = bundle_prec.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
-            idPaeseSelezionato = bundle_prec.getString(Costanti.ID_PAESE_SELEZIONATO);
-            nomePaeseSelezionato = bundle_prec.getString(Costanti.NOME_PAESE_SELEZIONATO);
+            else{
+                nomeClasseSelezionata = bundle_prec.getString(Costanti.NOME_CLASSE_SELEZIONATA);
+                 /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
+                piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
+                punto del "percorso"*/
+                idIndicatoreSelezionato = bundle_prec.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+                nomeIndicatoreSelezionato = bundle_prec.getString(Costanti.NOME_INDICATORE_SELEZIONATO);
+                idArgomentoSelezionato = bundle_prec.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
+                idPaeseSelezionato = bundle_prec.getString(Costanti.ID_PAESE_SELEZIONATO);
+                nomePaeseSelezionato = bundle_prec.getString(Costanti.NOME_PAESE_SELEZIONATO);
+                /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
+                new DownloadFileTask().execute();
+                return;
+            }
 
-            /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
-            new DownloadFileTask().execute();
-            return;
         }
-        else { /*altrimenti se il bundle è stato già recuerato in onRestoreInstanceSate()*/
-            caricaLayout();
-        }
+        /*altrimenti se il bundle è stato già recuerato in onRestoreInstanceSate()*/
+        else { caricaLayout(); }
 
     }
 
