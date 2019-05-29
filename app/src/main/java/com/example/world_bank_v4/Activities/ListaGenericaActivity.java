@@ -69,7 +69,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     {
         super.onCreate(savedInstanceState);
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
-        this.savedInstanceState = savedInstanceState;
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
@@ -84,6 +83,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestoreInstanceState(Bundle bundle){
         super.onRestoreInstanceState(bundle);
+        this.savedInstanceState = savedInstanceState;
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName())
             return;
 
@@ -109,7 +109,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                     "File non esiste");
         nomePaeseSelezionato = savedInstanceState.getString(Costanti.NOME_PAESE_SELEZIONATO,
                     "File non esiste");
-        caricaLayout();
     }
 
 
@@ -274,6 +273,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
             new DownloadFileTask().execute();
             return;
+        }
+        else { /*altrimenti se il bundle è stato già recuerato in onRestoreInstanceSate()*/
+            caricaLayout();
         }
 
     }

@@ -82,7 +82,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         else {
             /*e non ha ricevuto il Bundle in onRestoreInstanceState(), deve recuperare da disco
             le varibili di stato*/
-            if (savedInstanceState == null) {
+            if(savedInstanceState == null) {
                 SharedPreferences sharedPreferences =
                         getSharedPreferences(Costanti.PREFERENCES_FILE_VISUALIZZA_DATI,
                                                         Context.MODE_PRIVATE);
