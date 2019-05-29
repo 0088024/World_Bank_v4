@@ -42,7 +42,7 @@ public class MostraGraficoActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        progressBar = findViewById(R.id.progressBar5);
+        progressBar = findViewById(R.id.progressBar);
         imageView = findViewById(R.id.imageView);
         new CaricaFileTask(imageView).execute(Costanti.NOME_UNICO_FILE_PNG);
     }
