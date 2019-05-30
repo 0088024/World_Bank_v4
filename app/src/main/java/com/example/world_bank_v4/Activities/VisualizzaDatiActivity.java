@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -219,11 +220,14 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
 
                 //set tag for each TableRow
                 inflateRow.setTag(i);
-
                 TextView txv = inflateRow.findViewById(R.id.textViewColonna);
-                txv.setText(cursorRisultato.getColumnName(i));
+                if(i == 7)
+                    txv.setText("ANNI");
+                else txv.setText(cursorRisultato.getColumnName(i));
                 txv = inflateRow.findViewById(R.id.textViewValore);
-                txv.setText(cursorRisultato.getString(i));
+                if(i == 7)
+                    txv.setText("VALORE");
+                else txv.setText(cursorRisultato.getString(i));
 
                 //add TableRows to TableLayout
                 tableLayout.addView(inflateRow);
