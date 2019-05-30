@@ -13,9 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button_salva_grafico"
+        android:background="@color/colorActionBar"
+        android:progressBackgroundTint="@color/colorActionBar"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +31,8 @@
         android:layout_marginBottom="8dp"
         android:background="@color/colorbackgroundlist"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button_salva_database"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -39,10 +41,13 @@
             android:id="@+id/textView_chart_titolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_gravity="top"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:gravity="center"
+            android:padding="8dp"
             android:textColor="@color/blu_grafico"
             android:textSize="24sp"
             android:textStyle="normal|bold" />
@@ -51,7 +56,13 @@
             android:id="@+id/textView_chart_sottotitolo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
+            android:padding="8dp"
             android:textColor="@color/blu_grafico"
             android:textSize="18sp"
             android:textStyle="normal|bold" />
@@ -59,50 +70,41 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
             android:clipToPadding="true">
 
         </com.github.mikephil.charting.charts.LineChart>
 
+        <Button
+            android:id="@+id/button_salva_grafico"
+            style="@style/styleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/background_grafico"
+            android:drawableStart="@drawable/graphicmultiline"
+            android:text="@string/button_salva_grafico" />
+
+        <Button
+            android:id="@+id/button_salva_database"
+            style="@style/styleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:background="@drawable/background_grafico"
+            android:drawableStart="@drawable/salvadb"
+            android:text="@string/button_salva_database" />
+
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button_salva_database"
-        style="@style/styleButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/background_grafico"
-        android:drawableStart="@drawable/salvadb"
-        android:text="@string/button_salva_database"
-        app:layout_constraintBottom_toTopOf="@+id/button_salva_grafico"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <Button
-        android:id="@+id/button_salva_grafico"
-        style="@style/styleButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/background_grafico"
-        android:drawableStart="@drawable/graphicmultiline"
-        android:text="@string/button_salva_grafico"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_salva_database" />
 
 
 </android.support.constraint.ConstraintLayout>
