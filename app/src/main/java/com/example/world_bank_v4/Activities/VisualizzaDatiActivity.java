@@ -214,8 +214,8 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
             TableRow inflateRow;
 
             TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
-
-            for (int i = 0; i < cursorRisultato.getColumnCount(); i++) {
+            int y = 0;
+            for (int i = 0; i < cursorRisultato.getColumnCount(); i++, y++) {
 
                 inflateRow = (TableRow) View.inflate(getApplicationContext(), R.layout.table_row,
                         null);
@@ -224,11 +224,12 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
                 inflateRow.setTag(i);
 
                 TextView txv = inflateRow.findViewById(R.id.textViewColonna);
-                txv.setText(nomi_colonne[i]);
+                txv.setText(nomi_colonne[y]);
                 txv = inflateRow.findViewById(R.id.textViewValore);
-                if(i == 7) {
+                if(y == 7) {
                     txv.setText("VALUES");
                     txv.setTextColor(Color.BLACK);
+                    i--;
                 }
                 else{ txv.setText(cursorRisultato.getString(i));}
 
