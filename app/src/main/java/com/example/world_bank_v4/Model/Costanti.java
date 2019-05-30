@@ -24,7 +24,7 @@ public final class Costanti {
     public static final String ID_RECORD_TABELLA = "idRecordTabella";
 
 
-
+    public static final String NOME_CHIAVE_FILE_JSON = "nome_chiave_file_json";
     public static final String KEY_JSON_FILE_COUNTRY = "json_file_country";
     public static final String KEY_JSON_FILE_ARGOMENTI = "json_file_argomenti";
     public static final String KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO =

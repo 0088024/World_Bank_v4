@@ -73,8 +73,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*"specializza activity*/
         setContentView(R.layout.activity_grafico);
         getSupportActionBar().setLogo(R.drawable.graph);
-        super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
-
     }
 
 
