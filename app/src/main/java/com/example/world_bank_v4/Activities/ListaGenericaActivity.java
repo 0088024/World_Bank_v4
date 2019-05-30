@@ -93,7 +93,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
         vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
         precedenza in onSaveInstancestate()*/
-        getStateFromBundle(bundle);
+        getStateFromBundle(savedInstanceState);
     }
 
 
@@ -146,6 +146,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             return;
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
         savedInstanceState.putString(KEY_JSON_FILE, json_file);
+        Log.d(Costanti.NOME_APP, "savedInstanceState.getString(KEY_JSON_FILE): " +
+                savedInstanceState.getString(KEY_JSON_FILE));
         savedInstanceState.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
         savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
         savedInstanceState.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
@@ -457,9 +459,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
           idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
           nomePaeseSelezionato = bundle.getString(Costanti.NOME_PAESE_SELEZIONATO);
           json_file = bundle.getString(KEY_JSON_FILE);
-          if(json_file == null)
-              Log.d(Costanti.NOME_APP, "getStateFromBundle(Bundle bundle): json file NULL !!!!");
-
     }
 
 
