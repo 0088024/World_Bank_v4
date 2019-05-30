@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@drawable/border_blu"
+    android:background="@drawable/border_empty"
     android:clipChildren="true"
     android:clipToPadding="true"
     android:padding="8dp">
@@ -26,7 +26,7 @@
         android:padding="8dp"
         android:text="@string/text_view_colonna"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
 
@@ -47,7 +47,7 @@
         android:padding="8dp"
         android:text="@string/text_view_valore"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="normal|bold" />
 
 
