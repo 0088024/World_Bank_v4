@@ -144,7 +144,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
                                l'utente torna indietro.*/
             dbManager.close();
 
-        if(!cursor.isClosed())
+        if(cursor != null)
             cursor.close();
         super.onDestroy();
 

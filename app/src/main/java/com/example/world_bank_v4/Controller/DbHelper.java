@@ -14,11 +14,11 @@ public class DbHelper extends SQLiteOpenHelper {
     /*COSTANTI*/
     public static final String TABLE_NAME = "indicatori_per_paese";
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_ID_PAESE = "id_paese";
-    public static final String COLUMN_ID_INDICATORE = "id_indicatore";
-    public static final String COLUMN_NOME_PAESE = "nome_paese";
-    public static final String COLUMN_NOME_INDICATORE = "nome_indicatore";
-    public static final String COLUMN_DATE = "data";
+    public static final String COLUMN_ID_PAESE = "id_country";
+    public static final String COLUMN_ID_INDICATORE = "id_indicator";
+    public static final String COLUMN_NOME_PAESE = "name_country";
+    public static final String COLUMN_NOME_INDICATORE = "name_indicator";
+    public static final String COLUMN_DATE = "date";
     public static final String COLUMN_SOURCE_ID = "source_id";
     public static final String COLUMN_LAST_UPDATED = "last_updated";
 
