@@ -2,28 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorbackgroundlist"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/border_grigio_con_verde_acqua_dentro"
+    android:orientation="horizontal"
+    android:padding="8dp">
 
     <LinearLayout
-        android:layout_width="297dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginEnd="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/border_grigio_con_verde_acqua_dentro"
+        android:gravity="start|end"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
         <TextView
             android:id="@+id/textViewPaese"
+            style="@style/styleLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/styleLayout"
+            android:gravity="start"
             android:text="@string/nome_paese"
+            android:textAlignment="viewStart"
             tools:text="@string/nome_paese" />
 
         <TextView
-            android:id="@+id/textViewNazione"
-            android:layout_width="wrap_content"
+            android:id="@+id/textViewIndicatore"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="start"
             android:text="@string/nome_indicatore"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorNero"
             tools:text="@string/nome_indicatore" />
 
     </LinearLayout>
@@ -31,17 +45,22 @@
     <ImageButton
         android:id="@+id/imageButtonDati"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/image_view_dati"
+        android:cropToPadding="false"
+        android:scaleType="fitCenter"
+        android:tint="@color/blu_grafico"
         app:srcCompat="@android:drawable/ic_menu_view" />
 
     <ImageButton
         android:id="@+id/imageButtonDelete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/image_delete"
+        android:scaleType="fitCenter"
+        android:tint="@color/colorPrimaryDark"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
 </LinearLayout>

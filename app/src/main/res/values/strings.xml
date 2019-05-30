@@ -68,13 +68,13 @@
     di interesse che abbiamo salvato in precedenza, oppure cancellarle</string>
 
     <string-array name="nomi_colonne_visualizza_dati">
-        <item>RECORD ID</item>
-        <item>COUNTRY ID</item>
-        <item>INDICATOR ID</item>
-        <item>COUNTRY NAME</item>
-        <item>INDICATOR NAME</item>
-        <item>SOURCE ID</item>
-        <item>LAST UPDATE</item>
+        <item>Record Id</item>
+        <item>Country Id</item>
+        <item>Indicator Id</item>
+        <item>Country Name</item>
+        <item>Indicator Name</item>
+        <item>Source Id</item>
+        <item>Last Udate</item>
         <item>DATE</item>
         <item>1960</item>
         <item>1961</item>
