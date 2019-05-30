@@ -88,7 +88,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         this.savedInstanceState = bundle;
 
-
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
         /*se è != null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
