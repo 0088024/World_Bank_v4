@@ -457,6 +457,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
           idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
           nomePaeseSelezionato = bundle.getString(Costanti.NOME_PAESE_SELEZIONATO);
           json_file = bundle.getString(KEY_JSON_FILE);
+          if(json_file == null)
+              Log.d(Costanti.NOME_APP, "getStateFromBundle(Bundle bundle): json file NULL !!!!");
 
     }
 
