@@ -20,7 +20,7 @@
             tools:text="@string/nome_paese" />
 
         <TextView
-            android:id="@+id/textViewNazione"
+            android:id="@+id/textViewIndicatore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nome_indicatore"

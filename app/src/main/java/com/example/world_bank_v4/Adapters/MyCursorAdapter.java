@@ -45,7 +45,7 @@ public class MyCursorAdapter extends CursorAdapter {
 
         TextView txt = v.findViewById(R.id.textViewPaese);
         txt.setText(nomePaese);
-        txt = v.findViewById(R.id.textViewNazione);
+        txt = v.findViewById(R.id.textView);
         txt.setText(nomeIndicatore);
         ImageButton buttonDelete = v.findViewById(R.id.imageButtonDelete);
         buttonDelete.setOnClickListener(caricaDatiActivity);
