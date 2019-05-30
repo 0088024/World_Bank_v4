@@ -24,7 +24,6 @@
     <TextView
         android:id="@+id/textViewValue"
         style="@style/styleLayout"
-        android:background="@drawable/background_row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
@@ -33,6 +32,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
+        android:background="@drawable/background_row"
         android:gravity="start"
         android:padding="8dp"
         android:paddingStart="8dp"
