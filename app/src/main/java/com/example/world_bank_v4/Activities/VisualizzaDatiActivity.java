@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -221,12 +222,16 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
                 //set tag for each TableRow
                 inflateRow.setTag(i);
                 TextView txv = inflateRow.findViewById(R.id.textViewColonna);
-                if(i == 7)
-                    txv.setText("ANNI");
+                if(i == 7) {
+                    txv.setText("DATE");
+                    txv.setTextColor(Color.BLACK);
+                }
                 else txv.setText(cursorRisultato.getColumnName(i));
                 txv = inflateRow.findViewById(R.id.textViewValore);
-                if(i == 7)
-                    txv.setText("VALORE");
+                if(i == 7) {
+                    txv.setText("VALUES");
+                    txv.setTextColor(Color.BLACK);
+                }
                 else txv.setText(cursorRisultato.getString(i));
 
                 //add TableRows to TableLayout
