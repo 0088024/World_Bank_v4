@@ -4,17 +4,14 @@
 
     <item
         android:id="@+id/Menu_1"
-        android:icon="@drawable/world_bank"
         android:title="@string/Menu_1" />
 
     <item
         android:id="@+id/Menu_2"
-        android:icon="@drawable/world_bank"
         android:title="@string/Menu_2" />
 
     <item
         android:id="@+id/Menu_3"
-        android:icon="@drawable/world_bank"
         android:title="@string/Menu_3" />
 
 
