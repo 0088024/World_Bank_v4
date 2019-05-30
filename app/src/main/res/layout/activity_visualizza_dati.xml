@@ -37,7 +37,7 @@
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorNero"
+            android:background="@color/colorbackgroundlist"
             android:gravity="top"></TableLayout>
 
     </ScrollView>

@@ -12,7 +12,6 @@
     <string name="dialog_contacts1">FPR-IOL2018</string>
     <string name="dialog_contacts2">Mobile Programming</string>
     <string name="dialog_contacts3">CORSO DI LAUREA ING. INFORMATICA</string>
-    <string name="about_wb">App World Bank</string>
     <string name="title_activity_grafico">Ceck Graph</string>
     <string name="title_activity_carica_dati">Carica Dati Offline</string>
     <string name="title_activity_mostra_png_precedentemente_salvata">Immagine png</string>
@@ -40,32 +39,6 @@
     <string name="geremia">Geremia Petricca</string>
     <string name="tel_geremia">320 5641xxx</string>
     <string name="email_geremia">geremia7777@gmail.com</string>
-    <string name="aboutinfo">
-        Questa app è stata sviluppata tramite indicazioni segnalate dal prof. Regoli.
-        Inizialmente è stata effettuata un analisi delle caratteristiche richieste e successivamete
-        dopo la suddivisione dei compiti è iniziato lo sviluppo.
-        Abbiamo cercato di realizzare un app robusta e piacevole nella ricerca.
-        A partire dalla versione 5 (o 1.5) il linguaggio Java si è molto evoluto, diventando
-        estremamente più complesso e potente, e obbligando gli sviluppatori ad aggiornare le
-        proprie conoscenze non senza sforzi. Tale svolta è dovuta essenzialmente alla
-        concorrenza spietata dei nuovi linguaggi che sono nati in questi anni, e che cercano di
-        insediare la leadership che Java si è saputa creare in diverse nicchie tecnologiche. Il
-        cambiamento di rotta che il linguaggio ha subito va verso una complessità maggiore, con
-        l’introduzione di nuove potenti caratteristiche, come le enumerazioni, i generics o le
-        annotazioni.
-        La versione 5 di Java, per esigenze di marketing è nota anche sotto il nome di “Tiger”
-        (in italiano “tigre”).
-        Questo testo affronta in modo approfondito le nuove caratteristiche introdotte da Tiger
-        ma senza tralasciare tutte le altre evoluzioni del linguaggio dalla versione 1.0 in poi.
-        Lo studio di questo testo quindi, oltre che al neofita che si avvicina alla programmazione
-        orientata agli oggetti, è consigliato anche al programmatore Java già affermato che vuole
-        aggiornarsi alle principali caratteristiche della versione 5 di Java.
-        Come già detto, è un testo molto adatto alla didattica, e quindi dovrebbe risultare un
-        ottimo strumento per diversi corsi di programmazione sia universitari sia aziendali.
-        Infine, il libro copre tutti gli argomenti che fanno parte della certificazione Sun Certified
-        Java Programmer (codice CX-310-055), e quindi può risultare molto utile anche per
-        prepararsi al test finale.
-    </string>
     <string name="titolo_grafico">titolo grafico</string>
     <string name="sottotitolo_chart">sottotitolo chart</string>
     <string name="button_cerca_paese">SELECT COUNTRY</string>
@@ -74,6 +47,27 @@
     <string name="button_carica_database">LOAD DATA OFFLINE</string>
     <string name="image_world_bank">image world bank</string>
     <string name="image_png">image.png</string>
+    <string name="image_view_dati">image view dati</string>
+    <string name="image_delete">image delete</string>
+    <string name="image_person">person</string>
+    <string name="image_phone">image phone</string>
+    <string name="image_mail">image mail</string>
+    <string name="about_wb">About...App World Bank</string>
+    <string name="about_wb_guide">Guide App</string>
+    <string name="aboutinfo0">Questa App è stata sviluppata secondo le richieste fornite dal Prof. Regoli nel Progetto
+    World Bank</string>
+    <string name="aboutinfo1">Il nostro gruppo "FPR-IOL2018 è costituito da 3 studenti del corso di Ing. Informatica online</string>
+    <string name="aboutinfo2">Ed è formato da Rufini Alessio, Ferraro Daniele e Geremia Petricca (ActionBar -> Menu -> "CONTACTS")</string>
+    <string name="aboutinfoGuida0">SELECT COUNTRY -> Questo pulscante ci permette di selezionare un Paese da una lista,
+    da qui possiamo visualizzare fino a 21 Argomenti e successicamente gli indicatori relativi agli argomenti</string>
+    <string name="aboutinfoGuida1">SELECT TOPICS -> Questo pulsante ci permette di selezionare un Argomento da una lista,
+    da qui possiamo visualizzare gli indicatori relativi e successicamente il paese di nostro interesse</string>
+    <string name="aboutinfoGuida2">LOAD PREVIUS IMAGE -> Questo pulsante ci permette visualizzare l\'immagine salvata
+    nella precedente ricerca</string>
+    <string name="aboutinfoGuida3">LOAD DATA OFFLINE -> Questo pulsante ci permette di selezionare da una lista le tabelle
+    di interesse che abbiamo salvato in precedenza, oppure cancellarle</string>
+
+
 
 
 </resources>
