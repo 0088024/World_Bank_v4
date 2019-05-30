@@ -209,7 +209,6 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
             /*costruisci le righe della tabella layout riempendole con i valori del record del
             database*/
             cursorRisultato.moveToFirst();
-
             TableRow inflateRow;
 
             TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
