@@ -495,9 +495,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex,
                                             ViewPortHandler viewPortHandler) {
-                if (value == 0.0)
-                    return "";                              /*non disegniamo i valori*/
-                else return (String.valueOf(value));
+                if(value == dataSet.getYMax() && value != 0)  /*disegna solo il valore massimo*/
+                    return (String.valueOf(value));
+                else  return "";
             }
 
 
