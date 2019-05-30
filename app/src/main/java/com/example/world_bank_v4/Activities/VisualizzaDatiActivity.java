@@ -206,6 +206,8 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
 
             }
 
+            String[] nomi_colonne =
+                    getResources().getStringArray(R.array.nomi_colonne_visualizza_dati);
             /*costruisci le righe della tabella layout riempendole con i valori del record del
             database*/
             cursorRisultato.moveToFirst();
@@ -220,18 +222,15 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
 
                 //set tag for each TableRow
                 inflateRow.setTag(i);
+
                 TextView txv = inflateRow.findViewById(R.id.textViewColonna);
-                if(i == 7) {
-                    txv.setText("DATE");
-                    txv.setTextColor(Color.BLACK);
-                }
-                else txv.setText(cursorRisultato.getColumnName(i));
+                txv.setText(nomi_colonne[i]);
                 txv = inflateRow.findViewById(R.id.textViewValore);
                 if(i == 7) {
                     txv.setText("VALUES");
                     txv.setTextColor(Color.BLACK);
                 }
-                else txv.setText(cursorRisultato.getString(i));
+                else{ txv.setText(cursorRisultato.getString(i));}
 
                 //add TableRows to TableLayout
                 tableLayout.addView(inflateRow);
