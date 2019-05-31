@@ -107,7 +107,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onResume(){
         super.onResume();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": "+ NOME_FILE_PREFERENCES);
         caricaVariabili();
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
@@ -227,7 +226,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         }
         /*altrimenti se il bundle è stato già recuerato in onRestoreInstanceSate()*/
-        else {caricaLayout();}
+        else {
+              Log.d(Costanti.NOME_APP, "Bundle passato in onRestoreInstanceState()");
+              caricaLayout();}
     }
 
 
@@ -284,7 +285,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
-    /*thread che in background scarica in una stringa il file json di pertinenza*/
+    /*thread che in background scarica da internet in una stringa il file json di pertinenza*/
     private class DownloadFileTask extends AsyncTask<Void, Integer, String> {
 
         private InputStream risposta;
