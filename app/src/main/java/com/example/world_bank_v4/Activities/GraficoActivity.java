@@ -311,7 +311,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Chart chart = params[0];
             /* Returns the Bitmap object that represents the chart, this Bitmap always contains the
             latest drawing state of the chart.*/
-            LinearLayout view = findViewById(R.id.linearLayoutNested);
+            LinearLayout view = findViewById(R.id.linearLayout);
             Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
                                             Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
