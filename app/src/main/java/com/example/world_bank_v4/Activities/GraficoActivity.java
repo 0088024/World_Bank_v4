@@ -316,7 +316,14 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             latest drawing state of the chart.*/
             /*Bitmap bitmap_chart = chart.getChartBitmap();*/
             LinearLayout view = findViewById(R.id.linearLayout);
-            Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
+
+            LinearLayout temp = new LinearLayout(getApplicationContext());
+            temp.setLayoutParams(view.getLayoutParams());
+            temp.addView(view.getChildAt(0), view.getChildAt(1).getLayoutParams());
+            temp.addView(view.getChildAt(1), view.getChildAt(2).getLayoutParams());
+            temp.addView(view.getChildAt(2), view.getChildAt(3).getLayoutParams());
+            temp.removeView(temp.findViewById(R.id.linaerLayoutNested));
+            Bitmap bitmap = Bitmap.createBitmap(temp.getWidth(), temp.getHeight(),
                                             Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             /*disegna la vista nel canvas che a sua volta avvole il bitmpa*/
