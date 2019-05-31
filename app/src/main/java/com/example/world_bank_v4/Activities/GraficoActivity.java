@@ -266,7 +266,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY  HH:mm:ss");
             String myTime = format.format(calendar.getTime());
-            Log.d(Costanti.NOME_APP, "myString: "+myTime);
 
             RecordTabella recordTabella = new RecordTabella(intestazione, myTime, country, indicator,
                     lista_Valore_grafico);

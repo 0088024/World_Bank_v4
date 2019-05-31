@@ -56,8 +56,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 + COLUMN_NOME_INDICATORE + " text not null," + COLUMN_SOURCE_ID + " text not null,"
                 + COLUMN_LAST_UPDATED + " text not null");
 
-        Log.d(Costanti.NOME_APP, "myIstruzioneSQL: "+istruzioneSql);
-
         for(int x = ANNO_INIZIO; x<=ANNO_FINE; x++) {
             istruzioneSql.append("," + COLUMN_DATE + x + " REAL ");
         }

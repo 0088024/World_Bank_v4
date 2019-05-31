@@ -28,7 +28,6 @@ public class RecordTabella {
                          ArrayList<ValoreGrafico> lista_Valore_grafico){
 
         this.localTime = time;
-        Log.d(Costanti.NOME_APP, "myStringInRecordTabella: "+localTime);
         this.idPaese = paese.getId();
         this.idIndicatore = indicatore.getId();
         this.nomePaese = paese.getValue();

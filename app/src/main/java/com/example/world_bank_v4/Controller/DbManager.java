@@ -34,7 +34,6 @@ public class DbManager {
             ContentValues values = new ContentValues();
             /*il primo argomento è il nome della colonna dove inserire il secondo argomento come
             valore*/
-            Log.d(Costanti.NOME_APP, "myString in addRow: "+recordTabella.getLocalTime());
             values.put(DbHelper.COLUMN_TIME, recordTabella.getLocalTime());
             values.put(DbHelper.COLUMN_ID_PAESE, recordTabella.getIdPaese());
             values.put(DbHelper.COLUMN_ID_INDICATORE, recordTabella.getIdIndicatore());
