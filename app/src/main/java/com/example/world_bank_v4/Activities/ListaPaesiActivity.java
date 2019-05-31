@@ -25,7 +25,6 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         /*"specializza activity*/
         setContentView(R.layout.activity_lista_paese);
         getSupportActionBar().setLogo(R.drawable.country);

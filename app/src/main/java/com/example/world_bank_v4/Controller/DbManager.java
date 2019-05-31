@@ -38,11 +38,11 @@ public class DbManager {
             values.put(DbHelper.COLUMN_NOME_INDICATORE, recordTabella.getNomeIndicatore());
             values.put(DbHelper.COLUMN_SOURCE_ID, recordTabella.getSourceId());
             values.put(DbHelper.COLUMN_LAST_UPDATED, recordTabella.getLastUpdated());
-
             /*inserisce i valori per tutti gli anni*/
-            for(int i = 0; i<recordTabella.getColonne_anni().size(); i++){
-                Float value = recordTabella.getColonne_anni().get(i).getvalue();
-                values.put(DbHelper.COLUMN_DATE + (DbHelper.ANNO_INIZIO + i), value.toString());
+            int a = 0;
+            for(int i = recordTabella.getColonne_anni().size(); i > 0; i--, a++){
+                Float value = recordTabella.getColonne_anni().get(i - 1).getvalue();
+                values.put(DbHelper.COLUMN_DATE + (DbHelper.ANNO_INIZIO + a), value.toString());
             }
 
             db.insert(DbHelper.TABLE_NAME, null, values);

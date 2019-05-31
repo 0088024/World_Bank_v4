@@ -22,7 +22,6 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         /*specializzaActivity*/
         setContentView(R.layout.activity_lista_indicatori);
         getSupportActionBar().setLogo(R.drawable.indicator);

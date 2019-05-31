@@ -56,7 +56,7 @@ import java.util.List;
 
 public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
 
-    private String json_file, err_msg;
+    private String /*json_file,*/ err_msg;
     private DbManager dbManager;
     private ArrayList<ValoreGrafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
@@ -70,8 +70,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
-
         /*"specializza activity*/
         setContentView(R.layout.activity_grafico);
         getSupportActionBar().setLogo(R.drawable.graph);
@@ -130,7 +128,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*API_INDICATORE_PER_PAESE
         https://api.worldbank.org/v2/country/idPaese/indicator?format=json&per_page=10000*/
         api_indicatore_per_paese.append("?format=json&&per_page=10000");
-        Log.d(Costanti.NOME_APP,"api_indicatore_per_paese:  " +api_indicatore_per_paese);
+        Log.d(Costanti.NOME_APP,"api_indicatore_per_paese:  " + api_indicatore_per_paese);
         return api_indicatore_per_paese.toString();
     }
 
@@ -145,7 +143,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         if(err_msg == null) {
 
-            json_file = (super.getJsonFile());  // Recupera il relativo file json
+            String json_file = (super.getJsonFile());  // Recupera il relativo file json
 
             /*DEBUG*/
             Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
@@ -253,6 +251,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             /*con la libreria GSON ottengo il corrispondente primo oggetto dell'array di elementi
             del file json*/
             MyGSON myGSON = new MyGSON();
+            String json_file = (getJsonFile());  // Recupera il relativo file json
+
             JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);
             ElementoGenerico country = myGSON.getObjectIntoElement(jsonElement,
                     "country");
@@ -495,18 +495,19 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             @Override
             public String getFormattedValue(float value, Entry entry, int dataSetIndex,
                                             ViewPortHandler viewPortHandler) {
-                if(value == dataSet.getYMax() && value != 0)  /*disegna solo il valore massimo*/
+                if(value == dataSet.getYMax() && value != 0){  /*disegna solo il valore massimo*/
                     return (String.valueOf(value));
+                }
+                else if (value == dataSet.getYMin() && value != 0){
+                    return (String.valueOf(value));             /* e/o il valore minimo*/
+                }
                 else  return "";
             }
 
 
         });
 
-        /*non visualizzare etichette asse y destro per valori >>>>, per non far comprimere troppo
-        il grafico*/
-        if(dataSet.getYMax()>1000)
-            yAxisRight.setEnabled(false);
+
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
     }

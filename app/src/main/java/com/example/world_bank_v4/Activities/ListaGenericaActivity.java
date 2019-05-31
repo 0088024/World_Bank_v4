@@ -83,9 +83,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestoreInstanceState(Bundle bundle){
         super.onRestoreInstanceState(bundle);
-        this.savedInstanceState = bundle;
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName())
             return;
+
+        this.savedInstanceState = bundle;
 
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
@@ -93,7 +94,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
         vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
         precedenza in onSaveInstancestate()*/
-        getStateFromBundle(bundle);
+        getStateFromBundle(savedInstanceState);
     }
 
 
@@ -106,6 +107,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onResume(){
         super.onResume();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": "+ NOME_FILE_PREFERENCES);
         caricaVariabili();
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
@@ -144,7 +146,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         disco*/
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName())
             return;
+
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
+
+        savedInstanceState.putString(Costanti.NOME_CHIAVE_FILE_JSON, KEY_JSON_FILE);
         savedInstanceState.putString(KEY_JSON_FILE, json_file);
         savedInstanceState.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
         savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
@@ -456,8 +461,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
           idArgomentoSelezionato = bundle.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
           idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
           nomePaeseSelezionato = bundle.getString(Costanti.NOME_PAESE_SELEZIONATO);
-          json_file = bundle.getString(KEY_JSON_FILE);
-
+          String nome_chiave_file_json = bundle.getString(Costanti.NOME_CHIAVE_FILE_JSON);
+          json_file = bundle.getString(nome_chiave_file_json);
     }
 
 
