@@ -1,5 +1,7 @@
 package com.example.world_bank_v4.Model;
 
+import android.util.Log;
+
 import com.example.world_bank_v4.Model.ElementoGenerico;
 import com.example.world_bank_v4.Model.Intestazione;
 import com.example.world_bank_v4.Model.ValoreGrafico;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 public class RecordTabella {
 
     private long _id;
+    private String localTime;
     private String idPaese;
     private String idIndicatore;
     private String nomePaese;
@@ -20,10 +23,11 @@ public class RecordTabella {
     private ArrayList<ValoreGrafico> colonne_anni;      /*contiene i valori per ogni anno*/
 
 
-    public RecordTabella(Intestazione intestazione, ElementoGenerico paese,
+    public RecordTabella(Intestazione intestazione, String time, ElementoGenerico paese,
                          ElementoGenerico indicatore,
                          ArrayList<ValoreGrafico> lista_Valore_grafico){
 
+        this.localTime = time;
         this.idPaese = paese.getId();
         this.idIndicatore = indicatore.getId();
         this.nomePaese = paese.getValue();
@@ -33,7 +37,9 @@ public class RecordTabella {
         this.colonne_anni = lista_Valore_grafico;
 
     }
-
+    public String getLocalTime(){
+        return localTime;
+    }
 
     public String getIdPaese(){
         return idPaese;

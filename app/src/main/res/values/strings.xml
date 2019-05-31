@@ -68,6 +68,7 @@
     di interesse che abbiamo salvato in precedenza, oppure cancellarle</string>
 
     <string-array name="nomi_colonne_visualizza_dati">
+        <item>Save Time</item>
         <item>Record Id</item>
         <item>Country Id</item>
         <item>Indicator Id</item>
