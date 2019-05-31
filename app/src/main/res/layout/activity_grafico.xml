@@ -11,8 +11,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="469dp"
+        android:layout_height="585dp"
         android:layout_gravity="center|top"
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_weight="0"
             android:gravity="center"
             android:textColor="@color/blu_grafico"
             android:textSize="24sp"
@@ -44,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:gravity="center"
             android:textColor="@color/blu_grafico"
             android:textSize="18sp"
@@ -52,41 +53,49 @@
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chart"
-            android:layout_width="336dp"
-            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_margin="8dp"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:clipChildren="false"
             android:clipToPadding="false">
 
         </com.github.mikephil.charting.charts.LineChart>
 
-        <Button
-            android:id="@+id/button_salva_database"
-            style="@style/styleButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/salvadb"
-            android:text="@string/button_salva_database" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_salva_grafico"
-            style="@style/styleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/graphicmultiline"
-            android:text="@string/button_salva_grafico" />
+            <Button
+                android:id="@+id/button_salva_grafico"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="0"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/graphicmultiline"
+                android:text="@string/button_salva_grafico" />
+
+            <Button
+                android:id="@+id/button_salva_database"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="0"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/salvadb"
+                android:text="@string/button_salva_database" />
+        </LinearLayout>
 
     </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="96dp"
-        android:layout_height="158dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

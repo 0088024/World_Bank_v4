@@ -56,6 +56,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.github.mikephil.charting.components.Legend.LegendHorizontalAlignment.RIGHT;
+
 public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
 
     private String /*json_file,*/ err_msg;
@@ -381,14 +383,11 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         int blu_grafico = getResources().getColor(R.color.blu_grafico, null);
 
         /*imposta etichetta descrizione*/
-        Description description = new Description();
+        Description description = chart.getDescription();
         description.setText("ANNI");
         description.setTextSize(12f);
-        description.setPosition(950, 860);
         description.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 
-
-        chart.setDescription(description);
         chart.setClipValuesToContent(true);
         chart.setDrawGridBackground(true);
         chart.setDrawBorders(true);
@@ -515,6 +514,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
+
+
     }
 
 
