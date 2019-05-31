@@ -107,7 +107,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onResume(){
         super.onResume();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": "+ NOME_FILE_PREFERENCES);
+        setProgressBarNoVisible();
         caricaVariabili();
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
@@ -499,6 +499,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     protected void setProgressBarVisible(){
 
         progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    protected void setProgressBarNoVisible(){
+
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 
     protected void setProgressBarGone(){
