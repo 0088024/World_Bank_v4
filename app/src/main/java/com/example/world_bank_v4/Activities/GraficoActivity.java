@@ -22,7 +22,6 @@ import com.example.world_bank_v4.Dialog.DialogDataBase;
 import com.example.world_bank_v4.Dialog.DialogShowImage;
 import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Model.ElementoGenerico;
-import com.example.world_bank_v4.Model.Indicatore;
 import com.example.world_bank_v4.Model.Intestazione;
 import com.example.world_bank_v4.Model.RecordTabella;
 import com.example.world_bank_v4.Model.ValoreGrafico;
@@ -55,8 +54,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import static com.github.mikephil.charting.components.Legend.LegendHorizontalAlignment.RIGHT;
 
 public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
 
@@ -314,16 +311,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Chart chart = params[0];
             /* Returns the Bitmap object that represents the chart, this Bitmap always contains the
             latest drawing state of the chart.*/
-            /*Bitmap bitmap_chart = chart.getChartBitmap();*/
-            LinearLayout view = findViewById(R.id.linearLayout);
-
-            LinearLayout temp = new LinearLayout(getApplicationContext());
-            temp.setLayoutParams(view.getLayoutParams());
-            temp.addView(view.getChildAt(0), view.getChildAt(1).getLayoutParams());
-            temp.addView(view.getChildAt(1), view.getChildAt(2).getLayoutParams());
-            temp.addView(view.getChildAt(2), view.getChildAt(3).getLayoutParams());
-            temp.removeView(temp.findViewById(R.id.linaerLayoutNested));
-            Bitmap bitmap = Bitmap.createBitmap(temp.getWidth(), temp.getHeight(),
+            LinearLayout view = findViewById(R.id.linearLayoutNested);
+            Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
                                             Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             /*disegna la vista nel canvas che a sua volta avvole il bitmpa*/
