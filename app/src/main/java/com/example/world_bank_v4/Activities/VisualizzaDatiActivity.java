@@ -226,7 +226,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
                 TextView txv = inflateRow.findViewById(R.id.textViewColonna);
                 txv.setText(nomi_colonne[i]);
                 txv = inflateRow.findViewById(R.id.textViewValore);
-                if(i == 7) {
+                if(i == 8) {
                     txv.setText("VALUES");
                     txv.setTextColor(Color.BLACK);
                 }

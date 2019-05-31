@@ -3,6 +3,9 @@ package com.example.world_bank_v4.Controller;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.world_bank_v4.Model.Costanti;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_SOURCE_ID = "source_id";
     public static final String COLUMN_LAST_UPDATED = "last_updated";
+    public static final String COLUMN_TIME = "save_time";
 
 
 
@@ -46,11 +50,13 @@ public class DbHelper extends SQLiteOpenHelper {
 
         /*costruisci la stringa contenente l'istruzione SQLite per creare la tabella*/
         StringBuilder istruzioneSql = new StringBuilder();
-        istruzioneSql.append("CREATE TABLE "+ TABLE_NAME + " (" + COLUMN_ID +
+        istruzioneSql.append("CREATE TABLE "+ TABLE_NAME + " (" +COLUMN_TIME + " text not null," + COLUMN_ID +
                 " Integer PRIMARY KEY autoincrement not null," + COLUMN_ID_PAESE + " text not null,"
                 + COLUMN_ID_INDICATORE + " text not null," + COLUMN_NOME_PAESE + " text not null,"
                 + COLUMN_NOME_INDICATORE + " text not null," + COLUMN_SOURCE_ID + " text not null,"
                 + COLUMN_LAST_UPDATED + " text not null");
+
+        Log.d(Costanti.NOME_APP, "myIstruzioneSQL: "+istruzioneSql);
 
         for(int x = ANNO_INIZIO; x<=ANNO_FINE; x++) {
             istruzioneSql.append("," + COLUMN_DATE + x + " REAL ");
