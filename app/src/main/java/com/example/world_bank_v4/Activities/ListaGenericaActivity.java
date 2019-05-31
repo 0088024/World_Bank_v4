@@ -107,6 +107,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onResume(){
         super.onResume();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
+        setProgressBarNoVisible();
         caricaVariabili();
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
@@ -355,7 +356,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             }
 
             // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
-            for (; count <= Costanti.progressBarTime; count++) {
+            for (count = 0; count <= Costanti.progressBarTime; count++) {
                 publishProgress(count);
             }
 
@@ -500,6 +501,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     protected void setProgressBarVisible(){
 
         progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    protected void setProgressBarNoVisible(){
+
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 
     protected void setProgressBarGone(){

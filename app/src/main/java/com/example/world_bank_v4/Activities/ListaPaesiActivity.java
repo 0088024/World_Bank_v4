@@ -4,6 +4,7 @@ package com.example.world_bank_v4.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -38,7 +39,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
         super.setIdListView(R.id.list_view_paesi);
-        super.setProgressBar(R.id.progressBar);
+        super.setProgressBar(R.id.progressBar1);
         super.setLista_oggetti(lista_paesi);
         super.setTypeToken(listTypeToken);
         super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_COUNTRY);
