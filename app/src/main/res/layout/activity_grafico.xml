@@ -9,86 +9,78 @@
     android:backgroundTintMode="add"
     tools:context=".MainActivity">
 
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center|top"
         android:layout_margin="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@color/colorbackgroundlist"
         android:clipChildren="false"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textView_chart_titolo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
             android:layout_margin="8dp"
-            android:background="@color/colorbackgroundlist"
+            android:gravity="center"
+            android:textColor="@color/blu_grafico"
+            android:textSize="24sp"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/textView_chart_sottotitolo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/blu_grafico"
+            android:textSize="18sp"
+            android:textStyle="normal|bold" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_width="336dp"
+            android:layout_height="35dp"
+            android:layout_margin="8dp"
+            android:layout_weight="3"
             android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical">
+            android:clipToPadding="false">
 
-            <TextView
-                android:id="@+id/textView_chart_titolo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:gravity="center"
-                android:textColor="@color/blu_grafico"
-                android:textSize="24sp"
-                android:textStyle="normal|bold" />
+        </com.github.mikephil.charting.charts.LineChart>
 
-            <TextView
-                android:id="@+id/textView_chart_sottotitolo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/blu_grafico"
-                android:textSize="18sp"
-                android:textStyle="normal|bold" />
+        <Button
+            android:id="@+id/button_salva_database"
+            style="@style/styleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/background_grafico"
+            android:drawableStart="@drawable/salvadb"
+            android:text="@string/button_salva_database" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:layout_weight="3"
-                android:clipChildren="false"
-                android:clipToPadding="false">
+        <Button
+            android:id="@+id/button_salva_grafico"
+            style="@style/styleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_grafico"
+            android:drawableStart="@drawable/graphicmultiline"
+            android:text="@string/button_salva_grafico" />
 
-            </com.github.mikephil.charting.charts.LineChart>
-
-            <Button
-                android:id="@+id/button_salva_grafico"
-                style="@style/styleButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_grafico"
-                android:drawableStart="@drawable/graphicmultiline"
-                android:text="@string/button_salva_grafico" />
-
-            <Button
-                android:id="@+id/button_salva_database"
-                style="@style/styleButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/background_grafico"
-                android:drawableStart="@drawable/salvadb"
-                android:text="@string/button_salva_database" />
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
