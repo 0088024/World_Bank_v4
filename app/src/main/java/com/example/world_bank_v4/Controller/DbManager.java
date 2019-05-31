@@ -11,6 +11,7 @@ import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Model.RecordTabella;
 
 
+
 /*classe con cui interagioamo con il database: select, insert, delete, etc.*/
 public class DbManager {
 
@@ -24,6 +25,7 @@ public class DbManager {
     }
 
 
+
     public void addRow(RecordTabella recordTabella)
     {
         SQLiteDatabase db = dbhelper.getWritableDatabase();	/*ottiene il riferimento al database*/
@@ -32,6 +34,7 @@ public class DbManager {
             ContentValues values = new ContentValues();
             /*il primo argomento è il nome della colonna dove inserire il secondo argomento come
             valore*/
+            values.put(DbHelper.COLUMN_TIME, recordTabella.getLocalTime());
             values.put(DbHelper.COLUMN_ID_PAESE, recordTabella.getIdPaese());
             values.put(DbHelper.COLUMN_ID_INDICATORE, recordTabella.getIdIndicatore());
             values.put(DbHelper.COLUMN_NOME_PAESE, recordTabella.getNomePaese());

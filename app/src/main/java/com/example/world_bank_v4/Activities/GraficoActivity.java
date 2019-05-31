@@ -51,7 +51,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
@@ -260,10 +262,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                     "indicator");
 
             Intestazione intestazione = myGSON.getJsonElementIntestazione(json_file);
+            /*  Get the local Time    */
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY  HH:mm:ss");
+            String myTime = format.format(calendar.getTime());
 
-            RecordTabella recordTabella = new RecordTabella(intestazione, country, indicator,
+            RecordTabella recordTabella = new RecordTabella(intestazione, myTime, country, indicator,
                     lista_Valore_grafico);
-
 
             dbManager.addRow(recordTabella);
 
