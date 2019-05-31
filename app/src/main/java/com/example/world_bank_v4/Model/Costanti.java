@@ -52,6 +52,7 @@ public final class Costanti {
     public static final Integer mostra_grafico_code =3;
     public static final Integer mostra_database_code =4;
     public static final Integer noData =5;
+    public static final Integer timeout =3000;
 
 
 

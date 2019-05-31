@@ -306,7 +306,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
                 client = (HttpURLConnection) url.openConnection();
                 /*Recupero le informazioni inviate dal server */
-                client.setReadTimeout(3000); //Timeout in millisecondi per la lettura da stream
+                client.setReadTimeout(Costanti.timeout); //Timeout in millisecondi per la lettura da stream
                 risposta = new BufferedInputStream(client.getInputStream());
                 /*leggo i caratteri e li appendo in sb*/
                 sb = new StringBuilder();
