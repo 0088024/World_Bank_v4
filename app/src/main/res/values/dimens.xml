@@ -3,5 +3,8 @@
     <dimen name="body_width">150dp</dimen>
     <dimen name="Image_Main">280dp</dimen>
     <dimen name="h_button_Main">59dp</dimen>
+    <dimen name="h_notification">90dp</dimen>
+    <dimen name="dist_notification_top">30dp</dimen>
+    <dimen name="dist_notification_button">200dp</dimen>
 
 </resources>
