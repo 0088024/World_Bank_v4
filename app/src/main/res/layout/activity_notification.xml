@@ -2,42 +2,71 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/error9"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activities.NotificationActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewNotification"
-        android:layout_width="406dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="668dp"
-        android:layout_marginTop="0dp"
-        android:layout_weight="0"
-        style="@style/styleNotification"
-        app:layout_constraintBottom_toTopOf="@+id/button_ricarica_pagina"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/button_ricarica_pagina"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="14dp"
-        android:background="@drawable/background_normal"
-        android:padding="0dp"
-        android:text="@string/button_ricarica_pagina"
-        android:textColor="#2D2D2D"
-        android:textSize="25sp"
-        android:textStyle="bold"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
+        <LinearLayout
+            android:id="@+id/linearLayout_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:longClickable="true"
+            android:orientation="vertical"
+            android:scrollbarDefaultDelayBeforeFade="400"
+            android:scrollbarFadeDuration="250">
+
+            <TextView
+                android:id="@+id/textViewNotification"
+                style="@style/styleNotification"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/dist_notification_top"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="@dimen/dist_notification_button"
+                android:layout_weight="0"
+                android:background="@color/colorWhite"
+                android:gravity="start|top"
+                app:layout_constraintBottom_toTopOf="@+id/button_ricarica_pagina" />
+
+            <Button
+                android:id="@+id/button_ricarica_pagina"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="0"
+                android:background="@drawable/background_grafico"
+                android:gravity="center"
+                android:padding="0dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/button_ricarica_pagina" />
+
+        </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
