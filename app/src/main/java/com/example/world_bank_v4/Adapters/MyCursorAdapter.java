@@ -2,6 +2,7 @@ package com.example.world_bank_v4.Adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.world_bank_v4.Activities.CaricaDatiActivity;
 import com.example.world_bank_v4.Controller.DbHelper;
+import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 
 
@@ -40,11 +42,14 @@ public class MyCursorAdapter extends CursorAdapter {
         /*String oggetto=crs.getString(crs.getColumnIndex(DatabaseStrings.FIELD_SUBJECT));
         String data=crs.getString(crs.getColumnIndex(DatabaseStrings.FIELD_DATE));*/
 
-        String nomePaese = crs.getString(4);
-        String nomeIndicatore = crs.getString(5);
+        String nomePaese = crs.getString(3);
+        String nomeIndicatore = crs.getString(4);
 
         TextView txt = v.findViewById(R.id.textViewPaese);
+        Log.d(Costanti.NOME_APP, "ciaoooooo");
         txt.setText(nomePaese);
+        Log.d(Costanti.NOME_APP, (String) txt.getText());
+
         txt = v.findViewById(R.id.textViewIndicatore);
         txt.setText(nomeIndicatore);
         ImageButton buttonDelete = v.findViewById(R.id.imageButtonDelete);
