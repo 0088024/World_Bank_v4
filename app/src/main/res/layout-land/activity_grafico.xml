@@ -25,24 +25,25 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:background="@drawable/border_grigio_con_verde_acqua_dentro"
+            android:baselineAligned="false"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:gravity="start|top"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@color/colorbackgroundlist"
                 android:clipChildren="false"
                 android:clipToPadding="false"
-                android:gravity="start|top"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -82,19 +83,19 @@
 
             <LinearLayout
                 android:id="@+id/linaerLayoutDoubleNested"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/background_grafico"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/button_salva_grafico"
                     style="@style/styleButton"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"

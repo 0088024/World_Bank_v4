@@ -220,6 +220,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
                             (ridisegna). Questo è necessario per rendere effettive le modifiche
                             apportate al grafico*/
+            /*inflateGraficoLayout();*/
         }
 
     }
@@ -311,7 +312,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Chart chart = params[0];
             /* Returns the Bitmap object that represents the chart, this Bitmap always contains the
             latest drawing state of the chart.*/
-            LinearLayout view = findViewById(R.id.linearLayout);
+            LinearLayout view = findViewById(R.id.linearLayoutGrafico);
             Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
                                             Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
@@ -377,6 +378,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
         int blu_grafico = getResources().getColor(R.color.blu_grafico, null);
+        /*inflateChart();*/
 
         /*imposta etichetta descrizione*/
         Description description = chart.getDescription();
@@ -452,6 +454,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             }
         });
         xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        xAxis.setAvoidFirstLastClipping(true);
+
 
 
         /*wrap ogegtti ValoreGrafico dentro Entry*/
@@ -515,6 +519,21 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
 
 
+    /*public void inflateGraficoLayout() {
+        /*where you want to add/inflate a view as a child*/
+       /* ListView listView  = findViewById(R.id.list_view_grafico);
+        /*child.xml*/
+    /*    View child = getLayoutInflater().inflate(R.layout.linear_layout_grafico,
+                null);
+        listView.addView(child);
+    }
+
+
+    public void inflateChart() {
+       LinearLayout linearLayout =
+               (LinearLayout)getLayoutInflater().inflate(R.layout.linear_layout_grafico, null);
+       chart = (LineChart) linearLayout.getChildAt(2);
+    }*/
 
     @Override
     protected void setProgressBarVisible(){

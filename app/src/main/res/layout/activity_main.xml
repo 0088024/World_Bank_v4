@@ -24,10 +24,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/linearLayoutGrafico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center|top"
             android:layout_margin="8dp"
             android:background="@drawable/border_grigio_con_verde_acqua_dentro"
             android:clipChildren="false"
