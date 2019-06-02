@@ -75,16 +75,17 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
+                " lanciata_da_precedente: " +lanciata_da_precedente );
 
         /*se savedInstanceState è == null, o è stata lanciata da 1 altra attività, oppure è
         stata ripresa ma il s.o. non gli ha passato l'oggetto Bundle*/
         if (savedInstanceState == null) {
-            /*Per vedere quale caso è ottengo l'intent ricevuto dall'attività genitore e ne
+            /*Per vedere quale caso è, ottengo l'intent ricevuto dall'attività genitore e ne
             estrapolo l'oggetto bundle contenente i dati passati*/
             intent_prec = getIntent();   /*ritorna l'intento che ha avviato questa activity*/
             bundle_prec = intent_prec.getExtras();
             int chiamante = bundle_prec.getInt("Prova");
-            Log.d(Costanti.NOME_APP,    "chiamante : " + chiamante);
             /*se == 1 significa che l'attività è stata lanciata da quella precedente, quindi
             scarico il file Json da internet*/
             if (chiamante == 1){
@@ -92,10 +93,12 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                         ": getStateFromBundle(bundle_prec)");
                 /*recupero le variabili di stato dal bundle ricevuto*/
                 lanciata_da_precedente = getStateFromBundle(bundle_prec);
+                Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
+                        ": lanciata_da_precedente: " +lanciata_da_precedente );
                 bundle_prec.clear();        /*"resetto" il bundle precedente*/
+                Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
+                        ": bundle_prec.getInt(\"Prova\"): " + bundle_prec.getInt("Prova"));
 
-                /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
-                new DownloadFileTask(this.getClass().getCanonicalName()).execute();
             }
             /*altrimenti significa che è stata ripresa dall'utente e ricreata dal S.O. (causa
             vincoli di sistema). In questo caso se il S.O. è riuscito o meno a passarci il
@@ -107,18 +110,18 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
     /*ripristina lo stato dell'istanza precedentemente salvato nel Bundle ora ricevuto dal S.O.
-    Quest'ultimo chiama questo metodo solo se bundle è != null */
+    Quest'ultimo chiama questo metodo solo se bundle è != null
+    Se è != null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
+    è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
+    vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
+    precedenza in onSaveInstancestate()*/
     @Override
     public void onRestoreInstanceState(Bundle bundle){
         super.onRestoreInstanceState(bundle);
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
         this.savedInstanceState = bundle;
-        /*se è != null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
-        è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
-        vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
-        precedenza in onSaveInstancestate()*/
-
+        lanciata_da_precedente = false;
     }
 
 
@@ -155,6 +158,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onRestart(){
         super.onRestart();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESTART");
+        lanciata_da_precedente = false;
+
     }
 
 
@@ -185,10 +190,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
         savedInstanceState.putString(Costanti.NOME_PAESE_SELEZIONATO,
                 nomePaeseSelezionato);
-        /*se arrivo a "salvare" significa che quando l'attività tornerà visibile, non sarà
-        più lanciata da qualla precedente
-         */
-        savedInstanceState.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, false);
+        savedInstanceState.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, lanciata_da_precedente);
 
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": Bundle savedInstanceState salvato");
@@ -213,12 +215,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         editor.putString(Costanti.NOME_INDICATORE_SELEZIONATO, nomeIndicatoreSelezionato);
         editor.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
         editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
-        /*se arrivo a "salvare" significa che quando l'attività tornerà visibile, non sarà
-        più lanciata da qualla precedente
-         */
         editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
-
-        editor.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, false);
+        editor.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, lanciata_da_precedente);
 
         editor.apply();
     }
@@ -241,7 +239,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         /*se l'attività non è stata lanciata da quella precedente vuol dire che è stata ripresa dall
         utente. In questo caso se savedInstanceState è stato ripristinato carico i dati da lui,
         altrimenti da disco*/
-        if(!lanciata_da_precedente) {
+        if(lanciata_da_precedente == false) {
             /*se savedInstanceState è == null è stata ripresa ma il s.o. non gli ha passato
             l'oggetto Bundle in onRestoreInstanceState*/
             if (savedInstanceState == null) {
@@ -255,10 +253,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                         ": getStateFromBundle(savedInstanceState);");
                 getStateFromBundle(savedInstanceState);
             }
+            caricaLayout();
         }
         /*se invece è stata lanciata da una attività precedente ho già il file scaricato nella
         onCreate(). In entrambi i casi posso caricare il layout*/
-        caricaLayout();
+        /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
+        else new DownloadFileTask(this.getClass().getCanonicalName()).execute();
+
 
     }
 
@@ -408,7 +409,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         protected void onPostExecute(String risultato) {
 
                 setProgressBarGone();  /*Sopprimi la progressBar*/
-            Log.d(Costanti.NOME_APP, nameClass + ": File scaricato da internet");
+                Log.d(Costanti.NOME_APP, nameClass + ": File scaricato da internet");
                 json_file = risultato;
                 caricaLayout();
         }
