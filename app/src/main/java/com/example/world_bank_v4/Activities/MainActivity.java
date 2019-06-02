@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 bundle = new Bundle();
                 bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
                         ListaPaesiActivity.class.getName());
-                bundle.putInt("Prova",1);
+                bundle.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
                 intent.putExtras(bundle);
                 startActivityForResult(intent,Costanti.lista_paesi_code);
                 break;
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 bundle = new Bundle();
                 bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
                         ListaArgomentiActivity.class.getName());
-                bundle.putInt("Prova",1);
+                bundle.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
                 intent.putExtras(bundle);
                 startActivityForResult(intent,Costanti.lista_argomenti_code);
                 break;

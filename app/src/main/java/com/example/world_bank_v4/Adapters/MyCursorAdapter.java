@@ -42,8 +42,8 @@ public class MyCursorAdapter extends CursorAdapter {
         /*String oggetto=crs.getString(crs.getColumnIndex(DatabaseStrings.FIELD_SUBJECT));
         String data=crs.getString(crs.getColumnIndex(DatabaseStrings.FIELD_DATE));*/
 
-        String nomePaese = crs.getString(3);
-        String nomeIndicatore = crs.getString(4);
+        String nomePaese = crs.getString(4);
+        String nomeIndicatore = crs.getString(5);
 
         TextView txt = v.findViewById(R.id.textViewPaese);
         Log.d(Costanti.NOME_APP, "ciaoooooo");

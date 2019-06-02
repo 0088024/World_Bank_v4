@@ -75,8 +75,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
-                " lanciata_da_precedente: " +lanciata_da_precedente );
+        //Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
+               // " lanciata_da_precedente: " +lanciata_da_precedente );
 
         /*se savedInstanceState è == null, o è stata lanciata da 1 altra attività, oppure è
         stata ripresa ma il s.o. non gli ha passato l'oggetto Bundle*/
