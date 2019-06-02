@@ -75,8 +75,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
-                " lanciata_da_precedente: " +lanciata_da_precedente );
 
         /*se savedInstanceState è == null, o è stata lanciata da 1 altra attività, oppure è
         stata ripresa ma il s.o. non gli ha passato l'oggetto Bundle*/
@@ -276,7 +274,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
         else new DownloadFileTask(this.getClass().getCanonicalName()).execute();
 
-
     }
 
 
@@ -470,8 +467,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         nomeClasseSelezionata =
                 sharedPreferences.getString(Costanti.NOME_CLASSE_SELEZIONATA,
                         "File non esiste");
-                /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
-                dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
+        /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
+        dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
         if (sharedPreferences.contains(Costanti.ID_INDICATORE_SELEZIONATO)) {
             idIndicatoreSelezionato =
                     sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
@@ -497,7 +494,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                     sharedPreferences.getString(Costanti.NOME_PAESE_SELEZIONATO,
                             "File non esiste");
         }
-
     }
 
 
