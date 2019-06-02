@@ -197,6 +197,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": Bundle savedInstanceState salvato");
+
+        super.onSaveInstanceState(savedInstanceState);
+        
+
     }
 
 
