@@ -110,7 +110,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                                 l'utente torna indietro.*/
             dbManager.close();
         }
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
         super.onDestroy();
     }
 
