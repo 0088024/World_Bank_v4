@@ -22,8 +22,10 @@
     <string name="Menu_2">About us</string>
     <string name="Menu_3">Contacts</string>
     <string name="salva_dati">SALVA DATI DATABASE</string>
-    <string name="button_salva_database">SALVA DATA</string>
-    <string name="button_salva_grafico">SALVA PNG</string>
+    <string name="button_salva_database_landscape">SAVE \n DATA \n SQLite</string>
+    <string name="button_salva_grafico_landscape">SAVE \n IMAGE \n PNG</string>
+    <string name="button_salva_database">SAVE DATA SQLite</string>
+    <string name="button_salva_grafico">SAVE IMAGE PNG</string>
     <string name="button">button_generico</string>
     <string name="titolo_argomenti">value argomento</string>
     <string name="note_argomenti">sourceNote argomento</string>
