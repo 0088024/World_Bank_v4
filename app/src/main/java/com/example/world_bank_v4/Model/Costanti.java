@@ -46,6 +46,8 @@ public final class Costanti {
 
     public static final String LANCIATA_DA_PRECEDENTE = "lanciata_da_precedente";
 
+    public static final String ATTIVITÀ_LANCIATA = "attività_lanciata";
+
 
     public static final Integer progressBarTime = 10000;
 

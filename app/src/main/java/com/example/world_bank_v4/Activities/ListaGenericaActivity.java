@@ -87,7 +87,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             bundle_prec = intent_prec.getExtras();
             int chiamante = 0;
             if (bundle_prec != null) {
-                chiamante = bundle_prec.getInt("Prova");
+                chiamante = bundle_prec.getInt(Costanti.ATTIVITÀ_LANCIATA);
             }
             /*se == 1 significa che l'attività è stata lanciata da quella precedente, quindi
             scarico il file Json da internet*/
@@ -222,6 +222,15 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         /*editor.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, lanciata_da_precedente);*/
 
         editor.apply();
+    }
+
+
+    @Override
+    public void onStop(){
+        super.onStop();
+                  Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": STOP");
+
+
     }
 
 
@@ -451,8 +460,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     /*leggi dalle SharedPreferences e imposta le relativi variabili di stato dell'istanza*/
     private void getStateFromSharedPreferences(){
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
-                ": getStateFromSharedPreferences()");
         SharedPreferences sharedPreferences =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
         json_file = sharedPreferences.getString(KEY_JSON_FILE, "File non esiste");
@@ -492,8 +499,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     /*leggi dal Bundle e imposta le relativi variabili di stato dell'istanza*/
     private boolean getStateFromBundle(Bundle bundle){
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
-                ": getStateFromBundle(Bundle bundle)");
+
         nomeClasseSelezionata = bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
         /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
         piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
