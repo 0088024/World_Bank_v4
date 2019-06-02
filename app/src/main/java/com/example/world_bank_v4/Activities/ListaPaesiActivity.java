@@ -82,6 +82,8 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
                                                     super.getIdIndicatoreSelezionato());
         bundle_succ.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
                                                     super.getNomeIndicatoreSelezionato());
+        bundle_succ.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
+
 
         Class<?> classe = ListaPaesiActivity.class;
         Intent intent_succ;

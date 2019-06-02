@@ -72,6 +72,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         super.onResume();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
         progressBar = findViewById(R.id.progressBar);
+
         /*se è stata lanciata da CaricaDati*/
         intent = getIntent();
         bundle = intent.getExtras();

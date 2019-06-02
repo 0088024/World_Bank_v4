@@ -72,6 +72,8 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         ArrayList<Argomento> lista_argomenti = super.getListaOggetti();
         bundle_succ.putString(Costanti.ID_ARGOMENTO_SELEZIONATO,
                                         lista_argomenti.get(posizione).getId());
+        bundle_succ.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
+
 
         /*questa attività lancia sempre l'attività ListIndicatoriActivity*/
         Intent intent_succ = new Intent(getApplicationContext(), ListaIndicatoriActivity.class);

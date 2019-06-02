@@ -89,6 +89,8 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
                                                     lista_indicatori.get(posizione).getId());
         bundle_succ.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
                 lista_indicatori.get(posizione).getName());
+        bundle_succ.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
+
 
         Class<?> classe = ListaPaesiActivity.class;
         Intent intent_succ;

@@ -28,6 +28,8 @@
             android:gravity="start"
             android:text="@string/nome_paese"
             android:textAlignment="viewStart"
+            android:textColor="@color/colorNero"
+            android:textStyle="bold"
             tools:text="@string/nome_paese" />
 
         <TextView

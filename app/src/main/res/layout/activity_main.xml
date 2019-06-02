@@ -8,95 +8,105 @@
     android:background="@drawable/wbdata"
     android:padding="8dp">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/border_white"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:background="@drawable/border_grigio_con_verde_acqua_dentro"
+        android:clipChildren="false"
+        android:clipToPadding="true"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_marginTop="8dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/image_world_bank"
-            android:cropToPadding="false"
-            app:srcCompat="@drawable/wb_norid" />
-
-        <Button
-            android:id="@+id/buttonPaese"
-            style="@style/styleButton"
+        <LinearLayout
+            android:id="@+id/linearLayoutGrafico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/lente"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/select_country" />
+            android:layout_gravity="center|top"
+            android:background="@drawable/border_grigio_con_verde_acqua_dentro"
+            android:clipChildren="false"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buttonArgomento"
-            style="@style/styleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/lente"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/select_topics" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/image_world_bank"
+                android:cropToPadding="false"
+                app:srcCompat="@drawable/wb_norid" />
 
-        <Button
-            android:id="@+id/buttonGrafico"
-            style="@style/styleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/graphicok"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/load_previus_image" />
+            <Button
+                android:id="@+id/buttonPaese"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="0"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/lente"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/select_country" />
 
-        <Button
-            android:id="@+id/buttonDatabase"
-            style="@style/styleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/storageok"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/load_data_offline" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/buttonArgomento"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="0"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/lente"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/select_topics" />
+
+            <Button
+                android:id="@+id/buttonGrafico"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/graphicok"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/load_previus_image" />
+
+            <Button
+                android:id="@+id/buttonDatabase"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/storageok"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/load_data_offline" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

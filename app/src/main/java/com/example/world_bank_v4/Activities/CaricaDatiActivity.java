@@ -31,7 +31,6 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     private CursorAdapter cursorAdapter;
     private int position;
     private long id_record;
-
     private ListView listView;
     private ProgressBar progressBar;
     private Intent intent;
