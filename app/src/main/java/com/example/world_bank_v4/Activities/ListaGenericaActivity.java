@@ -85,7 +85,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             estrapolo l'oggetto bundle contenente i dati passati*/
             intent_prec = getIntent();   /*ritorna l'intento che ha avviato questa activity*/
             bundle_prec = intent_prec.getExtras();
-            int chiamante = bundle_prec.getInt("Prova");
+            int chiamante = 0;
+            if (bundle_prec != null) {
+                chiamante = bundle_prec.getInt("Prova");
+            }
             /*se == 1 significa che l'attività è stata lanciata da quella precedente, quindi
             scarico il file Json da internet*/
             if (chiamante == 1){
@@ -97,7 +100,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                         ": lanciata_da_precedente: " +lanciata_da_precedente );
                 bundle_prec.clear();        /*"resetto" il bundle precedente*/
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
-                        ": bundle_prec.getInt(\"Prova\"): " + bundle_prec.getInt("Prova"));
+                        ": bundle_prec.getInt(\"Prova\") dopo bundle_prec.clear() = "
+                        + bundle_prec.getInt("Prova"));
 
             }
             /*altrimenti significa che è stata ripresa dall'utente e ricreata dal S.O. (causa
@@ -121,7 +125,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
         this.savedInstanceState = bundle;
-        lanciata_da_precedente = false;
     }
 
 
@@ -216,7 +219,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         editor.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
         editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
         editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
-        editor.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, lanciata_da_precedente);
+        /*editor.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, lanciata_da_precedente);*/
 
         editor.apply();
     }
@@ -483,32 +486,28 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                     sharedPreferences.getString(Costanti.NOME_PAESE_SELEZIONATO,
                             "File non esiste");
         }
-        if (sharedPreferences.contains(Costanti.LANCIATA_DA_PRECEDENTE)) {
-            lanciata_da_precedente =
-                    sharedPreferences.getBoolean(Costanti.LANCIATA_DA_PRECEDENTE,
-                            false);
-        }
+
     }
 
 
     /*leggi dal Bundle e imposta le relativi variabili di stato dell'istanza*/
     private boolean getStateFromBundle(Bundle bundle){
-            Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
                 ": getStateFromBundle(Bundle bundle)");
-          nomeClasseSelezionata = bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
-          /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
-          piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
-          punto del "percorso"*/
-          idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
-          nomeIndicatoreSelezionato = bundle.getString(Costanti.NOME_INDICATORE_SELEZIONATO);
-          idArgomentoSelezionato = bundle.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
-          idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
-          nomePaeseSelezionato = bundle.getString(Costanti.NOME_PAESE_SELEZIONATO);
-          lanciata_da_precedente = bundle.getBoolean(Costanti.LANCIATA_DA_PRECEDENTE);
+        nomeClasseSelezionata = bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
+        /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
+        piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
+        punto del "percorso"*/
+        idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
+        nomeIndicatoreSelezionato = bundle.getString(Costanti.NOME_INDICATORE_SELEZIONATO);
+        idArgomentoSelezionato = bundle.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
+        idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
+        nomePaeseSelezionato = bundle.getString(Costanti.NOME_PAESE_SELEZIONATO);
+        lanciata_da_precedente = bundle.getBoolean(Costanti.LANCIATA_DA_PRECEDENTE);
 
         String nome_chiave_file_json = bundle.getString(Costanti.NOME_CHIAVE_FILE_JSON);
-          json_file = bundle.getString(nome_chiave_file_json);
-          return true;
+        json_file = bundle.getString(nome_chiave_file_json);
+        return true;
     }
 
 
