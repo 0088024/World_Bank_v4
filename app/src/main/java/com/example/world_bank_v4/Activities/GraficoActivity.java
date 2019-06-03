@@ -265,18 +265,17 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Intestazione intestazione = myGSON.getJsonElementIntestazione(json_file);
             /*Get the local Time*/
             Calendar calendar = Calendar.getInstance();
-            /*SimpleDateFormat format = new SimpleDateFormat("dd-MM-YYYY  HH:mm:ss",
-                    Locale.getDefault());
-            String myTime = format.format(calendar.getTime());*/
-
-            String myTime = "dd-MM-YYYY  HH:mm:ss";
+            SimpleDateFormat format =
+                    new SimpleDateFormat("dd-MM-YYYY  HH:mm:ss", Locale.ENGLISH);
+            String myTime = format.format(calendar.getTime());
+            Log.d(Costanti.NOME_APP, myTime);
 
             RecordTabella recordTabella = new RecordTabella(intestazione, myTime, country, indicator,
                     lista_Valore_grafico);
 
             dbManager.addRow(recordTabella);
 
-            /*Fammi vedere per un certo tempo stabilito da una costante la Progress Bar*/
+            // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
             for (; count <= Costanti.progressBarTime; count++)
                 publishProgress(count);
 
