@@ -269,7 +269,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                     Locale.getDefault());
             String myTime = format.format(calendar.getTime());*/
 
-            RecordTabella recordTabella = new RecordTabella(intestazione, "ERRORE", country, indicator,
+            String myTime = "dd-MM-YYYY  HH:mm:ss";
+
+            RecordTabella recordTabella = new RecordTabella(intestazione, myTime, country, indicator,
                     lista_Valore_grafico);
 
             dbManager.addRow(recordTabella);
