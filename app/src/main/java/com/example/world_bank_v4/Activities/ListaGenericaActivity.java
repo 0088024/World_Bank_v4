@@ -43,7 +43,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private Intent intent_prec;
     private Bundle bundle_prec;
     private Bundle bundle_succ;
-    private Bundle bundle_main;
+    private Bundle bundle_err;
     private String json_file;
     private String error_file;
     private String nomeClasseSelezionata;
@@ -55,11 +55,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private String KEY_JSON_FILE;
     private String NOME_FILE_PREFERENCES;
     private String API_WORLD_BANK;
+    private Integer requestCode;
     private TypeToken typeToken;
     private Bundle savedInstanceState;
     private ProgressBar progressBar;
     private boolean ReturningWithResult;
-    private int requestCode;
     private boolean lanciata_da_precedente;
 
 
@@ -301,9 +301,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         }
         else{  // Non si può continuare
             Intent intent=new Intent();
-            bundle_main = new Bundle();
-            bundle_main.putString("error",error_file);
-            intent.putExtras(bundle_main);
+            bundle_err = new Bundle();
+            bundle_err.putString("error",error_file);
+            intent.putExtras(bundle_err);
             setResult(RESULT_FIRST_USER,intent);
             finish();
         }
@@ -316,8 +316,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
    dallo stack activity, in modo da far tornare in 1°piano quella che l'aveva lanciata*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        Intent intent=new Intent();
-        setResult(RESULT_OK,intent); // Informa l'attività chiamante che è tutto ok
         finish();
         return false;
     }
@@ -439,7 +437,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         Intent intent;
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
-        this.requestCode= requestCode;
+        this.requestCode = requestCode;
+
         ReturningWithResult=false;
 
         // Controllo dei codici di risposta delle attività lanciate
