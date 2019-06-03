@@ -274,7 +274,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             dbManager.addRow(recordTabella);
 
-            // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
+            /*Fammi vedere per un certo tempo stabilito da una costante la Progress Bar*/
             for (; count <= Costanti.progressBarTime; count++)
                 publishProgress(count);
 
