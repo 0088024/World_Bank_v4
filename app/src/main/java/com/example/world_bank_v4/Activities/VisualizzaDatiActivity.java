@@ -89,8 +89,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
                         getSharedPreferences(Costanti.PREFERENCES_FILE_VISUALIZZA_DATI,
                                                         Context.MODE_PRIVATE);
                 id_record = sharedPreferences.getLong(Costanti.KEY_RECORD_ID, 0);
-                Log.d(Costanti.NOME_APP, "recuperati dati da disco: "+
-                        String.valueOf(id_record));
+                Log.d(Costanti.NOME_APP, "recuperati dati da disco");
             }
             /*se invece ha già ricevuto il bundle dal S.O., le varibili le ha già recuperate in
             onRestoreInstanceState()*/
@@ -217,7 +216,6 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
             int num_colonne_database = cursorRisultato.getColumnCount();
             int a = 0;
             for (int i = 0; i < num_colonne_database + 1 ; i++, a++) {
-                Log.d(Costanti.NOME_APP, String.valueOf(num_colonne_database));
                 inflateRow = (TableRow) View.inflate(getApplicationContext(), R.layout.table_row,
                         null);
 
