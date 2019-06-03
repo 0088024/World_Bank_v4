@@ -9,6 +9,7 @@ import android.graphics.DashPathEffect;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -376,9 +377,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     public void costruisciGrafico() {
 
 
-        int blu_grafico = getResources().getColor(R.color.blu_grafico, null);
-        /*inflateChart();*/
-
+       /* int blu_grafico = getResources().getValue(R.color.blu_grafico);*/
+        int blu_grafico = ContextCompat.getColor(this, R.color.blu_grafico);
         /*imposta etichetta descrizione*/
         Description description = chart.getDescription();
         description.setText("ANNI");
