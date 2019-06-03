@@ -193,7 +193,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
         savedInstanceState.putString(Costanti.NOME_PAESE_SELEZIONATO,
                 nomePaeseSelezionato);
-        //savedInstanceState.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, lanciata_da_precedente);
 
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": Bundle savedInstanceState salvato");
@@ -223,7 +222,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         editor.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
         editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
         editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
-        /*editor.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, lanciata_da_precedente);*/
 
         editor.apply();
     }
