@@ -92,12 +92,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*se == 1 significa che l'attività è stata lanciata da quella precedente, quindi
             scarico il file Json da internet*/
             if (chiamante == 1){
+
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
                         ": getStateFromBundle(bundle_prec)");
                 /*recupero le variabili di stato dal bundle ricevuto*/
                 lanciata_da_precedente = getStateFromBundle(bundle_prec);
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
-                        ": lanciata_da_precedente: " +lanciata_da_precedente );
+                        ": lanciata_da_precedente: " + lanciata_da_precedente );
                 bundle_prec.clear();        /*"resetto" il bundle precedente*/
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
                         ": bundle_prec.getInt(\"Prova\") dopo bundle_prec.clear() = "
@@ -124,6 +125,15 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         super.onRestoreInstanceState(bundle);
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
+        /*causa eccessiva dimensione di alcune liste di indicatori, tali da generare ExceptionBundle
+        size, l'activity ListaIndicatori non salva lo stato dell'istanza nel bundle, ma solo sul
+        disco*/
+        if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName()){
+            Log.d(Costanti.NOME_APP,
+                    this.getClass().getCanonicalName() + ": No restore Bundle");
+            return ;
+        }
+
         this.savedInstanceState = bundle;
     }
 
@@ -172,14 +182,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     dall'utente (con il tasto indietro per esempio) non viene chiamato dal sistema*/
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-
         /*causa eccessiva dimensione di alcune liste di indicatori, tali da generare ExceptionBundle
         size, l'activity ListaIndicatori non salva lo stato dell'istanza nel bundle, ma solo sul
         disco*/
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName())
             return;
-
 
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
 
@@ -198,7 +205,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 this.getClass().getCanonicalName() + ": Bundle savedInstanceState salvato");
 
         super.onSaveInstanceState(savedInstanceState);
-        
 
     }
 

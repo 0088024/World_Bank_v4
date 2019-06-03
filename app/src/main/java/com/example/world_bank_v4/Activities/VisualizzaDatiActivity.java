@@ -216,7 +216,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
 
             TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
 
-            for (int i = 0; i < cursorRisultato.getColumnCount(); i++) {
+            for (int i = 0; i < cursorRisultato.getColumnCount() +1 ; i++) {
 
                 inflateRow = (TableRow) View.inflate(getApplicationContext(), R.layout.table_row,
                         null);
