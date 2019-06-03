@@ -193,7 +193,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
         savedInstanceState.putString(Costanti.NOME_PAESE_SELEZIONATO,
                 nomePaeseSelezionato);
-        savedInstanceState.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, lanciata_da_precedente);
+        //savedInstanceState.putBoolean(Costanti.LANCIATA_DA_PRECEDENTE, lanciata_da_precedente);
 
         Log.d(Costanti.NOME_APP,
                 this.getClass().getCanonicalName() + ": Bundle savedInstanceState salvato");
@@ -271,8 +271,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             }
             caricaLayout();
         }
-        /*se invece è stata lanciata da una attività precedente ho già il file scaricato nella
-        onCreate(). In entrambi i casi posso caricare il layout*/
+        /*se invece è stata lanciata da una attività precedente
         /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
         else new DownloadFileTask(this.getClass().getCanonicalName()).execute();
 
@@ -281,7 +280,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
-    /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>,
+    /*se non sono presenti errori il file json viene trasformato con GSON in una List<T>,
     e collega quest'ultima alla listView tramite l'adattatore che instanzia*/
     protected void caricaLayout(){
 
