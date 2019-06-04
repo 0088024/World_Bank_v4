@@ -65,7 +65,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private TextView textView_chart_sottotitolo;
     private Button button_salva_database;
     private Button button_salva_grafico;
-    private Bundle bundle_main;
+    private Bundle bundle_err;
 
 
     @Override
@@ -168,9 +168,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         else{ /*Non si può continuare*/
             Log.d(Costanti.NOME_APP ," error_file: " + err_msg);
             Intent intent=new Intent();
-            bundle_main = new Bundle();
-            bundle_main.putString("error",err_msg);
-            intent.putExtras(bundle_main);
+            bundle_err = new Bundle();
+            bundle_err.putString("error",err_msg);
+            intent.putExtras(bundle_err);
             setResult(RESULT_FIRST_USER,intent);
             finish();
         }
