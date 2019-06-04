@@ -23,6 +23,7 @@
         <TextView
             android:id="@+id/textViewPaese"
             style="@style/styleLayout"
+            android:background="@drawable/background_grafico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
@@ -39,7 +40,10 @@
             android:gravity="start"
             android:text="@string/nome_indicatore"
             android:textAlignment="textStart"
+            android:background="@color/colorbackgroundlist"
+            android:padding="8dp"
             android:textColor="@color/colorNero"
+            style="@style/styleLayouttopics"
             tools:text="@string/nome_indicatore" />
 
     </LinearLayout>
@@ -48,8 +52,10 @@
         android:id="@+id/imageButtonDati"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:background="@drawable/background_grafico"
         android:adjustViewBounds="true"
         android:contentDescription="@string/image_view_dati"
+        android:layout_marginLeft="2dp"
         android:cropToPadding="false"
         android:scaleType="fitCenter"
         android:tint="@color/blu_grafico"
@@ -59,6 +65,8 @@
         android:id="@+id/imageButtonDelete"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginLeft="2dp"
+        android:background="@drawable/background_grafico"
         android:adjustViewBounds="true"
         android:contentDescription="@string/image_delete"
         android:scaleType="fitCenter"
