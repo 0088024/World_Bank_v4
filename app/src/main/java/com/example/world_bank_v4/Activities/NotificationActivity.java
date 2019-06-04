@@ -35,9 +35,10 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
         bundle_prec = intent_prec.getExtras();
         message = bundle_prec.getString("error");
-        textnot.setText(bundle_prec.getString("risulato",message));
+        textnot.setText(bundle_prec.getString("risulato", message));
 
     }
+
 
     public void onClick(View v) {
 

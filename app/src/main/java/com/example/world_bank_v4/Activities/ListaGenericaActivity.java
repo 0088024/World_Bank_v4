@@ -150,7 +150,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         caricaVariabili();
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
-        if (ReturningWithResult==true && requestCode == Costanti.lista_paesi_code) {
+        if (ReturningWithResult == true && requestCode == Costanti.lista_paesi_code) {
             // Commit your transactions here.
             DialogNoCountry mydialog = new DialogNoCountry();
             mydialog.show(getSupportFragmentManager(),"mydialog");
@@ -259,14 +259,16 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         utente. In questo caso se savedInstanceState è stato ripristinato carico i dati da lui,
         altrimenti da disco*/
         if(lanciata_da_precedente == false) {
-            /*se savedInstanceState è == null è stata ripresa ma il s.o. non gli ha passato
-            l'oggetto Bundle in onRestoreInstanceState*/
+            /*inoltre se savedInstanceState è == false, significa che è stata ripresa ma il s.o.
+            non gli ha passato l'oggetto Bundle in onRestoreInstanceState*/
             if (savedInstanceState == null) {
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
                         ": getStateFromSharedPreferences()");
                 getStateFromSharedPreferences(); /*recupero le variabili di stato da disco*/
             }
-            /*altrimenti se il bundle è stato recuperato in onRestoreInstanceSate()*/
+            /* altrimenti se savedInstanceState è == true, è stata ripresa e il s.o. gli ha anche
+            passato l'oggetto Bundle in onRestoreInstanceState(). x cui recuperiamo le variabili
+            da tale bundle*/
             else {
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
                         ": getStateFromBundle(savedInstanceState);");
@@ -274,8 +276,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             }
             caricaLayout();
         }
-        /*se invece è stata lanciata da una attività precedente
-        /*scarica il file json relativo all'API e trasformali in List<T> con GSON*/
+        /*se invece è stata lanciata da una attività precedente scarica il file json relativo*/
         else new DownloadFileTask(this.getClass().getCanonicalName()).execute();
 
 
