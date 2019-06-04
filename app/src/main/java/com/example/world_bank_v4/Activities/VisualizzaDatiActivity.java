@@ -78,8 +78,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         bundle = intent.getExtras();
         if(bundle != null) {
             id_record = bundle.getLong(Costanti.ID_RECORD_TABELLA);
-            Log.d(Costanti.NOME_APP, "recuperati dati da bundle_prec: " +
-                    String.valueOf(id_record));
+            Log.d(Costanti.NOME_APP, "recuperati dati da bundle_prec");
         }
         /*altrimenti se non è stata lanciata da CaricaDati ma ripresa dopo onPause()*/
         else {
@@ -90,8 +89,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
                         getSharedPreferences(Costanti.PREFERENCES_FILE_VISUALIZZA_DATI,
                                                         Context.MODE_PRIVATE);
                 id_record = sharedPreferences.getLong(Costanti.KEY_RECORD_ID, 0);
-                Log.d(Costanti.NOME_APP, "recuperati dati da disco: "+
-                        String.valueOf(id_record));
+                Log.d(Costanti.NOME_APP, "recuperati dati da disco");
             }
             /*se invece ha già ricevuto il bundle dal S.O., le varibili le ha già recuperate in
             onRestoreInstanceState()*/
@@ -215,9 +213,9 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
             TableRow inflateRow;
 
             TableLayout tableLayout = (TableLayout) findViewById(R.id.tableLayout);
-
-            for (int i = 0; i < cursorRisultato.getColumnCount(); i++) {
-
+            int num_colonne_database = cursorRisultato.getColumnCount();
+            int a = 0;
+            for (int i = 0; i < num_colonne_database + 1 ; i++, a++) {
                 inflateRow = (TableRow) View.inflate(getApplicationContext(), R.layout.table_row,
                         null);
 
@@ -230,8 +228,9 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
                 if(i == 8) {
                     txv.setText("VALUES");
                     txv.setTextColor(Color.BLACK);
+                    a--;
                 }
-                else{ txv.setText(cursorRisultato.getString(i));}
+                else{ txv.setText(cursorRisultato.getString(a));}
 
                 //add TableRows to TableLayout
                 tableLayout.addView(inflateRow);
@@ -243,9 +242,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        //Intent intent=new Intent();
-        //setResult(RESULT_OK,intent); // Informa l'attività chiamante con un codice
+    public boolean onOptionsItemSelected(MenuItem item){        
         finish();
         return false;
     }
