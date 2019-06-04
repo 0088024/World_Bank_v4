@@ -33,7 +33,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="4dp"
-        android:background="@drawable/border_grigio_con_verde_acqua_dentro"
+        android:background="@drawable/background_grafico"
         android:gravity="start"
         android:padding="8dp"
         android:paddingStart="8dp"
