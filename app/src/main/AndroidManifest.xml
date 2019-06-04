@@ -28,6 +28,7 @@
         </activity>
         <activity
             android:name=".Activities.GraficoActivity"
+            android:screenOrientation="landscape"
             android:label="@string/title_activity_grafico">
         </activity>
         <activity
