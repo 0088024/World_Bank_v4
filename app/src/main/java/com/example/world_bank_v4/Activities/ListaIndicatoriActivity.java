@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
-    private boolean mReturningWithResult = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

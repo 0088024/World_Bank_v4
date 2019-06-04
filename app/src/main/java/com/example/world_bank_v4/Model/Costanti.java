@@ -6,8 +6,11 @@ public final class Costanti {
                                    istanziata tale classe*/
 
     public static final String NOME_APP = "WorldBank: ";
-    public static final String CHOOSE_BROWSER = "Complete the action with one of the following browser: ";
+    public static final String CHOOSE_BROWSER =
+            "Complete the action with one of the following browser: ";
     public static final String WORLDBANK_SITE = "http://www.worldbank.org";
+    public static final String IO_ERROR = "Unable to unable to contact: ";
+
     public static final String API_TOPIC_LIST_FORMAT_JSON =
             "https://api.worldbank.org/v2/topic?format=json";
     public static final String API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/";

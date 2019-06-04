@@ -61,6 +61,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private ProgressBar progressBar;
     private boolean ReturningWithResult;
     private boolean lanciata_da_precedente;
+    private boolean rete_presente;
+
 
 
 
@@ -303,11 +305,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             listView.setAdapter(adapter);
         }
         else{  /*Non si può continuare*/
-            Intent intent=new Intent();
+            Intent intent = new Intent();
             bundle_err = new Bundle();
             bundle_err.putString("error",error_file);
             intent.putExtras(bundle_err);
-            setResult(RESULT_FIRST_USER,intent);
+            setResult(RESULT_FIRST_USER, intent);
             finish();
         }
     }
@@ -357,10 +359,15 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             try {
                 url = new URL(API_WORLD_BANK);
                 /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
+                /*se il timeout era già scaduto quando riprova a connettermi qui già mi lancia
+                l'eccezione "no address hostname....." senza riaspettare il timeout
+                 */
                 client = (HttpURLConnection) url.openConnection();
                 /*Recupero le informazioni inviate dal server */
-                client.setReadTimeout(Costanti.timeout); //Timeout in millisecondi per la lettura da stream
+                client.setReadTimeout(Costanti.timeout); //Timeout in millisecondi per la lettura
+
                 risposta = new BufferedInputStream(client.getInputStream());
+                // da stream
                 /*leggo i caratteri e li appendo in sb*/
                 sb = new StringBuilder();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(risposta));
@@ -372,37 +379,33 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             }
 
             /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
-            catch (MalformedURLException e) {
+            /*estende IOException*/
+           /* catch (MalformedURLException e) {
                 Log.d(Costanti.NOME_APP,"MalformedURLException: "+e.getMessage());
                 error_file = e.getMessage();
                 return error_file;
 
-            }
+            }*/
 
-            catch (SocketTimeoutException e) {
+            /*estende IOException*/
+            /*catch (SocketTimeoutException e) {
                 Log.d(Costanti.NOME_APP,"SocketTimeoutException: " +e.getMessage() );
                 error_file = e.getMessage();
                 return error_file;
 
-            }
+            }*/
 
             catch (IOException e) {
                 Log.d(Costanti.NOME_APP,"IOException: " +e.getMessage() );
-                error_file= e.getMessage();
+                error_file = Costanti.IO_ERROR + Costanti.WORLDBANK_SITE;
                 return error_file;
-
 
             }
 
-            catch (Exception e) {
-                Log.d(Costanti.NOME_APP,"Exception: "+e.getMessage() );
-                error_file = e.getMessage();
-                return error_file;
 
-
-            }
 
             finally {
+
                 client.disconnect();
             }
 
@@ -425,10 +428,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         @Override
         protected void onPostExecute(String risultato) {
 
-                setProgressBarGone();  /*Sopprimi la progressBar*/
+            setProgressBarGone();  /*Sopprimi la progressBar*/
+            if(risultato != null) {
                 Log.d(Costanti.NOME_APP, nameClass + ": File scaricato da internet");
                 json_file = risultato;
                 caricaLayout();
+            }
+            else Log.d(Costanti.NOME_APP, nameClass + ": Errore connessione internet");
+
         }
     }
 

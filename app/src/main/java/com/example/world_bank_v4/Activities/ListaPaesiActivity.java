@@ -19,8 +19,6 @@ import java.util.ArrayList;
 
 public class ListaPaesiActivity extends ListaGenericaActivity {
 
-    private boolean mReturningWithResult = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
