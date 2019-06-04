@@ -23,13 +23,13 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         super.onCreate(savedInstanceState);
         /*"specializza activity*/
         setContentView(R.layout.activity_lista_argomenti);
-        getSupportActionBar().setLogo(R.drawable.topic);
     }
 
 
 
     @Override
     public void onResume(){
+        getSupportActionBar().setLogo(R.drawable.topic);
         ArrayList<Argomento> lista_argomenti = new ArrayList<Argomento>();
         TypeToken<ArrayList<Argomento>> listTypeToken = new TypeToken<ArrayList<Argomento>>() {};
         super.setIdListView(R.id.list_view);
@@ -40,6 +40,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_ARGOMENTI);
         super.setAPI_WORLD_BANK(Costanti.API_TOPIC_LIST_FORMAT_JSON);
         super.onResume();
+
     }
 
 

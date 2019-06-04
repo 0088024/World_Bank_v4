@@ -70,13 +70,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     {
         super.onCreate(savedInstanceState);
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
-        /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
-        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
-        tornare al livello principale o alla prima pagina.*/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        //Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
-               // " lanciata_da_precedente: " +lanciata_da_precedente );
 
         /*se savedInstanceState è == null, o è stata lanciata da 1 altra attività, oppure è
         stata ripresa ma il s.o. non gli ha passato l'oggetto Bundle*/
@@ -147,6 +140,12 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onResume(){
         super.onResume();
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
+        /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
+        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
+        tornare al livello principale o alla prima pagina.*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         setProgressBarNoVisible();
         caricaVariabili();
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
@@ -302,7 +301,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             instanziaAdapter();
             listView.setAdapter(adapter);
         }
-        else{  // Non si può continuare
+        else{  /*Non si può continuare*/
             Intent intent=new Intent();
             bundle_err = new Bundle();
             bundle_err.putString("error",error_file);

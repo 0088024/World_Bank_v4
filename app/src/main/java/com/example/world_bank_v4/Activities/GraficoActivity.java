@@ -77,13 +77,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         /*"specializza activity*/
         setContentView(R.layout.activity_grafico);
-        getSupportActionBar().setLogo(R.drawable.graph);
     }
 
 
     @Override
     public void onResume(){
         /*in this example, a LineChart is initialized from xml*/
+        getSupportActionBar().setLogo(R.drawable.graph);
         chart = findViewById(R.id.chart);
         textView_chart_titolo = findViewById(R.id.textView_chart_titolo);
         textView_chart_sottotitolo = findViewById(R.id.textView_chart_sottotitolo);
@@ -215,13 +215,14 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         switch(id) {
             case R.id.menu_salva_grafico:
                 new SalvaGraficoTask().execute(chart);
-                break;
+                return false;
 
             case R.id.menu_salva_database:
                 new SalvaDatabaseTask().execute(lista_grafico);
-                break;
+                return false;
 
         }
+        finish();
         return false;
     }
 

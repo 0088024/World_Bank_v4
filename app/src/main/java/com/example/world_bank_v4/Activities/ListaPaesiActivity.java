@@ -27,7 +27,6 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         super.onCreate(savedInstanceState);
         /*"specializza activity*/
         setContentView(R.layout.activity_lista_paese);
-        getSupportActionBar().setLogo(R.drawable.country);
     }
 
 
@@ -35,6 +34,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
     @Override
     public void onResume(){
+        getSupportActionBar().setLogo(R.drawable.country);
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
         super.setIdListView(R.id.list_view_paesi);
