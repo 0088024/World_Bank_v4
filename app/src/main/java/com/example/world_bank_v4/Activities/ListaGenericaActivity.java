@@ -61,7 +61,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private ProgressBar progressBar;
     private boolean ReturningWithResult;
     private boolean lanciata_da_precedente;
-    private boolean rete_presente;
 
 
 
@@ -230,6 +229,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
         editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
 
+
         editor.apply();
     }
 
@@ -277,10 +277,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 getStateFromBundle(savedInstanceState);
             }
             caricaLayout();
+
         }
         /*se invece è stata lanciata da una attività precedente scarica il file json relativo*/
         else new DownloadFileTask(this.getClass().getCanonicalName()).execute();
-
 
     }
 
@@ -290,28 +290,19 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     e collega quest'ultima alla listView tramite l'adattatore che instanzia*/
     protected void caricaLayout(){
 
-        if(error_file==null) {  // Controlla se ci sono stati eventuali errori
 
-            /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
-            MyGSON myGSON = new MyGSON();
-            lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
-            /*DEBUG*/
-            Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
+        /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
+        MyGSON myGSON = new MyGSON();
+        lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
+        /*DEBUG*/
+        Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
 
-            listView = findViewById(idListView);
-            listView.setOnItemClickListener(this);
+        listView = findViewById(idListView);
+        listView.setOnItemClickListener(this);
 
-            instanziaAdapter();
-            listView.setAdapter(adapter);
-        }
-        else{  /*Non si può continuare*/
-            Intent intent = new Intent();
-            bundle_err = new Bundle();
-            bundle_err.putString("error",error_file);
-            intent.putExtras(bundle_err);
-            setResult(RESULT_FIRST_USER, intent);
-            finish();
-        }
+        instanziaAdapter();
+        listView.setAdapter(adapter);
+
     }
 
 
@@ -378,31 +369,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
             }
 
-            /*if no protocol is specified, or an unknown protocol is found, or spec is null*/
-            /*estende IOException*/
-           /* catch (MalformedURLException e) {
-                Log.d(Costanti.NOME_APP,"MalformedURLException: "+e.getMessage());
-                error_file = e.getMessage();
-                return error_file;
-
-            }*/
-
-            /*estende IOException*/
-            /*catch (SocketTimeoutException e) {
-                Log.d(Costanti.NOME_APP,"SocketTimeoutException: " +e.getMessage() );
-                error_file = e.getMessage();
-                return error_file;
-
-            }*/
 
             catch (IOException e) {
                 Log.d(Costanti.NOME_APP,"IOException: " +e.getMessage() );
                 error_file = Costanti.IO_ERROR + Costanti.WORLDBANK_SITE;
-                return error_file;
+                return null;
 
             }
-
-
 
             finally {
 
@@ -434,7 +407,16 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 json_file = risultato;
                 caricaLayout();
             }
-            else Log.d(Costanti.NOME_APP, nameClass + ": Errore connessione internet");
+            else{
+                Log.d(Costanti.NOME_APP, nameClass + ": Errore connessione internet");
+                // Errore imprevisto ad es. viene a mancare la connessione a internet
+                Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("error", error_file);
+                intent.putExtras(bundle);
+                /*prima di lanciare la NotificationActivity imposto lanciata_da_successiva*/
+                startActivityForResult(intent,99);
+            }
 
         }
     }
@@ -444,7 +426,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Intent intent;
+
         Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
         this.requestCode = requestCode;
@@ -453,20 +435,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         // Controllo dei codici di risposta delle attività lanciate
 
-        if (resultCode == RESULT_FIRST_USER) {
-            // Errore imprevisto ad es. viene a mancare la connessione a internet
-            String error_message = data.getStringExtra("error");
-            intent = new Intent(this, NotificationActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("error", error_message);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
-
         if(resultCode == Costanti.noData){
             // Errore previsto ad es. nessun dato disponibile per un certo paese
             ReturningWithResult = true;
         }
+
+        if(resultCode == 99)
+            finish();
     }
 
 
@@ -506,6 +481,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                     sharedPreferences.getString(Costanti.NOME_PAESE_SELEZIONATO,
                             "File non esiste");
         }
+
 
     }
 

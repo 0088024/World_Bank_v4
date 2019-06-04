@@ -45,7 +45,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
 
     public void onClick(View v) {
-
+        setResult(99);
         finish();
 
     }
