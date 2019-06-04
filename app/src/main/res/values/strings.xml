@@ -68,6 +68,8 @@
     nell\'ultima ricerca eseguita</string>
     <string name="aboutinfoGuida3">LOAD DATA OFFLINE -> Permette di visualizzare la lista dei database che abbiamo salvato in precedenza e anche di cancellarli</string>
     <string name="universita">TOR VERGATA UNIVERSITY</string>
+    <string name="menu_salva_grafico">Salva Grafico.pmg</string>
+    <string name="menu_salva_database">Salva Database</string>
 
     <string-array name="nomi_colonne_visualizza_dati">
         <item>Download Time</item>

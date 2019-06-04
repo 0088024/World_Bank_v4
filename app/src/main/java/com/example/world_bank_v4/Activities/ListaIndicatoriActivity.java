@@ -24,13 +24,12 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         super.onCreate(savedInstanceState);
         /*specializzaActivity*/
         setContentView(R.layout.activity_lista_indicatori);
-        getSupportActionBar().setLogo(R.drawable.indicator);
-
     }
 
 
     @Override
     public void onResume(){
+        getSupportActionBar().setLogo(R.drawable.indicator);
         ArrayList<Indicatore> lista_indicatori = new ArrayList<Indicatore>();
         TypeToken<ArrayList<Indicatore>> listTypeToken = new TypeToken<ArrayList<Indicatore>>() {};
 
@@ -44,6 +43,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
         l'intento con l'argomento selezionato dall'utente*/
         super.setAPI_WORLD_BANK(null);
         super.onResume();
+
     }
 
 
