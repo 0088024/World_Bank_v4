@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_salva_database"
+        android:title="@string/menu_salva_database" />
+    <item
+        android:id="@+id/menu_salva_grafico"
+        android:checkable="false"
+        android:enabled="true"
+        android:title="@string/menu_salva_grafico"
+        android:visible="true" />
+</menu>

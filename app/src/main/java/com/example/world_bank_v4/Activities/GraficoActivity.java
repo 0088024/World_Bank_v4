@@ -11,6 +11,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -193,6 +195,34 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 new SalvaGraficoTask().execute(chart);
                 break;
         }
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_di_scelta_grafico_activity, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        Intent intent;
+        int id = item.getItemId();
+        switch(id) {
+            case R.id.menu_salva_grafico:
+                new SalvaGraficoTask().execute(chart);
+                break;
+
+            case R.id.menu_salva_database:
+                new SalvaDatabaseTask().execute(lista_grafico);
+                break;
+
+        }
+        return false;
     }
 
 
