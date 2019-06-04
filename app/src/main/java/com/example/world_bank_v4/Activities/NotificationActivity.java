@@ -23,7 +23,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        getSupportActionBar().setLogo(R.drawable.call);
+        getSupportActionBar().setLogo(R.drawable.unreach);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
