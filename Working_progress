@@ -1,43 +1,16 @@
 Cose da fare:
 
-1)  Implementare eridarietà per le classi CaricaDati e VisualizzaDati
+
+1) Il salvataggio delle shared preferences farlo con un altro thread?
+no il prof. ha detto che non serve, prechè di norma sono "piccole" e ottimizzate
 
 
-2) Studiare libreria MPAndroidChart e migliorare l'esposizione del grafico (xes. invertire
- l'ascisse con le ordinate)
- Migliorare attività che mostra l'immagine: solo immagine o grafico reattivo? utilizzare le
- nuove o lasciare queste vecchie API?
+2) grafico solo in landscape
 
-3) Controllare tutte le situazioni che possono "uscire" dal normale flusso d'esecuzione (xes. se la pagina internet non
-    risponde, il file grafico non è presente quando lo vado a caricare offline, etc etc), xes. con una finestra POP-UP??????
+3) minsSdk > di lollipop 5.1 (perchè ormai disconosciuto)
 
-4) -------------------FATTO MA RIMASTO CON BUNDLE DI onSavedInstanceState()--------------
-  Eliminare bug che nel caso la lista degli indicatori di quel paese è troppo grande per permettere di inviarlo
-        tramite Bundle in 1 intent
-
-5) Il salvataggio delle shared preferences farlo con un altro thread?
-
-6) Prendere ora corrente
-
-
-
-
-X ALESSIO !!!!
-
-7) Migliorare file activity_main_xml: voce menu "about us" e "contatti"
-
-8) fare layout carica dati
-
-9) fare layout visualizza dati
-
-
-11) layout indicatori ??
-
-
-
-
-
-
+4) USARE 7ZIP : esportare la cartella del progetto in formato zip e poi una volta zippato cancellare
+cartella build(perchè grande e verrà ricostruita ogni volta).
 
 
 

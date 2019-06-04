@@ -23,7 +23,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        getSupportActionBar().setLogo(R.drawable.unreach);
+        getSupportActionBar().setLogo(R.drawable.call);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -39,7 +39,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    @Override
     public void onClick(View v) {
 
         finish();
@@ -48,3 +47,4 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
 
 }
+
