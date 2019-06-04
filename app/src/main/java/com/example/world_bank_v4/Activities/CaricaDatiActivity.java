@@ -102,9 +102,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        Intent intent=new Intent();
-        setResult(RESULT_OK,intent); // Informa l'attività chiamante con un codice
+    public boolean onOptionsItemSelected(MenuItem item){        
         finish();
         return false;
     }
