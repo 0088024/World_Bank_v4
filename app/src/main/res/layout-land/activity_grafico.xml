@@ -26,17 +26,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
+            android:layout_gravity="center|top"
             android:background="@drawable/border_grigio_con_verde_acqua_dentro"
             android:baselineAligned="false"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:gravity="start|top"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/linearLayoutGrafico"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -86,7 +86,7 @@
 
             <LinearLayout
                 android:id="@+id/linaerLayoutDoubleNested"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="8dp"
@@ -96,7 +96,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/button_salva_grafico"
@@ -104,9 +104,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:background="@drawable/background_grafico"
-                    android:drawableBottom="@drawable/graphicmultiline"
+                    android:drawableLeft="@drawable/graphicmultiline"
                     android:padding="8dp"
-                    android:text="@string/button_salva_grafico_landscape"
+                    android:text="@string/button_salva_grafico"
                     android:textAlignment="center"
                     android:textSize="25sp"
                     android:textStyle="bold" />
@@ -117,9 +117,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:background="@drawable/background_grafico"
-                    android:drawableBottom="@drawable/salvadb"
+                    android:drawableLeft="@drawable/salvadb"
                     android:padding="8dp"
-                    android:text="@string/button_salva_database_landscape"
+                    android:text="@string/button_salva_database"
                     android:textAlignment="center"
                     android:textSize="25sp"
                     android:textStyle="bold" />
