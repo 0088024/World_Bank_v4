@@ -87,10 +87,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         chart = findViewById(R.id.chart);
         textView_chart_titolo = findViewById(R.id.textView_chart_titolo);
         textView_chart_sottotitolo = findViewById(R.id.textView_chart_sottotitolo);
-        button_salva_grafico = findViewById(R.id.button_salva_grafico);
-        button_salva_grafico.setOnClickListener(this);
-        button_salva_database = findViewById(R.id.button_salva_database);
-        button_salva_database.setOnClickListener(this);
+
         super.setProgressBar(R.id.progressBar);
         lista_grafico = new ArrayList<ValoreGrafico>();
         TypeToken<ArrayList<ValoreGrafico>> listTypeToken =
@@ -160,7 +157,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             /*Controlla se non ci sono dati per costruire il grafico*/
             if(lista_grafico == null){
                 Intent intent=new Intent();
-                setResult(Costanti.noData,intent); /*Informa l'attività chiamante con un codice*/
+                setResult(Costanti.NO_DATA, intent); /*Informa l'attività chiamante con un codice*/
                 finish();
                 return; /*Inutile proseguire*/
             }

@@ -79,7 +79,7 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         /*questa attività lancia sempre l'attività ListIndicatoriActivity*/
         Intent intent_succ = new Intent(getApplicationContext(), ListaIndicatoriActivity.class);
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,Costanti.lista_argomenti_code);
+        startActivityForResult(intent_succ,Costanti.LISTA_ARGOMENTI_CODE);
     }
 
 }

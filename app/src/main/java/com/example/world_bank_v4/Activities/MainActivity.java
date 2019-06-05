@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         ListaPaesiActivity.class.getName());
                 bundle.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,Costanti.lista_paesi_code);
+                startActivityForResult(intent,Costanti.LISTA_PAESI_CODE);
                 break;
 
             case R.id.buttonArgomento:
@@ -113,17 +113,17 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         ListaArgomentiActivity.class.getName());
                 bundle.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,Costanti.lista_argomenti_code);
+                startActivityForResult(intent,Costanti.LISTA_ARGOMENTI_CODE);
                 break;
 
             case R.id.buttonGrafico:
                 intent = new Intent(this, MostraGraficoActivity.class);
-                startActivityForResult(intent,Costanti.mostra_grafico_code);
+                startActivityForResult(intent,Costanti.MOSTRA_GRAFICO_CODE);
                 break;
 
             case R.id.buttonDatabase:
                 intent = new Intent(this, CaricaDatiActivity.class);
-                startActivityForResult(intent,Costanti.mostra_database_code);
+                startActivityForResult(intent,Costanti.MOSTRA_DATABASE_CODE);
         }
     }
 
@@ -133,8 +133,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        if((requestCode == Costanti.lista_paesi_code ||
-                requestCode == Costanti.lista_argomenti_code) && resultCode == RESULT_FIRST_USER){
+        if((requestCode == Costanti.LISTA_PAESI_CODE ||
+                requestCode == Costanti.LISTA_ARGOMENTI_CODE) && resultCode == RESULT_FIRST_USER){
 
                 String error_message = data.getStringExtra("error");
                 intent = new Intent(this, NotificationActivity.class);
@@ -145,13 +145,13 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         }
 
-        if((requestCode == Costanti.mostra_grafico_code && resultCode == RESULT_FIRST_USER)){
+        if((requestCode == Costanti.MOSTRA_GRAFICO_CODE && resultCode == RESULT_FIRST_USER)){
             DialogImageMissing mydialog = new DialogImageMissing();
             mydialog.show(getSupportFragmentManager(), "mydialog");
 
         }
 
-        if((requestCode == Costanti.mostra_database_code && resultCode == RESULT_FIRST_USER)){
+        if((requestCode == Costanti.MOSTRA_DATABASE_CODE && resultCode == RESULT_FIRST_USER)){
             DialogDataMissing mydialog = new DialogDataMissing();
             mydialog.show(getSupportFragmentManager(), "mydialog");
 
