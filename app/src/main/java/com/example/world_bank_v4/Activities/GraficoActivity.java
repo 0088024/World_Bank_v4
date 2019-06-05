@@ -135,14 +135,11 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
 
-    /*se c'è connessione riceve il file json, se è corretto lo trasforma con GSON in una List<T>,
+    /*recupera il file json e lo trasforma con GSON in una List<T>,
     e collega quest'ultima al chart*/
     @Override
     public void caricaLayout(){
 
-        err_msg = super.getErrorFile(); // Controlla se ci sono stati eventuali errori
-
-        if(err_msg == null) {
 
             String json_file = (super.getJsonFile());  // Recupera il relativo file json
 
@@ -164,17 +161,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             /*costruisci grafico in un thread in background*/
             new CostruisciGraficoTask().execute();
-        }
 
-        else{ /*Non si può continuare*/
-            Log.d(Costanti.NOME_APP ," error_file: " + err_msg);
-            Intent intent=new Intent();
-            bundle_err = new Bundle();
-            bundle_err.putString("error",err_msg);
-            intent.putExtras(bundle_err);
-            setResult(RESULT_FIRST_USER,intent);
-            finish();
-        }
 
     }
 
