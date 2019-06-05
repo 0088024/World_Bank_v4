@@ -24,7 +24,8 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": CREATE");
 
 
         getSupportActionBar().setLogo(R.drawable.unreach);

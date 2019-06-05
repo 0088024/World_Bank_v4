@@ -2,6 +2,7 @@ package com.example.world_bank_v4.Activities;
 
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,15 +64,16 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-
+        Resources res = getResources();
         Intent intent;
         int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
                 intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(Costanti.WORLDBANK_SITE));
+                intent.setData(Uri.parse(res.getString(R.string.WORLDBANK_SITE)));
                 /* If there are more than one browser installed, a window will appear to allow the user to choose what he prefers.*/
-                startActivity(Intent.createChooser(intent,Costanti.CHOOSE_BROWSER));
+                startActivity(Intent.createChooser(intent,
+                        res.getString(R.string.CHOOSE_BROWSER)));
                 break;
 
             case R.id.Menu_2:
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
     @Override
     public void onClick(View v) {
+        Resources res = getResources();
         Intent intent;
         Bundle bundle;
         int id = v.getId();         /*ottengo l'id del bottone selezionato*/
@@ -99,31 +102,35 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
                 intent = new Intent(this, ListaPaesiActivity.class);
                 bundle = new Bundle();
-                bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
+                bundle.putString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
                         ListaPaesiActivity.class.getName());
-                bundle.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
+                bundle.putInt(res.getString(R.string.ATTIVITÀ_LANCIATA),1);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,Costanti.LISTA_PAESI_CODE);
+                startActivityForResult(intent,
+                        res.getInteger(R.integer.LISTA_PAESI_CODE));
                 break;
 
             case R.id.buttonArgomento:
                 intent = new Intent(this, ListaArgomentiActivity.class);
                 bundle = new Bundle();
-                bundle.putString(Costanti.NOME_CLASSE_SELEZIONATA,
+                bundle.putString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
                         ListaArgomentiActivity.class.getName());
-                bundle.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
+                bundle.putInt(res.getString(R.string.ATTIVITÀ_LANCIATA),1);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,Costanti.LISTA_ARGOMENTI_CODE);
+                startActivityForResult(intent,
+                        res.getInteger(R.integer.LISTA_ARGOMENTI_CODE));
                 break;
 
             case R.id.buttonGrafico:
                 intent = new Intent(this, MostraGraficoActivity.class);
-                startActivityForResult(intent,Costanti.MOSTRA_GRAFICO_CODE);
+                startActivityForResult(intent,
+                        res.getInteger(R.integer.MOSTRA_GRAFICO_CODE));
                 break;
 
             case R.id.buttonDatabase:
                 intent = new Intent(this, CaricaDatiActivity.class);
-                startActivityForResult(intent,Costanti.MOSTRA_DATABASE_CODE);
+                startActivityForResult(intent,
+                        res.getInteger(R.integer.MOSTRA_DATABASE_CODE));
         }
     }
 
@@ -132,9 +139,10 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
-        if((requestCode == Costanti.LISTA_PAESI_CODE ||
-                requestCode == Costanti.LISTA_ARGOMENTI_CODE) && resultCode == RESULT_FIRST_USER){
+        Resources res = getResources();
+        if((requestCode == res.getInteger(R.integer.LISTA_PAESI_CODE) ||
+                requestCode == res.getInteger(R.integer.LISTA_ARGOMENTI_CODE))
+                            && resultCode == RESULT_FIRST_USER){
 
                 String error_message = data.getStringExtra("error");
                 intent = new Intent(this, NotificationActivity.class);
