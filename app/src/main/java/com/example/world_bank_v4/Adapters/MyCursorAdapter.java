@@ -46,9 +46,9 @@ public class MyCursorAdapter extends CursorAdapter {
         String nomeIndicatore = crs.getString(5);
 
         TextView txt = v.findViewById(R.id.textViewPaese);
-        Log.d(Costanti.NOME_APP, "ciaoooooo");
+        Log.d(arg1.getResources().getString(R.string.NOME_APP), "ciaoooooo");
         txt.setText(nomePaese);
-        Log.d(Costanti.NOME_APP, (String) txt.getText());
+        Log.d(arg1.getResources().getString(R.string.NOME_APP), (String) txt.getText());
 
         txt = v.findViewById(R.id.textViewIndicatore);
         txt.setText(nomeIndicatore);

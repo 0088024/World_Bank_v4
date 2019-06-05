@@ -3,6 +3,7 @@ package com.example.world_bank_v4.Activities;
 
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +33,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
 
     @Override
     public void onResume(){
+        Resources res = getResources();
         getSupportActionBar().setLogo(R.drawable.country);
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
@@ -39,9 +41,9 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
         super.setProgressBar(R.id.progressBar);
         super.setLista_oggetti(lista_paesi);
         super.setTypeToken(listTypeToken);
-        super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_COUNTRY);
-        super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_PAESI);
-        super.setAPI_WORLD_BANK(Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500);
+        super.setKEY_JSON_FILE(res.getString(R.string.KEY_JSON_FILE_COUNTRY));
+        super.setNOME_FILE_PREFERENCES(res.getString(R.string.PREFERENCES_FILE_PAESI));
+        super.setAPI_WORLD_BANK(res.getString(R.string.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500));
         super.onResume();
     }
 
@@ -59,7 +61,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     @Override
     public String costruisciApi(){
         /*API: https://api.worldbank.org/v2/country?format=json&per_page=500*/
-        return Costanti.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500;
+        return getResources().getString(R.string.API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500);
     }
 
 
@@ -70,17 +72,19 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         super.onItemClick(parent, view, position, id);
+        Resources res = getResources();
         ArrayList<Paese> lista_paesi = super.getListaOggetti();
         int posizione = position++;
         Bundle bundle_succ = super.getBundleSucc();
-        bundle_succ.putString(Costanti.ID_PAESE_SELEZIONATO, lista_paesi.get(posizione).getId());
-        bundle_succ.putString(Costanti.NOME_PAESE_SELEZIONATO,
+        bundle_succ.putString(res.getString(R.string.ID_PAESE_SELEZIONATO),
+                                                    lista_paesi.get(posizione).getId());
+        bundle_succ.putString(res.getString(R.string.NOME_PAESE_SELEZIONATO),
                                                     lista_paesi.get(posizione).getName());
-        bundle_succ.putString(Costanti.ID_INDICATORE_SELEZIONATO,
+        bundle_succ.putString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
                                                     super.getIdIndicatoreSelezionato());
-        bundle_succ.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
+        bundle_succ.putString(res.getString(R.string.NOME_INDICATORE_SELEZIONATO),
                                                     super.getNomeIndicatoreSelezionato());
-        bundle_succ.putInt(Costanti.ATTIVITÀ_LANCIATA, 1);
+        bundle_succ.putInt(res.getString(R.string.ATTIVITÀ_LANCIATA),1);
 
 
         Class<?> classe = ListaPaesiActivity.class;
@@ -91,7 +95,8 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), GraficoActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,Costanti.LISTA_PAESI_CODE);
+        startActivityForResult(intent_succ,
+                res.getInteger(R.integer.LISTA_PAESI_CODE));
     }
 
 

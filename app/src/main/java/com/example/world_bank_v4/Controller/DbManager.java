@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Model.RecordTabella;
-
+import com.example.world_bank_v4.R;
 
 
 /*classe con cui interagioamo con il database: select, insert, delete, etc.*/
@@ -154,8 +154,6 @@ public class DbManager {
         SQLiteDatabase db = dbhelper.getReadableDatabase();
         if(db.isOpen())
             db.close();
-        else {
-            Log.d(Costanti.NOME_APP, "Database non aperto");}
     }
 
 

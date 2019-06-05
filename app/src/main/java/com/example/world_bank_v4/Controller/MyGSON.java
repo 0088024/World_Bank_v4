@@ -1,10 +1,12 @@
 package com.example.world_bank_v4.Controller;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Model.ElementoGenerico;
 import com.example.world_bank_v4.Model.Intestazione;
+import com.example.world_bank_v4.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -15,10 +17,10 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 public class MyGSON {
+    Context context;
 
-
-    public MyGSON(){
-
+    public MyGSON(Context context){
+        this.context = context;
     }
 
 
@@ -47,7 +49,7 @@ public class MyGSON {
                         ]
         In questo caso infatti la size del array è uguale a 1 */
         if(root.size()==1) {
-            Log.d(Costanti.NOME_APP, "size_array: " + root.size());
+            Log.d(context.getResources().getString(R.string.NOME_APP), "size_array: " + root.size());
             return null; // non si può proseguire
         }
 
@@ -69,13 +71,13 @@ public class MyGSON {
                     ]
         In questo caso infatti il secondo elemento del array vale null e quindi non rappresenta a sua volta un array */
         if(je2.isJsonArray()==false){
-            Log.d(Costanti.NOME_APP , "file json vuoto!");
+            Log.d(context.getResources().getString(R.string.NOME_APP) , "file json vuoto!");
             return null; // non si può proseguire
         }
 
         /*DEBUG*/
         JsonArray array_json = je2.getAsJsonArray();   /*qui ho l'array json degl'argomenti*/
-        Log.d(Costanti.NOME_APP + " DIM[]", String.valueOf(array_json.size()));
+        Log.d(context.getResources().getString(R.string.NOME_APP) + " DIM[]", String.valueOf(array_json.size()));
 
         /*con Gson mappo 1 a 1 gli oggetti del file json in oggetti<T>, i quali sono
         memorizzati in una Lista*/

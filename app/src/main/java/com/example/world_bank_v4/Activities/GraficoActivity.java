@@ -2,6 +2,7 @@ package com.example.world_bank_v4.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -83,6 +84,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     public void onResume(){
         /*in this example, a LineChart is initialized from xml*/
+        Resources res = getResources();
         getSupportActionBar().setLogo(R.drawable.graph);
         chart = findViewById(R.id.chart);
         textView_chart_titolo = findViewById(R.id.textView_chart_titolo);
@@ -93,8 +95,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         TypeToken<ArrayList<ValoreGrafico>> listTypeToken =
                 new TypeToken<ArrayList<ValoreGrafico>>() {};
         super.setTypeToken(listTypeToken);
-        super.setKEY_JSON_FILE(Costanti.KEY_JSON_FILE_INDICATORE_PER_PAESE);
-        super.setNOME_FILE_PREFERENCES(Costanti.PREFERENCES_FILE_INDICATORE_PER_PAESE);
+        super.setKEY_JSON_FILE(res.getString(R.string.KEY_JSON_FILE_INDICATORE_PER_PAESE));
+        super.setNOME_FILE_PREFERENCES(res.getString(R.string.PREFERENCES_FILE_INDICATORE_PER_PAESE));
         /*per costruire l'api devo aspettare che la classe ListaIndicatoriActivity mi passi
         l'intento con il Paese selezionato dall'utente*/
         super.setAPI_WORLD_BANK(null);
@@ -122,14 +124,15 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         all'indicatore per paese selezionato*/
         StringBuilder api_indicatore_per_paese = new StringBuilder();
         /*API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/"*/
-        api_indicatore_per_paese.append(Costanti.API_COUNTRY_LIST);
+        api_indicatore_per_paese.append(getResources().getString(R.string.API_COUNTRY_LIST));
         api_indicatore_per_paese.append(super.getIdPaeseSelezionato());
         api_indicatore_per_paese.append("/indicator/");
         api_indicatore_per_paese.append(super.getIdIndicatoreSelezionato());
         /*API_INDICATORE_PER_PAESE
         https://api.worldbank.org/v2/country/idPaese/indicator?format=json&per_page=10000*/
         api_indicatore_per_paese.append("?format=json&&per_page=10000");
-        Log.d(Costanti.NOME_APP,"api_indicatore_per_paese:  " + api_indicatore_per_paese);
+        Log.d(getResources().getString(R.string.NOME_APP),
+                "api_indicatore_per_paese:  " + api_indicatore_per_paese);
         return api_indicatore_per_paese.toString();
     }
 
@@ -147,17 +150,18 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             String json_file = (super.getJsonFile());  // Recupera il relativo file json
 
             /*DEBUG*/
-            Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
+            Log.d(getResources().getString(R.string.NOME_APP) + "JSON FILE ", json_file);
 
             /*con la libreria GSON ottengo la corrispondente lista di indicatori del file json*/
-            MyGSON myGSON = new MyGSON();
+            MyGSON myGSON = new MyGSON(this);
             lista_grafico = myGSON.getListFromJson(json_file,
                     new TypeToken<ArrayList<ValoreGrafico>>() {});
 
             /*Controlla se non ci sono dati per costruire il grafico*/
             if(lista_grafico == null){
                 Intent intent=new Intent();
-                setResult(Costanti.NO_DATA, intent); /*Informa l'attività chiamante con un codice*/
+                /*Informa l'attività chiamante con un codice*/
+                setResult(getResources().getInteger(R.integer.NO_DATA), intent);
                 finish();
                 return; /*Inutile proseguire*/
             }
@@ -167,7 +171,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         }
 
         else{ /*Non si può continuare*/
-            Log.d(Costanti.NOME_APP ," error_file: " + err_msg);
+            Log.d(getResources().getString(R.string.NOME_APP)," error_file: " + err_msg);
             Intent intent=new Intent();
             bundle_err = new Bundle();
             bundle_err.putString("error",err_msg);
@@ -242,7 +246,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         @Override
         protected void onPostExecute(String risultato) {
-            Log.d(Costanti.NOME_APP, risultato);
+            Log.d(getResources().getString(R.string.NOME_APP), risultato);
             getProgressBar().setVisibility(View.GONE);
             textView_chart_titolo.setText(getNomePaeseSelezionato());
             textView_chart_sottotitolo.setText(getNomeIndicatoreSelezionato());
@@ -281,7 +285,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             /*costruisci un oggetto recordTabella corrispondente all'indicatore per paese ottenuto*/
             /*con la libreria GSON ottengo il corrispondente primo oggetto dell'array di elementi
             del file json*/
-            MyGSON myGSON = new MyGSON();
+            MyGSON myGSON = new MyGSON(getApplicationContext());
             String json_file = (getJsonFile());  // Recupera il relativo file json
 
             JsonElement jsonElement = myGSON.getJsonElementList(json_file, 0);
@@ -303,7 +307,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             dbManager.addRow(recordTabella);
 
             // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
-            for (; count <= Costanti.progressBarTime; count++)
+            for (; count <= getResources().getInteger(R.integer.progressBarTime); count++)
                 publishProgress(count);
 
 
@@ -319,7 +323,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         @Override
         protected void onPostExecute(String risultato) {
-            Log.d(Costanti.NOME_APP, risultato);
+            Log.d(getResources().getString(R.string.NOME_APP), risultato);
             getProgressBar().setVisibility(View.GONE);
             DialogDataBase mydialog = new DialogDataBase();
             mydialog.show(getSupportFragmentManager(),"mydialog");
@@ -365,22 +369,24 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 from BitmapFactory could be in a different bitdepth, and/or may have lost per-pixel
                 alpha (e.g. JPEG only supports opaque pixels).*/
                 if(bitmap.compress(Bitmap.CompressFormat.PNG, 80 , outputStream)){
-                    Log.d(Costanti.NOME_APP, "chart_bitmap compresso in PNG su file");
+                    Log.d(getResources().getString(R.string.NOME_APP),
+                            "chart_bitmap compresso in PNG su file");
                 }
-                else  Log.d(Costanti.NOME_APP, "Errore compressione bitmap in PNG su file");
+                else  Log.d(getResources().getString(R.string.NOME_APP),
+                        "Errore compressione bitmap in PNG su file");
 
                 outputStream.close();
 
             } catch (FileNotFoundException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
+                Log.d(getResources().getString(R.string.NOME_APP), e.getMessage());
                 e.printStackTrace();
             } catch (IOException e) {
-                Log.d(Costanti.NOME_APP, e.getMessage());
+                Log.d(getResources().getString(R.string.NOME_APP), e.getMessage());
                 e.printStackTrace();
             }
 
             // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
-            for (; count<= Costanti.progressBarTime;count++)
+            for (; count <= getResources().getInteger(R.integer.progressBarTime); count++)
                 publishProgress(count);
 
 
@@ -395,7 +401,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         @Override
         protected void onPostExecute(String risultato){
-            Log.d(Costanti.NOME_APP, risultato);
+            Log.d(getResources().getString(R.string.NOME_APP), risultato);
             getProgressBar().setVisibility(View.GONE);
             DialogShowImage mydialog = new DialogShowImage();
             mydialog.show(getSupportFragmentManager(),"mydialog");

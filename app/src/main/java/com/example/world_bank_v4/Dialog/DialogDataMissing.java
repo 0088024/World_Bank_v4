@@ -14,7 +14,7 @@ public class DialogDataMissing extends AppCompatDialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Log.d(Costanti.NOME_APP,"builder ok");
+        Log.d(getResources().getString(R.string.NOME_APP),"builder ok");
         builder.setTitle("No data available!")
                 .setMessage("Remember that you have the option to save the data at the end of the search")
                 .setIcon(R.drawable.warning)
