@@ -19,8 +19,6 @@ import java.util.ArrayList;
 
 public class ListaPaesiActivity extends ListaGenericaActivity {
 
-    private boolean mReturningWithResult = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +80,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
                                                     super.getIdIndicatoreSelezionato());
         bundle_succ.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
                                                     super.getNomeIndicatoreSelezionato());
-        bundle_succ.putInt(Costanti.ATTIVITÀ_LANCIATA,1);
+        bundle_succ.putInt(Costanti.ATTIVITÀ_LANCIATA, 1);
 
 
         Class<?> classe = ListaPaesiActivity.class;
@@ -93,7 +91,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), GraficoActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,0);
+        startActivityForResult(intent_succ,Costanti.LISTA_PAESI_CODE);
     }
 
 

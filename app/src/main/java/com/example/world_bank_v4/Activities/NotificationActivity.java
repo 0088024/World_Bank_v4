@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 
 public class NotificationActivity extends AppCompatActivity implements View.OnClickListener{
@@ -23,11 +24,14 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
+
+
         getSupportActionBar().setLogo(R.drawable.unreach);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        textnot = (TextView) findViewById(R.id.textViewNotification);
+        textnot = findViewById(R.id.textViewNotification);
         button_ricarica_pagina = findViewById(R.id.button_ricarica_pagina);
 
         button_ricarica_pagina.setOnClickListener(this);
@@ -35,12 +39,12 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         intent_prec = getIntent();      /*ritorna l'intento che ha avviato questa activity*/
         bundle_prec = intent_prec.getExtras();
         message = bundle_prec.getString("error");
-        textnot.setText(bundle_prec.getString("risulato",message));
-
+        textnot.setText(bundle_prec.getString("risulato", message));
     }
 
-    public void onClick(View v) {
 
+    public void onClick(View v) {
+        setResult(99);
         finish();
 
     }

@@ -12,7 +12,9 @@ no il prof. ha detto che non serve, prechè di norma sono "piccole" e ottimizzat
 4) USARE 7ZIP : esportare la cartella del progetto in formato zip e poi una volta zippato cancellare
 cartella build(perchè grande e verrà ricostruita ogni volta).
 
+5) Togliere dal codice tutte le warning rimaste e tutte le librerie e/o varibili/metodi inutilizzati.
 
+6) Tradurre in inglese il contenuto di About us
 
 
 

@@ -6,8 +6,13 @@ public final class Costanti {
                                    istanziata tale classe*/
 
     public static final String NOME_APP = "WorldBank: ";
-    public static final String CHOOSE_BROWSER = "Complete the action with one of the following browser: ";
+    public static final String CHOOSE_BROWSER =
+            "Complete the action with one of the following browser: ";
     public static final String WORLDBANK_SITE = "http://www.worldbank.org";
+    public static final String IO_ERROR = "Unable to contact: ";
+    public static final String MSG_ERRORE_CONNESSIONE = ": Errore connessione internet";
+
+
     public static final String API_TOPIC_LIST_FORMAT_JSON =
             "https://api.worldbank.org/v2/topic?format=json";
     public static final String API_COUNTRY_LIST = "https://api.worldbank.org/v2/country/";
@@ -51,13 +56,15 @@ public final class Costanti {
 
     public static final Integer progressBarTime = 10000;
 
-    public static final Integer lista_paesi_code = 0;
-    public static final Integer lista_argomenti_code = 1;
-    public static final Integer lista_indicatori_code = 2;
-    public static final Integer mostra_grafico_code =3;
-    public static final Integer mostra_database_code =4;
-    public static final Integer noData =5;
-    public static final Integer timeout =3000;
+    public static final Integer LISTA_PAESI_CODE = 0;
+    public static final Integer LISTA_ARGOMENTI_CODE = 1;
+    public static final Integer LISTA_INDICATORI_CODE = 2;
+    public static final Integer MOSTRA_GRAFICO_CODE =3;
+    public static final Integer MOSTRA_DATABASE_CODE =4;
+    public static final Integer NO_DATA =5;
+    public static final Integer TIMEOUT =3000;
+    public static final Integer RETURN_FROM_NOTIFICATION_ACTIVITY = 99;
+
 
 
 

@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 public class ListaIndicatoriActivity extends ListaGenericaActivity {
 
-    private boolean mReturningWithResult = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +98,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), ListaPaesiActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,Costanti.lista_indicatori_code);
+        startActivityForResult(intent_succ,Costanti.LISTA_INDICATORI_CODE);
     }
 
 
