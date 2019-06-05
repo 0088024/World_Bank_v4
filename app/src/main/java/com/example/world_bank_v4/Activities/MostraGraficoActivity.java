@@ -27,7 +27,8 @@ public class MostraGraficoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": CREATE");
         setContentView(R.layout.mostra_png_salvato_prima);
          /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché

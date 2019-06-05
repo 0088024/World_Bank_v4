@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,7 +71,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": CREATE");
 
         /*se savedInstanceState è == null, o è stata lanciata da 1 altra attività, oppure è
@@ -88,18 +90,18 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*se == 1 significa che l'attività è stata lanciata da quella precedente, quindi
             recupero i dati che l'attività precedente mi ha passato nel bundle*/
             if (chiamante == 1){
-                Log.d(getResources().getString(R.string.NOME_APP),
+                Log.d(res.getString(R.string.NOME_APP),
                         this.getClass().getCanonicalName() +
                                 ": getStateFromBundle(bundle_prec)");
 
                 /*recupero le variabili di stato dal bundle ricevuto dall'attività precedente*/
                 lanciata_da_precedente = getStateFromBundle(bundle_prec);
-                Log.d(getResources().getString(R.string.NOME_APP),
+                Log.d(res.getString(R.string.NOME_APP),
                         this.getClass().getCanonicalName() +
                         ": lanciata_da_precedente: " + lanciata_da_precedente );
 
                 bundle_prec.clear();        /*"resetto" il bundle precedente*/
-                Log.d(getResources().getString(R.string.NOME_APP),
+                Log.d(res.getString(R.string.NOME_APP),
                         this.getClass().getCanonicalName() +
                         ": bundle_prec.getInt(Prova) dopo bundle_prec.clear() = "
                         + bundle_prec.getInt("Prova"));
@@ -123,13 +125,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestoreInstanceState(Bundle bundle){
         super.onRestoreInstanceState(bundle);
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
         /*causa eccessiva dimensione di alcune liste di indicatori, tali da generare ExceptionBundle
         size, l'activity ListaIndicatori non salva lo stato dell'istanza nel bundle, ma solo sul
         disco*/
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName()){
-            Log.d(getResources().getString(R.string.NOME_APP),
+            Log.d(res.getString(R.string.NOME_APP),
                     this.getClass().getCanonicalName() + ": No restore Bundle");
             return ;
         }
@@ -146,7 +149,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": RESUME");
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
@@ -161,13 +165,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
         if (ReturningWithResult == true && requestCode ==
-                getResources().getInteger(R.integer.LISTA_PAESI_CODE)){
+                res.getInteger(R.integer.LISTA_PAESI_CODE)){
             // Commit your transactions here.
             DialogNoCountry mydialog = new DialogNoCountry();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
         if (ReturningWithResult==true && requestCode ==
-                getResources().getInteger(R.integer.LISTA_INDICATORI_CODE)) {
+                res.getInteger(R.integer.LISTA_INDICATORI_CODE)) {
             // Commit your transactions here.
             DialogNoIndicator mydialog = new DialogNoIndicator();
             mydialog.show(getSupportFragmentManager(),"mydialog");
@@ -199,8 +203,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         disco*/
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName())
             return;
-
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
 
         savedInstanceState.putString(getResources().getString(R.string.NOME_CHIAVE_FILE_JSON),
@@ -220,7 +224,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         savedInstanceState.putString(getResources().getString(R.string.NOME_PAESE_SELEZIONATO),
                 nomePaeseSelezionato);
 
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": Bundle savedInstanceState salvato");
 
         super.onSaveInstanceState(savedInstanceState);
@@ -281,6 +285,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     /*ottiene dal sito o dal disco, o dal bundle prima salvato, i dati che occorrono a riempire
     la ListView, e li collega a quest'ultima*/
     public void caricaVariabili() {
+        Resources res = getResources();
         /*se l'attività non è stata lanciata da quella precedente vuol dire che è stata ripresa dall
         utente: in questo caso se savedInstanceState è stato ripristinato carico i dati da lui,
         altrimenti da disco*/
@@ -288,7 +293,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*inoltre se savedInstanceState è == false, significa che è stata ripresa ma il s.o. non
             gli ha passato l'oggetto Bundle in onRestoreInstanceState, quindi li carico da disco*/
             if (savedInstanceState == null) {
-                Log.d(getResources().getString(R.string.NOME_APP), this.getClass().getCanonicalName() +
+                Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() +
                         ": getStateFromSharedPreferences()");
                 getStateFromSharedPreferences(); /*recupero le variabili di stato da disco*/
             }
@@ -296,7 +301,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             passato l'oggetto Bundle in onRestoreInstanceState(): x cui recuperiamo le variabili
             da tale bundle*/
             else {
-                Log.d(getResources().getString(R.string.NOME_APP), this.getClass().getCanonicalName() +
+                Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() +
                         ": getStateFromBundle(savedInstanceState);");
                 getStateFromBundle(savedInstanceState);
             }
@@ -395,7 +400,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*decidiamo di mostrare un unico messaggio d'errore per tutti i tipi di eccezione che
             possono essere sollevati*/
             catch (IOException e) {
-                Log.d(getResources().getString(R.string.NOME_APP),"IOException: " +e.getMessage() );
+                Log.d(getResources().getString(R.string.NOME_APP),"IOException: "
+                        + e.getMessage());
                 /*imposta il messaggio d'errore da mostrare all'utente con Notificationactivity*/
                 error_file = getResources().getString(R.string.IO_ERROR) +
                         getResources().getString(R.string.WORLDBANK_SITE);
@@ -409,7 +415,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             }
 
             // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
-            for (count = 0; count <= Costanti.progressBarTime; count++) {
+            for (count = 0; count <= getResources().getInteger(R.integer.progressBarTime); count++){
                 publishProgress(count);
             }
 
@@ -426,24 +432,27 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         @Override
         protected void onPostExecute(String risultato) {
-
+            Resources res = getResources();
             setProgressBarGone();  /*Sopprimi la progressBar*/
             /*se è != null significa che non abbiamo avuto errori nello scaricare il file*/
             if(risultato != null) {
-                Log.d(Costanti.NOME_APP, nameClass + ": File scaricato da internet");
+                Log.d(res.getString(R.string.NOME_APP),
+                        nameClass + ": File scaricato da internet");
                 json_file = risultato;
                 caricaLayout();
             }
             /*se invece abbiamo avuto errori lo notifichiamo all'utente*/
             else{
-                Log.d(Costanti.NOME_APP, nameClass + Costanti.MSG_ERRORE_CONNESSIONE);
+                Log.d(res.getString(R.string.NOME_APP),
+                        nameClass + getResources().getString(R.string.MSG_ERRORE_CONNESSIONE));
                 // Errore imprevisto ad es. viene a mancare la connessione a internet
                 Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("error", error_file);
                 intent.putExtras(bundle);
                 /*lancia la NotificationActivity richiedendone in codice di chiusura*/
-                startActivityForResult(intent, Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY);
+                startActivityForResult(intent,
+                        res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
             }
         }
     }
@@ -453,8 +462,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
         this.requestCode = requestCode;
 
@@ -462,14 +472,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         // Controllo dei codici di risposta delle attività lanciate
 
-        if(resultCode == Costanti.NO_DATA){
+        if(resultCode == res.getInteger(R.integer.NO_DATA)){
             // Errore previsto ad es. nessun dato disponibile per un certo paese
             ReturningWithResult = true;
         }
 
         /*se l'attività da cui ritorno era la NotificationActivity allora termino per dar recuperare
         dal back stack l'attività che mi aveva lanciato*/
-        if(resultCode == Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY)
+        if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
             finish();
     }
 
@@ -477,37 +487,38 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     /*leggi dalle SharedPreferences e imposta le relativi variabili di stato dell'istanza*/
     private void getStateFromSharedPreferences(){
+        Resources res = getResources();
         SharedPreferences sharedPreferences =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
         json_file = sharedPreferences.getString(KEY_JSON_FILE, "File non esiste");
         nomeClasseSelezionata =
-                sharedPreferences.getString(Costanti.NOME_CLASSE_SELEZIONATA,
+                sharedPreferences.getString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
                         "File non esiste");
                 /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
                 dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
-        if (sharedPreferences.contains(Costanti.ID_INDICATORE_SELEZIONATO)) {
+        if (sharedPreferences.contains(res.getString(R.string.ID_INDICATORE_SELEZIONATO))) {
             idIndicatoreSelezionato =
-                    sharedPreferences.getString(Costanti.ID_INDICATORE_SELEZIONATO,
+                    sharedPreferences.getString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
                             "File non esiste");
         }
-        if (sharedPreferences.contains(Costanti.NOME_INDICATORE_SELEZIONATO)) {
+        if (sharedPreferences.contains(res.getString(R.string.NOME_INDICATORE_SELEZIONATO))) {
             nomeIndicatoreSelezionato =
-                    sharedPreferences.getString(Costanti.NOME_INDICATORE_SELEZIONATO,
+                    sharedPreferences.getString(res.getString(R.string.NOME_INDICATORE_SELEZIONATO),
                             "File non esiste");
         }
-        if (sharedPreferences.contains(Costanti.ID_ARGOMENTO_SELEZIONATO)) {
+        if (sharedPreferences.contains(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO))) {
             idArgomentoSelezionato =
-                    sharedPreferences.getString(Costanti.ID_ARGOMENTO_SELEZIONATO,
+                    sharedPreferences.getString(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO),
                             "File non esiste");
         }
-        if (sharedPreferences.contains(Costanti.ID_PAESE_SELEZIONATO)) {
+        if (sharedPreferences.contains(res.getString(R.string.ID_PAESE_SELEZIONATO))) {
             idPaeseSelezionato =
-                    sharedPreferences.getString(Costanti.ID_PAESE_SELEZIONATO,
+                    sharedPreferences.getString(res.getString(R.string.ID_PAESE_SELEZIONATO),
                             "File non esiste");
         }
-        if (sharedPreferences.contains(Costanti.NOME_PAESE_SELEZIONATO)) {
+        if (sharedPreferences.contains(res.getString(R.string.NOME_PAESE_SELEZIONATO))) {
             nomePaeseSelezionato =
-                    sharedPreferences.getString(Costanti.NOME_PAESE_SELEZIONATO,
+                    sharedPreferences.getString(res.getString(R.string.NOME_PAESE_SELEZIONATO),
                             "File non esiste");
         }
 
@@ -517,19 +528,27 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     /*leggi dal Bundle e imposta le relativi variabili di stato dell'istanza*/
     private boolean getStateFromBundle(Bundle bundle){
-
-        nomeClasseSelezionata = bundle.getString(Costanti.NOME_CLASSE_SELEZIONATA);
+        Resources res = getResources();
+        nomeClasseSelezionata =
+                bundle.getString(res.getString(R.string.NOME_CLASSE_SELEZIONATA));
         /*può tornare null se l'attività è stata lanciata per esempio dalla MainActivity
         piuttosto che dalla ListaIndicatoriActivity, ma non ci interessa in questo
         punto del "percorso"*/
-        idIndicatoreSelezionato = bundle.getString(Costanti.ID_INDICATORE_SELEZIONATO);
-        nomeIndicatoreSelezionato = bundle.getString(Costanti.NOME_INDICATORE_SELEZIONATO);
-        idArgomentoSelezionato = bundle.getString(Costanti.ID_ARGOMENTO_SELEZIONATO);
-        idPaeseSelezionato = bundle.getString(Costanti.ID_PAESE_SELEZIONATO);
-        nomePaeseSelezionato = bundle.getString(Costanti.NOME_PAESE_SELEZIONATO);
-        lanciata_da_precedente = bundle.getBoolean(Costanti.LANCIATA_DA_PRECEDENTE);
+        idIndicatoreSelezionato =
+                bundle.getString(res.getString(R.string.ID_INDICATORE_SELEZIONATO));
+        nomeIndicatoreSelezionato =
+                bundle.getString(res.getString(R.string.NOME_INDICATORE_SELEZIONATO));
+        idArgomentoSelezionato =
+                bundle.getString(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO));
+        idPaeseSelezionato =
+                bundle.getString(res.getString(R.string.ID_PAESE_SELEZIONATO));
+        nomePaeseSelezionato =
+                bundle.getString(res.getString(R.string.NOME_PAESE_SELEZIONATO));
+        lanciata_da_precedente =
+                bundle.getBoolean(res.getString(R.string.LANCIATA_DA_PRECEDENTE));
 
-        String nome_chiave_file_json = bundle.getString(Costanti.NOME_CHIAVE_FILE_JSON);
+        String nome_chiave_file_json =
+                bundle.getString(res.getString(R.string.NOME_CHIAVE_FILE_JSON));
         json_file = bundle.getString(nome_chiave_file_json);
         return true;
     }

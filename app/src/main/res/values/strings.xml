@@ -111,7 +111,7 @@
     <string name="LANCIATA_DA_PRECEDENTE">lanciata_da_precedente</string>
     <string name="ATTIVITÀ_LANCIATA">attività_lanciata</string>
 
-    <string name="progressBarTime">10000</string>
+    <integer name="progressBarTime">10000</integer>
 
     <integer name="LISTA_PAESI_CODE">0</integer>
     <integer name="LISTA_ARGOMENTI_CODE">1</integer>
