@@ -126,7 +126,8 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         if (v.getId() == R.id.imageButtonDelete) {
             /* Mostra una alert Dialog per confermare l'operazione */
             DialogDeleteRow mydialog = new DialogDeleteRow();
-            mydialog.show(getSupportFragmentManager(), "mydialog");
+            mydialog.show(getSupportFragmentManager(),
+                    getResources().getString(R.string.MY_DIALOG));
 
         }
 

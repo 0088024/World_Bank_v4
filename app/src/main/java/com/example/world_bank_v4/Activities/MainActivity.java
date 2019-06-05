@@ -78,12 +78,14 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
             case R.id.Menu_2:
                 DialogAbout mydialogabout = new DialogAbout();
-                mydialogabout.show(getSupportFragmentManager(), "mydialog");
+                mydialogabout.show(getSupportFragmentManager(),
+                        getResources().getString(R.string.MY_DIALOG));
                 break;
 
             case R.id.Menu_3:
                 DialogContacts mydialog = new DialogContacts();
-                mydialog.show(getSupportFragmentManager(), "mydialog");
+                mydialog.show(getSupportFragmentManager(),
+                        getResources().getString(R.string.MY_DIALOG));
                 break;
 
         }
@@ -156,14 +158,16 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
                 && resultCode == RESULT_FIRST_USER)){
             DialogImageMissing mydialog = new DialogImageMissing();
-            mydialog.show(getSupportFragmentManager(), "mydialog");
+            mydialog.show(getSupportFragmentManager(),
+                    getResources().getString(R.string.MY_DIALOG));
 
         }
 
         if((requestCode == res.getInteger(R.integer.MOSTRA_DATABASE_CODE)
                 && resultCode == RESULT_FIRST_USER)){
             DialogDataMissing mydialog = new DialogDataMissing();
-            mydialog.show(getSupportFragmentManager(), "mydialog");
+            mydialog.show(getSupportFragmentManager(),
+                    getResources().getString(R.string.MY_DIALOG));
 
         }
     }

@@ -326,7 +326,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Log.d(getResources().getString(R.string.NOME_APP), risultato);
             getProgressBar().setVisibility(View.GONE);
             DialogDataBase mydialog = new DialogDataBase();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
+            mydialog.show(getSupportFragmentManager(),
+                    getResources().getString(R.string.MY_DIALOG));
 
         }
 
@@ -404,7 +405,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             Log.d(getResources().getString(R.string.NOME_APP), risultato);
             getProgressBar().setVisibility(View.GONE);
             DialogShowImage mydialog = new DialogShowImage();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
+            mydialog.show(getSupportFragmentManager(),
+                    getResources().getString(R.string.MY_DIALOG));
 
         }
     }
@@ -437,7 +439,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         Legend legend = chart.getLegend();
         legend.setTextColor(blu_grafico);
         legend.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        legend.setTextSize(16);
+        legend.setTextSize(15);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);

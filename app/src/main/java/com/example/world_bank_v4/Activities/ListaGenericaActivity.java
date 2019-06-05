@@ -168,13 +168,15 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 res.getInteger(R.integer.LISTA_PAESI_CODE)){
             // Commit your transactions here.
             DialogNoCountry mydialog = new DialogNoCountry();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
+            mydialog.show(getSupportFragmentManager(),
+                    getResources().getString(R.string.MY_DIALOG));
         }
         if (ReturningWithResult==true && requestCode ==
                 res.getInteger(R.integer.LISTA_INDICATORI_CODE)) {
             // Commit your transactions here.
             DialogNoIndicator mydialog = new DialogNoIndicator();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
+            mydialog.show(getSupportFragmentManager(),
+                    getResources().getString(R.string.MY_DIALOG));
         }
         // Reset the boolean flag back to false for next time.
         ReturningWithResult = false;
