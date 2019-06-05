@@ -91,7 +91,7 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), GraficoActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        startActivityForResult(intent_succ,0);
+        startActivityForResult(intent_succ,Costanti.LISTA_PAESI_CODE);
     }
 
 

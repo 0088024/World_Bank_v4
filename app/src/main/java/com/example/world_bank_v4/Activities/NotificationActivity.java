@@ -40,7 +40,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         bundle_prec = intent_prec.getExtras();
         message = bundle_prec.getString("error");
         textnot.setText(bundle_prec.getString("risulato", message));
-
     }
 
 

@@ -189,7 +189,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
             /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
                 Intent intent=new Intent();
-                setResult(RESULT_FIRST_USER, intent);  /*Informa l'attività chiamante con un codice*/
+                setResult(RESULT_FIRST_USER, intent); /*Informa l'attività chiamante con un codice*/
                 finish();                           /*Non si può proseguire*/
             }
             else

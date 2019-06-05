@@ -43,7 +43,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private Intent intent_prec;
     private Bundle bundle_prec;
     private Bundle bundle_succ;
-    private Bundle bundle_err;
     private String json_file;
     private String error_file;
     private String nomeClasseSelezionata;
@@ -60,7 +59,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private Bundle savedInstanceState;
     private ProgressBar progressBar;
     private boolean ReturningWithResult;
-    private boolean lanciata_da_precedente;
+    private boolean lanciata_da_precedente = false;
 
 
 
@@ -76,7 +75,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         stata ripresa ma il s.o. non gli ha passato l'oggetto Bundle*/
         if (savedInstanceState == null) {
             /*Per vedere quale caso è, ottengo l'intent ricevuto dall'attività genitore e ne
-            estrapolo l'oggetto bundle contenente i dati passati*/
+            estrapolo l'oggetto bundle contenente i dati passati dalla precedente (se presenti)*/
             intent_prec = getIntent();   /*ritorna l'intento che ha avviato questa activity*/
             bundle_prec = intent_prec.getExtras();
             int chiamante = 0;
@@ -84,12 +83,12 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 chiamante = bundle_prec.getInt(Costanti.ATTIVITÀ_LANCIATA);
             }
             /*se == 1 significa che l'attività è stata lanciata da quella precedente, quindi
-            scarico il file Json da internet*/
+            recupero i dati che l'attività precedente mi ha passato nel bundle*/
             if (chiamante == 1){
 
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
                         ": getStateFromBundle(bundle_prec)");
-                /*recupero le variabili di stato dal bundle ricevuto*/
+                /*recupero le variabili di stato dal bundle ricevuto dall'attività precedente*/
                 lanciata_da_precedente = getStateFromBundle(bundle_prec);
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
                         ": lanciata_da_precedente: " + lanciata_da_precedente );
@@ -127,7 +126,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                     this.getClass().getCanonicalName() + ": No restore Bundle");
             return ;
         }
-
+        /*memorizzo il bundle ricevuto*/
         this.savedInstanceState = bundle;
     }
 
@@ -148,15 +147,17 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         setProgressBarNoVisible();
+
         caricaVariabili();
+
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
-        if (ReturningWithResult == true && requestCode == Costanti.lista_paesi_code) {
+        if (ReturningWithResult == true && requestCode == Costanti.LISTA_PAESI_CODE) {
             // Commit your transactions here.
             DialogNoCountry mydialog = new DialogNoCountry();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
-        if (ReturningWithResult==true && requestCode == Costanti.lista_indicatori_code) {
+        if (ReturningWithResult==true && requestCode == Costanti.LISTA_INDICATORI_CODE) {
             // Commit your transactions here.
             DialogNoIndicator mydialog = new DialogNoIndicator();
             mydialog.show(getSupportFragmentManager(),"mydialog");
@@ -229,8 +230,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
         editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
 
-
-        editor.apply();
+        editor.apply(); /*mettere commit??? dopo aver parlato con il Prof???????*/
     }
 
 
@@ -238,8 +238,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onStop(){
         super.onStop();
                   Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": STOP");
-
-
     }
 
 
@@ -254,28 +252,29 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
 
-    /*ottiene dal sito o dal disco i dati che occorrono a riempire la ListView, e li collega
-    a quest'ultima*/
+    /*ottiene dal sito o dal disco, o dal bundle prima salvato, i dati che occorrono a riempire
+    la ListView, e li collega a quest'ultima*/
     public void caricaVariabili() {
         /*se l'attività non è stata lanciata da quella precedente vuol dire che è stata ripresa dall
-        utente. In questo caso se savedInstanceState è stato ripristinato carico i dati da lui,
+        utente: in questo caso se savedInstanceState è stato ripristinato carico i dati da lui,
         altrimenti da disco*/
         if(lanciata_da_precedente == false) {
-            /*inoltre se savedInstanceState è == false, significa che è stata ripresa ma il s.o.
-            non gli ha passato l'oggetto Bundle in onRestoreInstanceState*/
+            /*inoltre se savedInstanceState è == false, significa che è stata ripresa ma il s.o. non
+            gli ha passato l'oggetto Bundle in onRestoreInstanceState, quindi li carico da disco*/
             if (savedInstanceState == null) {
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
                         ": getStateFromSharedPreferences()");
                 getStateFromSharedPreferences(); /*recupero le variabili di stato da disco*/
             }
-            /* altrimenti se savedInstanceState è == true, è stata ripresa e il s.o. gli ha anche
-            passato l'oggetto Bundle in onRestoreInstanceState(). x cui recuperiamo le variabili
+            /*altrimenti se savedInstanceState è == true, è stata ripresa e il s.o. gli ha anche
+            passato l'oggetto Bundle in onRestoreInstanceState(): x cui recuperiamo le variabili
             da tale bundle*/
             else {
                 Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
                         ": getStateFromBundle(savedInstanceState);");
                 getStateFromBundle(savedInstanceState);
             }
+            /*una volta recuperate le variabili, carichiamo il layouy*/
             caricaLayout();
 
         }
@@ -346,19 +345,16 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         @Override
         protected String doInBackground(Void... voids) {
 
-
             try {
                 url = new URL(API_WORLD_BANK);
                 /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
                 /*se il timeout era già scaduto quando riprova a connettermi qui già mi lancia
-                l'eccezione "no address hostname....." senza riaspettare il timeout
-                 */
+                l'eccezione "no address hostname....." senza riavviare il timeout*/
                 client = (HttpURLConnection) url.openConnection();
                 /*Recupero le informazioni inviate dal server */
-                client.setReadTimeout(Costanti.timeout); //Timeout in millisecondi per la lettura
+                client.setReadTimeout(Costanti.TIMEOUT); //Timeout in millisecondi per la lettura
 
                 risposta = new BufferedInputStream(client.getInputStream());
-                // da stream
                 /*leggo i caratteri e li appendo in sb*/
                 sb = new StringBuilder();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(risposta));
@@ -369,9 +365,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
             }
 
-
+            /*decidiamo di mostrare un unico messaggio d'errore per tutti i tipi di eccezione che
+            possono essere sollevati*/
             catch (IOException e) {
                 Log.d(Costanti.NOME_APP,"IOException: " +e.getMessage() );
+                /*imposta il messaggio d'errore da mostrare all'utente con Notificationactivity*/
                 error_file = Costanti.IO_ERROR + Costanti.WORLDBANK_SITE;
                 return null;
 
@@ -402,22 +400,23 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         protected void onPostExecute(String risultato) {
 
             setProgressBarGone();  /*Sopprimi la progressBar*/
+            /*se è != null significa che non abbiamo avuto errori nello scaricare il file*/
             if(risultato != null) {
                 Log.d(Costanti.NOME_APP, nameClass + ": File scaricato da internet");
                 json_file = risultato;
                 caricaLayout();
             }
+            /*se invece abbiamo avuto errori lo notifichiamo all'utente*/
             else{
-                Log.d(Costanti.NOME_APP, nameClass + ": Errore connessione internet");
+                Log.d(Costanti.NOME_APP, nameClass + Costanti.MSG_ERRORE_CONNESSIONE);
                 // Errore imprevisto ad es. viene a mancare la connessione a internet
                 Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("error", error_file);
                 intent.putExtras(bundle);
-                /*prima di lanciare la NotificationActivity imposto lanciata_da_successiva*/
-                startActivityForResult(intent,99);
+                /*lancia la NotificationActivity richiedendone in codice di chiusura*/
+                startActivityForResult(intent, Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY);
             }
-
         }
     }
 
@@ -435,12 +434,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         // Controllo dei codici di risposta delle attività lanciate
 
-        if(resultCode == Costanti.noData){
+        if(resultCode == Costanti.NO_DATA){
             // Errore previsto ad es. nessun dato disponibile per un certo paese
             ReturningWithResult = true;
         }
 
-        if(resultCode == 99)
+        /*se l'attività da cui ritorno era la NotificationActivity allora termino per dar recuperare
+        dal back stack l'attività che mi aveva lanciato*/
+        if(resultCode == Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY)
             finish();
     }
 
