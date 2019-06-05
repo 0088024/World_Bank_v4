@@ -443,7 +443,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         dal back stack l'attività che mi aveva lanciato*/
         if(resultCode == Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY)
             finish();
-        /* se l'utente preme il pulsante indietro e l'attività da cui ritorno era la NotificationActivity allora termino
+        /* se l'utente preme il pulsante indietro e l'attività da cui ritorna era la NotificationActivity allora termino
         per fare recuperare dal back stack l'attività che mi aveva lanciato */
         if(resultCode == RESULT_CANCELED && requestCode== Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY)
             finish();
