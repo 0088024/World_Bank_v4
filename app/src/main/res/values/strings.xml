@@ -14,7 +14,7 @@
     <string name="dialog_contacts3">Degree course of Computer Engineering </string>
     <string name="title_activity_grafico">Ceck Graph</string>
     <string name="title_activity_carica_dati">Carica Dati Offline</string>
-    <string name="title_activity_mostra_png_precedentemente_salvata">Immagine png</string>
+    <string name="title_activity_mostra_png_precedentemente_salvata">Carica Immagine.png</string>
     <string name="title_activity_notification">Page Not Found</string>
     <string name="title_activity_visualizza_dati">Visualizza Dati</string>
     <string name="button_ricarica_pagina">BACK</string>
