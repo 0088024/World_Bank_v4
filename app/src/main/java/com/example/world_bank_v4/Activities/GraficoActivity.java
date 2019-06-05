@@ -61,7 +61,7 @@ import java.util.Locale;
 
 public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
 
-    private String /*json_file,*/ err_msg;
+
     private DbManager dbManager;
     private ArrayList<ValoreGrafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
@@ -69,7 +69,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private TextView textView_chart_sottotitolo;
     private Button button_salva_database;
     private Button button_salva_grafico;
-    private Bundle bundle_err;
+
 
 
     @Override
