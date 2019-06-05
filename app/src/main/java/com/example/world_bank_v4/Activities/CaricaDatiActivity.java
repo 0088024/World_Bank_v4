@@ -47,7 +47,8 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": CREATE");
     }
 
 
@@ -55,7 +56,8 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": RESUME");
         progressBar = findViewById(R.id.progressBar);
         listView = findViewById(R.id.list_view_carica_dati);
         new CaricaDatabaseTask().execute();
@@ -66,7 +68,8 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onRestart(){
         super.onRestart();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESTART");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": RESTART");
     }
 
 
@@ -76,7 +79,8 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onPause(){
         super.onPause();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": PAUSE");
     }
 
 
@@ -88,7 +92,8 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     poca memoria la onDestroy() potrebbe non essere chiamata*/
     @Override
     protected void onDestroy(){
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": DESTROY");
         if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
                                l'utente torna indietro.*/
             dbManager.close();
@@ -128,7 +133,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         if(v.getId() == R.id.imageButtonDati){
             intent = new Intent(this, VisualizzaDatiActivity.class);
             bundle = new Bundle();
-            bundle.putLong(Costanti.ID_RECORD_TABELLA, id_record);
+            bundle.putLong(getResources().getString(R.string.ID_RECORD_TABELLA), id_record);
             intent.putExtras(bundle);
             startActivity(intent);
         }
@@ -169,7 +174,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
             setCursor(cursor);
 
             /*Fammi vedere per un certo tempo stabilito da una costante la Progress Bar*/
-            for (; count<= Costanti.progressBarTime;count++)
+            for (; count <= getResources().getInteger(R.integer.progressBarTime); count++)
                 publishProgress(count);
 
             return cursor;
@@ -183,7 +188,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         protected void onPostExecute(Cursor cursorRisultato){
-            Log.d(Costanti.NOME_APP ,
+            Log.d(getResources().getString(R.string.NOME_APP),
                     ": CURSORE -->  "+ dbManager.showCursor(cursorRisultato));
             progressBar.setVisibility(View.GONE);
             /* Controlla se la query ha prodotto nessun risultato */

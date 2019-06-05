@@ -153,13 +153,15 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         }
 
-        if((requestCode == Costanti.MOSTRA_GRAFICO_CODE && resultCode == RESULT_FIRST_USER)){
+        if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
+                && resultCode == RESULT_FIRST_USER)){
             DialogImageMissing mydialog = new DialogImageMissing();
             mydialog.show(getSupportFragmentManager(), "mydialog");
 
         }
 
-        if((requestCode == Costanti.MOSTRA_DATABASE_CODE && resultCode == RESULT_FIRST_USER)){
+        if((requestCode == res.getInteger(R.integer.MOSTRA_DATABASE_CODE)
+                && resultCode == RESULT_FIRST_USER)){
             DialogDataMissing mydialog = new DialogDataMissing();
             mydialog.show(getSupportFragmentManager(), "mydialog");
 
