@@ -81,7 +81,7 @@
     <string name="API_COUNTRY_LIST">https://api.worldbank.org/v2/country/</string>
     <string name="API_TOPIC_LIST">https://api.worldbank.org/v2/topic/</string>
     <string name="API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500">
-        https://api.worldbank.org/v2/country?format=json&per_page=500</string>
+        https://api.worldbank.org/v2/country?format=json&amp;per_page=500</string>
 
     <string name="NOME_CLASSE_SELEZIONATA">nome_classe_selezionata</string>
     <string name="NOME_PAESE_SELEZIONATO">nome_paese_selezionato</string>
@@ -112,23 +112,16 @@
     <string name="ATTIVITÀ_LANCIATA">attività_lanciata</string>
 
     <string name="progressBarTime">10000</string>
-    <string name="progressBarTime">10000</string>
-    <string name="progressBarTime">10000</string>
-    <string name="progressBarTime">10000</string>
-    <string name="progressBarTime">10000</string>
-    <string name="progressBarTime">10000</string>
-    <string name="progressBarTime">10000</string>
-    <string name="progressBarTime">10000</string>
 
+    <integer name="LISTA_PAESI_CODE">0</integer>
+    <integer name="LISTA_ARGOMENTI_CODE">1</integer>
+    <integer name="LISTA_INDICATORI_CODE">2</integer>
+    <integer name="MOSTRA_GRAFICO_CODE">3</integer>
+    <integer name="MOSTRA_DATABASE_CODE">4</integer>
+    <integer name="NO_DATA">5</integer>
+    <integer name="RETURN_FROM_NOTIFICATION_ACTIVITY">6</integer>
 
-    public static final Integer LISTA_PAESI_CODE = 0;
-    public static final Integer LISTA_ARGOMENTI_CODE = 1;
-    public static final Integer LISTA_INDICATORI_CODE = 2;
-    public static final Integer MOSTRA_GRAFICO_CODE =3;
-    public static final Integer MOSTRA_DATABASE_CODE =4;
-    public static final Integer NO_DATA =5;
-    public static final Integer TIMEOUT =3000;
-    public static final Integer RETURN_FROM_NOTIFICATION_ACTIVITY = 99;
+    <integer name="TIMEOUT">3000</integer>
 
 
     <string-array name="nomi_colonne_visualizza_dati">
