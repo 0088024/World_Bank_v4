@@ -414,7 +414,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 Bundle bundle = new Bundle();
                 bundle.putString("error", error_file);
                 intent.putExtras(bundle);
-                /*lancia la NotificationActivity richiedendone in codice di chiusura*/
+                /*lancia la NotificationActivity richiedendone il codice di chiusura*/
                 startActivityForResult(intent, Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY);
             }
         }
@@ -439,9 +439,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             ReturningWithResult = true;
         }
 
-        /*se l'attività da cui ritorno era la NotificationActivity allora termino per dar recuperare
+        /*se l'attività da cui ritorno era la NotificationActivity allora termino per far recuperare
         dal back stack l'attività che mi aveva lanciato*/
         if(resultCode == Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY)
+            finish();
+        /* se l'utente preme il pulsante indietro e l'attività da cui ritorno era la NotificationActivity allora termino
+        per fare recuperare dal back stack l'attività che mi aveva lanciato */
+        if(resultCode == RESULT_CANCELED && requestCode== Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY)
             finish();
     }
 

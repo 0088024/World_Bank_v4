@@ -133,18 +133,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
-        if((requestCode == Costanti.LISTA_PAESI_CODE ||
-                requestCode == Costanti.LISTA_ARGOMENTI_CODE) && resultCode == RESULT_FIRST_USER){
-
-                String error_message = data.getStringExtra("error");
-                intent = new Intent(this, NotificationActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("error", error_message);
-                intent.putExtras(bundle);
-                startActivity(intent);
-
-        }
-
         if((requestCode == Costanti.MOSTRA_GRAFICO_CODE && resultCode == RESULT_FIRST_USER)){
             DialogImageMissing mydialog = new DialogImageMissing();
             mydialog.show(getSupportFragmentManager(), "mydialog");

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,9 +43,16 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         textnot.setText(bundle_prec.getString("risulato", message));
     }
 
+    /*@Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        setResult(Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY);
+        finish();
+        return false;
+    }*/
+
 
     public void onClick(View v) {
-        setResult(99);
+        setResult(Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY);
         finish();
 
     }
