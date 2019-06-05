@@ -22,6 +22,7 @@ public class MostraGraficoActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private ProgressBar progressBar;
+    private String idInd;
 
 
     @Override
@@ -51,8 +52,6 @@ public class MostraGraficoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        //Intent intent=new Intent();
-        //setResult(RESULT_OK,intent); // Informa l'attività chiamante con un codice
         finish();
         return false;
     }

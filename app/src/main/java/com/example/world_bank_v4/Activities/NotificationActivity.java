@@ -43,13 +43,6 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         textnot.setText(bundle_prec.getString("risulato", message));
     }
 
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        setResult(Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY);
-        finish();
-        return false;
-    }*/
-
 
     public void onClick(View v) {
         setResult(Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY);

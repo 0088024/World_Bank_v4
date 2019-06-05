@@ -72,6 +72,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -338,10 +339,11 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             /*stream per scrivere il grafico bitmap sul disco*/
             FileOutputStream outputStream;
+
             try{
                 /*apre 1 stream in scrittura verso 1 file nello storage interno, privato per l'app.
                 se il file non esiste lo crea*/
-                outputStream = openFileOutput(Costanti.NOME_UNICO_FILE_PNG, Context.MODE_PRIVATE);
+                outputStream = openFileOutput(Costanti.NOME_UNICO_FILE_PNG,Context.MODE_PRIVATE);
                 /*la qualità 80% vale solo se il formato è JPEG.
                 Write a compressed version of the bitmap to the specified outputstream.
                 If this returns true, the bitmap can be reconstructed by passing a
