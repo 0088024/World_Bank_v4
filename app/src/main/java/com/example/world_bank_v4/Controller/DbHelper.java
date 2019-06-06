@@ -31,7 +31,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final int ANNO_INIZIO = 1960;
     public static final int ANNO_FINE = 2018;
 
-    private static String DB_PATH = "";
     private static String DB_NAME ="WorlBank.db";
     private static final int DATABASE_VERSION = 1;
 

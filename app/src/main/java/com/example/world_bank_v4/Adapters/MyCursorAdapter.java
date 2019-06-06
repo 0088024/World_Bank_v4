@@ -46,7 +46,6 @@ public class MyCursorAdapter extends CursorAdapter {
         String nomeIndicatore = crs.getString(5);
 
         TextView txt = v.findViewById(R.id.textViewPaese);
-        Log.d(arg1.getResources().getString(R.string.NOME_APP), "ciaoooooo");
         txt.setText(nomePaese);
         Log.d(arg1.getResources().getString(R.string.NOME_APP), (String) txt.getText());
 
@@ -56,7 +55,6 @@ public class MyCursorAdapter extends CursorAdapter {
         buttonDelete.setOnClickListener(caricaDatiActivity);
         ImageButton buttonDati = v.findViewById(R.id.imageButtonDati);
         buttonDati.setOnClickListener(caricaDatiActivity);
-
     }
 
 

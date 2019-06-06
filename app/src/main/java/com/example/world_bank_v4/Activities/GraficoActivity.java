@@ -238,9 +238,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             textView_chart_titolo.setText(getNomePaeseSelezionato());
             textView_chart_sottotitolo.setText(getNomeIndicatoreSelezionato());
             chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
-                            (ridisegna). Questo è necessario per rendere effettive le modifiche
-                            apportate al grafico*/
-            /*inflateGraficoLayout();*/
+            (ridisegna). Questo è necessario per rendere effettive le modifiche apportate al
+            grafico*/
         }
 
     }
@@ -348,8 +347,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 /*apre 1 stream in scrittura verso 1 file nello storage interno, privato per l'app.
                 se il file non esiste lo crea*/
                 outputStream =
-                        openFileOutput(getResources().getString(R.string.NOME_UNICO_FILE_PNG),
-                        Context.MODE_PRIVATE);
+                        openFileOutput(getIdPaeseSelezionato() + "_" +
+                                getIdIndicatoreSelezionato(), Context.MODE_PRIVATE);
                 /*la qualità 80% vale solo se il formato è JPEG.
                 Write a compressed version of the bitmap to the specified outputstream.
                 If this returns true, the bitmap can be reconstructed by passing a
@@ -359,10 +358,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 alpha (e.g. JPEG only supports opaque pixels).*/
                 if(bitmap.compress(Bitmap.CompressFormat.PNG, 80 , outputStream)){
                     Log.d(getResources().getString(R.string.NOME_APP),
-                            "chart_bitmap compresso in PNG su file");
+                            "chart_bitmap compressed in PNG file");
                 }
                 else  Log.d(getResources().getString(R.string.NOME_APP),
-                        "Errore compressione bitmap in PNG su file");
+                        "Error compressed bitmap in PNG file");
 
                 outputStream.close();
 
@@ -379,7 +378,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 publishProgress(count);
 
 
-            return "Grafico salvato in png";
+            return "Saved chart in png";
 
         }
 
@@ -428,7 +427,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         legend.setTextColor(blu_grafico);
         legend.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
         legend.setTextSize(15);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
         legend.setDrawInside(false);
@@ -505,8 +504,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         dataSet.setDrawCircles(true);
         dataSet.setCircleRadius(2.5f);
         dataSet.setCircleColor(blu_grafico);
-        dataSet.setCircleHoleRadius(0.5f);
-        dataSet.setCircleHoleColor(Color.WHITE);
         dataSet.setLineWidth(2f);
         dataSet.setDrawFilled(true);
         dataSet.setFillColor(blu_grafico);

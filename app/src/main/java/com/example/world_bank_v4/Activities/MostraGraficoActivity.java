@@ -1,6 +1,8 @@
 package com.example.world_bank_v4.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -47,7 +49,21 @@ public class MostraGraficoActivity extends AppCompatActivity {
         super.onResume();
         progressBar = findViewById(R.id.progressBar);
         imageView = findViewById(R.id.imageView);
-        new CaricaFileTask(imageView).execute(getResources().getString(R.string.NOME_UNICO_FILE_PNG));
+        /*carico dalle sharedPrefernces il nome dell'ultimo file salvato*/
+        Resources res = getResources();
+        String chiave_nome_file_png = res.getString(R.string.PREFERENCES_FILE_INDICATORE_PER_PAESE);
+        /*leggo dalle sharedPreferences il nome del file precedentemente salvato*/
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(chiave_nome_file_png, Context.MODE_PRIVATE);
+        String idPaeseSelezionato =
+                sharedPreferences.getString(res.getString(R.string.ID_PAESE_SELEZIONATO),
+                        "File non esiste");
+        String idIndicatoreSelezionato =
+                sharedPreferences.getString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
+                        "File non esiste");
+        String nome_file_png = idPaeseSelezionato + "_" + idIndicatoreSelezionato;
+
+        new CaricaFileTask(imageView).execute(nome_file_png);
     }
 
 
@@ -76,14 +92,15 @@ public class MostraGraficoActivity extends AppCompatActivity {
             for (; count <= res.getInteger(R.integer.progressBarTime); count++)
                 publishProgress(count);
 
+            /*riceve la dirctory e il nome del file*/
+            File file_png = new File(getApplicationContext().getFilesDir(), params[0]);
             /*Decode a file path into a bitmap. If the specified file name is null,
             or cannot be decoded into a bitmap, the function returns null.*/
-            File file_png = new File(getApplicationContext().getFilesDir(), params[0]);
             Bitmap bitmap = BitmapFactory.decodeFile(file_png.getAbsolutePath());
             Log.d(res.getString(R.string.NOME_APP), file_png.getAbsolutePath());
 
             if(bitmap == null)
-                Log.d(res.getString(R.string.NOME_APP), "Errore decodifica stream Bitmap");
+                Log.d(res.getString(R.string.NOME_APP), "Error decoding stream Bitmap");
 
             return bitmap;
 
