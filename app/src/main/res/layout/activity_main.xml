@@ -41,7 +41,7 @@
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/image_world_bank"
-                android:cropToPadding="false"
+                android:cropToPadding="true"
                 app:srcCompat="@drawable/wb_norid" />
 
             <Button
