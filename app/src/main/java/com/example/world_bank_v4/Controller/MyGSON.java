@@ -69,7 +69,8 @@ public class MyGSON {
                         null
 
                     ]
-        In questo caso infatti il secondo elemento del array vale null e quindi non rappresenta a sua volta un array */
+        In questo caso infatti il secondo elemento del array vale null e quindi non rappresenta a
+        sua volta un array */
         if(je2.isJsonArray()==false){
             Log.d(context.getResources().getString(R.string.NOME_APP) , "file json vuoto!");
             return null; // non si può proseguire

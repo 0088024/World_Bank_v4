@@ -155,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         }
 
+
         if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
                 && resultCode == RESULT_FIRST_USER)){
             DialogImageMissing mydialog = new DialogImageMissing();
@@ -162,6 +163,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                     getResources().getString(R.string.MY_DIALOG));
 
         }
+
+
 
         if((requestCode == res.getInteger(R.integer.MOSTRA_DATABASE_CODE)
                 && resultCode == RESULT_FIRST_USER)){
@@ -171,5 +174,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         }
     }
+
+
 }
 

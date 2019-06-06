@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Dialog.DialogNoCountry;
 import com.example.world_bank_v4.Dialog.DialogNoIndicator;
 import com.example.world_bank_v4.Controller.MyGSON;
@@ -29,8 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -47,6 +44,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private Bundle bundle_succ;
     private String json_file;
     private String error_file;
+    private Bundle bundle_err;
     private String nomeClasseSelezionata;
     private String idIndicatoreSelezionato;
     private String nomeIndicatoreSelezionato;
@@ -60,7 +58,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private TypeToken typeToken;
     private Bundle savedInstanceState;
     private ProgressBar progressBar;
-    private boolean ReturningWithResult;
+    private boolean returningWithResult;
     private boolean lanciata_da_precedente = false;
 
 
@@ -162,20 +160,20 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
-        if (ReturningWithResult == true &&
+        if (returningWithResult == true &&
                 requestCode == res.getInteger(R.integer.LISTA_PAESI_CODE)) {
             // Commit your transactions here.
             DialogNoCountry mydialog = new DialogNoCountry();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
-        if (ReturningWithResult==true &&
+        if (returningWithResult == true &&
                 requestCode == res.getInteger(R.integer.LISTA_INDICATORI_CODE)) {
             // Commit your transactions here.
             DialogNoIndicator mydialog = new DialogNoIndicator();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
         // Reset the boolean flag back to false for next time.
-        ReturningWithResult = false;
+        returningWithResult = false;
     }
 
 
@@ -447,6 +445,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 /*lancia la NotificationActivity richiedendone in codice di chiusura*/
                 startActivityForResult(intent,
                         res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
+
+                 else{  /*Non si può continuare*/
+                    Intent intent=new Intent();
+                    bundle_err = new Bundle();
+                    bundle_err.putString("error",error_file);
+                    intent.putExtras(bundle_err);
+                    /*setResult(RESULT_FIRST_USER,intent);*/
+                    finish();
             }
         }
     }
@@ -456,19 +462,19 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Intent intent;
         Resources res = getResources();
         Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
         this.requestCode = requestCode;
 
-        ReturningWithResult=false;
+        returningWithResult =false;
 
         /*Controllo dei codici di risposta delle attività lanciate*/
-
         if(resultCode == res.getInteger(R.integer.NO_DATA)){
             /*Errore previsto ad es. nessun dato disponibile per un certo paese*/
-            ReturningWithResult = true;
+            returningWithResult = true;
         }
 
         /*se l'attività da cui ritorno era la NotificationActivity allora termino per dar recuperare
@@ -476,6 +482,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
             finish();
     }
+
+
 
 
 
