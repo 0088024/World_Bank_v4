@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -44,7 +45,8 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.indicator);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": CREATE");
     }
 
 
@@ -54,14 +56,14 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState){
         super.onRestoreInstanceState(savedInstanceState);
-        Log.d(Costanti.NOME_APP,
+        Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
 
         /*se è != null significa che l'attività (non è stata lanciata da 1 altra attività, ma)
         è stata ripresa (per esempio l'utente torna da quella successiva) e/o reistanziata causa
         vincoli di integrità, e inoltre il s.o. ha passato l'oggetto bundle salvato in
         precedenza in onSaveInstancestate()*/
-        id_record = savedInstanceState.getLong(Costanti.ID_RECORD_TABELLA);
+        id_record = savedInstanceState.getLong(getResources().getString(R.string.ID_RECORD_TABELLA));
     }
 
 
@@ -70,15 +72,16 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() + ": RESUME");
         progressBar = findViewById(R.id.progressBar);
 
         /*se è stata lanciata da CaricaDati*/
         intent = getIntent();
         bundle = intent.getExtras();
         if(bundle != null) {
-            id_record = bundle.getLong(Costanti.ID_RECORD_TABELLA);
-            Log.d(Costanti.NOME_APP, "recuperati dati da bundle_prec");
+            id_record = bundle.getLong(res.getString(R.string.ID_RECORD_TABELLA));
+            Log.d(getResources().getString(R.string.NOME_APP), "recuperati dati da bundle_prec");
         }
         /*altrimenti se non è stata lanciata da CaricaDati ma ripresa dopo onPause()*/
         else {
@@ -86,10 +89,11 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
             le varibili di stato*/
             if(savedInstanceState == null) {
                 SharedPreferences sharedPreferences =
-                        getSharedPreferences(Costanti.PREFERENCES_FILE_VISUALIZZA_DATI,
+                        getSharedPreferences(res.getString(R.string.PREFERENCES_FILE_VISUALIZZA_DATI),
                                                         Context.MODE_PRIVATE);
-                id_record = sharedPreferences.getLong(Costanti.KEY_RECORD_ID, 0);
-                Log.d(Costanti.NOME_APP, "recuperati dati da disco");
+                id_record =
+                        sharedPreferences.getLong(res.getString(R.string.KEY_RECORD_ID), 0);
+                Log.d(res.getString(R.string.NOME_APP), "recuperati dati da disco");
             }
             /*se invece ha già ricevuto il bundle dal S.O., le varibili le ha già recuperate in
             onRestoreInstanceState()*/
@@ -103,7 +107,8 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     @Override
     public void onRestart(){
         super.onRestart();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESTART");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": RESTART");
     }
 
 
@@ -112,8 +117,9 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
-        savedInstanceState.putLong(Costanti.ID_RECORD_TABELLA, id_record);
+        Log.d(getResources().getString(R.string.NOME_APP), this.getClass().getCanonicalName() +
+                ": SAVE_INSTANCE_STATE");
+        savedInstanceState.putLong(getResources().getString(R.string.ID_RECORD_TABELLA), id_record);
     }
 
 
@@ -125,12 +131,13 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     @Override
     protected void onPause(){
         super.onPause();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() + ": PAUSE");
         SharedPreferences sharedPref =
-                getSharedPreferences(Costanti.PREFERENCES_FILE_VISUALIZZA_DATI,
+                getSharedPreferences(res.getString(R.string.PREFERENCES_FILE_VISUALIZZA_DATI),
                         Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putLong(Costanti.KEY_RECORD_ID, id_record);
+        editor.putLong(res.getString(R.string.KEY_RECORD_ID), id_record);
         editor.apply();
     }
 
@@ -139,7 +146,8 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     /*se le risorse sono aperte, le chiude*/
     @Override
     protected void onDestroy(){
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": DESTROY");
         if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
                                l'utente torna indietro.*/
             dbManager.close();
@@ -177,7 +185,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
             setCursor(cursor);
 
             // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
-            for (; count<= Costanti.progressBarTime;count++)
+            for (; count<= getResources().getInteger(R.integer.progressBarTime); count++)
                 publishProgress(count);
 
             return cursor;
@@ -193,7 +201,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
 
 
         protected void onPostExecute(Cursor cursorRisultato) {
-            Log.d(Costanti.NOME_APP,
+            Log.d(getResources().getString(R.string.NOME_APP),
                     ": CURSORE -->  " + dbManager.showCursor(cursorRisultato));
             progressBar.setVisibility(View.GONE);
             /* Controlla se la query ha prodotto nessun risultato */

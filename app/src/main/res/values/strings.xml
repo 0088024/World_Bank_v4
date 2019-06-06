@@ -14,7 +14,7 @@
     <string name="dialog_contacts3">Degree course of Computer Engineering </string>
     <string name="title_activity_grafico">Ceck Graph</string>
     <string name="title_activity_carica_dati">Carica Dati Offline</string>
-    <string name="title_activity_mostra_png_precedentemente_salvata">Immagine png</string>
+    <string name="title_activity_mostra_png_precedentemente_salvata">Carica Immagine.png</string>
     <string name="title_activity_notification">Page Not Found</string>
     <string name="title_activity_visualizza_dati">Visualizza Dati</string>
     <string name="button_ricarica_pagina">BACK</string>
@@ -70,6 +70,50 @@
     <string name="universita">TOR VERGATA UNIVERSITY</string>
     <string name="menu_salva_grafico">Salva Grafico.pmg</string>
     <string name="menu_salva_database">Salva Database</string>
+
+    <string name="NOME_APP">WorldBank:</string>
+    <string name="CHOOSE_BROWSER">Complete the action with one of the following browser: </string>
+    <string name="WORLDBANK_SITE">http://www.worldbank.org</string>
+    <string name="IO_ERROR">http://www.worldbank.org</string>
+    <string name="MSG_ERRORE_CONNESSIONE">: Errore connessione internet</string>
+
+    <string name="API_TOPIC_LIST_FORMAT_JSON">https://api.worldbank.org/v2/topic?format=json</string>
+    <string name="API_COUNTRY_LIST">https://api.worldbank.org/v2/country/</string>
+    <string name="API_TOPIC_LIST">https://api.worldbank.org/v2/topic/</string>
+    <string name="API_COUNTRY_LIST_FORMAT_JSON_PER_PAGE_500">
+        https://api.worldbank.org/v2/country?format=json&amp;per_page=500</string>
+
+    <string name="NOME_CLASSE_SELEZIONATA">nome_classe_selezionata</string>
+    <string name="NOME_PAESE_SELEZIONATO">nome_paese_selezionato</string>
+    <string name="NOME_INDICATORE_SELEZIONATO">nome_indicatore_selezionato</string>
+
+    <string name="ID_PAESE_SELEZIONATO">idPaeseSelezionato</string>
+    <string name="ID_ARGOMENTO_SELEZIONATO">idArgomentoSelezionato</string>
+    <string name="ID_INDICATORE_SELEZIONATO">idIndicatoreSelezionato</string>
+    <string name="ID_RECORD_TABELLA">idRecordTabella</string>
+
+    <string name="NOME_CHIAVE_FILE_JSON">nome_chiave_file_json</string>
+
+    <string name="KEY_JSON_FILE_COUNTRY">json_file_country</string>
+    <string name="KEY_JSON_FILE_ARGOMENTI">json_file_argomenti</string>
+    <string name="KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO">json_file_indicatori_per_argomento</string>
+    <string name="KEY_JSON_FILE_INDICATORE_PER_PAESE">json_file_indicatore_per_paese</string>
+    <string name="KEY_RECORD_ID">id_record_visualizza_dati</string>
+
+    <string name="PREFERENCES_FILE_PAESI">Preferences_Paesi</string>
+    <string name="PREFERENCES_FILE_ARGOMENTI">Preferences_Argomenti</string>
+    <string name="PREFERENCES_FILE_INDICATORI_PER_ARGOMENTO">
+        Preferences_Indicatori_per_argomento</string>
+    <string name="PREFERENCES_FILE_INDICATORE_PER_PAESE">Preferences_Indicatore_per_Paese</string>
+    <string name="PREFERENCES_FILE_VISUALIZZA_DATI">Preferences_Visualizza_Dati</string>
+
+    <string name="NOME_UNICO_FILE_PNG">nome_unico_file.png</string>
+    <string name="LANCIATA_DA_PRECEDENTE">lanciata_da_precedente</string>
+    <string name="ATTIVITÀ_LANCIATA">attività_lanciata</string>
+    <string name="MY_DIALOG">my_dialog</string>
+
+
+
 
     <string-array name="nomi_colonne_visualizza_dati">
         <item>Download Time</item>

@@ -18,7 +18,7 @@ public class DialogNoIndicator extends AppCompatDialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Log.d(Costanti.NOME_APP,"builder ok");
+        Log.d(getResources().getString(R.string.NOME_APP),"builder ok");
         builder.setTitle("No data available!")
                 .setMessage("Want to try another indicator?")
                 .setIcon(R.drawable.missing)

@@ -1,6 +1,7 @@
 package com.example.world_bank_v4.Activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -28,7 +29,8 @@ public class MostraGraficoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": CREATE");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": CREATE");
         setContentView(R.layout.mostra_png_salvato_prima);
          /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
@@ -45,7 +47,7 @@ public class MostraGraficoActivity extends AppCompatActivity {
         super.onResume();
         progressBar = findViewById(R.id.progressBar);
         imageView = findViewById(R.id.imageView);
-        new CaricaFileTask(imageView).execute(Costanti.NOME_UNICO_FILE_PNG);
+        new CaricaFileTask(imageView).execute(getResources().getString(R.string.NOME_UNICO_FILE_PNG));
     }
 
 
@@ -69,20 +71,19 @@ public class MostraGraficoActivity extends AppCompatActivity {
 
         @Override
         protected Bitmap doInBackground(String... params) {
+            Resources res = getResources();
             // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
-            for (; count<= Costanti.progressBarTime;count++)
+            for (; count <= res.getInteger(R.integer.progressBarTime); count++)
                 publishProgress(count);
 
             /*Decode a file path into a bitmap. If the specified file name is null,
             or cannot be decoded into a bitmap, the function returns null.*/
             File file_png = new File(getApplicationContext().getFilesDir(), params[0]);
             Bitmap bitmap = BitmapFactory.decodeFile(file_png.getAbsolutePath());
-            Log.d(Costanti.NOME_APP,file_png.getAbsolutePath());
-            /*il problema di questa classe è che non lancia eccezioni per gli errori ma scrive in
-            Log.E*/ /*utilizzare ImageDecoder inserita nelle ultime api????--> problema con
-            compatibilità retroattiva*/
+            Log.d(res.getString(R.string.NOME_APP), file_png.getAbsolutePath());
+
             if(bitmap == null)
-                Log.d(Costanti.NOME_APP, "Errore decodifica stream Bitmap");
+                Log.d(res.getString(R.string.NOME_APP), "Errore decodifica stream Bitmap");
 
             return bitmap;
 
