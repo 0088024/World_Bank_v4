@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 
 import com.example.world_bank_v4.Adapters.ArgomentiAdapter;
 import com.example.world_bank_v4.Model.Argomento;
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 import com.google.gson.reflect.TypeToken;
 

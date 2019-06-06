@@ -77,7 +77,7 @@
 
     <string name="IO_ERROR">http://www.worldbank.org</string>
     <string name="MSG_ERRORE_CONNESSIONE">: Errore connessione internet</string>
-    <string name="STRING_NOT_FOUND">String not founf</string>
+    <string name="STRING_NOT_FOUND">String not found</string>
 
     <string name="API_TOPIC_LIST_FORMAT_JSON">https://api.worldbank.org/v2/topic?format=json</string>
     <string name="API_COUNTRY_LIST">https://api.worldbank.org/v2/country/</string>
@@ -109,7 +109,6 @@
     <string name="PREFERENCES_FILE_INDICATORE_PER_PAESE">Preferences_Indicatore_per_Paese</string>
     <string name="PREFERENCES_FILE_VISUALIZZA_DATI">Preferences_Visualizza_Dati</string>
 
-    <string name="NOME_UNICO_FILE_PNG">nome_unico_file.png</string>
     <string name="LANCIATA_DA_PRECEDENTE">lanciata_da_precedente</string>
     <string name="ATTIVITÀ_LANCIATA">attività_lanciata</string>
     <string name="MY_DIALOG">my_dialog</string>

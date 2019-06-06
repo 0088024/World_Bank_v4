@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 
 import com.example.world_bank_v4.Adapters.MyCursorAdapter;
 import com.example.world_bank_v4.Controller.DbManager;
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 import com.example.world_bank_v4.Dialog.DialogDeleteRow;
 

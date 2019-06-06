@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.world_bank_v4.Dialog.DialogAbout;
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Dialog.DialogContacts;
 import com.example.world_bank_v4.Dialog.DialogDataMissing;
 import com.example.world_bank_v4.Dialog.DialogImageMissing;
@@ -22,7 +21,6 @@ import com.example.world_bank_v4.R;
 
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
 
-    private Intent intent;
     private ImageView imageView;
     private Button buttonPaese;
     private Button buttonArgomento;

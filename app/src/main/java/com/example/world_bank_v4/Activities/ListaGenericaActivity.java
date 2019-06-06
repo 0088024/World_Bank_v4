@@ -44,7 +44,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private Bundle bundle_succ;
     private String json_file;
     private String error_file;
-    private Bundle bundle_err;
     private String nomeClasseSelezionata;
     private String idIndicatoreSelezionato;
     private String nomeIndicatoreSelezionato;
@@ -145,12 +144,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     onStop()*/
     @Override
     public void onResume(){
-        Resources res = getResources();
-
-
-
         super.onResume();
-        /*Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() + ": RESUME");*/
+
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": RESUME");
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
@@ -492,27 +490,29 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         Resources res = getResources();
         SharedPreferences sharedPreferences =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
-        json_file = sharedPreferences.getString(KEY_JSON_FILE,
-                res.getString(R.string.STRING_NOT_FOUND));
+
+        json_file = sharedPreferences.getString(res.getString(R.string.NOME_CHIAVE_FILE_JSON),
+                              res.getString(R.string.STRING_NOT_FOUND));
+        Log.d(res.getString(R.string.NOME_APP), json_file);
         nomeClasseSelezionata =
                 sharedPreferences.getString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
-                        res.getString(R.string.STRING_NOT_FOUND));
+                             res.getString(R.string.STRING_NOT_FOUND));
                 /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
                 dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
         if (sharedPreferences.contains(res.getString(R.string.ID_INDICATORE_SELEZIONATO))) {
             idIndicatoreSelezionato =
                     sharedPreferences.getString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
-                            res.getString(R.string.STRING_NOT_FOUND));
+                              res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.NOME_INDICATORE_SELEZIONATO))) {
             nomeIndicatoreSelezionato =
                     sharedPreferences.getString(res.getString(R.string.NOME_INDICATORE_SELEZIONATO),
-                            res.getString(R.string.STRING_NOT_FOUND));
+                             res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO))) {
             idArgomentoSelezionato =
                     sharedPreferences.getString(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO),
-                            res.getString(R.string.STRING_NOT_FOUND));
+                             res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.ID_PAESE_SELEZIONATO))) {
             idPaeseSelezionato =

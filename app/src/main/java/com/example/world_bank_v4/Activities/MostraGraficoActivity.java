@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 
 import java.io.File;

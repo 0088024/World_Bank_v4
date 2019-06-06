@@ -2,8 +2,6 @@ package com.example.world_bank_v4.Controller;
 
 import android.content.Context;
 import android.util.Log;
-
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Model.ElementoGenerico;
 import com.example.world_bank_v4.Model.Intestazione;
 import com.example.world_bank_v4.R;
