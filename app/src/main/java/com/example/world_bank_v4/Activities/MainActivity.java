@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         Resources res = getResources();
@@ -71,7 +73,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             case R.id.Menu_1:
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(res.getString(R.string.WORLDBANK_SITE)));
-                /* If there are more than one browser installed, a window will appear to allow the user to choose what he prefers.*/
+                /*If there are more than one browser installed, a window will appear to allow the
+                user to choose what he prefers.*/
                 startActivity(Intent.createChooser(intent,
                         res.getString(R.string.CHOOSE_BROWSER)));
                 break;
@@ -142,18 +145,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Resources res = getResources();
-        if((requestCode == res.getInteger(R.integer.LISTA_PAESI_CODE) ||
-                requestCode == res.getInteger(R.integer.LISTA_ARGOMENTI_CODE))
-                            && resultCode == RESULT_FIRST_USER){
-
-                String error_message = data.getStringExtra("error");
-                intent = new Intent(this, NotificationActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("error", error_message);
-                intent.putExtras(bundle);
-                startActivity(intent);
-
-        }
 
         if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
                 && resultCode == RESULT_FIRST_USER)){
