@@ -108,8 +108,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         ListaPaesiActivity.class.getName());
                 bundle.putInt(res.getString(R.string.ATTIVITÀ_LANCIATA),1);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,
-                        res.getInteger(R.integer.LISTA_PAESI_CODE));
+                startActivity(intent);
                 break;
 
             case R.id.buttonArgomento:
@@ -119,8 +118,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         ListaArgomentiActivity.class.getName());
                 bundle.putInt(res.getString(R.string.ATTIVITÀ_LANCIATA),1);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,
-                        res.getInteger(R.integer.LISTA_ARGOMENTI_CODE));
+                startActivity(intent);
                 break;
 
             case R.id.buttonGrafico:
@@ -142,19 +140,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Resources res = getResources();
-        if((requestCode == res.getInteger(R.integer.LISTA_PAESI_CODE) ||
-                requestCode == res.getInteger(R.integer.LISTA_ARGOMENTI_CODE))
-                            && resultCode == RESULT_FIRST_USER){
-
-                String error_message = data.getStringExtra("error");
-                intent = new Intent(this, NotificationActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("error", error_message);
-                intent.putExtras(bundle);
-                startActivity(intent);
-
-        }
-
 
         if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
                 && resultCode == RESULT_FIRST_USER)){
@@ -163,8 +148,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                     getResources().getString(R.string.MY_DIALOG));
 
         }
-
-
 
         if((requestCode == res.getInteger(R.integer.MOSTRA_DATABASE_CODE)
                 && resultCode == RESULT_FIRST_USER)){

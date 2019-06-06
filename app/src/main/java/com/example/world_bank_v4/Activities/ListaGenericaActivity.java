@@ -145,9 +145,12 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     onStop()*/
     @Override
     public void onResume(){
-        super.onResume();
         Resources res = getResources();
-        Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() + ": RESUME");
+
+
+
+        super.onResume();
+        /*Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() + ": RESUME");*/
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
@@ -313,7 +316,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     e collega quest'ultima alla listView tramite l'adattatore che instanzia*/
     protected void caricaLayout(){
 
-
         /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
         MyGSON myGSON = new MyGSON(this);
         lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
@@ -441,18 +443,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 Bundle bundle = new Bundle();
                 bundle.putString("error", error_file);
                 intent.putExtras(bundle);
-
+                /*setResult(res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));*/
                 /*lancia la NotificationActivity richiedendone in codice di chiusura*/
-                startActivityForResult(intent,
-                        res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
-
-                 else{  /*Non si può continuare*/
-                    Intent intent=new Intent();
-                    bundle_err = new Bundle();
-                    bundle_err.putString("error",error_file);
-                    intent.putExtras(bundle_err);
-                    /*setResult(RESULT_FIRST_USER,intent);*/
-                    finish();
+                startActivity(intent);
             }
         }
     }
@@ -462,14 +455,12 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Intent intent;
         Resources res = getResources();
         Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
         this.requestCode = requestCode;
-
-        returningWithResult =false;
+        returningWithResult = true;
 
         /*Controllo dei codici di risposta delle attività lanciate*/
         if(resultCode == res.getInteger(R.integer.NO_DATA)){
@@ -479,9 +470,18 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         /*se l'attività da cui ritorno era la NotificationActivity allora termino per dar recuperare
         dal back stack l'attività che mi aveva lanciato*/
-        if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
+        if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)){
             finish();
+
+        }
+
+        /*RESULT_CANCELED è il risultato fornito dal tasto Back nativo del telefono*/
+        /*if(resultCode == RESULT_CANCELED /*&& requestCode ==
+                res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY))*/
+        /*finish();*/
     }
+
+
 
 
 
