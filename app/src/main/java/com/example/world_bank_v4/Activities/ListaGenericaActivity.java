@@ -125,13 +125,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestoreInstanceState(Bundle bundle){
         super.onRestoreInstanceState(bundle);
-        Log.d(Costanti.NOME_APP,
+        Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
         /*causa eccessiva dimensione di alcune liste di indicatori, tali da generare ExceptionBundle
         size, l'activity ListaIndicatori non salva lo stato dell'istanza nel bundle, ma solo sul
         disco*/
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName()){
-            Log.d(Costanti.NOME_APP,
+            Log.d(getResources().getString(R.string.NOME_APP),
                     this.getClass().getCanonicalName() + ": No restore Bundle");
             return ;
         }
@@ -148,7 +148,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESUME");
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() + ": RESUME");
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
@@ -161,12 +162,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
-        if (ReturningWithResult == true && requestCode == Costanti.LISTA_PAESI_CODE) {
+        if (ReturningWithResult == true &&
+                requestCode == res.getInteger(R.integer.LISTA_PAESI_CODE)) {
             // Commit your transactions here.
             DialogNoCountry mydialog = new DialogNoCountry();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
-        if (ReturningWithResult==true && requestCode == Costanti.LISTA_INDICATORI_CODE) {
+        if (ReturningWithResult==true &&
+                requestCode == res.getInteger(R.integer.LISTA_INDICATORI_CODE)) {
             // Commit your transactions here.
             DialogNoIndicator mydialog = new DialogNoIndicator();
             mydialog.show(getSupportFragmentManager(),"mydialog");
@@ -180,7 +183,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestart(){
         super.onRestart();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": RESTART");
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": RESTART");
         lanciata_da_precedente = false;
 
     }
@@ -197,21 +201,27 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         disco*/
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName())
             return;
+        Resources res = getResources();
 
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
+        Log.d(res.getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
 
-        savedInstanceState.putString(Costanti.NOME_CHIAVE_FILE_JSON, KEY_JSON_FILE);
+        savedInstanceState.putString(res.getString(R.string.NOME_CHIAVE_FILE_JSON), KEY_JSON_FILE);
         savedInstanceState.putString(KEY_JSON_FILE, json_file);
-        savedInstanceState.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
-        savedInstanceState.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
-        savedInstanceState.putString(Costanti.NOME_INDICATORE_SELEZIONATO,
+        savedInstanceState.putString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
+                nomeClasseSelezionata);
+        savedInstanceState.putString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
+                idIndicatoreSelezionato);
+        savedInstanceState.putString(res.getString(R.string.NOME_INDICATORE_SELEZIONATO),
                 nomeIndicatoreSelezionato);
-        savedInstanceState.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
-        savedInstanceState.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
-        savedInstanceState.putString(Costanti.NOME_PAESE_SELEZIONATO,
+        savedInstanceState.putString(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO),
+                idArgomentoSelezionato);
+        savedInstanceState.putString(res.getString(R.string.ID_PAESE_SELEZIONATO),
+                idPaeseSelezionato);
+        savedInstanceState.putString(res.getString(R.string.NOME_PAESE_SELEZIONATO),
                 nomePaeseSelezionato);
 
-        Log.d(Costanti.NOME_APP,
+        Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": Bundle savedInstanceState salvato");
 
         super.onSaveInstanceState(savedInstanceState);
@@ -227,17 +237,22 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onPause(){
         super.onPause();
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": PAUSE");
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": PAUSE");
         SharedPreferences sharedPref =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(KEY_JSON_FILE, json_file);
-        editor.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
-        editor.putString(Costanti.ID_INDICATORE_SELEZIONATO, idIndicatoreSelezionato);
-        editor.putString(Costanti.NOME_INDICATORE_SELEZIONATO, nomeIndicatoreSelezionato);
-        editor.putString(Costanti.ID_ARGOMENTO_SELEZIONATO, idArgomentoSelezionato);
-        editor.putString(Costanti.ID_PAESE_SELEZIONATO, idPaeseSelezionato);
-        editor.putString(Costanti.NOME_PAESE_SELEZIONATO, nomePaeseSelezionato);
+        editor.putString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
+                nomeClasseSelezionata);
+        editor.putString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
+                idIndicatoreSelezionato);
+        editor.putString(res.getString(R.string.NOME_INDICATORE_SELEZIONATO),
+                nomeIndicatoreSelezionato);
+        editor.putString(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO), idArgomentoSelezionato);
+        editor.putString(res.getString(R.string.ID_PAESE_SELEZIONATO), idPaeseSelezionato);
+        editor.putString(res.getString(R.string.NOME_PAESE_SELEZIONATO), nomePaeseSelezionato);
 
         editor.apply(); /*mettere commit??? dopo aver parlato con il Prof???????*/
     }
@@ -246,7 +261,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onStop(){
         super.onStop();
-                  Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": STOP");
+                  Log.d(getResources().getString(R.string.NOME_APP),
+                          this.getClass().getCanonicalName() + ": STOP");
     }
 
 
@@ -254,7 +270,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     verra’ richiamato e Android killera’ il processo associato all’applicazione*/
     @Override
     protected void onDestroy(){
-        Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() + ": DESTROY");
+        Log.d(getResources().getString(R.string.NOME_APP), this.getClass().getCanonicalName()
+                + ": DESTROY");
         super.onDestroy();
     }
 
@@ -271,7 +288,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*inoltre se savedInstanceState è == false, significa che è stata ripresa ma il s.o. non
             gli ha passato l'oggetto Bundle in onRestoreInstanceState, quindi li carico da disco*/
             if (savedInstanceState == null) {
-                Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
+                Log.d(getResources().getString(R.string.NOME_APP), this.getClass().getCanonicalName() +
                         ": getStateFromSharedPreferences()");
                 getStateFromSharedPreferences(); /*recupero le variabili di stato da disco*/
             }
@@ -279,7 +296,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             passato l'oggetto Bundle in onRestoreInstanceState(): x cui recuperiamo le variabili
             da tale bundle*/
             else {
-                Log.d(Costanti.NOME_APP, this.getClass().getCanonicalName() +
+                Log.d(getResources().getString(R.string.NOME_APP), this.getClass().getCanonicalName() +
                         ": getStateFromBundle(savedInstanceState);");
                 getStateFromBundle(savedInstanceState);
             }
@@ -300,10 +317,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
 
         /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
-        MyGSON myGSON = new MyGSON();
+        MyGSON myGSON = new MyGSON(this);
         lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
         /*DEBUG*/
-        Log.d(Costanti.NOME_APP + "JSON FILE ", json_file);
+        Log.d(getResources().getString(R.string.NOME_APP) + "JSON FILE ", json_file);
 
         listView = findViewById(idListView);
         listView.setOnItemClickListener(this);
@@ -330,7 +347,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         bundle_succ = new Bundle();
-        bundle_succ.putString(Costanti.NOME_CLASSE_SELEZIONATA, nomeClasseSelezionata);
+        bundle_succ.putString(getResources().getString(R.string.NOME_CLASSE_SELEZIONATA),
+                nomeClasseSelezionata);
     }
 
 
@@ -353,16 +371,15 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         @Override
         protected String doInBackground(Void... voids) {
-
+            Resources res = getResources();
             try {
                 url = new URL(API_WORLD_BANK);
                 /*creo l'oggetto HttpURLConnection e apro la connessione al server*/
                 /*se il timeout era già scaduto quando riprova a connettermi qui già mi lancia
                 l'eccezione "no address hostname....." senza riavviare il timeout*/
                 client = (HttpURLConnection) url.openConnection();
-                /*Recupero le informazioni inviate dal server */
-                client.setReadTimeout(Costanti.TIMEOUT); //Timeout in millisecondi per la lettura
-
+                /*Timeout in millisecondi per la lettura*/
+                client.setReadTimeout(res.getInteger(R.integer.TIMEOUT));
                 risposta = new BufferedInputStream(client.getInputStream());
                 /*leggo i caratteri e li appendo in sb*/
                 sb = new StringBuilder();
@@ -377,9 +394,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*decidiamo di mostrare un unico messaggio d'errore per tutti i tipi di eccezione che
             possono essere sollevati*/
             catch (IOException e) {
-                Log.d(Costanti.NOME_APP,"IOException: " +e.getMessage() );
+                Log.d(res.getString(R.string.NOME_APP),"IOException: " +e.getMessage() );
                 /*imposta il messaggio d'errore da mostrare all'utente con Notificationactivity*/
-                error_file = Costanti.IO_ERROR + Costanti.WORLDBANK_SITE;
+                error_file = res.getString(R.string.IO_ERROR)
+                        + res.getString(R.string.WORLDBANK_SITE);
                 return null;
 
             }
@@ -390,7 +408,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             }
 
             // Fammi vedere per un certo tempo stabilito da una costante la Progress Bar
-            for (count = 0; count <= Costanti.progressBarTime; count++) {
+            for (count = 0; count <= res.getInteger(R.integer.progressBarTime); count++) {
                 publishProgress(count);
             }
 

@@ -46,7 +46,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
 
     public void onClick(View v) {
-        setResult(Costanti.RETURN_FROM_NOTIFICATION_ACTIVITY);
+        setResult(getResources().getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
         finish();
 
     }
