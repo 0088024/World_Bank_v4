@@ -297,7 +297,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 publishProgress(count);
 
 
-            return "Dati salvati nel database";
+            return "Data saved in database";
         }
 
 
@@ -342,13 +342,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             /*stream per scrivere il grafico bitmap sul disco*/
             FileOutputStream outputStream;
-
+            String nome_file_png = getIdPaeseSelezionato() + "_" +
+                    getIdIndicatoreSelezionato();
             try{
                 /*apre 1 stream in scrittura verso 1 file nello storage interno, privato per l'app.
                 se il file non esiste lo crea*/
                 outputStream =
-                        openFileOutput(getIdPaeseSelezionato() + "_" +
-                                getIdIndicatoreSelezionato(), Context.MODE_PRIVATE);
+                        openFileOutput(nome_file_png, Context.MODE_PRIVATE);
                 /*la qualità 80% vale solo se il formato è JPEG.
                 Write a compressed version of the bitmap to the specified outputstream.
                 If this returns true, the bitmap can be reconstructed by passing a
@@ -378,7 +378,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 publishProgress(count);
 
 
-            return "Saved chart in png";
+            return nome_file_png + " Saved" ;
 
         }
 

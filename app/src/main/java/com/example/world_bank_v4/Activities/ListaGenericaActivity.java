@@ -430,7 +430,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*se è != null significa che non abbiamo avuto errori nello scaricare il file*/
             if(risultato != null) {
                 Log.d(res.getString(R.string.NOME_APP),
-                        nameClass + ": File scaricato da internet");
+                        nameClass + ": Download file completed");
                 json_file = risultato;
                 caricaLayout();
             }
@@ -484,36 +484,37 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         Resources res = getResources();
         SharedPreferences sharedPreferences =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
-        json_file = sharedPreferences.getString(KEY_JSON_FILE, "File non esiste");
+        json_file = sharedPreferences.getString(KEY_JSON_FILE,
+                res.getString(R.string.STRING_NOT_FOUND));
         nomeClasseSelezionata =
                 sharedPreferences.getString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
-                        "File non esiste");
+                        res.getString(R.string.STRING_NOT_FOUND));
                 /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
                 dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
         if (sharedPreferences.contains(res.getString(R.string.ID_INDICATORE_SELEZIONATO))) {
             idIndicatoreSelezionato =
                     sharedPreferences.getString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
-                            "File non esiste");
+                            res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.NOME_INDICATORE_SELEZIONATO))) {
             nomeIndicatoreSelezionato =
                     sharedPreferences.getString(res.getString(R.string.NOME_INDICATORE_SELEZIONATO),
-                            "File non esiste");
+                            res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO))) {
             idArgomentoSelezionato =
                     sharedPreferences.getString(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO),
-                            "File non esiste");
+                            res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.ID_PAESE_SELEZIONATO))) {
             idPaeseSelezionato =
                     sharedPreferences.getString(res.getString(R.string.ID_PAESE_SELEZIONATO),
-                            "File non esiste");
+                            res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.NOME_PAESE_SELEZIONATO))) {
             nomePaeseSelezionato =
                     sharedPreferences.getString(res.getString(R.string.NOME_PAESE_SELEZIONATO),
-                            "File non esiste");
+                            res.getString(R.string.STRING_NOT_FOUND));
         }
 
 

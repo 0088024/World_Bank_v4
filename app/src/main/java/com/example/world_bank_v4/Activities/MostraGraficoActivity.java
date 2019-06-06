@@ -57,10 +57,10 @@ public class MostraGraficoActivity extends AppCompatActivity {
                 getSharedPreferences(chiave_nome_file_png, Context.MODE_PRIVATE);
         String idPaeseSelezionato =
                 sharedPreferences.getString(res.getString(R.string.ID_PAESE_SELEZIONATO),
-                        "File non esiste");
+                        res.getString(R.string.STRING_NOT_FOUND));
         String idIndicatoreSelezionato =
                 sharedPreferences.getString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
-                        "File non esiste");
+                        res.getString(R.string.STRING_NOT_FOUND));
         String nome_file_png = idPaeseSelezionato + "_" + idIndicatoreSelezionato;
 
         new CaricaFileTask(imageView).execute(nome_file_png);

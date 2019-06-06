@@ -74,8 +74,10 @@
     <string name="NOME_APP">WorldBank:</string>
     <string name="CHOOSE_BROWSER">Complete the action with one of the following browser: </string>
     <string name="WORLDBANK_SITE">http://www.worldbank.org</string>
+
     <string name="IO_ERROR">http://www.worldbank.org</string>
     <string name="MSG_ERRORE_CONNESSIONE">: Errore connessione internet</string>
+    <string name="STRING_NOT_FOUND">String not founf</string>
 
     <string name="API_TOPIC_LIST_FORMAT_JSON">https://api.worldbank.org/v2/topic?format=json</string>
     <string name="API_COUNTRY_LIST">https://api.worldbank.org/v2/country/</string>
