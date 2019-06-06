@@ -68,9 +68,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     private LineChart chart;
     private TextView textView_chart_titolo;
     private TextView textView_chart_sottotitolo;
-    private Button button_salva_database;
-    private Button button_salva_grafico;
-    private Bundle bundle_err;
 
 
     @Override
@@ -175,14 +172,14 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     @Override
     public void onClick(View v) {
 
-        switch(v.getId()) {
+        /*switch(v.getId()) {
             case R.id.button_salva_database:
                 new SalvaDatabaseTask().execute(lista_grafico);
                 break;
             case R.id.button_salva_grafico:
                 new SalvaGraficoTask().execute(chart);
                 break;
-        }
+        }*/
     }
 
 
@@ -417,7 +414,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         chart.setDrawBorders(true);
         chart.setBorderColor(Color.BLACK);
         chart.setBorderWidth(1.5f);
-        chart.setAutoScaleMinMaxEnabled(false);      /*Flag that indicates if auto scaling on the y
+        chart.setAutoScaleMinMaxEnabled(true);      /*Flag that indicates if auto scaling on the y
         axis is enabled. If enabled the y axis automatically adjusts to the min and max y values of
         the current x axis range ogni volta che cambia la vista. Default: false*/
         chart.setTouchEnabled(true);    /*Default = true*/
@@ -543,21 +540,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
     }
 
 
-    /*public void inflateGraficoLayout() {
-        /*where you want to add/inflate a view as a child*/
-       /* ListView listView  = findViewById(R.id.list_view_grafico);
-        /*child.xml*/
-    /*    View child = getLayoutInflater().inflate(R.layout.linear_layout_grafico,
-                null);
-        listView.addView(child);
-    }
-
-
-    public void inflateChart() {
-       LinearLayout linearLayout =
-               (LinearLayout)getLayoutInflater().inflate(R.layout.linear_layout_grafico, null);
-       chart = (LineChart) linearLayout.getChildAt(2);
-    }*/
 
     @Override
     protected void setProgressBarVisible(){

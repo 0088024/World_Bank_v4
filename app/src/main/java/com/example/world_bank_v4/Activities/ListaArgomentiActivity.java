@@ -4,6 +4,7 @@ package com.example.world_bank_v4.Activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -84,6 +85,9 @@ public class ListaArgomentiActivity extends ListaGenericaActivity {
         /*questa attività lancia sempre l'attività ListIndicatoriActivity*/
         Intent intent_succ = new Intent(getApplicationContext(), ListaIndicatoriActivity.class);
         intent_succ.putExtras(bundle_succ);
+        Log.d(res.getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": CODE = " +
+                        String.valueOf(res.getInteger(R.integer.LISTA_ARGOMENTI_CODE)) );
         startActivityForResult(intent_succ,
                 res.getInteger(R.integer.LISTA_ARGOMENTI_CODE));
     }

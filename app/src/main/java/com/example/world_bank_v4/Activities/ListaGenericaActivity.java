@@ -464,10 +464,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         ReturningWithResult=false;
 
-        // Controllo dei codici di risposta delle attività lanciate
+        /*Controllo dei codici di risposta delle attività lanciate*/
 
         if(resultCode == res.getInteger(R.integer.NO_DATA)){
-            // Errore previsto ad es. nessun dato disponibile per un certo paese
+            /*Errore previsto ad es. nessun dato disponibile per un certo paese*/
             ReturningWithResult = true;
         }
 
