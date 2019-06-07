@@ -43,7 +43,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private Bundle bundle_prec;
     private Bundle bundle_succ;
     private String json_file;
-    private String error_file;
+    private String messag_notification;
     private String nomeClasseSelezionata;
     private String idIndicatoreSelezionato;
     private String nomeIndicatoreSelezionato;
@@ -207,6 +207,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         savedInstanceState.putString(res.getString(R.string.NOME_CHIAVE_FILE_JSON), KEY_JSON_FILE);
         savedInstanceState.putString(KEY_JSON_FILE, json_file);
+
         savedInstanceState.putString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
                 nomeClasseSelezionata);
         savedInstanceState.putString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
@@ -242,7 +243,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         SharedPreferences sharedPref =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putString(res.getString(R.string.NOME_CHIAVE_FILE_JSON), KEY_JSON_FILE);
         editor.putString(KEY_JSON_FILE, json_file);
+
         editor.putString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
                 nomeClasseSelezionata);
         editor.putString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
@@ -359,6 +363,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         private HttpURLConnection client;
         private int count;
         private String nameClass;
+        private String risultato;
 
 
         public DownloadFileTask(String nameClass)
@@ -387,6 +392,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                     sb.append(nextLine);
                 }
 
+                /*convert StringBuilder to String using toString() method*/
+                risultato = sb.toString();
+
             }
 
             /*decidiamo di mostrare un unico messaggio d'errore per tutti i tipi di eccezione che
@@ -394,9 +402,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             catch (IOException e) {
                 Log.d(res.getString(R.string.NOME_APP),"IOException: " +e.getMessage() );
                 /*imposta il messaggio d'errore da mostrare all'utente con Notificationactivity*/
-                error_file = res.getString(R.string.IO_ERROR)
+                messag_notification = res.getString(R.string.IO_ERROR)
                         + res.getString(R.string.WORLDBANK_SITE);
-                return null;
+                risultato = null;
 
             }
 
@@ -410,8 +418,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 publishProgress(count);
             }
 
-            /*convert StringBuilder to String using toString() method*/
-            return sb.toString();
+
+
+            return risultato;
         }
 
         @Override
@@ -435,15 +444,15 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*se invece abbiamo avuto errori lo notifichiamo all'utente*/
             else{
                 Log.d(res.getString(R.string.NOME_APP),
-                        nameClass + getResources().getString(R.string.MSG_ERRORE_CONNESSIONE));
+                        nameClass + res.getString(R.string.MSG_ERRORE_CONNESSIONE));
                 // Errore imprevisto ad es. viene a mancare la connessione a internet
                 Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("error", error_file);
+                bundle.putString("error", messag_notification);
                 intent.putExtras(bundle);
-                /*setResult(res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));*/
                 /*lancia la NotificationActivity richiedendone in codice di chiusura*/
-                startActivity(intent);
+                startActivityForResult(intent,
+                        res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
             }
         }
     }
@@ -469,8 +478,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         /*se l'attività da cui ritorno era la NotificationActivity allora termino per dar recuperare
         dal back stack l'attività che mi aveva lanciato*/
         if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)){
-            finish();
 
+            finish();
         }
 
         /*RESULT_CANCELED è il risultato fornito dal tasto Back nativo del telefono*/
@@ -491,9 +500,16 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         SharedPreferences sharedPreferences =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
 
-        json_file = sharedPreferences.getString(res.getString(R.string.NOME_CHIAVE_FILE_JSON),
+        String nome_chiave_file_json =
+                sharedPreferences.getString(res.getString(R.string.NOME_CHIAVE_FILE_JSON),
                               res.getString(R.string.STRING_NOT_FOUND));
-        Log.d(res.getString(R.string.NOME_APP), json_file);
+
+        Log.d(res.getString(R.string.NOME_APP), nome_chiave_file_json);
+
+        json_file =  sharedPreferences.getString(nome_chiave_file_json,
+                res.getString(R.string.STRING_NOT_FOUND));
+
+
         nomeClasseSelezionata =
                 sharedPreferences.getString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
                              res.getString(R.string.STRING_NOT_FOUND));
@@ -614,7 +630,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
     public String getErrorFile(){
-        return error_file;
+        return messag_notification;
     }
 
     public String getNomeClasseSelezionata(){

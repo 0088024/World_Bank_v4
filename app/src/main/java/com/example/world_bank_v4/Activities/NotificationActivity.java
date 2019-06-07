@@ -44,9 +44,16 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
 
     public void onClick(View v) {
-        setResult(6);
+        setResult(getResources().getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
         finish();
 
+    }
+
+    @Override
+    public void onDestroy(){
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": DESTROY");
+        super.onDestroy();
     }
 
 

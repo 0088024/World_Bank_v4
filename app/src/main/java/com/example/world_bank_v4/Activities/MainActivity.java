@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         Resources res = getResources();
 
+
         if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
                 && resultCode == RESULT_FIRST_USER)){
             DialogImageMissing mydialog = new DialogImageMissing();
