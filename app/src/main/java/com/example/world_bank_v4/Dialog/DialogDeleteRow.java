@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
@@ -13,7 +14,7 @@ import com.example.world_bank_v4.R;
 public class DialogDeleteRow extends AppCompatDialogFragment{
 
     public interface OnClickListener {
-        void onFinishClickListener(String inputText);
+        void onDeleteClickListener(String inputText);
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -23,13 +24,13 @@ public class DialogDeleteRow extends AppCompatDialogFragment{
                 .setIcon(R.drawable.warning)
                 .setMessage("Do you really want to delete it?")
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-
+                    Resources res = getResources();
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         /* casting dell'attività che ha passato il fragment */
                         OnClickListener listener = (OnClickListener) getActivity();
                         Log.d(getResources().getString(R.string.NOME_APP), listener.toString());
-                        listener.onFinishClickListener("delete");
+                        listener.onDeleteClickListener(res.getString(R.string.DELETE));
                     }
                 });
 

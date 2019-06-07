@@ -20,6 +20,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.world_bank_v4.Controller.DbManager;
+import com.example.world_bank_v4.Dialog.DialogDataMissing;
 import com.example.world_bank_v4.R;
 
 public class VisualizzaDatiActivity extends AppCompatActivity {
@@ -158,8 +159,6 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
     }
 
 
-
-
     /*thread che in background carica i dati dal database locale*/
     private class CaricaDatabaseTask extends AsyncTask< Void, Integer, Cursor > {
 
@@ -204,13 +203,17 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
                     ": CURSORE -->  " + dbManager.showCursor(cursorRisultato));
             progressBar.setVisibility(View.GONE);
             /* Controlla se la query ha prodotto nessun risultato */
-            if (cursorRisultato.getCount() == 0) {
-                Intent intent = new Intent();
+            /*if (cursorRisultato.getCount() == 0) {
+
+                DialogDataMissing mydialog = new DialogDataMissing();
+                mydialog.show(getSupportFragmentManager(),
+                        getResources().getString(R.string.MY_DIALOG));
+                /*Intent intent = new Intent();
                 setResult(RESULT_FIRST_USER, intent); // Informa l'attività chiamante con un codice
                 finish(); // Non si può proseguire
                 return;
 
-            }
+            }*/
 
             String[] nomi_colonne =
                     getResources().getStringArray(R.array.nomi_colonne_visualizza_dati);

@@ -16,8 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.world_bank_v4.Dialog.DialogNoCountry;
-import com.example.world_bank_v4.Dialog.DialogNoIndicator;
+
 import com.example.world_bank_v4.Controller.MyGSON;
 import com.example.world_bank_v4.R;
 import com.google.gson.reflect.TypeToken;
@@ -161,7 +160,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
-        if (returningWithResult == true &&
+        /*if (returningWithResult == true &&
                 requestCode == res.getInteger(R.integer.LISTA_PAESI_CODE)) {
             // Commit your transactions here.
             DialogNoCountry mydialog = new DialogNoCountry();
@@ -170,11 +169,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         if (returningWithResult == true &&
                 requestCode == res.getInteger(R.integer.LISTA_INDICATORI_CODE)) {
             // Commit your transactions here.
-            DialogNoIndicator mydialog = new DialogNoIndicator();
+            DialogNoGraph mydialog = new DialogNoGraph();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
         // Reset the boolean flag back to false for next time.
-        returningWithResult = false;
+        returningWithResult = false;*/
     }
 
 
@@ -466,34 +465,35 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
-        this.requestCode = requestCode;
-        returningWithResult = false;
+        /*this.requestCode = requestCode;*/
+        /*returningWithResult = false;*/
 
         /*Controllo dei codici di risposta delle attività lanciate*/
 
         /*se ho i result code che mi aspetto ritorno*/
-        if(resultCode == res.getInteger(R.integer.LISTA_PAESI_CODE) ||
+        /*if(resultCode == res.getInteger(R.integer.LISTA_PAESI_CODE) ||
                 resultCode == res.getInteger(R.integer.LISTA_ARGOMENTI_CODE) ||
                 resultCode == RESULT_CANCELED )
-            return;
+            return;*/
 
         /*se ho avuto errore no_data allora al prossimo onResume() mostro la Dialogo No_Data*/
-        if(resultCode == res.getInteger(R.integer.NO_DATA)){
-            /*Errore previsto ad es. nessun dato disponibile per un certo paese*/
+        /*if(resultCode == res.getInteger(R.integer.NO_DATA)){
+            /*Errore previsto ad es. nessun dato disponibile per un certo paese
             returningWithResult = true;
-        }
+        }*/
 
-        /*se l'attività da cui ritorno era la NotificationActivity allora termino per far recuperare
+        /*se l'attività da cui ritorno era la NotificationActivity,e l'utente ha premuto il bottone BACK
+         o la freccetta per tornare indietro (RESULT_CANCELED impostato dal sistema) allora termino per far recuperare
         dal back stack l'attività che mi aveva lanciato*/
-        if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)){
+        if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY) || (resultCode == RESULT_CANCELED && requestCode ==
+                res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)) ){
             finish();
         }
 
-        /*RESULT_CANCELED è il risultato fornito dal tasto Back nativo del telefono*/
-        /*if(resultCode == RESULT_CANCELED /*&& requestCode ==
-                res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY))*/
-        /*finish();*/
-
+        /*if(resultCode == RESULT_CANCELED && requestCode ==
+                res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)) {
+            finish();
+        }*/
 
     }
 
