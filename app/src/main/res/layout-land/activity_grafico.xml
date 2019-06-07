@@ -24,51 +24,98 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayoutGrafico"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/colorbackgroundlist"
+            android:layout_height="0dp"
+            android:layout_gravity="top"
+            android:background="@drawable/border_grigio_con_verde_acqua_dentro"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:gravity="center"
+            android:gravity="start|top"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView_chart_titolo"
+            <LinearLayout
+                android:id="@+id/linearLayoutGrafico"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:gravity="center"
-                android:textColor="@color/blu_grafico"
-                android:textSize="24sp"
-                android:textStyle="normal|bold" />
-
-            <TextView
-                android:id="@+id/textView_chart_sottotitolo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:gravity="center"
-                android:textColor="@color/blu_grafico"
-                android:textSize="18sp"
-                android:textStyle="normal|bold" />
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/colorbackgroundlist"
                 android:clipChildren="false"
-                android:clipToPadding="false">
+                android:clipToPadding="false"
+                android:gravity="start|top"
+                android:orientation="vertical">
 
-            </com.github.mikephil.charting.charts.LineChart>
+                <TextView
+                    android:id="@+id/textView_chart_titolo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/blu_grafico"
+                    android:textSize="24sp"
+                    android:textStyle="normal|bold" />
+
+                <TextView
+                    android:id="@+id/textView_chart_sottotitolo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="center"
+                    android:textColor="@color/blu_grafico"
+                    android:textSize="18sp"
+                    android:textStyle="normal|bold" />
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false">
+
+                </com.github.mikephil.charting.charts.LineChart>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linaerLayoutDoubleNested"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp">
+
+                <Button
+                    android:id="@+id/button_salva_grafico"
+                    style="@style/styleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_grafico"
+                    android:drawableStart="@drawable/graphicmultiline"
+                    android:text="@string/button_salva_grafico" />
+
+                <Button
+                    android:id="@+id/button_salva_database"
+                    style="@style/styleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_grafico"
+                    android:drawableStart="@drawable/salvadb"
+                    android:text="@string/button_salva_database" />
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
     </ScrollView>

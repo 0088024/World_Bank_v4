@@ -12,11 +12,11 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/styleLayout"
+        style="@style/styleLayoutIndicators"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:background="@drawable/background_row"
+        android:background="@drawable/background_grafico"
         android:gravity="start"
         android:padding="8dp"
         android:text="@string/title_activity_lista_indicatori"
