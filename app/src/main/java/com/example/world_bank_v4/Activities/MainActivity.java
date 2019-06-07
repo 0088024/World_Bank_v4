@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.world_bank_v4.Dialog.DialogAbout;
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Dialog.DialogContacts;
 import com.example.world_bank_v4.Dialog.DialogDataMissing;
 import com.example.world_bank_v4.Dialog.DialogImageMissing;
@@ -22,7 +22,6 @@ import com.example.world_bank_v4.R;
 
 public class MainActivity extends AppCompatActivity implements  View.OnClickListener {
 
-    private Intent intent;
     private ImageView imageView;
     private Button buttonPaese;
     private Button buttonArgomento;
@@ -35,9 +34,22 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": CREATE");
+
         getSupportActionBar().setLogo(R.drawable.world_bank);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": RESUME");
 
         imageView = findViewById(R.id.imageView);
         imageView.setImageResource(R.drawable.wb1);
@@ -62,8 +74,6 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         Resources res = getResources();
@@ -73,8 +83,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
             case R.id.Menu_1:
                 intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(res.getString(R.string.WORLDBANK_SITE)));
-                /*If there are more than one browser installed, a window will appear to allow the
-                user to choose what he prefers.*/
+                /* If there are more than one browser installed, a window will appear to allow the user to choose what he prefers.*/
                 startActivity(Intent.createChooser(intent,
                         res.getString(R.string.CHOOSE_BROWSER)));
                 break;
@@ -111,8 +120,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         ListaPaesiActivity.class.getName());
                 bundle.putInt(res.getString(R.string.ATTIVITÀ_LANCIATA),1);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,
-                        res.getInteger(R.integer.LISTA_PAESI_CODE));
+                startActivity(intent);
                 break;
 
             case R.id.buttonArgomento:
@@ -122,8 +130,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                         ListaArgomentiActivity.class.getName());
                 bundle.putInt(res.getString(R.string.ATTIVITÀ_LANCIATA),1);
                 intent.putExtras(bundle);
-                startActivityForResult(intent,
-                        res.getInteger(R.integer.LISTA_ARGOMENTI_CODE));
+                startActivity(intent);
                 break;
 
             case R.id.buttonGrafico:
@@ -146,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         Resources res = getResources();
 
+
         if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
                 && resultCode == RESULT_FIRST_USER)){
             DialogImageMissing mydialog = new DialogImageMissing();
@@ -162,5 +170,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
         }
     }
+
+
 }
 

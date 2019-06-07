@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.example.world_bank_v4.Activities.CaricaDatiActivity;
 import com.example.world_bank_v4.Controller.DbHelper;
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 
 

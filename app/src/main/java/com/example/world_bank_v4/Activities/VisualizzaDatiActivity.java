@@ -20,7 +20,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.world_bank_v4.Controller.DbManager;
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 
 public class VisualizzaDatiActivity extends AppCompatActivity {

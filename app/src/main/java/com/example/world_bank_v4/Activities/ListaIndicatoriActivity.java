@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Model.Indicatore;
 import com.example.world_bank_v4.Adapters.MyGenericoAdapter;
 import com.example.world_bank_v4.R;

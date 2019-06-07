@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 
 public class NotificationActivity extends AppCompatActivity implements View.OnClickListener{
@@ -49,6 +47,13 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         setResult(getResources().getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
         finish();
 
+    }
+
+    @Override
+    public void onDestroy(){
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": DESTROY");
+        super.onDestroy();
     }
 
 

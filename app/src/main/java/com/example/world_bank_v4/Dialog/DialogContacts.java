@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.R;
 
 public class DialogContacts extends AppCompatDialogFragment {

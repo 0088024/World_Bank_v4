@@ -16,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.world_bank_v4.Model.Costanti;
 import com.example.world_bank_v4.Dialog.DialogNoCountry;
 import com.example.world_bank_v4.Dialog.DialogNoIndicator;
 import com.example.world_bank_v4.Controller.MyGSON;
@@ -29,8 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -46,7 +43,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private Bundle bundle_prec;
     private Bundle bundle_succ;
     private String json_file;
-    private String error_file;
+    private String messag_notification;
     private String nomeClasseSelezionata;
     private String idIndicatoreSelezionato;
     private String nomeIndicatoreSelezionato;
@@ -60,7 +57,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private TypeToken typeToken;
     private Bundle savedInstanceState;
     private ProgressBar progressBar;
-    private boolean ReturningWithResult;
+    private boolean returningWithResult;
     private boolean lanciata_da_precedente = false;
 
 
@@ -148,8 +145,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onResume(){
         super.onResume();
+
         Resources res = getResources();
-        Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() + ": RESUME");
+        Log.d(res.getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": RESUME");
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
@@ -162,20 +161,20 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
         che l'attività è stata ripristinata allo stato originale*/
-        if (ReturningWithResult == true &&
+        if (returningWithResult == true &&
                 requestCode == res.getInteger(R.integer.LISTA_PAESI_CODE)) {
             // Commit your transactions here.
             DialogNoCountry mydialog = new DialogNoCountry();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
-        if (ReturningWithResult==true &&
+        if (returningWithResult == true &&
                 requestCode == res.getInteger(R.integer.LISTA_INDICATORI_CODE)) {
             // Commit your transactions here.
             DialogNoIndicator mydialog = new DialogNoIndicator();
             mydialog.show(getSupportFragmentManager(),"mydialog");
         }
         // Reset the boolean flag back to false for next time.
-        ReturningWithResult = false;
+        returningWithResult = false;
     }
 
 
@@ -208,6 +207,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         savedInstanceState.putString(res.getString(R.string.NOME_CHIAVE_FILE_JSON), KEY_JSON_FILE);
         savedInstanceState.putString(KEY_JSON_FILE, json_file);
+
         savedInstanceState.putString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
                 nomeClasseSelezionata);
         savedInstanceState.putString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
@@ -243,7 +243,10 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         SharedPreferences sharedPref =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putString(res.getString(R.string.NOME_CHIAVE_FILE_JSON), KEY_JSON_FILE);
         editor.putString(KEY_JSON_FILE, json_file);
+
         editor.putString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
                 nomeClasseSelezionata);
         editor.putString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
@@ -315,7 +318,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     e collega quest'ultima alla listView tramite l'adattatore che instanzia*/
     protected void caricaLayout(){
 
-
         /*con la libreria GSON ottengo la corrispondente lista/array di oggetti del file json*/
         MyGSON myGSON = new MyGSON(this);
         lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
@@ -361,6 +363,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         private HttpURLConnection client;
         private int count;
         private String nameClass;
+        private String risultato;
 
 
         public DownloadFileTask(String nameClass)
@@ -389,6 +392,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                     sb.append(nextLine);
                 }
 
+                /*convert StringBuilder to String using toString() method*/
+                risultato = sb.toString();
+
             }
 
             /*decidiamo di mostrare un unico messaggio d'errore per tutti i tipi di eccezione che
@@ -396,9 +402,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             catch (IOException e) {
                 Log.d(res.getString(R.string.NOME_APP),"IOException: " +e.getMessage() );
                 /*imposta il messaggio d'errore da mostrare all'utente con Notificationactivity*/
-                error_file = res.getString(R.string.IO_ERROR)
+                messag_notification = res.getString(R.string.IO_ERROR)
                         + res.getString(R.string.WORLDBANK_SITE);
-                return null;
+                risultato = null;
 
             }
 
@@ -412,8 +418,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 publishProgress(count);
             }
 
-            /*convert StringBuilder to String using toString() method*/
-            return sb.toString();
+
+
+            return risultato;
         }
 
         @Override
@@ -437,13 +444,12 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*se invece abbiamo avuto errori lo notifichiamo all'utente*/
             else{
                 Log.d(res.getString(R.string.NOME_APP),
-                        nameClass + getResources().getString(R.string.MSG_ERRORE_CONNESSIONE));
+                        nameClass + res.getString(R.string.MSG_ERRORE_CONNESSIONE));
                 // Errore imprevisto ad es. viene a mancare la connessione a internet
                 Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("error", error_file);
+                bundle.putString("error", messag_notification);
                 intent.putExtras(bundle);
-
                 /*lancia la NotificationActivity richiedendone in codice di chiusura*/
                 startActivityForResult(intent,
                         res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
@@ -461,21 +467,39 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
         this.requestCode = requestCode;
-
-        ReturningWithResult=false;
+        returningWithResult = false;
 
         /*Controllo dei codici di risposta delle attività lanciate*/
 
+        /*se ho i result code che mi aspetto ritorno*/
+        if(resultCode == res.getInteger(R.integer.LISTA_PAESI_CODE) ||
+                resultCode == res.getInteger(R.integer.LISTA_ARGOMENTI_CODE) ||
+                resultCode == RESULT_CANCELED )
+            return;
+
+        /*se ho avuto errore no_data allora al prossimo onResume() mostro la Dialogo No_Data*/
         if(resultCode == res.getInteger(R.integer.NO_DATA)){
             /*Errore previsto ad es. nessun dato disponibile per un certo paese*/
-            ReturningWithResult = true;
+            returningWithResult = true;
         }
 
-        /*se l'attività da cui ritorno era la NotificationActivity allora termino per dar recuperare
+        /*se l'attività da cui ritorno era la NotificationActivity allora termino per far recuperare
         dal back stack l'attività che mi aveva lanciato*/
-        if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY));
+        if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)){
             finish();
+        }
+
+        /*RESULT_CANCELED è il risultato fornito dal tasto Back nativo del telefono*/
+        /*if(resultCode == RESULT_CANCELED /*&& requestCode ==
+                res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY))*/
+        /*finish();*/
+
+
     }
+
+
+
+
 
 
 
@@ -484,27 +508,36 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         Resources res = getResources();
         SharedPreferences sharedPreferences =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Context.MODE_PRIVATE);
-        json_file = sharedPreferences.getString(KEY_JSON_FILE,
+
+        String nome_chiave_file_json =
+                sharedPreferences.getString(res.getString(R.string.NOME_CHIAVE_FILE_JSON),
+                              res.getString(R.string.STRING_NOT_FOUND));
+
+        Log.d(res.getString(R.string.NOME_APP), nome_chiave_file_json);
+
+        json_file =  sharedPreferences.getString(nome_chiave_file_json,
                 res.getString(R.string.STRING_NOT_FOUND));
+
+
         nomeClasseSelezionata =
                 sharedPreferences.getString(res.getString(R.string.NOME_CLASSE_SELEZIONATA),
-                        res.getString(R.string.STRING_NOT_FOUND));
+                             res.getString(R.string.STRING_NOT_FOUND));
                 /*può tornare null e lanciare eccezione a runtime se l'attività è stata lanciata
                 dalla MainActivity piuttosto che dalla ListaIndicatoriActivity*/
         if (sharedPreferences.contains(res.getString(R.string.ID_INDICATORE_SELEZIONATO))) {
             idIndicatoreSelezionato =
                     sharedPreferences.getString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
-                            res.getString(R.string.STRING_NOT_FOUND));
+                              res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.NOME_INDICATORE_SELEZIONATO))) {
             nomeIndicatoreSelezionato =
                     sharedPreferences.getString(res.getString(R.string.NOME_INDICATORE_SELEZIONATO),
-                            res.getString(R.string.STRING_NOT_FOUND));
+                             res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO))) {
             idArgomentoSelezionato =
                     sharedPreferences.getString(res.getString(R.string.ID_ARGOMENTO_SELEZIONATO),
-                            res.getString(R.string.STRING_NOT_FOUND));
+                             res.getString(R.string.STRING_NOT_FOUND));
         }
         if (sharedPreferences.contains(res.getString(R.string.ID_PAESE_SELEZIONATO))) {
             idPaeseSelezionato =
@@ -606,7 +639,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     }
 
     public String getErrorFile(){
-        return error_file;
+        return messag_notification;
     }
 
     public String getNomeClasseSelezionata(){

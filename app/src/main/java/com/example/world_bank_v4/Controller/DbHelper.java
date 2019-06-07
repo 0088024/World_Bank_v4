@@ -3,12 +3,6 @@ package com.example.world_bank_v4.Controller;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import com.example.world_bank_v4.Model.Costanti;
-
-import java.util.ArrayList;
-
 
 /*classe "ottimizzata" per crezione, apertura e aggiornamento versione database*/
 public class DbHelper extends SQLiteOpenHelper {
