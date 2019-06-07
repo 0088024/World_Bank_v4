@@ -471,16 +471,21 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         /*Controllo dei codici di risposta delle attività lanciate*/
 
+        /*se ho i result code che mi aspetto ritorno*/
+        if(resultCode == res.getInteger(R.integer.LISTA_PAESI_CODE) ||
+                resultCode == res.getInteger(R.integer.LISTA_ARGOMENTI_CODE) ||
+                resultCode == RESULT_CANCELED )
+            return;
+
         /*se ho avuto errore no_data allora al prossimo onResume() mostro la Dialogo No_Data*/
         if(resultCode == res.getInteger(R.integer.NO_DATA)){
             /*Errore previsto ad es. nessun dato disponibile per un certo paese*/
             returningWithResult = true;
         }
 
-        /*se l'attività da cui ritorno era la NotificationActivity allora termino per dar recuperare
+        /*se l'attività da cui ritorno era la NotificationActivity allora termino per far recuperare
         dal back stack l'attività che mi aveva lanciato*/
         if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)){
-
             finish();
         }
 
@@ -488,6 +493,8 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         /*if(resultCode == RESULT_CANCELED /*&& requestCode ==
                 res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY))*/
         /*finish();*/
+
+
     }
 
 
