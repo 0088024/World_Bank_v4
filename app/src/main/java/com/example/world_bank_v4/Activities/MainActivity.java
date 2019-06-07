@@ -151,6 +151,9 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
+
         Resources res = getResources();
 
 
