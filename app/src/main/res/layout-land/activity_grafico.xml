@@ -73,6 +73,7 @@
         </LinearLayout>
     </ScrollView>
 
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
