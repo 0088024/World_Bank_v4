@@ -467,9 +467,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
         this.requestCode = requestCode;
-        returningWithResult = true;
+        returningWithResult = false;
 
         /*Controllo dei codici di risposta delle attività lanciate*/
+
+        /*se ho avuto errore no_data allora al prossimo onResume() mostro la Dialogo No_Data*/
         if(resultCode == res.getInteger(R.integer.NO_DATA)){
             /*Errore previsto ad es. nessun dato disponibile per un certo paese*/
             returningWithResult = true;

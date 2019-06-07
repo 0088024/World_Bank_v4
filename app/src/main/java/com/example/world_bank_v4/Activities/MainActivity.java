@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,9 +34,22 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": CREATE");
+
         getSupportActionBar().setLogo(R.drawable.world_bank);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": RESUME");
 
         imageView = findViewById(R.id.imageView);
         imageView.setImageResource(R.drawable.wb1);
