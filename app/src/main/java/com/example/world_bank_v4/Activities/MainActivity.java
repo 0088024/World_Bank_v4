@@ -135,20 +135,20 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
             case R.id.buttonGrafico:
                 intent = new Intent(this, MostraGraficoActivity.class);
-                startActivityForResult(intent,
-                        res.getInteger(R.integer.MOSTRA_GRAFICO_CODE));
+                startActivity/*ForResult*/(intent/*,
+                        res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)*/);
                 break;
 
             case R.id.buttonDatabase:
                 intent = new Intent(this, CaricaDatiActivity.class);
-                startActivityForResult(intent,
-                        res.getInteger(R.integer.MOSTRA_DATABASE_CODE));
+                startActivity/*ForResult*/(intent
+                        /*res.getInteger(R.integer.MOSTRA_DATABASE_CODE)*/);
         }
     }
 
 
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         Log.d(getResources().getString(R.string.NOME_APP),
@@ -157,22 +157,22 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         Resources res = getResources();
 
 
-        if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
+        /*if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
                 && resultCode == RESULT_FIRST_USER)){
             DialogImageMissing mydialog = new DialogImageMissing();
             mydialog.show(getSupportFragmentManager(),
                     getResources().getString(R.string.MY_DIALOG));
 
-        }
+        }*/
 
-        if((requestCode == res.getInteger(R.integer.MOSTRA_DATABASE_CODE)
+        /*if((requestCode == res.getInteger(R.integer.MOSTRA_DATABASE_CODE)
                 && resultCode == RESULT_FIRST_USER)){
             DialogDataMissing mydialog = new DialogDataMissing();
             mydialog.show(getSupportFragmentManager(),
                     getResources().getString(R.string.MY_DIALOG));
 
         }
-    }
+    }*/
 
 
 }
