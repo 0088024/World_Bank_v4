@@ -75,7 +75,7 @@
     <string name="CHOOSE_BROWSER">Complete the action with one of the following browser: </string>
     <string name="WORLDBANK_SITE">http://www.worldbank.org</string>
 
-    <string name="IO_ERROR">http://www.worldbank.org</string>
+    <string name="IO_ERROR">Unable to contact:</string>
     <string name="MSG_ERRORE_CONNESSIONE">: Errore connessione internet</string>
     <string name="STRING_NOT_FOUND">String not found</string>
 
@@ -95,6 +95,9 @@
     <string name="ID_RECORD_TABELLA">idRecordTabella</string>
 
     <string name="NOME_CHIAVE_FILE_JSON">nome_chiave_file_json</string>
+
+    <string name="FINISH">finish</string>
+    <string name="DELETE">delete</string>
 
     <string name="KEY_JSON_FILE_COUNTRY">json_file_country</string>
     <string name="KEY_JSON_FILE_ARGOMENTI">json_file_argomenti</string>

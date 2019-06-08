@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.world_bank_v4.Controller.DbManager;
 import com.example.world_bank_v4.Controller.MyGSON;
 import com.example.world_bank_v4.Dialog.DialogDataBase;
+import com.example.world_bank_v4.Dialog.DialogNoGraph;
 import com.example.world_bank_v4.Dialog.DialogShowImage;
 import com.example.world_bank_v4.Model.ElementoGenerico;
 import com.example.world_bank_v4.Model.Intestazione;
@@ -58,7 +59,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener{
+public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener,DialogNoGraph.OnClickListener{
 
     private String /*json_file,*/ err_msg;
     private DbManager dbManager;
@@ -151,15 +152,17 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             /*Controlla se non ci sono dati per costruire il grafico*/
             if(lista_grafico == null){
-                Intent intent=new Intent();
+                DialogNoGraph mydialog = new DialogNoGraph();
+                mydialog.show(getSupportFragmentManager(),"mydialog");
+                /*Intent intent=new Intent();
                 /*Informa l'attività chiamante con un codice*/
-                setResult(getResources().getInteger(R.integer.NO_DATA), intent);
+                /*setResult(getResources().getInteger(R.integer.NO_DATA), intent);
                 finish();
                 return; /*Inutile proseguire*/
             }
 
             /*costruisci grafico in un thread in background*/
-            new CostruisciGraficoTask().execute();
+            else new CostruisciGraficoTask().execute();
 
 
     }
@@ -209,7 +212,14 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         return false;
     }
 
+    @Override
+    public void onFinishClickListener(String inputText) {
+        Resources res = getResources();
+        if(inputText.contentEquals(res.getString(R.string.FINISH))) {
+            finish();
 
+        }
+    }
 
 
     private class CostruisciGraficoTask extends AsyncTask<Void, Integer, String>{

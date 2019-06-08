@@ -2,6 +2,7 @@ package com.example.world_bank_v4.Activities;
 
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.ProgressBar;
 
 import com.example.world_bank_v4.Adapters.MyCursorAdapter;
 import com.example.world_bank_v4.Controller.DbManager;
+import com.example.world_bank_v4.Dialog.DialogDataMissing;
 import com.example.world_bank_v4.R;
 import com.example.world_bank_v4.Dialog.DialogDeleteRow;
 
@@ -22,7 +24,7 @@ import com.example.world_bank_v4.Dialog.DialogDeleteRow;
 
 /*activity che carica e visualizza le n-tuple salvate nel database*/
 public class CaricaDatiActivity extends AppCompatActivity implements View.OnClickListener,
-        DialogDeleteRow.OnClickListener {
+        DialogDeleteRow.OnClickListener, DialogDataMissing.OnClickListener {
 
 
     private DbManager dbManager;
@@ -141,14 +143,28 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
 
 
     @Override
-    /*Se l'utente decide tramite dialog di cancellare definiticamente una riga di database*/
-    public void onFinishClickListener(String inputText) {
-        if(inputText.contentEquals("delete")) {
+    /*Se l'utente decide tramite dialog di cancellare definiticamente una riga di database
+    * la riga viene cancellata e la tabella si aggiorna */
+    public void onDeleteClickListener(String inputText) {
+        Resources res = getResources();
+        if(inputText.contentEquals(res.getString(R.string.DELETE))){
             dbManager.delete(id_record);
             cursorAdapter.changeCursor(dbManager.query());
         }
     }
 
+    @Override
+     /* Una volta che l'utente ha preso visione tramite la dialaog che non c'è
+    nessun database salvato l'attività termina e torna in primo piano l'altra
+     */
+    public void onFinishClickListener(String inputText) {
+        Resources res = getResources();
+        if(inputText.contentEquals(res.getString(R.string.FINISH))){
+            finish();
+
+        }
+
+    }
 
 
     /*thread che in background carica i dati dal database locale*/
@@ -193,9 +209,12 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
             progressBar.setVisibility(View.GONE);
             /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
-                Intent intent=new Intent();
-                setResult(RESULT_FIRST_USER, intent); /*Informa l'attività chiamante con un codice*/
-                finish();                           /*Non si può proseguire*/
+                DialogDataMissing mydialog = new DialogDataMissing();
+                mydialog.show(getSupportFragmentManager(),
+                        getResources().getString(R.string.MY_DIALOG));
+                /*Intent intent=new Intent();
+                setResult(RESULT_FIRST_USER, intent); /*Informa l'attività chiamante con un codice
+                finish();                           Non si può proseguire */
             }
             else
                 caricaLayout(cursorRisultato);

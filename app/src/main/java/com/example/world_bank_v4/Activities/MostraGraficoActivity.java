@@ -15,12 +15,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+
+import com.example.world_bank_v4.Dialog.DialogImageMissing;
 import com.example.world_bank_v4.R;
 
 import java.io.File;
 
 
-public class MostraGraficoActivity extends AppCompatActivity {
+public class MostraGraficoActivity extends AppCompatActivity implements DialogImageMissing.OnClickListener{
+
 
     private ImageView imageView;
     private ProgressBar progressBar;
@@ -74,6 +77,19 @@ public class MostraGraficoActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    /* Una volta che l'utente ha preso visione tramite la dialaog che non c'è
+    nessuna immagine salvata l'attività termina e torna in primo piano l'altra
+     */
+    public void onFinishClickListener(String inputText) {
+        Resources res = getResources();
+        if(inputText.contentEquals(res.getString(R.string.FINISH))){
+            finish();
+
+        }
+
+    }
+
 
     /*thread che in background carica 1 file png*/
     private class CaricaFileTask extends AsyncTask<String, Integer, Bitmap> {
@@ -111,18 +127,21 @@ public class MostraGraficoActivity extends AppCompatActivity {
             progressBar.setVisibility(ProgressBar.VISIBLE);
         }
 
-        protected void onPostExecute(Bitmap risultato){
+        protected void onPostExecute(Bitmap risultato) {
             progressBar.setVisibility(View.GONE);
             /* Controlla se non è presente nessun file png in memoria  */
-            if(risultato==null){
-                Intent intent=new Intent();
-                setResult(RESULT_FIRST_USER,intent); // Informa l'attività chiamante con un codice
-                finish(); // Non si può proseguire
-            }
-            else
-            imageView.setImageBitmap(risultato);
+            if (risultato == null) {
+                DialogImageMissing mydialog = new DialogImageMissing();
+                mydialog.show(getSupportFragmentManager(),
+                        getResources().getString(R.string.MY_DIALOG));
+                /*Intent intent=new Intent();
+                setResult(RESULT_FIRST_USER,intent); // Informa l'attività chiamante con un codice*/
+                //finish(); // Non si può proseguire
+            } else
+                imageView.setImageBitmap(risultato);
 
         }
+
     }
 
 }
