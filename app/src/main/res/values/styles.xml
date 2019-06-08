@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. second -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- This is the styling for action bar -->
         <item name="actionBarStyle">@style/MyActionBar</item>
     </style>
