@@ -15,8 +15,6 @@ import android.widget.ImageView;
 
 import com.example.world_bank_v4.Dialog.DialogAbout;
 import com.example.world_bank_v4.Dialog.DialogContacts;
-import com.example.world_bank_v4.Dialog.DialogDataMissing;
-import com.example.world_bank_v4.Dialog.DialogImageMissing;
 import com.example.world_bank_v4.R;
 
 
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": CREATE");
 
-        getSupportActionBar().setLogo(R.drawable.world_bank);
+        getSupportActionBar().setLogo(R.drawable.ic_action_name);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -135,45 +133,16 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
 
             case R.id.buttonGrafico:
                 intent = new Intent(this, MostraGraficoActivity.class);
-                startActivity/*ForResult*/(intent/*,
-                        res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)*/);
+                startActivity(intent);
                 break;
 
             case R.id.buttonDatabase:
                 intent = new Intent(this, CaricaDatiActivity.class);
-                startActivity/*ForResult*/(intent
-                        /*res.getInteger(R.integer.MOSTRA_DATABASE_CODE)*/);
+                startActivity(intent);
         }
     }
 
 
-
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        Log.d(getResources().getString(R.string.NOME_APP),
-                this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
-
-        Resources res = getResources();
-
-
-        /*if((requestCode == res.getInteger(R.integer.MOSTRA_GRAFICO_CODE)
-                && resultCode == RESULT_FIRST_USER)){
-            DialogImageMissing mydialog = new DialogImageMissing();
-            mydialog.show(getSupportFragmentManager(),
-                    getResources().getString(R.string.MY_DIALOG));
-
-        }*/
-
-        /*if((requestCode == res.getInteger(R.integer.MOSTRA_DATABASE_CODE)
-                && resultCode == RESULT_FIRST_USER)){
-            DialogDataMissing mydialog = new DialogDataMissing();
-            mydialog.show(getSupportFragmentManager(),
-                    getResources().getString(R.string.MY_DIALOG));
-
-        }
-    }*/
 
 
 }
