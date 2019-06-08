@@ -482,10 +482,11 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             returningWithResult = true;
         }*/
 
-        /*se l'attività da cui ritorno era la NotificationActivity,e l'utente ha premuto il bottone BACK
-         o la freccetta per tornare indietro (RESULT_CANCELED impostato dal sistema) allora termino per far recuperare
-        dal back stack l'attività che mi aveva lanciato*/
-        if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY) || (resultCode == RESULT_CANCELED && requestCode ==
+        /*se l'attività da cui ritorno era la NotificationActivity e l'utente ha premuto il bottone
+        BACK o la freccetta per tornare indietro (RESULT_CANCELED impostato dal sistema) allora
+        termino per far recuperare dal back stack l'attività che mi aveva lanciato*/
+        if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY) ||
+                (resultCode == RESULT_CANCELED && requestCode ==
                 res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)) ){
             finish();
         }
