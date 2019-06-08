@@ -9,6 +9,8 @@
     <integer name="MOSTRA_DATABASE_CODE">4</integer>
     <integer name="NO_DATA">5</integer>
     <integer name="RETURN_FROM_NOTIFICATION_ACTIVITY">6</integer>
+    <integer name="BACK_HOME">7</integer>
+
 
 
     <integer name="TIMEOUT">3000</integer>

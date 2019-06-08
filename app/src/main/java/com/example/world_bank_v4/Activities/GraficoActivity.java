@@ -206,6 +206,10 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             case R.id.menu_salva_database:
                 new SalvaDatabaseTask().execute(lista_grafico);
                 return false;
+            case R.id.ritorno_home:
+                setResult(getResources().getInteger(R.integer.BACK_HOME));
+                finish();
+                return false;
 
         }
         finish();
