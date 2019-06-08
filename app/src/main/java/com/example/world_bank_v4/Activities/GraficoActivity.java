@@ -208,8 +208,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 return false;
             case R.id.ritorno_home:
                 setResult(getResources().getInteger(R.integer.BACK_HOME));
-                finish();
-                return false;
 
         }
         finish();

@@ -465,36 +465,19 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
-        /*this.requestCode = requestCode;*/
-        /*returningWithResult = false;*/
-
-        /*Controllo dei codici di risposta delle attività lanciate*/
-
-        /*se ho i result code che mi aspetto ritorno*/
-        /*if(resultCode == res.getInteger(R.integer.LISTA_PAESI_CODE) ||
-                resultCode == res.getInteger(R.integer.LISTA_ARGOMENTI_CODE) ||
-                resultCode == RESULT_CANCELED )
-            return;*/
-
-        /*se ho avuto errore no_data allora al prossimo onResume() mostro la Dialogo No_Data*/
-        /*if(resultCode == res.getInteger(R.integer.NO_DATA)){
-            /*Errore previsto ad es. nessun dato disponibile per un certo paese
-            returningWithResult = true;
-        }*/
-
-        /*se l'attività da cui ritorno era la NotificationActivity e l'utente ha premuto il bottone
-        BACK o la freccetta per tornare indietro (RESULT_CANCELED impostato dal sistema) allora
-        termino per far recuperare dal back stack l'attività che mi aveva lanciato*/
+       /*RESULT_CANCELED è inviato dal S.O. quando si torn indietro con il tasto Back nativo*/
         if(resultCode == res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY) ||
                 (resultCode == RESULT_CANCELED && requestCode ==
                 res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)) ){
             finish();
         }
 
-        /*if(resultCode == RESULT_CANCELED && requestCode ==
-                res.getInteger(R.integer.RETURN_FROM_NOTIFICATION_ACTIVITY)) {
+        /*se l'utente ha cliccato sull'icona Home muori e propaga il codice all'attività
+        precedente*/
+        if(resultCode == res.getInteger(R.integer.BACK_HOME)) {
+            setResult(res.getInteger(R.integer.BACK_HOME));
             finish();
-        }*/
+        }
 
     }
 
