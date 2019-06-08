@@ -15,27 +15,27 @@
         <activity android:name=".Activities.ListaGenericaActivity"></activity>
         <activity
             android:name=".Activities.VisualizzaDatiActivity"
-            android:label="@string/title_activity_visualizza_dati"></activity>
+            android:label="@string/title_activity_visualizza_dati">
+        </activity>
         <activity
             android:name=".Activities.MostraGraficoActivity"
-            android:label="@string/title_activity_mostra_png_precedentemente_salvata"></activity>
+            android:label="@string/title_activity_mostra_png_precedentemente_salvata">
+        </activity>
         <activity
             android:name=".Activities.CaricaDatiActivity"
-            android:label="@string/title_activity_carica_dati"></activity>
+            android:label="@string/title_activity_carica_dati">
+        </activity>
         <activity
             android:name=".Activities.NotificationActivity"
             android:label="@string/title_activity_notification">
         </activity>
-        <!-- android:screenOrientation="landscape"-->
         <activity
             android:name=".Activities.GraficoActivity"
-
             android:label="@string/title_activity_grafico">
         </activity>
         <activity
             android:name=".Activities.ListaIndicatoriActivity"
             android:label="@string/title_activity_lista_indicatori">
-
         </activity>
         <activity
             android:name=".Activities.ListaArgomentiActivity"

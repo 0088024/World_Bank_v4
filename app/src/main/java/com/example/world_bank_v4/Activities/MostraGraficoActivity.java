@@ -43,7 +43,8 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
     @Override
     public void onResume(){
         super.onResume();
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Resources res = getResources();
+        Log.d(res.getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": RESUME");
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
@@ -54,7 +55,6 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
         progressBar = findViewById(R.id.progressBar);
         imageView = findViewById(R.id.imageView);
         /*carico dalle sharedPrefernces il nome dell'ultimo file salvato*/
-        Resources res = getResources();
         String chiave_nome_file_png = res.getString(R.string.PREFERENCES_FILE_INDICATORE_PER_PAESE);
         /*leggo dalle sharedPreferences il nome del file precedentemente salvato*/
         SharedPreferences sharedPreferences =
