@@ -26,9 +26,9 @@
             android:name=".Activities.NotificationActivity"
             android:label="@string/title_activity_notification">
         </activity>
+        <!-- android:screenOrientation="landscape"-->
         <activity
             android:name=".Activities.GraficoActivity"
-            android:screenOrientation="landscape"
 
             android:label="@string/title_activity_grafico">
         </activity>

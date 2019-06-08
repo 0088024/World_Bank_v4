@@ -16,7 +16,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/border_grigio_con_verde_acqua_dentro"
-        android:clipChildren="false"
+        android:clipToPadding="false"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,11 +27,12 @@
             android:id="@+id/linearLayoutGrafico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="start|top|end"
             android:layout_margin="8dp"
             android:background="@color/colorbackgroundlist"
             android:clipChildren="true"
             android:clipToPadding="true"
+            android:gravity="start|top"
             android:orientation="vertical">
 
             <TextView
@@ -65,8 +66,7 @@
                 android:layout_weight="1"
                 android:clipChildren="true"
                 android:clipToPadding="true"
-                android:padding="8dp"
-                android:rotation="90">
+                android:padding="8dp">
 
             </com.github.mikephil.charting.charts.LineChart>
 
