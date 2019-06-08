@@ -158,22 +158,6 @@ public class ListaGenericaActivity extends AppCompatActivity implements
 
         caricaVariabili();
 
-        /*per evitare la perdita di stato dell'attività la transazione viene eseguita soltanto dopo
-        che l'attività è stata ripristinata allo stato originale*/
-        /*if (returningWithResult == true &&
-                requestCode == res.getInteger(R.integer.LISTA_PAESI_CODE)) {
-            // Commit your transactions here.
-            DialogNoCountry mydialog = new DialogNoCountry();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
-        }
-        if (returningWithResult == true &&
-                requestCode == res.getInteger(R.integer.LISTA_INDICATORI_CODE)) {
-            // Commit your transactions here.
-            DialogNoGraph mydialog = new DialogNoGraph();
-            mydialog.show(getSupportFragmentManager(),"mydialog");
-        }
-        // Reset the boolean flag back to false for next time.
-        returningWithResult = false;*/
     }
 
 

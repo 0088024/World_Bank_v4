@@ -36,12 +36,6 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": CREATE");
         setContentView(R.layout.mostra_png_salvato_prima);
-         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
-        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
-        tornare al livello principale o alla prima pagina.*/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.graph);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
     }
 
 
@@ -49,6 +43,14 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
     @Override
     public void onResume(){
         super.onResume();
+        Log.d(getResources().getString(R.string.NOME_APP),
+                this.getClass().getCanonicalName() + ": RESUME");
+        /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
+        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
+        tornare al livello principale o alla prima pagina.*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.graph);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         progressBar = findViewById(R.id.progressBar);
         imageView = findViewById(R.id.imageView);
         /*carico dalle sharedPrefernces il nome dell'ultimo file salvato*/

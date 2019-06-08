@@ -42,12 +42,6 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carica_dati);
-        /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
-        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
-        tornare al livello principale o alla prima pagina.*/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.indicator);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": CREATE");
     }
@@ -57,6 +51,12 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+        /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
+        la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
+        tornare al livello principale o alla prima pagina.*/
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.salvadb);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": RESUME");
         progressBar = findViewById(R.id.progressBar);
