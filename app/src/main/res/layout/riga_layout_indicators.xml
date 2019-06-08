@@ -20,7 +20,8 @@
         android:gravity="start"
         android:padding="8dp"
         android:text="@string/title_activity_lista_indicatori"
-        android:textColor="@color/colorNero" />
+        android:textColor="@color/colorNero"
+        android:textSize="22sp" />
 
     <View
         android:layout_width="match_parent"
