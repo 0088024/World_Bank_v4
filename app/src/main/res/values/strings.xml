@@ -115,7 +115,7 @@
     <string name="LANCIATA_DA_PRECEDENTE">lanciata_da_precedente</string>
     <string name="ATTIVITÀ_LANCIATA">attività_lanciata</string>
     <string name="MY_DIALOG">my_dialog</string>
-
+    <string name="ritorno_home">Back Home</string>
 
 
     <string-array name="nomi_colonne_visualizza_dati">

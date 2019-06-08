@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": CREATE");
 
-        getSupportActionBar().setLogo(R.drawable.ic_action_name);
+        getSupportActionBar().setLogo(R.drawable.ic_action_home2);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

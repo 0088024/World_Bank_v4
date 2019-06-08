@@ -3,6 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/ritorno_home"
+        android:checkable="false"
+        android:icon="@drawable/ic_action_home2"
+        android:title="@string/ritorno_home"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/menu_salva_database"
         android:title="@string/menu_salva_database" />
     <item
