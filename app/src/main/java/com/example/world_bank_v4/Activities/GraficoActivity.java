@@ -244,7 +244,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         }
 
-
     }
 
 
@@ -415,8 +414,6 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         description.setTextSize(11f);
         description.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         description.setTextAlign(Paint.Align.RIGHT);
-        Log.d("WorldBank : ", chart.getWidth() + " --- " + chart.getBottom());
-
 
         chart.setClipValuesToContent(true);
         chart.setDrawGridBackground(true);
@@ -469,11 +466,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         yAxisleft.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                if(value > 1 && value < -1 ){
-                    Math.round(value);  /*approssima all'intero più vicino*/
-                }
 
-                return String.valueOf(value);
+                float temp = value - (int)value;            /*parte decimale di value*/
+                String string = String.valueOf(temp);       /*la trasformo in stringa*/
+                String subString = string.substring(0, 3);  /*prendiamo solo 1 valore dopo
+                                                            la virgola per aumentare area grafico*/
+
+                return String.valueOf((int)value + Float.valueOf(subString).floatValue());
 
             }
         });
@@ -484,14 +483,16 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         yAxisRight.setSpaceBottom(10f);
         yAxisRight.setSpaceTop(15f);
         yAxisRight.setValueFormatter(new IAxisValueFormatter() {
+
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                if(value > 1 && value < -1 ){
-                    Math.round(value);  /*approssima all'intero più vicino*/
-                }
 
-                return String.valueOf(value);
+                float temp = value - (int)value;            /*parte decimale di value*/
+                String string = String.valueOf(temp);       /*la trasformo in stringa*/
+                String subString = string.substring(0, 3);  /*prendiamo solo 1 valore dopo
+                                                            la virgola per aumentare area grafico*/
 
+                return String.valueOf((int)value + Float.valueOf(subString).floatValue());
             }
         });
 
