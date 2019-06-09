@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
-        getSupportActionBar().setLogo(R.drawable.ic_action_home2);
+        getSupportActionBar().setLogo(R.drawable.wb_logo_home_dark);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

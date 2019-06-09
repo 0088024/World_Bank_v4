@@ -1,7 +1,6 @@
 package com.example.world_bank_v4.Activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -35,7 +34,7 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
         super.onCreate(savedInstanceState);
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": CREATE");
-        setContentView(R.layout.mostra_png_salvato_prima);
+        setContentView(R.layout.mostra_png_salvato);
     }
 
 
