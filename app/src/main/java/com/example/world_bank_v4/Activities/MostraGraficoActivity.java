@@ -1,7 +1,6 @@
 package com.example.world_bank_v4.Activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -35,7 +34,7 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
         super.onCreate(savedInstanceState);
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": CREATE");
-        setContentView(R.layout.mostra_png_salvato_prima);
+        setContentView(R.layout.mostra_png_salvato);
     }
 
 
@@ -50,10 +49,13 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.graph);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.round_insert_photo_black_36dp);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         progressBar = findViewById(R.id.progressBar);
         imageView = findViewById(R.id.imageView);
+
         /*carico dalle sharedPrefernces il nome dell'ultimo file salvato*/
         String chiave_nome_file_png = res.getString(R.string.PREFERENCES_FILE_INDICATORE_PER_PAESE);
         /*leggo dalle sharedPreferences il nome del file precedentemente salvato*/
@@ -66,6 +68,7 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
                 sharedPreferences.getString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
                         res.getString(R.string.STRING_NOT_FOUND));
         String nome_file_png = idPaeseSelezionato + "_" + idIndicatoreSelezionato;
+        getSupportActionBar().setSubtitle(nome_file_png);
 
         new CaricaFileTask(imageView).execute(nome_file_png);
     }

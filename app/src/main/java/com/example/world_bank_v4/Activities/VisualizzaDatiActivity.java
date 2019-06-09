@@ -71,8 +71,10 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.indicator);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.round_list_alt_black_36dp);
+
         Resources res = getResources();
         Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() + ": RESUME");
         progressBar = findViewById(R.id.progressBar);

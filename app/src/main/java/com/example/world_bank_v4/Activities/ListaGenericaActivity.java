@@ -52,11 +52,9 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     private String KEY_JSON_FILE;
     private String NOME_FILE_PREFERENCES;
     private String API_WORLD_BANK;
-    private Integer requestCode;
     private TypeToken typeToken;
     private Bundle savedInstanceState;
     private ProgressBar progressBar;
-    private boolean returningWithResult;
     private boolean lanciata_da_precedente = false;
 
 

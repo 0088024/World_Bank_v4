@@ -35,16 +35,15 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": CREATE");
 
-        getSupportActionBar().setLogo(R.drawable.ic_action_home2);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
+        getSupportActionBar().setLogo(R.drawable.wb_logo_home_dark);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": RESUME");

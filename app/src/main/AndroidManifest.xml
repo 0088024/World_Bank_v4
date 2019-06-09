@@ -23,7 +23,8 @@
         </activity>
         <activity
             android:name=".Activities.CaricaDatiActivity"
-            android:label="@string/title_activity_carica_dati">
+            android:label="@string/title_activity_carica_dati"
+            android:logo="@mipmap/ic_launcher">
         </activity>
         <activity
             android:name=".Activities.NotificationActivity"

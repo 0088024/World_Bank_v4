@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.world_bank_v4.Controller.DbManager;
 import com.example.world_bank_v4.Controller.MyGSON;
+import com.example.world_bank_v4.Controller.MyIValueFormatter;
 import com.example.world_bank_v4.Dialog.DialogDataBase;
 import com.example.world_bank_v4.Dialog.DialogNoGraph;
 import com.example.world_bank_v4.Dialog.DialogShowImage;
@@ -239,6 +241,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
             (ridisegna). Questo è necessario per rendere effettive le modifiche apportate al
             grafico*/
+
         }
 
     }
@@ -408,8 +411,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*imposta etichetta descrizione*/
         Description description = chart.getDescription();
         description.setText("ANNI");
-        description.setTextSize(12f);
-        description.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        description.setTextSize(11f);
+        description.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        description.setTextAlign(Paint.Align.RIGHT);
 
         chart.setClipValuesToContent(true);
         chart.setDrawGridBackground(true);
@@ -425,7 +429,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         Legend legend = chart.getLegend();
         legend.setTextColor(blu_grafico);
         legend.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        legend.setTextSize(15);
+        legend.setTextSize(16);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
@@ -448,37 +452,71 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         legend.setCustom(legends);
 
 
+
         /*imposta asse y destro e sinistro*/
         YAxis yAxisleft = chart.getAxisLeft();  /*Per default tutti i dati aggiunti al grafico
                                                 vengono confrontati con YAxis sinistro del grafico*/
         yAxisleft.setDrawGridLines(true);       //linea della griglia
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
         yAxisleft.setZeroLineColor(Color.GRAY);
-        yAxisleft.setTextSize(12);
-        yAxisleft.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        yAxisleft.setTextSize(13);
+        yAxisleft.setSpaceBottom(10f);
+        yAxisleft.setSpaceTop(15f);
+        yAxisleft.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        yAxisleft.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                float temp = value - (int)value;            /*parte decimale di value*/
+                String string = String.valueOf(temp);       /*la trasformo in stringa*/
+                String subString = string.substring(0, 3);  /*prendiamo solo 1 valore dopo
+                                                            la virgola per aumentare area grafico*/
+
+                return String.valueOf((int)value + Float.valueOf(subString).floatValue());
+
+            }
+        });
+
         YAxis yAxisRight = chart.getAxisRight();
-        yAxisRight.setTextSize(12);
-        yAxisRight.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        yAxisRight.setTextSize(13);
+        yAxisRight.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        yAxisRight.setSpaceBottom(10f);
+        yAxisRight.setSpaceTop(15f);
+        yAxisRight.setValueFormatter(new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                float temp = value - (int)value;            /*parte decimale di value*/
+                String string = String.valueOf(temp);       /*la trasformo in stringa*/
+                String subString = string.substring(0, 3);  /*prendiamo solo 1 valore dopo
+                                                            la virgola per aumentare area grafico*/
+
+                return String.valueOf((int)value + Float.valueOf(subString).floatValue());
+            }
+        });
+
+
 
         /*imposta asse x*/
         XAxis xAxis = chart.getXAxis();      /*acquisisce 1 istanza dell'asse x*/
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelRotationAngle(45f);    /*imposta angolo dele etichette asse x (in gradi)*/
+        xAxis.setLabelRotationAngle(30f);    /*imposta angolo dele etichette asse x (in gradi)*/
         xAxis.setDrawGridLines(true);
         float[] array_float = {6f, 6f};
         DashPathEffect dashPathEffect = new DashPathEffect(array_float, 0f);
         xAxis.setGridDashedLine(dashPathEffect);
         xAxis.setGranularity(1f);            /*only intervals of 1*/
-        xAxis.setTextSize(12);
+        xAxis.setTextSize(13);
         /*questo metodo serve per avere gli anni senza il punto che indica il millesimo*/
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
 
-                return String.valueOf((int) value); /*lo casto in 1 int per eliminare la virgola*/
+                return String.valueOf((int)value); /*lo casto in 1 int per eliminare la virgola*/
             }
         });
-        xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         xAxis.setAvoidFirstLastClipping(true);
 
 
@@ -503,6 +541,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         dataSet.setDrawCircles(true);
         dataSet.setCircleRadius(2.5f);
         dataSet.setCircleColor(blu_grafico);
+        dataSet.setCircleHoleColor(blu_grafico);
         dataSet.setLineWidth(2f);
         dataSet.setDrawFilled(true);
         dataSet.setFillColor(blu_grafico);
@@ -515,28 +554,15 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         });
         dataSet.setValueTextSize(12f);
         dataSet.setValueTextColor(Color.RED);
+        dataSet.setValueTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         dataSet.setDrawValues(true);
+
         /*formattiamo i valori disegnati all'interno del grafico*/
-        dataSet.setValueFormatter(new IValueFormatter() {
-
-            @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex,
-                                            ViewPortHandler viewPortHandler) {
-                if(value == dataSet.getYMax() && value != 0){  /*disegna solo il valore massimo*/
-                    return (String.valueOf(value));
-                }
-                else if (value == dataSet.getYMin() && value != 0){
-                    return (String.valueOf(value));             /* e/o il valore minimo*/
-                }
-                else  return "";
-            }
-
-
-        });
-
+        dataSet.setValueFormatter(new MyIValueFormatter(dataSet));
 
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
+
 
 
     }
