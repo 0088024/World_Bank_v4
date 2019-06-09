@@ -9,9 +9,9 @@
     <string name="dialog_contacts1">GROUP: FPR-IOL2018</string>
     <string name="dialog_contacts2">Mobile Programming</string>
     <string name="dialog_contacts3">Degree course of Computer Engineering </string>
-    <string name="title_activity_lista_paese_activity">Select Countries</string>
-    <string name="title_activity_lista_argomenti">Select Topics</string>
-    <string name="title_activity_lista_indicatori">Select Indicators</string>
+    <string name="title_activity_lista_paese_activity">Select Country</string>
+    <string name="title_activity_lista_argomenti">Select Topic</string>
+    <string name="title_activity_lista_indicatori">Select Indicator</string>
     <string name="title_activity_grafico">Ceck Graph</string>
     <string name="title_activity_carica_dati">Load Data</string>
     <string name="title_activity_mostra_png_precedentemente_salvata">Load Image</string>
