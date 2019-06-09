@@ -73,7 +73,7 @@ public class VisualizzaDatiActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.storage2);
+        getSupportActionBar().setLogo(R.drawable.carica_dati2);
 
         Resources res = getResources();
         Log.d(res.getString(R.string.NOME_APP), this.getClass().getCanonicalName() + ": RESUME");

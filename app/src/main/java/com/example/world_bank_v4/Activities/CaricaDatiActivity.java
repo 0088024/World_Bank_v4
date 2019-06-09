@@ -56,7 +56,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.salvadb);
+        getSupportActionBar().setLogo(R.drawable.ic_logo_carica_dati);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         Log.d(getResources().getString(R.string.NOME_APP),
