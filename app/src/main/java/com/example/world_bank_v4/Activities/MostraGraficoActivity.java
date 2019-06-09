@@ -50,10 +50,13 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.graph);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         progressBar = findViewById(R.id.progressBar);
         imageView = findViewById(R.id.imageView);
+
         /*carico dalle sharedPrefernces il nome dell'ultimo file salvato*/
         String chiave_nome_file_png = res.getString(R.string.PREFERENCES_FILE_INDICATORE_PER_PAESE);
         /*leggo dalle sharedPreferences il nome del file precedentemente salvato*/

@@ -55,8 +55,10 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.salvadb);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         Log.d(getResources().getString(R.string.NOME_APP),
                 this.getClass().getCanonicalName() + ": RESUME");
         progressBar = findViewById(R.id.progressBar);
@@ -212,9 +214,6 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
                 DialogDataMissing mydialog = new DialogDataMissing();
                 mydialog.show(getSupportFragmentManager(),
                         getResources().getString(R.string.MY_DIALOG));
-                /*Intent intent=new Intent();
-                setResult(RESULT_FIRST_USER, intent); /*Informa l'attività chiamante con un codice
-                finish();                           Non si può proseguire */
             }
             else
                 caricaLayout(cursorRisultato);
