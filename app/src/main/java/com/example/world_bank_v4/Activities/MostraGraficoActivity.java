@@ -69,6 +69,7 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
                 sharedPreferences.getString(res.getString(R.string.ID_INDICATORE_SELEZIONATO),
                         res.getString(R.string.STRING_NOT_FOUND));
         String nome_file_png = idPaeseSelezionato + "_" + idIndicatoreSelezionato;
+        getSupportActionBar().setSubtitle(nome_file_png);
 
         new CaricaFileTask(imageView).execute(nome_file_png);
     }
