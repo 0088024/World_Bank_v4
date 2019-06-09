@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.world_bank_v4.Controller.DbManager;
 import com.example.world_bank_v4.Controller.MyGSON;
+import com.example.world_bank_v4.Controller.MyIValueFormatter;
 import com.example.world_bank_v4.Dialog.DialogDataBase;
 import com.example.world_bank_v4.Dialog.DialogNoGraph;
 import com.example.world_bank_v4.Dialog.DialogShowImage;
@@ -239,7 +241,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             chart.invalidate(); /*refresh. La chiamata di questo metodo sul grafico si aggiornerà
             (ridisegna). Questo è necessario per rendere effettive le modifiche apportate al
             grafico*/
+
         }
+
 
     }
 
@@ -410,6 +414,9 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         description.setText("ANNI");
         description.setTextSize(11f);
         description.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        description.setTextAlign(Paint.Align.RIGHT);
+        Log.d("WorldBank : ", chart.getWidth() + " --- " + chart.getBottom());
+
 
         chart.setClipValuesToContent(true);
         chart.setDrawGridBackground(true);
@@ -462,8 +469,12 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         yAxisleft.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
+                if(value > 1 && value < -1 ){
+                    Math.round(value);  /*approssima all'intero più vicino*/
+                }
 
-                return String.valueOf((int) value); /*lo casto in 1 int per eliminare la virgola*/
+                return String.valueOf(value);
+
             }
         });
 
@@ -475,8 +486,12 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         yAxisRight.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
+                if(value > 1 && value < -1 ){
+                    Math.round(value);  /*approssima all'intero più vicino*/
+                }
 
-                return String.valueOf((int) value); /*lo casto in 1 int per eliminare la virgola*/
+                return String.valueOf(value);
+
             }
         });
 
@@ -497,7 +512,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
 
-                return String.valueOf((int) value); /*lo casto in 1 int per eliminare la virgola*/
+                return String.valueOf((int)value); /*lo casto in 1 int per eliminare la virgola*/
             }
         });
         xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
@@ -540,27 +555,13 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         dataSet.setValueTextColor(Color.RED);
         dataSet.setValueTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         dataSet.setDrawValues(true);
+
         /*formattiamo i valori disegnati all'interno del grafico*/
-        dataSet.setValueFormatter(new IValueFormatter() {
-
-            @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex,
-                                            ViewPortHandler viewPortHandler) {
-                if(value == dataSet.getYMax() && value != 0){  /*disegna solo il valore massimo*/
-                    return (String.valueOf(value));
-                }
-                else if (value == dataSet.getYMin() && value != 0){
-                    return (String.valueOf(value));             /* e/o il valore minimo*/
-                }
-                else  return "";
-            }
-
-
-        });
-
+        dataSet.setValueFormatter(new MyIValueFormatter(dataSet));
 
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
+
 
 
     }
