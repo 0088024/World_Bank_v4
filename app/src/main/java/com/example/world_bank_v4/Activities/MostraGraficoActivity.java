@@ -50,7 +50,7 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
         tornare al livello principale o alla prima pagina.*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.graph);
+        getSupportActionBar().setLogo(R.drawable.round_insert_photo_black_36dp);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         progressBar = findViewById(R.id.progressBar);
