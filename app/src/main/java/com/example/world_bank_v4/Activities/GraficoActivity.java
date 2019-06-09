@@ -408,8 +408,8 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*imposta etichetta descrizione*/
         Description description = chart.getDescription();
         description.setText("ANNI");
-        description.setTextSize(12f);
-        description.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        description.setTextSize(11f);
+        description.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
         chart.setClipValuesToContent(true);
         chart.setDrawGridBackground(true);
@@ -425,7 +425,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         Legend legend = chart.getLegend();
         legend.setTextColor(blu_grafico);
         legend.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD_ITALIC));
-        legend.setTextSize(15);
+        legend.setTextSize(16);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);
@@ -448,28 +448,50 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         legend.setCustom(legends);
 
 
+
         /*imposta asse y destro e sinistro*/
         YAxis yAxisleft = chart.getAxisLeft();  /*Per default tutti i dati aggiunti al grafico
                                                 vengono confrontati con YAxis sinistro del grafico*/
         yAxisleft.setDrawGridLines(true);       //linea della griglia
         yAxisleft.setDrawZeroLine(true);        //disegna una linea zero
         yAxisleft.setZeroLineColor(Color.GRAY);
-        yAxisleft.setTextSize(12);
-        yAxisleft.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        yAxisleft.setTextSize(13);
+        yAxisleft.setSpaceBottom(10f);
+        yAxisleft.setSpaceTop(15f);
+        yAxisleft.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        yAxisleft.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                return String.valueOf((int) value); /*lo casto in 1 int per eliminare la virgola*/
+            }
+        });
+
         YAxis yAxisRight = chart.getAxisRight();
-        yAxisRight.setTextSize(12);
-        yAxisRight.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        yAxisRight.setTextSize(13);
+        yAxisRight.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        yAxisRight.setSpaceBottom(10f);
+        yAxisRight.setSpaceTop(15f);
+        yAxisRight.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+
+                return String.valueOf((int) value); /*lo casto in 1 int per eliminare la virgola*/
+            }
+        });
+
+
 
         /*imposta asse x*/
         XAxis xAxis = chart.getXAxis();      /*acquisisce 1 istanza dell'asse x*/
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setLabelRotationAngle(45f);    /*imposta angolo dele etichette asse x (in gradi)*/
+        xAxis.setLabelRotationAngle(30f);    /*imposta angolo dele etichette asse x (in gradi)*/
         xAxis.setDrawGridLines(true);
         float[] array_float = {6f, 6f};
         DashPathEffect dashPathEffect = new DashPathEffect(array_float, 0f);
         xAxis.setGridDashedLine(dashPathEffect);
         xAxis.setGranularity(1f);            /*only intervals of 1*/
-        xAxis.setTextSize(12);
+        xAxis.setTextSize(13);
         /*questo metodo serve per avere gli anni senza il punto che indica il millesimo*/
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
@@ -478,7 +500,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 return String.valueOf((int) value); /*lo casto in 1 int per eliminare la virgola*/
             }
         });
-        xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         xAxis.setAvoidFirstLastClipping(true);
 
 
@@ -503,6 +525,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         dataSet.setDrawCircles(true);
         dataSet.setCircleRadius(2.5f);
         dataSet.setCircleColor(blu_grafico);
+        dataSet.setCircleHoleColor(blu_grafico);
         dataSet.setLineWidth(2f);
         dataSet.setDrawFilled(true);
         dataSet.setFillColor(blu_grafico);
@@ -515,6 +538,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         });
         dataSet.setValueTextSize(12f);
         dataSet.setValueTextColor(Color.RED);
+        dataSet.setValueTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         dataSet.setDrawValues(true);
         /*formattiamo i valori disegnati all'interno del grafico*/
         dataSet.setValueFormatter(new IValueFormatter() {
