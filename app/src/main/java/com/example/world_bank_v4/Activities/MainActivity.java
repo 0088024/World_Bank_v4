@@ -13,8 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.world_bank_v4.Dialog.DialogAbout;
-import com.example.world_bank_v4.Dialog.DialogContacts;
+import com.example.world_bank_v4.Dialog.DialogInfo;
 import com.example.world_bank_v4.R;
 
 
@@ -75,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item){
         Resources res = getResources();
         Intent intent;
+        Bundle bundle;
+        DialogInfo mydialog;
         int id = item.getItemId();
         switch(id) {
             case R.id.Menu_1:
@@ -86,13 +87,27 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 break;
 
             case R.id.Menu_2:
-                DialogAbout mydialogabout = new DialogAbout();
-                mydialogabout.show(getSupportFragmentManager(),
+                mydialog = new DialogInfo();
+                bundle = new Bundle();
+                /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+                        res.getStringArray(R.array.stringhe_dialog_about_us));
+                bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.about);
+
+                mydialog.setArguments(bundle);
+                mydialog.show(getSupportFragmentManager(),
                         getResources().getString(R.string.MY_DIALOG));
                 break;
 
             case R.id.Menu_3:
-                DialogContacts mydialog = new DialogContacts();
+                mydialog = new DialogInfo();
+                bundle = new Bundle();
+                /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+                        res.getStringArray(R.array.stringhe_dialog_contacts));
+                bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.logouni1);
+
+                mydialog.setArguments(bundle);
                 mydialog.show(getSupportFragmentManager(),
                         getResources().getString(R.string.MY_DIALOG));
                 break;

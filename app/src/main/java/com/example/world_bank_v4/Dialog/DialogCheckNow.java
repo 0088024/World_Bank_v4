@@ -25,7 +25,7 @@ public class DialogCheckNow extends AppCompatDialogFragment {
 
         Bundle bundle = getArguments();
         String[] array_stringhe =
-                bundle.getStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_NOW));
+                bundle.getStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG));
         final String item_menu_selezionato =
                 bundle.getString(res.getString(R.string.KEY_ITEM_MENU_SELEZIONATO));
         builder.setTitle(array_stringhe[0])

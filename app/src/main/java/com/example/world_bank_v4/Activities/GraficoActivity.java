@@ -156,14 +156,14 @@ public class GraficoActivity extends ListaGenericaActivity
                 Bundle bundle = new Bundle();
                 Resources res = getResources();
                 /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
-                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_WARNING_DATA),
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
                         res.getStringArray(R.array.stringhe_dialog_no_graph));
                 bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.missing);
                 /*servirà per utilizzare la riflessione nella dialog*/
                 bundle.putBoolean(res.getString(R.string.KEY_IS_NO_GRAPH_DIALOG), true);
                 mydialog.setArguments(bundle);
 
-                mydialog.show(getSupportFragmentManager(),"mydialog");
+                mydialog.show(getSupportFragmentManager(), res.getString(R.string.MY_DIALOG));
             }
 
             /*costruisci grafico in un thread in background*/
@@ -321,7 +321,7 @@ public class GraficoActivity extends ListaGenericaActivity
             Bundle bundle = new Bundle();
             Resources res = getResources();
             /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
-            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_NOW),
+            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
                     res.getStringArray(R.array.stringhe_dialog_check_now));
             bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.successfull);
             /*servirà per utilizzare la riflessione nella dialog*/
@@ -412,7 +412,7 @@ public class GraficoActivity extends ListaGenericaActivity
             Bundle bundle = new Bundle();
             Resources res = getResources();
             /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
-            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_NOW),
+            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
                     res.getStringArray(R.array.stringhe_dialog_check_now));
             bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.successfull);
             /*servirà per utilizzare la riflessione nella dialog*/

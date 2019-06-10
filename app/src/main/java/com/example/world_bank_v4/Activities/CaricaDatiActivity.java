@@ -215,7 +215,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
                 Bundle bundle = new Bundle();
                 Resources res = getResources();
                 /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
-                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_WARNING_DATA),
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
                         res.getStringArray(R.array.stringhe_dialog_data_missing));
                 bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.warning);
                 /*servirà per utilizzare la riflessione nella dialog*/

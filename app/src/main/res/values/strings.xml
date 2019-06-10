@@ -106,8 +106,7 @@
     <string name="KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO">json_file_indicatori_per_argomento</string>
     <string name="KEY_JSON_FILE_INDICATORE_PER_PAESE">json_file_indicatore_per_paese</string>
     <string name="KEY_RECORD_ID">id_record_visualizza_dati</string>
-    <string name="KEY_ARGUMENTS_DIALOG_CHECK_NOW">key_arguments_dialog_check_now</string>
-    <string name="KEY_ARGUMENTS_DIALOG_CHECK_WARNING_DATA">key_arguments_dialog_warning_data</string>
+    <string name="KEY_ARGUMENTS_DIALOG">key_arguments_dialog</string>
     <string name="KEY_ITEM_MENU_SELEZIONATO">key_item_menu_selezionato</string>
     <string name="KEY_ID_ICONA">key_id_icona</string>
     <string name="KEY_DIALOG_TYPE">key_dialog_type</string>
@@ -157,6 +156,18 @@
             "message_dialog__no_graph">Want to try again?</item>
         <item name="positive_button_dialog_no_graph">YES</item>
         <item name="negative_button_dialog_no_graph">NO</item>
+    </string-array>
+
+
+    <string-array name="stringhe_dialog_about_us">
+        <item name="title_dialog_about_us">ABOUT US...</item>
+        <item name="positive_button_dialog_about_us">OK</item>
+    </string-array>
+
+
+    <string-array name="stringhe_dialog_contacts">
+        <item name="title_dialog_contacts">Contacts</item>
+        <item name="positive_button_dialog_contacts">OK</item>
     </string-array>
 
 
