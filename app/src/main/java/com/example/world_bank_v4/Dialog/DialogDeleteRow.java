@@ -19,7 +19,7 @@ public class DialogDeleteRow extends AppCompatDialogFragment{
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Log.d(getResources().getString(R.string.NOME_APP), "builder ok");
+        Log.d(getResources().getString(R.string.APP_NAME), "builder ok");
         builder.setTitle("Warning!")
                 .setIcon(R.drawable.warning)
                 .setMessage("Do you really want to delete it?")
@@ -29,7 +29,7 @@ public class DialogDeleteRow extends AppCompatDialogFragment{
                     public void onClick(DialogInterface dialog, int which) {
                         /* casting dell'attività che ha passato il fragment */
                         OnClickListener listener = (OnClickListener) getActivity();
-                        Log.d(getResources().getString(R.string.NOME_APP), listener.toString());
+                        Log.d(getResources().getString(R.string.APP_NAME), listener.toString());
                         listener.onDeleteClickListener(res.getString(R.string.DELETE));
                     }
                 });

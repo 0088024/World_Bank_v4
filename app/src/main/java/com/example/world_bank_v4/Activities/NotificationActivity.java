@@ -23,7 +23,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": CREATE");
 
 
@@ -51,7 +51,7 @@ public class NotificationActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onDestroy(){
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": DESTROY");
         super.onDestroy();
     }

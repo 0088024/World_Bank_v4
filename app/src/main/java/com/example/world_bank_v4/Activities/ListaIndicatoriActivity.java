@@ -103,7 +103,7 @@ public class ListaIndicatoriActivity extends ListaGenericaActivity {
             intent_succ = new Intent(getApplicationContext(), ListaPaesiActivity.class);
 
         intent_succ.putExtras(bundle_succ);
-        Log.d(res.getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": CODE = " +
                         String.valueOf(res.getInteger(R.integer.LISTA_INDICATORI_CODE)) );
         startActivityForResult(intent_succ,

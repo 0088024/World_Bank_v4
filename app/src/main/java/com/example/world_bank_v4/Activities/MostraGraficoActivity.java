@@ -32,7 +32,7 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": CREATE");
         setContentView(R.layout.mostra_png_salvato);
     }
@@ -43,7 +43,7 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
     public void onResume(){
         super.onResume();
         Resources res = getResources();
-        Log.d(res.getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": RESUME");
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
@@ -117,10 +117,10 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
             /*Decode a file path into a bitmap. If the specified file name is null,
             or cannot be decoded into a bitmap, the function returns null.*/
             Bitmap bitmap = BitmapFactory.decodeFile(file_png.getAbsolutePath());
-            Log.d(res.getString(R.string.NOME_APP), file_png.getAbsolutePath());
+            Log.d(res.getString(R.string.APP_NAME), file_png.getAbsolutePath());
 
             if(bitmap == null)
-                Log.d(res.getString(R.string.NOME_APP), "Error decoding stream Bitmap");
+                Log.d(res.getString(R.string.APP_NAME), "Error decoding stream Bitmap");
 
             return bitmap;
 

@@ -66,7 +66,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     {
         super.onCreate(savedInstanceState);
         Resources res = getResources();
-        Log.d(res.getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": CREATE");
 
         /*se savedInstanceState è == null, o è stata lanciata da 1 altra attività, oppure è
@@ -84,18 +84,18 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*se == 1 significa che l'attività è stata lanciata da quella precedente, quindi
             recupero i dati che l'attività precedente mi ha passato nel bundle*/
             if (chiamante == 1){
-                Log.d(res.getString(R.string.NOME_APP),
+                Log.d(res.getString(R.string.APP_NAME),
                         this.getClass().getCanonicalName() +
                                 ": getStateFromBundle(bundle_prec)");
 
                 /*recupero le variabili di stato dal bundle ricevuto dall'attività precedente*/
                 lanciata_da_precedente = getStateFromBundle(bundle_prec);
-                Log.d(res.getString(R.string.NOME_APP),
+                Log.d(res.getString(R.string.APP_NAME),
                         this.getClass().getCanonicalName() +
                         ": lanciata_da_precedente: " + lanciata_da_precedente );
 
                 bundle_prec.clear();        /*"resetto" il bundle precedente*/
-                Log.d(res.getString(R.string.NOME_APP),
+                Log.d(res.getString(R.string.APP_NAME),
                         this.getClass().getCanonicalName() +
                         ": bundle_prec.getInt(Prova) dopo bundle_prec.clear() = "
                         + bundle_prec.getInt("Prova"));
@@ -119,13 +119,13 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestoreInstanceState(Bundle bundle){
         super.onRestoreInstanceState(bundle);
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": RESTORE_INSTANCE_STATE");
         /*causa eccessiva dimensione di alcune liste di indicatori, tali da generare ExceptionBundle
         size, l'activity ListaIndicatori non salva lo stato dell'istanza nel bundle, ma solo sul
         disco*/
         if(this.getClass().getCanonicalName() == ListaIndicatoriActivity.class.getCanonicalName()){
-            Log.d(getResources().getString(R.string.NOME_APP),
+            Log.d(getResources().getString(R.string.APP_NAME),
                     this.getClass().getCanonicalName() + ": No restore Bundle");
             return ;
         }
@@ -144,7 +144,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         super.onResume();
 
         Resources res = getResources();
-        Log.d(res.getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": RESUME");
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
@@ -163,7 +163,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onRestart(){
         super.onRestart();
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": RESTART");
         lanciata_da_precedente = false;
 
@@ -183,7 +183,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             return;
         Resources res = getResources();
 
-        Log.d(res.getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": SAVE_INSTANCE_STATE");
 
         savedInstanceState.putString(res.getString(R.string.NOME_CHIAVE_FILE_JSON), KEY_JSON_FILE);
@@ -202,7 +202,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         savedInstanceState.putString(res.getString(R.string.NOME_PAESE_SELEZIONATO),
                 nomePaeseSelezionato);
 
-        Log.d(res.getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": Bundle savedInstanceState salvato");
 
         super.onSaveInstanceState(savedInstanceState);
@@ -219,7 +219,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     public void onPause(){
         super.onPause();
         Resources res = getResources();
-        Log.d(res.getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": PAUSE");
         SharedPreferences sharedPref =
                 getSharedPreferences(NOME_FILE_PREFERENCES, Activity.MODE_PRIVATE);
@@ -245,7 +245,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     public void onStop(){
         super.onStop();
-                  Log.d(getResources().getString(R.string.NOME_APP),
+                  Log.d(getResources().getString(R.string.APP_NAME),
                           this.getClass().getCanonicalName() + ": STOP");
     }
 
@@ -254,7 +254,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     verra’ richiamato e Android killera’ il processo associato all’applicazione*/
     @Override
     protected void onDestroy(){
-        Log.d(getResources().getString(R.string.NOME_APP), this.getClass().getCanonicalName()
+        Log.d(getResources().getString(R.string.APP_NAME), this.getClass().getCanonicalName()
                 + ": DESTROY");
         super.onDestroy();
     }
@@ -272,7 +272,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*inoltre se savedInstanceState è == false, significa che è stata ripresa ma il s.o. non
             gli ha passato l'oggetto Bundle in onRestoreInstanceState, quindi li carico da disco*/
             if (savedInstanceState == null) {
-                Log.d(getResources().getString(R.string.NOME_APP), this.getClass().getCanonicalName() +
+                Log.d(getResources().getString(R.string.APP_NAME), this.getClass().getCanonicalName() +
                         ": getStateFromSharedPreferences()");
                 getStateFromSharedPreferences(); /*recupero le variabili di stato da disco*/
             }
@@ -280,7 +280,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             passato l'oggetto Bundle in onRestoreInstanceState(): x cui recuperiamo le variabili
             da tale bundle*/
             else {
-                Log.d(getResources().getString(R.string.NOME_APP), this.getClass().getCanonicalName() +
+                Log.d(getResources().getString(R.string.APP_NAME), this.getClass().getCanonicalName() +
                         ": getStateFromBundle(savedInstanceState);");
                 getStateFromBundle(savedInstanceState);
             }
@@ -303,7 +303,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
         MyGSON myGSON = new MyGSON(this);
         lista_oggetti = myGSON.getListFromJson(json_file, typeToken);
         /*DEBUG*/
-        Log.d(getResources().getString(R.string.NOME_APP) + "JSON FILE ", json_file);
+        Log.d(getResources().getString(R.string.APP_NAME) + "JSON FILE ", json_file);
 
         listView = findViewById(idListView);
         listView.setOnItemClickListener(this);
@@ -381,7 +381,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             /*decidiamo di mostrare un unico messaggio d'errore per tutti i tipi di eccezione che
             possono essere sollevati*/
             catch (IOException e) {
-                Log.d(res.getString(R.string.NOME_APP),"IOException: " +e.getMessage() );
+                Log.d(res.getString(R.string.APP_NAME),"IOException: " +e.getMessage() );
                 /*imposta il messaggio d'errore da mostrare all'utente con Notificationactivity*/
                 messag_notification = res.getString(R.string.IO_ERROR)
                         + res.getString(R.string.WORLDBANK_SITE);
@@ -417,14 +417,14 @@ public class ListaGenericaActivity extends AppCompatActivity implements
             setProgressBarGone();  /*Sopprimi la progressBar*/
             /*se è != null significa che non abbiamo avuto errori nello scaricare il file*/
             if(risultato != null) {
-                Log.d(res.getString(R.string.NOME_APP),
+                Log.d(res.getString(R.string.APP_NAME),
                         nameClass + ": Download file completed");
                 json_file = risultato;
                 caricaLayout();
             }
             /*se invece abbiamo avuto errori lo notifichiamo all'utente*/
             else{
-                Log.d(res.getString(R.string.NOME_APP),
+                Log.d(res.getString(R.string.APP_NAME),
                         nameClass + res.getString(R.string.MSG_ERRORE_CONNESSIONE));
                 // Errore imprevisto ad es. viene a mancare la connessione a internet
                 Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
@@ -444,7 +444,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Resources res = getResources();
-        Log.d(res.getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": ON_ACTIVITY_RESULT");
 
        /*RESULT_CANCELED è inviato dal S.O. quando si torn indietro con il tasto Back nativo*/
@@ -479,7 +479,7 @@ public class ListaGenericaActivity extends AppCompatActivity implements
                 sharedPreferences.getString(res.getString(R.string.NOME_CHIAVE_FILE_JSON),
                               res.getString(R.string.STRING_NOT_FOUND));
 
-        Log.d(res.getString(R.string.NOME_APP), nome_chiave_file_json);
+        Log.d(res.getString(R.string.APP_NAME), nome_chiave_file_json);
 
         json_file =  sharedPreferences.getString(nome_chiave_file_json,
                 res.getString(R.string.STRING_NOT_FOUND));

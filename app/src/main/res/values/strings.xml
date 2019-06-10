@@ -1,14 +1,19 @@
 <resources>
-    <string name="app_name">World Bank</string>
     <string name="paese">Paese</string>
     <string name="nome_paese">Nome paese</string>
+
+    <string name="button_ricarica_pagina">BACK</string>
+    <string name="button_salva_database">Save Data SQLite</string>
+    <string name="button_salva_grafico">Save Image.png</string>
     <string name="select_country">SELECT COUNTRY</string>
-    <string name="select_topics">SELECT TOPICS</string>
+    <string name="select_topics">SELECT TOPIC</string>
     <string name="load_previus_image">LOAD PREVIUS IMAGE</string>
     <string name="load_data_offline">LOAD DATA OFFLINE</string>
+
     <string name="dialog_contacts1">GROUP: FPR-IOL2018</string>
     <string name="dialog_contacts2">Mobile Programming</string>
     <string name="dialog_contacts3">Degree course of Computer Engineering </string>
+
     <string name="title_activity_lista_paese_activity">Select Country</string>
     <string name="title_activity_lista_argomenti">Select Topic</string>
     <string name="title_activity_lista_indicatori">Select Indicator</string>
@@ -17,21 +22,18 @@
     <string name="title_activity_mostra_png_precedentemente_salvata">Load Image</string>
     <string name="title_activity_notification">Page Not Found</string>
     <string name="title_activity_visualizza_dati">Show Data</string>
-    <string name="button_ricarica_pagina">BACK</string>
+
     <string name="Menu_1">www.worldbank.org</string>
     <string name="Menu_2">About us</string>
     <string name="Menu_3">Contacts</string>
-    <string name="salva_dati">SALVA DATI DATABASE</string>
-    <string name="button_salva_database_landscape">SAVE \n DATA \n SQLite</string>
-    <string name="button_salva_grafico_landscape">SAVE \n IMAGE \n PNG</string>
-    <string name="button_salva_database">SAVE DATA SQLite</string>
-    <string name="button_salva_grafico">SAVE IMAGE PNG</string>
-    <string name="button">button_generico</string>
+
+
     <string name="titolo_argomenti">value argomento</string>
     <string name="note_argomenti">sourceNote argomento</string>
     <string name="nome_indicatore">nome indicatore</string>
     <string name="text_view_colonna">text view colonna</string>
     <string name="text_view_valore">text view valore</string>
+
     <string name="alessio">Alessio Rufini\n</string>
     <string name="tel_alessio">329 8736xxx</string>
     <string name="email_alessio">alessio.rufini@inwind.it</string>
@@ -41,12 +43,10 @@
     <string name="geremia">Geremia Petricca</string>
     <string name="tel_geremia">320 5641xxx</string>
     <string name="email_geremia">geremia7777@gmail.com</string>
+
     <string name="titolo_grafico">titolo grafico</string>
     <string name="sottotitolo_chart">sottotitolo chart</string>
-    <string name="button_cerca_paese">SELECT COUNTRY</string>
-    <string name="button_carica_png">LOAD PREVIOUS IMAGE</string>
-    <string name="button_cerca_argomento">SELECT TOPIC</string>
-    <string name="button_carica_database">LOAD DATA OFFLINE</string>
+
     <string name="image_world_bank">image world bank</string>
     <string name="image_png">image.png</string>
     <string name="image_view_dati">image view dati</string>
@@ -54,6 +54,7 @@
     <string name="image_person">person</string>
     <string name="image_phone">image phone</string>
     <string name="image_mail">image mail</string>
+
     <string name="about_wb">About...App World Bank</string>
     <string name="about_wb_guide">Guide App</string>
     <string name="aboutinfo0">->Questa App è stata sviluppata secondo le richieste fornite dal Prof. Regoli nel Progetto
@@ -68,10 +69,9 @@
     nell\'ultima ricerca eseguita</string>
     <string name="aboutinfoGuida3">LOAD DATA OFFLINE -> Permette di visualizzare la lista dei database che abbiamo salvato in precedenza e anche di cancellarli</string>
     <string name="universita">TOR VERGATA UNIVERSITY</string>
-    <string name="menu_salva_grafico">Salva Grafico.pmg</string>
-    <string name="menu_salva_database">Salva Database</string>
 
-    <string name="NOME_APP">WorldBank:</string>
+
+    <string name="APP_NAME">WorldBank:</string>
     <string name="CHOOSE_BROWSER">Complete the action with one of the following browser: </string>
     <string name="WORLDBANK_SITE">http://www.worldbank.org</string>
 
@@ -94,11 +94,10 @@
     <string name="ID_INDICATORE_SELEZIONATO">idIndicatoreSelezionato</string>
     <string name="ID_RECORD_TABELLA">idRecordTabella</string>
 
-    <string name="NOME_CHIAVE_FILE_JSON">nome_chiave_file_json</string>
-
     <string name="FINISH">finish</string>
     <string name="DELETE">delete</string>
 
+    <string name="NOME_CHIAVE_FILE_JSON">nome_chiave_file_json</string>
     <string name="KEY_JSON_FILE_COUNTRY">json_file_country</string>
     <string name="KEY_JSON_FILE_ARGOMENTI">json_file_argomenti</string>
     <string name="KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO">json_file_indicatori_per_argomento</string>
@@ -187,6 +186,12 @@
         <item>2016</item>
         <item>2017</item>
         <item>2018</item>
+    </string-array>
+
+
+    <string-array name="stringhe_dialog_check_now">
+        <item>Download Time</item>
+
     </string-array>
 
 

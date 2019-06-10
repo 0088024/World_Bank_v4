@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": CREATE");
 
     }
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": RESUME");
 
         imageView = findViewById(R.id.imageView);

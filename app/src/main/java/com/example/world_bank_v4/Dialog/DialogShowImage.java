@@ -17,7 +17,7 @@ public class DialogShowImage extends AppCompatDialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Log.d(getResources().getString(R.string.NOME_APP),"builder ok");
+        Log.d(getResources().getString(R.string.APP_NAME),"builder ok");
         builder.setTitle("Saving completed!")
                 .setMessage("Do you want to check now?")
                 .setIcon(R.drawable.successfull)
@@ -25,7 +25,7 @@ public class DialogShowImage extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Log.d(getResources().getString(R.string.NOME_APP),"onClick ok");
+                        Log.d(getResources().getString(R.string.APP_NAME),"onClick ok");
 
                         intent = new Intent(getContext(), MostraGraficoActivity.class);
                         startActivity(intent);

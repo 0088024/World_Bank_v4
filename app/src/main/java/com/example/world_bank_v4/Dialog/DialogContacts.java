@@ -13,7 +13,7 @@ public class DialogContacts extends AppCompatDialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        Log.d(getResources().getString(R.string.NOME_APP),"builder ok");
+        Log.d(getResources().getString(R.string.APP_NAME),"builder ok");
         // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         // Inflate and set the layout for the dialog
