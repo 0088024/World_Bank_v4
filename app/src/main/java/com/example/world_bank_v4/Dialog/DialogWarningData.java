@@ -29,7 +29,7 @@ public class DialogWarningData extends AppCompatDialogFragment {
         Bundle bundle = getArguments();
         String[] array_stringhe =
                 bundle.getStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_WARNING_DATA));
-        Boolean is_missing_dialog = bundle.getBoolean(res.getString(R.string.KEY_IS_MISSING_DIALOG));
+        Boolean is_missing_dialog = bundle.getBoolean(res.getString(R.string.KEY_IS_NO_GRAPH_DIALOG));
 
         builder.setTitle(array_stringhe[0])
                 .setMessage(array_stringhe[1])
@@ -48,6 +48,7 @@ public class DialogWarningData extends AppCompatDialogFragment {
 
                     }
                 });
+
         if(is_missing_dialog) {
             builder.setNegativeButton(array_stringhe[3], new DialogInterface.OnClickListener() {
                 @Override

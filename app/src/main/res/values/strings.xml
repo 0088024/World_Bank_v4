@@ -111,7 +111,7 @@
     <string name="KEY_ITEM_MENU_SELEZIONATO">key_item_menu_selezionato</string>
     <string name="KEY_ID_ICONA">key_id_icona</string>
     <string name="KEY_DIALOG_TYPE">key_dialog_type</string>
-    <string name="KEY_IS_MISSING_DIALOG">key_is_missing_dialog</string>
+    <string name="KEY_IS_NO_GRAPH_DIALOG">key_is_no_graph_dialog</string>
 
 
     <string name="PREFERENCES_FILE_PAESI">Preferences_Paesi</string>
@@ -139,8 +139,7 @@
         <item name=
             "message_dialog_data_missing">Remember that you have the option to save the data at the
             end of the search</item>
-        <item name="positive_button_dialog_check_now">YES</item>
-        <item name="negative_button_dialog_check_now">NO</item>
+        <item name="positive_button_dialog_data_missing">OK</item>
     </string-array>
 
 
