@@ -81,6 +81,7 @@
     <string name="ONCLICK_OK">OnClick ok</string>
 
 
+
     <string name="API_TOPIC_LIST_FORMAT_JSON">https://api.worldbank.org/v2/topic?format=json</string>
     <string name="API_COUNTRY_LIST">https://api.worldbank.org/v2/country/</string>
     <string name="API_TOPIC_LIST">https://api.worldbank.org/v2/topic/</string>
@@ -109,6 +110,8 @@
     <string name="KEY_ARGUMENTS_DIALOG_CHECK_WARNING_DATA">key_arguments_dialog_warning_data</string>
     <string name="KEY_ITEM_MENU_SELEZIONATO">key_item_menu_selezionato</string>
     <string name="KEY_ID_ICONA">key_id_icona</string>
+    <string name="KEY_DIALOG_TYPE">key_dialog_type</string>
+    <string name="KEY_IS_MISSING_DIALOG">key_is_missing_dialog</string>
 
 
     <string name="PREFERENCES_FILE_PAESI">Preferences_Paesi</string>
@@ -145,7 +148,15 @@
         <item name=
             "message_dialog__warning_data">Remember that you have the option to save the image at the
             end of the search</item>
-        <item name="positive_button_dialog_check_now">OK</item>
+        <item name="positive_button_dialog_message_dialog__warning_data">OK</item>
+    </string-array>
+
+    <string-array name="stringhe_dialog_no_graph">
+        <item name="title_dialog_no_graph">No data available!</item>
+        <item name=
+            "message_dialog__no_graph">Want to try again?</item>
+        <item name="positive_button_dialog_no_graph">YES</item>
+        <item name="negative_button_dialog_no_graph">NO</item>
     </string-array>
 
 

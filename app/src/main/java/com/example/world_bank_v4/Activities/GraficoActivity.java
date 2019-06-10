@@ -24,7 +24,7 @@ import com.example.world_bank_v4.Controller.DbManager;
 import com.example.world_bank_v4.Controller.MyGSON;
 import com.example.world_bank_v4.Controller.MyIValueFormatter;
 import com.example.world_bank_v4.Dialog.DialogCheckNow;
-import com.example.world_bank_v4.Dialog.DialogNoGraph;
+import com.example.world_bank_v4.Dialog.DialogWarningData;
 import com.example.world_bank_v4.Model.ElementoGenerico;
 import com.example.world_bank_v4.Model.Intestazione;
 import com.example.world_bank_v4.Model.RecordTabella;
@@ -58,9 +58,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener,DialogNoGraph.OnClickListener{
+public class GraficoActivity extends ListaGenericaActivity
+        implements View.OnClickListener,DialogWarningData.OnClickListener{
 
-    private String /*json_file,*/ err_msg;
     private DbManager dbManager;
     private ArrayList<ValoreGrafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
@@ -151,13 +151,19 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             /*Controlla se non ci sono dati per costruire il grafico*/
             if(lista_grafico == null){
-                DialogNoGraph mydialog = new DialogNoGraph();
+                DialogWarningData mydialog = new DialogWarningData();
+
+                Bundle bundle = new Bundle();
+                Resources res = getResources();
+                /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_NOW),
+                        res.getStringArray(R.array.stringhe_dialog_no_graph));
+                bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.missing);
+                /*servirà per utilizzare la riflessione nella dialog*/
+                bundle.putBoolean(res.getString(R.string.KEY_IS_MISSING_DIALOG), true);
+                mydialog.setArguments(bundle);
+
                 mydialog.show(getSupportFragmentManager(),"mydialog");
-                /*Intent intent=new Intent();
-                /*Informa l'attività chiamante con un codice*/
-                /*setResult(getResources().getInteger(R.integer.NO_DATA), intent);
-                finish();
-                return; /*Inutile proseguire*/
             }
 
             /*costruisci grafico in un thread in background*/

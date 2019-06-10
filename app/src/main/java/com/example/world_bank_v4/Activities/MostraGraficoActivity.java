@@ -14,14 +14,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-
-import com.example.world_bank_v4.Dialog.DialogImageMissing;
+import com.example.world_bank_v4.Dialog.DialogWarningData;
 import com.example.world_bank_v4.R;
 
 import java.io.File;
 
 
-public class MostraGraficoActivity extends AppCompatActivity implements DialogImageMissing.OnClickListener{
+public class MostraGraficoActivity extends AppCompatActivity
+        implements DialogWarningData.OnClickListener{
 
 
     private ImageView imageView;
@@ -136,12 +136,20 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
             progressBar.setVisibility(View.GONE);
             /* Controlla se non è presente nessun file png in memoria  */
             if (risultato == null) {
-                DialogImageMissing mydialog = new DialogImageMissing();
+                DialogWarningData mydialog = new DialogWarningData();
+
+                Bundle bundle = new Bundle();
+                Resources res = getResources();
+                /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_WARNING_DATA),
+                        res.getStringArray(R.array.stringhe_dialog_image_missing));
+                bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.warning);
+                /*servirà per utilizzare la riflessione nella dialog*/
+                bundle.putBoolean(res.getString(R.string.KEY_IS_MISSING_DIALOG), false);
+
+                mydialog.setArguments(bundle);
                 mydialog.show(getSupportFragmentManager(),
                         getResources().getString(R.string.MY_DIALOG));
-                /*Intent intent=new Intent();
-                setResult(RESULT_FIRST_USER,intent); // Informa l'attività chiamante con un codice*/
-                //finish(); // Non si può proseguire
             } else
                 imageView.setImageBitmap(risultato);
 

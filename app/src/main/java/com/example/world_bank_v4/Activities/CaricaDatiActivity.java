@@ -219,6 +219,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
                         res.getStringArray(R.array.stringhe_dialog_data_missing));
                 bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.warning);
                 /*servirà per utilizzare la riflessione nella dialog*/
+                bundle.putBoolean(res.getString(R.string.KEY_IS_MISSING_DIALOG), false);
 
                 mydialog.setArguments(bundle);
                 mydialog.show(getSupportFragmentManager(),
