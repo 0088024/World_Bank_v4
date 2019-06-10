@@ -132,9 +132,18 @@
 
 
     <string-array name="stringhe_dialog_data_missing">
-        <item name="title_dialog_check_now">No_data_available!</item>
+        <item name="title_dialog_check_now">No data available!</item>
         <item name=
             "message_dialog_check_now">Remember that you have the option to save the data at the
+            end of the search</item>
+        <item name="positive_button_dialog_check_now">OK</item>
+    </string-array>
+
+
+    <string-array name="stringhe_dialog_image_missing">
+        <item name="title_dialog_warning_data">No image available!</item>
+        <item name=
+            "message_dialog__warning_data">Remember that you have the option to save the image at the
             end of the search</item>
         <item name="positive_button_dialog_check_now">OK</item>
     </string-array>
