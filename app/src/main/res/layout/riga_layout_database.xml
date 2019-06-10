@@ -76,7 +76,7 @@
             android:background="@drawable/background_grafico"
             android:contentDescription="@string/image_view_dati"
             android:cropToPadding="false"
-            android:padding="4dp"
+            android:padding="6dp"
             android:scaleType="fitCenter"
             android:tint="@color/blu_grafico"
             app:srcCompat="@android:drawable/ic_menu_view" />
@@ -89,7 +89,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/background_grafico"
             android:contentDescription="@string/image_delete"
-            android:padding="4dp"
+            android:padding="6dp"
             android:scaleType="fitCenter"
             android:tint="@color/colorPrimaryDark"
             app:srcCompat="@android:drawable/ic_menu_delete" />
