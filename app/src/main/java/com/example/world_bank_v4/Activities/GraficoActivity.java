@@ -310,12 +310,15 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         protected void onPostExecute(String risultato) {
             Log.d(getResources().getString(R.string.APP_NAME), risultato);
             getProgressBar().setVisibility(View.GONE);
+
             DialogCheckNow mydialog = new DialogCheckNow();
             Bundle bundle = new Bundle();
             Resources res = getResources();
-            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+            /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_NOW),
                     res.getStringArray(R.array.stringhe_dialog_check_now));
-            /*servirà per utilizzare la riflessione in DialogCheckNow.onshow()*/
+            bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.successfull);
+            /*servirà per utilizzare la riflessione nella dialog*/
             bundle.putString(res.getString(R.string.KEY_ITEM_MENU_SELEZIONATO),
                     res.getString(R.string.button_salva_database));
             mydialog.setArguments(bundle);
@@ -398,12 +401,15 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         protected void onPostExecute(String risultato){
             Log.d(getResources().getString(R.string.APP_NAME), risultato);
             getProgressBar().setVisibility(View.GONE);
+
             DialogCheckNow mydialog = new DialogCheckNow();
             Bundle bundle = new Bundle();
             Resources res = getResources();
-            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+            /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_NOW),
                     res.getStringArray(R.array.stringhe_dialog_check_now));
-            /*servirà per utilizzare la riflessione in DialogCheckNow.onshow()*/
+            bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.successfull);
+            /*servirà per utilizzare la riflessione nella dialog*/
             bundle.putString(res.getString(R.string.KEY_ITEM_MENU_SELEZIONATO),
                     res.getString(R.string.button_salva_grafico));
             mydialog.setArguments(bundle);

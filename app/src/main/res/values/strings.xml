@@ -78,6 +78,7 @@
     <string name="MSG_ERRORE_CONNESSIONE">: Errore connessione internet</string>
     <string name="STRING_NOT_FOUND">String not found</string>
     <string name="BUILDER_OK">Builder ok</string>
+    <string name="ONCLICK_OK">OnClick ok</string>
 
 
     <string name="API_TOPIC_LIST_FORMAT_JSON">https://api.worldbank.org/v2/topic?format=json</string>
@@ -104,8 +105,10 @@
     <string name="KEY_JSON_FILE_INDICATORI_PER_ARGOMENTO">json_file_indicatori_per_argomento</string>
     <string name="KEY_JSON_FILE_INDICATORE_PER_PAESE">json_file_indicatore_per_paese</string>
     <string name="KEY_RECORD_ID">id_record_visualizza_dati</string>
-    <string name="KEY_ARGUMENTS_DIALOG">key_arguments_dialog</string>
+    <string name="KEY_ARGUMENTS_DIALOG_CHECK_NOW">key_arguments_dialog_check_now</string>
+    <string name="KEY_ARGUMENTS_DIALOG_CHECK_WARNING_DATA">key_arguments_dialog_warning_data</string>
     <string name="KEY_ITEM_MENU_SELEZIONATO">key_item_menu_selezionato</string>
+    <string name="KEY_ID_ICONA">key_id_icona</string>
 
 
     <string name="PREFERENCES_FILE_PAESI">Preferences_Paesi</string>
@@ -125,6 +128,15 @@
          <item name="message_dialog_check_now">Do you want to check now?</item>
          <item name="positive_button_dialog_check_now">YES</item>
          <item name="negative_button_dialog_check_now">NO</item>
+    </string-array>
+
+
+    <string-array name="stringhe_dialog_data_missing">
+        <item name="title_dialog_check_now">No_data_available!</item>
+        <item name=
+            "message_dialog_check_now">Remember that you have the option to save the data at the
+            end of the search</item>
+        <item name="positive_button_dialog_check_now">OK</item>
     </string-array>
 
 

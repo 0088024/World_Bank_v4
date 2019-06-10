@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 
 import com.example.world_bank_v4.Adapters.MyCursorAdapter;
 import com.example.world_bank_v4.Controller.DbManager;
-import com.example.world_bank_v4.Dialog.DialogDataMissing;
+import com.example.world_bank_v4.Dialog.DialogWarningData;
 import com.example.world_bank_v4.R;
 import com.example.world_bank_v4.Dialog.DialogDeleteRow;
 
@@ -24,7 +24,7 @@ import com.example.world_bank_v4.Dialog.DialogDeleteRow;
 
 /*activity che carica e visualizza le n-tuple salvate nel database*/
 public class CaricaDatiActivity extends AppCompatActivity implements View.OnClickListener,
-        DialogDeleteRow.OnClickListener, DialogDataMissing.OnClickListener {
+        DialogDeleteRow.OnClickListener, DialogWarningData.OnClickListener {
 
 
     private DbManager dbManager;
@@ -211,7 +211,16 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
             progressBar.setVisibility(View.GONE);
             /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
-                DialogDataMissing mydialog = new DialogDataMissing();
+                DialogWarningData mydialog = new DialogWarningData();
+                Bundle bundle = new Bundle();
+                Resources res = getResources();
+                /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_WARNING_DATA),
+                        res.getStringArray(R.array.stringhe_dialog_data_missing));
+                bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.warning);
+                /*servirà per utilizzare la riflessione nella dialog*/
+
+                mydialog.setArguments(bundle);
                 mydialog.show(getSupportFragmentManager(),
                         getResources().getString(R.string.MY_DIALOG));
             }

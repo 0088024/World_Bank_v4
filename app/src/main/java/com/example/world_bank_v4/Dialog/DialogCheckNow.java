@@ -25,17 +25,17 @@ public class DialogCheckNow extends AppCompatDialogFragment {
 
         Bundle bundle = getArguments();
         String[] array_stringhe =
-                bundle.getStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG));
+                bundle.getStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG_CHECK_NOW));
         final String item_menu_selezionato =
                 bundle.getString(res.getString(R.string.KEY_ITEM_MENU_SELEZIONATO));
         builder.setTitle(array_stringhe[0])
                 .setMessage(array_stringhe[1])
-                .setIcon(R.drawable.successfull)
+                .setIcon(bundle.getInt(res.getString(R.string.KEY_ID_ICONA)))
                 .setPositiveButton(array_stringhe[2], new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Log.d(getResources().getString(R.string.APP_NAME),"onClick ok");
+                        Log.d(getResources().getString(R.string.APP_NAME), getResources().getString(R.string.ONCLICK_OK));
                         if(item_menu_selezionato.contentEquals(getResources().getString(
                                                             R.string.button_salva_database)))
                             intent = new Intent(getContext(), CaricaDatiActivity.class);
