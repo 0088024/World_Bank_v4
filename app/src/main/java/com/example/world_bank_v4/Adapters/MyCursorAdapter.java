@@ -29,7 +29,8 @@ public class MyCursorAdapter extends CursorAdapter {
     @Override
     public View newView(Context ctx, Cursor arg1, ViewGroup arg2)
     {
-        View v = caricaDatiActivity.getLayoutInflater().inflate(R.layout.riga_layout_database, null);
+        View v = caricaDatiActivity.getLayoutInflater().inflate(R.layout.riga_layout_database,
+                null);
         return v;
     }
 
