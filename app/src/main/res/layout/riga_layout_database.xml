@@ -5,74 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@drawable/border_grigio_con_verde_acqua_dentro"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:background="@drawable/border"
+    android:backgroundTint="#57A7FFE3"
+    android:backgroundTintMode="src_atop"
+    android:baselineAligned="false">
 
     <LinearLayout
+        android:id="@+id/linear_layout_carica_database"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@drawable/border_grigio_con_verde_acqua_dentro"
-        android:gravity="start|end"
-        android:orientation="vertical"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp">
+        android:backgroundTintMode="src_in"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewPaese"
             style="@style/styleLayout"
-            android:background="@drawable/background_grafico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/background_grafico"
             android:gravity="start"
             android:text="@string/nome_paese"
             android:textAlignment="viewStart"
             android:textColor="@color/colorNero"
-            android:textStyle="bold"
             tools:text="@string/nome_paese" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/textViewIndicatore"
+            style="@style/styleLayouttopics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="@string/nome_indicatore"
-            android:textAlignment="textStart"
+            android:layout_margin="8dp"
             android:background="@color/colorbackgroundlist"
+            android:gravity="start"
             android:padding="8dp"
+            android:text="@string/nome_indicatore"
+            android:textAlignment="viewStart"
             android:textColor="@color/colorNero"
-            style="@style/styleLayouttopics"
+            android:textSize="20sp"
+            android:textStyle="bold"
             tools:text="@string/nome_indicatore" />
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/imageButtonDati"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/background_grafico"
-        android:contentDescription="@string/image_view_dati"
-        android:cropToPadding="false"
-        android:padding="4dp"
-        android:scaleType="fitCenter"
-        android:tint="@color/blu_grafico"
-        app:srcCompat="@android:drawable/ic_menu_view" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/imageButtonDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/background_grafico"
-        android:contentDescription="@string/image_delete"
-        android:padding="4dp"
-        android:scaleType="fitCenter"
-        android:tint="@color/colorPrimaryDark"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        <ImageButton
+            android:id="@+id/imageButtonDati"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/background_grafico"
+            android:contentDescription="@string/image_view_dati"
+            android:cropToPadding="false"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            android:tint="@color/blu_grafico"
+            app:srcCompat="@android:drawable/ic_menu_view" />
+
+        <ImageButton
+            android:id="@+id/imageButtonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/background_grafico"
+            android:contentDescription="@string/image_delete"
+            android:padding="4dp"
+            android:scaleType="fitCenter"
+            android:tint="@color/colorPrimaryDark"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+
+    </LinearLayout>
 
 </LinearLayout>
