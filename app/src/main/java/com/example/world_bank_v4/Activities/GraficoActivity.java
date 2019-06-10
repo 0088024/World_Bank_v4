@@ -542,7 +542,6 @@ public class GraficoActivity extends ListaGenericaActivity
             }
         });
         xAxis.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        xAxis.setAvoidFirstLastClipping(true);
 
 
 

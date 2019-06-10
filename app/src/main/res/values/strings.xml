@@ -70,15 +70,15 @@
     <string name="aboutinfoGuida3">LOAD DATA OFFLINE -> Permette di visualizzare la lista dei database che abbiamo salvato in precedenza e anche di cancellarli</string>
     <string name="universita">TOR VERGATA UNIVERSITY</string>
 
-    <string name="APP_NAME">WorldBank:</string>
+    <string name="APP_NAME">WorldBank</string>
     <string name="CHOOSE_BROWSER">Complete the action with one of the following browser: </string>
     <string name="WORLDBANK_SITE">http://www.worldbank.org</string>
 
     <string name="IO_ERROR">Unable to contact:</string>
     <string name="MSG_ERRORE_CONNESSIONE">: Errore connessione internet</string>
     <string name="STRING_NOT_FOUND">String not found</string>
-    <string name="BUILDER_OK">Builder ok</string>
-    <string name="ONCLICK_OK">OnClick ok</string>
+    <string name="BUILDER_OK">Builder Ok</string>
+    <string name="ONCLICK_OK">OnClick Ok</string>
 
 
 
