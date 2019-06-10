@@ -21,9 +21,9 @@ public class DialogNoGraph extends AppCompatDialogFragment {
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
-
+        Resources res = getResources();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Log.d(getResources().getString(R.string.APP_NAME),"builder ok");
+        Log.d(res.getString(R.string.APP_NAME), res.getString(R.string.BUILDER_OK));
         builder.setTitle("No data available!")
                 .setMessage("Want to try again?")
                 .setIcon(R.drawable.missing)

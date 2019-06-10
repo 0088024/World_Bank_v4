@@ -23,9 +23,8 @@ import android.widget.TextView;
 import com.example.world_bank_v4.Controller.DbManager;
 import com.example.world_bank_v4.Controller.MyGSON;
 import com.example.world_bank_v4.Controller.MyIValueFormatter;
-import com.example.world_bank_v4.Dialog.DialogDataBase;
+import com.example.world_bank_v4.Dialog.DialogCheckNow;
 import com.example.world_bank_v4.Dialog.DialogNoGraph;
-import com.example.world_bank_v4.Dialog.DialogShowImage;
 import com.example.world_bank_v4.Model.ElementoGenerico;
 import com.example.world_bank_v4.Model.Intestazione;
 import com.example.world_bank_v4.Model.RecordTabella;
@@ -311,7 +310,15 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         protected void onPostExecute(String risultato) {
             Log.d(getResources().getString(R.string.APP_NAME), risultato);
             getProgressBar().setVisibility(View.GONE);
-            DialogDataBase mydialog = new DialogDataBase();
+            DialogCheckNow mydialog = new DialogCheckNow();
+            Bundle bundle = new Bundle();
+            Resources res = getResources();
+            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+                    res.getStringArray(R.array.stringhe_dialog_check_now));
+            /*servirà per utilizzare la riflessione in DialogCheckNow.onshow()*/
+            bundle.putString(res.getString(R.string.KEY_ITEM_MENU_SELEZIONATO),
+                    res.getString(R.string.button_salva_database));
+            mydialog.setArguments(bundle);
             mydialog.show(getSupportFragmentManager(),
                     getResources().getString(R.string.MY_DIALOG));
 
@@ -391,7 +398,15 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         protected void onPostExecute(String risultato){
             Log.d(getResources().getString(R.string.APP_NAME), risultato);
             getProgressBar().setVisibility(View.GONE);
-            DialogShowImage mydialog = new DialogShowImage();
+            DialogCheckNow mydialog = new DialogCheckNow();
+            Bundle bundle = new Bundle();
+            Resources res = getResources();
+            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+                    res.getStringArray(R.array.stringhe_dialog_check_now));
+            /*servirà per utilizzare la riflessione in DialogCheckNow.onshow()*/
+            bundle.putString(res.getString(R.string.KEY_ITEM_MENU_SELEZIONATO),
+                    res.getString(R.string.button_salva_grafico));
+            mydialog.setArguments(bundle);
             mydialog.show(getSupportFragmentManager(),
                     getResources().getString(R.string.MY_DIALOG));
 

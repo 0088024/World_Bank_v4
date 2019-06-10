@@ -18,8 +18,9 @@ public class DialogDeleteRow extends AppCompatDialogFragment{
     }
 
     public Dialog onCreateDialog(Bundle savedInstanceState){
+        Resources res = getResources();
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        Log.d(getResources().getString(R.string.APP_NAME), "builder ok");
+        Log.d(res.getString(R.string.APP_NAME), res.getString(R.string.BUILDER_OK));
         builder.setTitle("Warning!")
                 .setIcon(R.drawable.warning)
                 .setMessage("Do you really want to delete it?")
