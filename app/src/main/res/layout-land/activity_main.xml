@@ -1,99 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollView"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/wbdata"
-    android:clipChildren="true"
-    android:clipToPadding="true"
-    android:fillViewport="true"
     android:padding="8dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|top"
         android:layout_margin="8dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:background="@drawable/border_grigio_con_verde_acqua_dentro"
+        android:clipChildren="false"
+        android:clipToPadding="true"
+        android:fillViewport="true"
+        android:scrollbarDefaultDelayBeforeFade="@integer/TIMEOUT"
+        android:scrollbarSize="12dp"
+        android:scrollbarThumbVertical="@drawable/background_grafico"
+        android:scrollbarTrackVertical="@drawable/border_grigio_con_verde_acqua_dentro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <LinearLayout
+            android:id="@+id/linearLayoutGrafico"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:adjustViewBounds="false"
-            android:contentDescription="@string/image_world_bank"
-            android:cropToPadding="false"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:background="@drawable/border_grigio_con_verde_acqua_dentro"
+            android:clipChildren="false"
+            android:gravity="center_horizontal|top"
+            android:orientation="vertical"
             android:padding="16dp"
-            android:scaleType="center"
-            app:srcCompat="@drawable/wb" />
+            android:scrollbarTrackVertical="@color/blu_sfondo"
+            android:scrollbars="vertical">
 
-        <Button
-            android:id="@+id/buttonPaese"
-            style="@style/styleButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/lente"
-            android:gravity="center"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/select_country" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/image_world_bank"
+                android:cropToPadding="true"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarDefaultDelayBeforeFade="@integer/TIMEOUT"
+                android:scrollbarSize="4dp"
+                app:srcCompat="@drawable/wb1" />
 
-        <Button
-            android:id="@+id/buttonArgomento"
-            style="@style/styleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/lente"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/select_topics" />
+            <Button
+                android:id="@+id/buttonPaese"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/lente"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/select_country" />
 
-        <Button
-            android:id="@+id/buttonGrafico"
-            style="@style/styleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/graphicok"
-            android:gravity="center"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/load_previus_image" />
+            <Button
+                android:id="@+id/buttonArgomento"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/lente"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/select_topics" />
 
-        <Button
-            android:id="@+id/buttonDatabase"
-            style="@style/styleButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/background_grafico"
-            android:drawableStart="@drawable/storageok"
-            android:gravity="center"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/load_data_offline" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/buttonGrafico"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/graphicok"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/load_previus_image" />
+
+            <Button
+                android:id="@+id/buttonDatabase"
+                style="@style/styleButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_grafico"
+                android:drawableStart="@drawable/storageok"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="@string/load_data_offline" />
+        </LinearLayout>
+    </ScrollView>
 
 
-</ScrollView>
+</android.support.constraint.ConstraintLayout>
