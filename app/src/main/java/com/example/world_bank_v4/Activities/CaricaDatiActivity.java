@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 
 import com.example.world_bank_v4.Adapters.MyCursorAdapter;
 import com.example.world_bank_v4.Controller.DbManager;
-import com.example.world_bank_v4.Dialog.DialogDataMissing;
+import com.example.world_bank_v4.Dialog.DialogWarningData;
 import com.example.world_bank_v4.R;
 import com.example.world_bank_v4.Dialog.DialogDeleteRow;
 
@@ -24,7 +24,7 @@ import com.example.world_bank_v4.Dialog.DialogDeleteRow;
 
 /*activity che carica e visualizza le n-tuple salvate nel database*/
 public class CaricaDatiActivity extends AppCompatActivity implements View.OnClickListener,
-        DialogDeleteRow.OnClickListener, DialogDataMissing.OnClickListener {
+        DialogDeleteRow.OnClickListener, DialogWarningData.OnClickListener {
 
 
     private DbManager dbManager;
@@ -42,7 +42,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carica_dati);
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": CREATE");
     }
 
@@ -59,7 +59,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setLogo(R.drawable.round_playlist_add_black_36dp);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": RESUME");
         progressBar = findViewById(R.id.progressBar);
         listView = findViewById(R.id.list_view_carica_dati);
@@ -71,7 +71,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onRestart(){
         super.onRestart();
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": RESTART");
     }
 
@@ -82,7 +82,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onPause(){
         super.onPause();
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": PAUSE");
     }
 
@@ -95,7 +95,7 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
     poca memoria la onDestroy() potrebbe non essere chiamata*/
     @Override
     protected void onDestroy(){
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": DESTROY");
         if(dbManager != null)  /*potrebbe essere null se non è stato mai aperto in GraficoActivity e
                                l'utente torna indietro.*/
@@ -206,12 +206,22 @@ public class CaricaDatiActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         protected void onPostExecute(Cursor cursorRisultato){
-            Log.d(getResources().getString(R.string.NOME_APP),
+            Log.d(getResources().getString(R.string.APP_NAME),
                     ": CURSORE -->  "+ dbManager.showCursor(cursorRisultato));
             progressBar.setVisibility(View.GONE);
             /* Controlla se la query ha prodotto nessun risultato */
             if(cursorRisultato.getCount()==0){
-                DialogDataMissing mydialog = new DialogDataMissing();
+                DialogWarningData mydialog = new DialogWarningData();
+                Bundle bundle = new Bundle();
+                Resources res = getResources();
+                /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+                        res.getStringArray(R.array.stringhe_dialog_data_missing));
+                bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.warning);
+                /*servirà per utilizzare la riflessione nella dialog*/
+                bundle.putBoolean(res.getString(R.string.KEY_IS_NO_GRAPH_DIALOG), false);
+
+                mydialog.setArguments(bundle);
                 mydialog.show(getSupportFragmentManager(),
                         getResources().getString(R.string.MY_DIALOG));
             }

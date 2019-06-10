@@ -14,14 +14,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-
-import com.example.world_bank_v4.Dialog.DialogImageMissing;
+import com.example.world_bank_v4.Dialog.DialogWarningData;
 import com.example.world_bank_v4.R;
 
 import java.io.File;
 
 
-public class MostraGraficoActivity extends AppCompatActivity implements DialogImageMissing.OnClickListener{
+public class MostraGraficoActivity extends AppCompatActivity
+        implements DialogWarningData.OnClickListener{
 
 
     private ImageView imageView;
@@ -32,7 +32,7 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": CREATE");
         setContentView(R.layout.mostra_png_salvato);
     }
@@ -43,7 +43,7 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
     public void onResume(){
         super.onResume();
         Resources res = getResources();
-        Log.d(res.getString(R.string.NOME_APP),
+        Log.d(res.getString(R.string.APP_NAME),
                 this.getClass().getCanonicalName() + ": RESUME");
         /*Imposta se "Home" deve essere visualizzato come un'affordance "up". Impostalo su true se
         la selezione di "home" restituisce un singolo livello nell'interfaccia utente anziché
@@ -117,10 +117,10 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
             /*Decode a file path into a bitmap. If the specified file name is null,
             or cannot be decoded into a bitmap, the function returns null.*/
             Bitmap bitmap = BitmapFactory.decodeFile(file_png.getAbsolutePath());
-            Log.d(res.getString(R.string.NOME_APP), file_png.getAbsolutePath());
+            Log.d(res.getString(R.string.APP_NAME), file_png.getAbsolutePath());
 
             if(bitmap == null)
-                Log.d(res.getString(R.string.NOME_APP), "Error decoding stream Bitmap");
+                Log.d(res.getString(R.string.APP_NAME), "Error decoding stream Bitmap");
 
             return bitmap;
 
@@ -136,12 +136,20 @@ public class MostraGraficoActivity extends AppCompatActivity implements DialogIm
             progressBar.setVisibility(View.GONE);
             /* Controlla se non è presente nessun file png in memoria  */
             if (risultato == null) {
-                DialogImageMissing mydialog = new DialogImageMissing();
+                DialogWarningData mydialog = new DialogWarningData();
+
+                Bundle bundle = new Bundle();
+                Resources res = getResources();
+                /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+                        res.getStringArray(R.array.stringhe_dialog_image_missing));
+                bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.warning);
+                /*servirà per utilizzare la riflessione nella dialog*/
+                bundle.putBoolean(res.getString(R.string.KEY_IS_NO_GRAPH_DIALOG), false);
+
+                mydialog.setArguments(bundle);
                 mydialog.show(getSupportFragmentManager(),
                         getResources().getString(R.string.MY_DIALOG));
-                /*Intent intent=new Intent();
-                setResult(RESULT_FIRST_USER,intent); // Informa l'attività chiamante con un codice*/
-                //finish(); // Non si può proseguire
             } else
                 imageView.setImageBitmap(risultato);
 

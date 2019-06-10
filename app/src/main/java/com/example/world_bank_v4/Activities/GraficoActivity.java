@@ -23,9 +23,8 @@ import android.widget.TextView;
 import com.example.world_bank_v4.Controller.DbManager;
 import com.example.world_bank_v4.Controller.MyGSON;
 import com.example.world_bank_v4.Controller.MyIValueFormatter;
-import com.example.world_bank_v4.Dialog.DialogDataBase;
-import com.example.world_bank_v4.Dialog.DialogNoGraph;
-import com.example.world_bank_v4.Dialog.DialogShowImage;
+import com.example.world_bank_v4.Dialog.DialogCheckNow;
+import com.example.world_bank_v4.Dialog.DialogWarningData;
 import com.example.world_bank_v4.Model.ElementoGenerico;
 import com.example.world_bank_v4.Model.Intestazione;
 import com.example.world_bank_v4.Model.RecordTabella;
@@ -45,10 +44,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IFillFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
@@ -61,9 +58,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class GraficoActivity extends ListaGenericaActivity implements View.OnClickListener,DialogNoGraph.OnClickListener{
+public class GraficoActivity extends ListaGenericaActivity
+        implements View.OnClickListener,DialogWarningData.OnClickListener{
 
-    private String /*json_file,*/ err_msg;
     private DbManager dbManager;
     private ArrayList<ValoreGrafico> lista_grafico;      /*lista che conterrà gli oggetti Grafico*/
     private LineChart chart;
@@ -129,7 +126,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
         /*API_INDICATORE_PER_PAESE
         https://api.worldbank.org/v2/country/idPaese/indicator?format=json&per_page=10000*/
         api_indicatore_per_paese.append("?format=json&&per_page=10000");
-        Log.d(getResources().getString(R.string.NOME_APP),
+        Log.d(getResources().getString(R.string.APP_NAME),
                 "api_indicatore_per_paese:  " + api_indicatore_per_paese);
         return api_indicatore_per_paese.toString();
     }
@@ -145,7 +142,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
             String json_file = (super.getJsonFile());  // Recupera il relativo file json
 
             /*DEBUG*/
-            Log.d(getResources().getString(R.string.NOME_APP) + "JSON FILE ", json_file);
+            Log.d(getResources().getString(R.string.APP_NAME) + "JSON FILE ", json_file);
 
             /*con la libreria GSON ottengo la corrispondente lista di indicatori del file json*/
             MyGSON myGSON = new MyGSON(this);
@@ -154,13 +151,19 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
             /*Controlla se non ci sono dati per costruire il grafico*/
             if(lista_grafico == null){
-                DialogNoGraph mydialog = new DialogNoGraph();
-                mydialog.show(getSupportFragmentManager(),"mydialog");
-                /*Intent intent=new Intent();
-                /*Informa l'attività chiamante con un codice*/
-                /*setResult(getResources().getInteger(R.integer.NO_DATA), intent);
-                finish();
-                return; /*Inutile proseguire*/
+                DialogWarningData mydialog = new DialogWarningData();
+
+                Bundle bundle = new Bundle();
+                Resources res = getResources();
+                /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+                bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+                        res.getStringArray(R.array.stringhe_dialog_no_graph));
+                bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.missing);
+                /*servirà per utilizzare la riflessione nella dialog*/
+                bundle.putBoolean(res.getString(R.string.KEY_IS_NO_GRAPH_DIALOG), true);
+                mydialog.setArguments(bundle);
+
+                mydialog.show(getSupportFragmentManager(), res.getString(R.string.MY_DIALOG));
             }
 
             /*costruisci grafico in un thread in background*/
@@ -234,7 +237,7 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         @Override
         protected void onPostExecute(String risultato) {
-            Log.d(getResources().getString(R.string.NOME_APP), risultato);
+            Log.d(getResources().getString(R.string.APP_NAME), risultato);
             getProgressBar().setVisibility(View.GONE);
             textView_chart_titolo.setText(getNomePaeseSelezionato());
             textView_chart_sottotitolo.setText(getNomeIndicatoreSelezionato());
@@ -311,9 +314,20 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         @Override
         protected void onPostExecute(String risultato) {
-            Log.d(getResources().getString(R.string.NOME_APP), risultato);
+            Log.d(getResources().getString(R.string.APP_NAME), risultato);
             getProgressBar().setVisibility(View.GONE);
-            DialogDataBase mydialog = new DialogDataBase();
+
+            DialogCheckNow mydialog = new DialogCheckNow();
+            Bundle bundle = new Bundle();
+            Resources res = getResources();
+            /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+                    res.getStringArray(R.array.stringhe_dialog_check_now));
+            bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.successfull);
+            /*servirà per utilizzare la riflessione nella dialog*/
+            bundle.putString(res.getString(R.string.KEY_ITEM_MENU_SELEZIONATO),
+                    res.getString(R.string.button_salva_database));
+            mydialog.setArguments(bundle);
             mydialog.show(getSupportFragmentManager(),
                     getResources().getString(R.string.MY_DIALOG));
 
@@ -359,19 +373,19 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
                 from BitmapFactory could be in a different bitdepth, and/or may have lost per-pixel
                 alpha (e.g. JPEG only supports opaque pixels).*/
                 if(bitmap.compress(Bitmap.CompressFormat.PNG, 80 , outputStream)){
-                    Log.d(getResources().getString(R.string.NOME_APP),
+                    Log.d(getResources().getString(R.string.APP_NAME),
                             "chart_bitmap compressed in PNG file");
                 }
-                else  Log.d(getResources().getString(R.string.NOME_APP),
+                else  Log.d(getResources().getString(R.string.APP_NAME),
                         "Error compressed bitmap in PNG file");
 
                 outputStream.close();
 
             } catch (FileNotFoundException e) {
-                Log.d(getResources().getString(R.string.NOME_APP), e.getMessage());
+                Log.d(getResources().getString(R.string.APP_NAME), e.getMessage());
                 e.printStackTrace();
             } catch (IOException e) {
-                Log.d(getResources().getString(R.string.NOME_APP), e.getMessage());
+                Log.d(getResources().getString(R.string.APP_NAME), e.getMessage());
                 e.printStackTrace();
             }
 
@@ -391,9 +405,20 @@ public class GraficoActivity extends ListaGenericaActivity implements View.OnCli
 
         @Override
         protected void onPostExecute(String risultato){
-            Log.d(getResources().getString(R.string.NOME_APP), risultato);
+            Log.d(getResources().getString(R.string.APP_NAME), risultato);
             getProgressBar().setVisibility(View.GONE);
-            DialogShowImage mydialog = new DialogShowImage();
+
+            DialogCheckNow mydialog = new DialogCheckNow();
+            Bundle bundle = new Bundle();
+            Resources res = getResources();
+            /*inserisce nel bundle le stringhe e l'icona che la dialog deve mostrare*/
+            bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
+                    res.getStringArray(R.array.stringhe_dialog_check_now));
+            bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.successfull);
+            /*servirà per utilizzare la riflessione nella dialog*/
+            bundle.putString(res.getString(R.string.KEY_ITEM_MENU_SELEZIONATO),
+                    res.getString(R.string.button_salva_grafico));
+            mydialog.setArguments(bundle);
             mydialog.show(getSupportFragmentManager(),
                     getResources().getString(R.string.MY_DIALOG));
 
