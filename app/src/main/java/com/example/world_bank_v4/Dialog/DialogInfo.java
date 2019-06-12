@@ -18,13 +18,15 @@ public class DialogInfo  extends AppCompatDialogFragment {
         Resources res = getResources();
         Log.d(res.getString(R.string.APP_NAME),res.getString(R.string.BUILDER_OK));
         Bundle bundle = getArguments();
+        int id_layout = bundle.getInt(getResources().getString(R.string.KEY_ID_LAYOUT));
+        Log.d("cccccccc:   ", String.valueOf(id_layout));
         String[] array_stringhe =
                 bundle.getStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG));
         // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.about_layout, null));
+        builder.setView(inflater.inflate(id_layout, null));
 
         builder.setTitle(array_stringhe[0])
                 .setIcon(bundle.getInt(getResources().getString(R.string.KEY_ID_ICONA)))

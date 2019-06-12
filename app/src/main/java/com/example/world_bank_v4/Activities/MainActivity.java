@@ -93,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
                         res.getStringArray(R.array.stringhe_dialog_about_us));
                 bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.about);
+                bundle.putInt(res.getString(R.string.KEY_ID_LAYOUT), R.layout.about_layout);
+
 
                 mydialog.setArguments(bundle);
                 mydialog.show(getSupportFragmentManager(),
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 bundle.putStringArray(res.getString(R.string.KEY_ARGUMENTS_DIALOG),
                         res.getStringArray(R.array.stringhe_dialog_contacts));
                 bundle.putInt(res.getString(R.string.KEY_ID_ICONA), R.drawable.logouni1);
+                bundle.putInt(res.getString(R.string.KEY_ID_LAYOUT), R.layout.contacts_layout);
 
                 mydialog.setArguments(bundle);
                 mydialog.show(getSupportFragmentManager(),

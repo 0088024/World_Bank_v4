@@ -109,6 +109,7 @@
     <string name="KEY_ARGUMENTS_DIALOG">key_arguments_dialog</string>
     <string name="KEY_ITEM_MENU_SELEZIONATO">key_item_menu_selezionato</string>
     <string name="KEY_ID_ICONA">key_id_icona</string>
+    <string name="KEY_ID_LAYOUT">key_id_layout</string>
     <string name="KEY_DIALOG_TYPE">key_dialog_type</string>
     <string name="KEY_IS_NO_GRAPH_DIALOG">key_is_no_graph_dialog</string>
 
