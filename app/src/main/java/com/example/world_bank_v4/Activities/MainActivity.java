@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements  View.OnClickList
                 break;
 
             case R.id.buttonGrafico:
-                intent = new Intent(this, MostraGraficoActivity.class);
+                intent = new Intent(this, MostraImmagineActivity.class);
                 startActivity(intent);
                 break;
 

@@ -20,7 +20,7 @@ import com.example.world_bank_v4.R;
 import java.io.File;
 
 
-public class MostraGraficoActivity extends AppCompatActivity
+public class MostraImmagineActivity extends AppCompatActivity
         implements DialogWarningData.OnClickListener{
 
 

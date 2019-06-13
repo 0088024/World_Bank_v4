@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 
 import com.example.world_bank_v4.Activities.CaricaDatiActivity;
-import com.example.world_bank_v4.Activities.MostraGraficoActivity;
+import com.example.world_bank_v4.Activities.MostraImmagineActivity;
 import com.example.world_bank_v4.R;
 
 public class DialogCheckNow extends AppCompatDialogFragment {
@@ -40,7 +40,7 @@ public class DialogCheckNow extends AppCompatDialogFragment {
                                                             R.string.button_salva_database)))
                             intent = new Intent(getContext(), CaricaDatiActivity.class);
                         else
-                            intent = new Intent(getContext(), MostraGraficoActivity.class);
+                            intent = new Intent(getContext(), MostraImmagineActivity.class);
 
                         startActivity(intent);
                     }
