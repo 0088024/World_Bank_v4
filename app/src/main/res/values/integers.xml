@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="progressBarTime">10000</integer>
-
     <integer name="LISTA_PAESI_CODE">0</integer>
     <integer name="LISTA_ARGOMENTI_CODE">1</integer>
-    <integer name="LISTA_INDICATORI_CODE">2</integer>
-    <integer name="MOSTRA_GRAFICO_CODE">3</integer>
-    <integer name="MOSTRA_DATABASE_CODE">4</integer>
-    <integer name="NO_DATA">5</integer>
+    <integer name="LISTA_INDICATORI_CODE">2</integer>   
     <integer name="RETURN_FROM_NOTIFICATION_ACTIVITY">6</integer>
     <integer name="BACK_HOME">7</integer>
-
-
-
     <integer name="TIMEOUT">3000</integer>
 </resources>
