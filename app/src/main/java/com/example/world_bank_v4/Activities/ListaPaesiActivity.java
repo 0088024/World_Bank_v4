@@ -33,8 +33,11 @@ public class ListaPaesiActivity extends ListaGenericaActivity {
     public void onResume(){
         Resources res = getResources();
         getSupportActionBar().setLogo(R.drawable.ic_logo_country_list);
+
         ArrayList<Paese> lista_paesi = new ArrayList<Paese>();
         TypeToken<ArrayList<Paese>> listTypeToken = new TypeToken<ArrayList<Paese>>() {};
+
+
         super.setIdListView(R.id.list_view_paesi);
         super.setProgressBar(R.id.progressBar);
         super.setLista_oggetti(lista_paesi);
