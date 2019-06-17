@@ -20,7 +20,7 @@ public class MyGenericoAdapter extends ArrayAdapter<ElementoGenerico> {
 
     private Context context;
 
-    private ArrayList<ElementoGenerico> list;          /*lista di oggetti implementata con array ridimensionabile.
+    private ArrayList<ElementoGenerico> list;  /*lista di oggetti implementata con array ridimensionabile.
                                         ArrayList<> implementa interfaccia List<>*/
 
 

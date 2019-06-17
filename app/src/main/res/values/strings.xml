@@ -57,17 +57,17 @@
 
     <string name="about_wb">About...App World Bank</string>
     <string name="about_wb_guide">Guide App</string>
-    <string name="aboutinfo0">->Questa App è stata sviluppata secondo le richieste fornite dal Prof. Regoli nel Progetto
-    World Bank</string>
-    <string name="aboutinfo1">->Il nostro gruppo "FPR-IOL2018 è costituito da 3 studenti del corso di Ing. Informatica online</string>
-    <string name="aboutinfo2">->Composizione del gruppo Rufini Alessio, Ferraro Daniele, Geremia Petricca (Menu -> "CONTACTS")</string>
-    <string name="aboutinfoGuida0">SELECT COUNTRY -> Permette di selezionare un Paese da una lista,
-    da qui possiamo visualizzare fino a 21 Argomenti e successicamente gli indicatori relativi all\'argomento selezionato. Infine viene visualizzato un grafico.</string>
-    <string name="aboutinfoGuida1">SELECT TOPICS -> Permette di selezionare un Argomento da una lista,
-    da qui possiamo visualizzare gli indicatori relativi all\'argomento e successicamente il paese di nostro interesse. Infine viene visualizzato un grafico.</string>
-    <string name="aboutinfoGuida2">LOAD PREVIUS IMAGE -> Permette di visualizzare il grafico salvato
-    nell\'ultima ricerca eseguita</string>
-    <string name="aboutinfoGuida3">LOAD DATA OFFLINE -> Permette di visualizzare la lista dei database che abbiamo salvato in precedenza e anche di cancellarli</string>
+
+    <string name="aboutinfo0">->This App was developed according to requests provided by prof. Regoli in the
+        World Bank project</string>
+    <string name="aboutinfo1">-> Our group "FPR-IOL2018" consist of 3 student the Online science engineering course</string>
+    <string name="aboutinfo2">-> Group composition : Rufini Alessio, Ferraro Daniele, Petricca Geremia (Menu -> "CONTACTS")</string>
+    <string name="aboutinfoGuida0">SELECT COUNTRY -> Enable to select a country from a list,
+ then we can visualize 21 topics and after this we can choose the selected topic indicators. At last a graphic will be visualized.</string>
+    <string name="aboutinfoGuida1">SELECT TOPICS -> Enable to select a topic from a list,
+ then we can visualize the indicators related to topics and after the country of our interest. At last a graphic will be visualized.</string>
+    <string name="aboutinfoGuida2">LOAD PREVIUS IMAGE -> It allows you to view the graph saved in the last search performed</string>
+    <string name="aboutinfoGuida3">LOAD DATA OFFLINE -> It allows you to view the list of db indicators that we have previously saved and also to delete them </string>
     <string name="universita">TOR VERGATA UNIVERSITY</string>
 
     <string name="APP_NAME">WorldBank</string>
