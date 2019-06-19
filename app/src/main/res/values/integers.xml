@@ -7,4 +7,5 @@
     <integer name="RETURN_FROM_NOTIFICATION_ACTIVITY">6</integer>
     <integer name="BACK_HOME">7</integer>
     <integer name="TIMEOUT">3000</integer>
+    <integer name="status_bar_short_time">600</integer>
 </resources>
